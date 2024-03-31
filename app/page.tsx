@@ -5,8 +5,9 @@ import style from '@/style/page.module.scss';
 import { StackProps } from '@/types/stack';
 import Image from 'next/image';
 
-// Vercel Speed Light
+// Vercel Speed Light / Analytics
 import { SpeedInsights } from "@vercel/speed-insights/next"
+import { Analytics } from "@vercel/analytics/react"
 
 // Stack SVG
 import nextjs from '@/public/svg/nextdotjs.svg';
@@ -113,6 +114,7 @@ export default function Home() {
             </section>
         </main>
         <SpeedInsights />
+        <Analytics/>
         </>
     );
 }
