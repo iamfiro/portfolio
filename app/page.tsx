@@ -1,7 +1,7 @@
 'use client'
 
 import { Title } from '@/components';
-import style from './page.module.scss';
+import style from '@/style/page.module.scss';
 import { StackProps } from '@/types/stack';
 import Image from 'next/image';
 
