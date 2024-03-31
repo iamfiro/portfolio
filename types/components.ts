@@ -1,10 +1,10 @@
 import React from "react";
 
 export interface TitleProps {
-    size: number;
-    children: React.ReactNode;
-    color: string;
-    weight?: number;
-    style?: React.CSSProperties;
-    bold?: boolean;
+    readonly size: number;
+    readonly children: React.ReactNode;
+    readonly color: string;
+    readonly weight?: number;
+    readonly style?: React.CSSProperties;
+    readonly bold?: boolean;
 }

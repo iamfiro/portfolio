@@ -104,3 +104,45 @@
         }
     }
 }
+
+.stack_container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    margin-top: 40px;
+}
+
+.stack {
+    max-width: 350px;
+    padding-right: 10px;
+
+    margin-bottom: 80px;
+}
+
+.stack_header {
+    display: flex;
+    align-items: center;
+
+    margin-bottom: 12px;
+
+    img {
+        width: 30px;
+        height: 30px;
+
+        margin-right: 10px;
+    }
+}
+
+.stack_description {
+    li {
+        color: #9b9b9b;
+
+        font-size: 16px;
+        font-weight: 400;
+
+        line-height: 24px;
+        
+        word-break: keep-all;
+    }
+}

@@ -1,5 +1,5 @@
 export interface StackProps {
-    name: string;
-    icon: string;
-    description: string[];
+    readonly name: string;
+    readonly icon: string;
+    readonly description: string[];
 }
