@@ -1,4 +1,4 @@
-import { Title } from '@/components';
+import { Title, Utterances } from '@/components';
 import style from '@/style/page.module.scss';
 import { StackProps } from '@/types/stack';
 import Image from 'next/image';
@@ -103,6 +103,7 @@ export default function Home() {
                     <Stack name='Swagger' icon={swagger} description={['Swagger를 이용하여 Rest API 문서를 작성할 줄 압니다']} />
                 </div>
             </section>
+            <Utterances />
         </main>
         </>
     );
