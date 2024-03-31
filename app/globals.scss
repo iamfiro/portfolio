@@ -1,0 +1,18 @@
+body, html {
+    margin: 0;
+}
+
+@import url("https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.1/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css");
+
+button, span, input, h1, a, ul, p {
+    font-family: 'Wanted Sans', sans-serif;
+    font-weight: 400;
+
+    color: #1C1A31;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
