@@ -43,10 +43,10 @@ export default function Home() {
                     <div style={{ display: 'flex' }}>
                         <ul className={style.header_list}>
                             <li>페이지 내 바로가기</li>
-                            <a href='#main'>메인</a>
                             <a href='#about'>소개</a>
+                            <a href='#tech'>사용하는 기술</a>
                             <a href='#project'>프로젝트 리스트</a>
-                            <a href='#social'><Title size={15} color={'#8E8C98'}>소셜</Title></a>
+                            <a href='#social'>소셜</a>
                         </ul>
                         <ul className={style.header_list}>
                             <li>페이지</li>
@@ -58,7 +58,7 @@ export default function Home() {
                 <Title size={48} color={'#000000'} weight={400}>상상을 현실로 만드는 <strong>프론트엔드 개발자</strong></Title>
                 <div className={style.gradient} />
             </section>
-            <section className={style.section} style={{ marginTop: 150 }}>
+            <section className={style.section} style={{ paddingTop: 150 }} id='about'>
                 <p className={style.about}>
                     <strong>안녕하세요, 매일 한걸음 씩 나아가는 개발자 조성주입니다</strong><br/>
                     현재 선린인터넷고등학교 소프트웨어과에 재학 중입니다<br/>
@@ -67,7 +67,7 @@ export default function Home() {
                     또한, 민첩하게 변화하는 환경에 적응하려고 노력하고 있습니다<br/>
                 </p>
             </section>
-            <section className={style.section} style={{ marginTop: 200 }}>
+            <section className={style.section} style={{ paddingTop: 200 }}>
                 <div className={style.iam_container}>
                     <p className={style.iam_paragraph}>
                         <strong><b style={{ color: '#41d021' }}>사용자 친화적</b>을<br/>중요하게 생각합니다</strong><br/>
@@ -86,7 +86,7 @@ export default function Home() {
                     </p>
                 </div>
             </section>
-            <section className={style.section} style={{ marginTop: 200 }}>
+            <section className={style.section} style={{ paddingTop: 200 }} id='tech'>
                 <Title size={28} color={'#000000'} bold>사용하는 기술</Title>
                 <div className={style.stack_container}>
                     <Stack name='Next.js' icon={nextjs} description={['App Router를 사용할 줄 압니다', 'SSR의 장점을 이용하여 SEO 최적화를 할 수 있습니다', 'middleware를 사용하여 인증/인가를 구현한 적이 있습니다']} />
@@ -103,7 +103,7 @@ export default function Home() {
                     <Stack name='Swagger' icon={swagger} description={['Swagger를 이용하여 Rest API 문서를 작성할 줄 압니다']} />
                 </div>
             </section>
-            <section className={style.section} style={{ marginTop: 100 }}>
+            <section className={style.section} style={{ paddingTop: 100 }}>
                 <Utterances />
             </section>
         </main>
