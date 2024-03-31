@@ -90,7 +90,7 @@ export default function Home() {
                 <Title size={28} color={'#000000'} bold>사용하는 기술</Title>
                 <div className={style.stack_container}>
                     <Stack name='Next.js' icon={nextjs} description={['App Router를 사용할 줄 압니다', 'SSR의 장점을 이용하여 SEO 최적화를 할 수 있습니다', 'middleware를 사용하여 인증/인가를 구현한 적이 있습니다']} />
-                    <Stack name='React.js' icon={react} description={['컴포넌트 재사용성을 고려하여 컴포넌트를 제작할 수 있습니다', 'Webpack을 최적화해 빌드 시간을 단축시킨 경험이 있습니다']} />
+                    <Stack name='React.js' icon={react} description={['컴포넌트 재사용성을 고려하여 컴포넌트를 제작할 수 있습니다', 'Webpack을 최적화해 빌드 시간을 단축시킨 경험이 있습니다', 'Recoil을 사용하여 전역 상태 관리를 한 경험이 있습니다']} />
                     <Stack name='Typescript' icon={typescript} description={['Union Type, Generic등의 타입스크립트 타입을 압니다', 'Interface와 Type의 차이를 압니다']} />
                     <Stack name='Electron' icon={electron} description={['Electron을 이용하여 [ Github 잔디 기록 프로그램 ] 을 만든 경험이 있습니다', 'IPC를 이용하여 Main 프로세스와 Render 프로세스가 통신하는 방법을 압니다']} />
                     <Stack name='Prisma' icon={prisma} description={['테이블 간 관계 (1:1, 1:n, n:m)를 고려하여 Scheme를 작성 할 줄 압니다', 'Prisma를 이용하여 DB 마이그레이션을 할 줄 압니다']} />
