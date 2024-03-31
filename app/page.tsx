@@ -22,6 +22,7 @@ import sass from '@/public/svg/sass.svg';
 import figma from '@/public/svg/figma.svg';
 import discordjs from '@/public/svg/discord.svg';
 import swagger from '@/public/svg/swagger.svg';
+import { useEffect } from 'react';
 
 function Stack({ name, icon, description }: StackProps) {
     return (
@@ -40,6 +41,9 @@ function Stack({ name, icon, description }: StackProps) {
 }
 
 export default function Home() {
+    useEffect(() => {
+        alert('이 사이트는 아직 개발 중입니다.')
+    }, [])
     return (
         <>
         <main className={style.main}>
