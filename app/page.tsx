@@ -39,19 +39,19 @@ export default function Home() {
         <main className={style.main}>
             <section className={style.section}>
                 <header className={style.header}>
-                    <strong>FIRO</strong>
+                    <strong style={{ fontWeight: '900' }}>FIRO</strong>
                     <div style={{ display: 'flex' }}>
                         <ul className={style.header_list}>
                             <li>페이지 내 바로가기</li>
-                            <a href='#about'>소개</a>
-                            <a href='#tech'>사용하는 기술</a>
-                            <a href='#project'>프로젝트 리스트</a>
-                            <a href='#social'>소셜</a>
+                            <li><a href='#about'>소개</a></li>
+                            <li><a href='#tech'>사용하는 기술</a></li>
+                            <li><a href='#project'>프로젝트 리스트</a></li>
+                            <li><a href='#social'>소셜</a></li>
                         </ul>
                         <ul className={style.header_list}>
                             <li>페이지</li>
-                            <a href='/'>포트폴리오</a>
-                            <a href='/project'>프로젝트</a>
+                            <li><a href='/'>포트폴리오</a></li>
+                            <li><a href='/project'>프로젝트</a></li>
                         </ul>
                     </div>
                 </header>
