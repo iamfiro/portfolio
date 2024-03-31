@@ -1,3 +1,5 @@
+@import "variable";
+
 .main {
     background-color: #fff;
 
@@ -7,7 +9,7 @@
 }
 
 .section {
-    max-width: 1400px;
+    max-width: $width-max;
 
     margin: 0 auto;
     padding: 0 30px;
@@ -38,10 +40,10 @@
 
     font-size: 15px;
 
-    color: #000;
+    color: $color-text;
 
     a {
-        color: #8E8C98;
+        color: $color-text-secondary;
     }
 }
 
@@ -60,7 +62,7 @@
 // About 섹션 
 
 .about {
-    color: #9b9b9b;
+    color: $color-text-secondary;
 
     font-size: 28px;
     font-weight: 400;
@@ -68,7 +70,7 @@
     line-height: 45px;
 
     strong {
-        color: #000;
+        color: $color-text;
 
         font-weight: 500;
     }
@@ -82,7 +84,7 @@
 }
 
 .iam_paragraph {
-    color: #9b9b9b;
+    color: $color-text-secondary;
 
     font-size: 16px;
     font-weight: 400;
@@ -93,7 +95,7 @@
     text-wrap: stable;
 
     strong {
-        color: #000;
+        color: $color-text;
 
         font-weight: 600;
 
@@ -136,7 +138,7 @@
 
 .stack_description {
     li {
-        color: #9b9b9b;
+        color: $color-text-secondary;
 
         font-size: 16px;
         font-weight: 400;
