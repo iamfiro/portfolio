@@ -103,7 +103,9 @@ export default function Home() {
                     <Stack name='Swagger' icon={swagger} description={['Swagger를 이용하여 Rest API 문서를 작성할 줄 압니다']} />
                 </div>
             </section>
-            <Utterances />
+            <section className={style.section} style={{ marginTop: 100 }}>
+                <Utterances />
+            </section>
         </main>
         </>
     );
