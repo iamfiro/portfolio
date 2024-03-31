@@ -3,6 +3,9 @@ import style from '@/style/page.module.scss';
 import { StackProps } from '@/types/stack';
 import Image from 'next/image';
 
+// Vercel Speed Light
+import { SpeedInsights } from "@vercel/speed-insights/next"
+
 // Stack SVG
 import nextjs from '@/public/svg/nextdotjs.svg';
 import react from '@/public/svg/react.svg';
@@ -107,6 +110,7 @@ export default function Home() {
                 <Utterances />
             </section>
         </main>
+        <SpeedInsights />
         </>
     );
 }
