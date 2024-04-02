@@ -41,9 +41,6 @@ function Stack({ name, icon, description }: StackProps) {
 }
 
 export default function Home() {
-    useEffect(() => {
-        alert('이 사이트는 아직 개발 중입니다.')
-    }, [])
     return (
         <>
         <main className={style.main}>
