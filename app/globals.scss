@@ -1,13 +1,12 @@
-@import "@/style/variable.scss"; 
+@import "@/style/variable.scss";
+@import url("https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.1/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css");
 
 body, html {
     margin: 0;
 }
 
-@import url("https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.1/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css");
-
-button, span, input, h1, a, ul, p {
-    font-family: 'Wanted Sans', sans-serif;
+button, span, input, h1, a, ul, p, strong {
+    font-family: "Wanted Sans", sans-serif;
     font-weight: 400;
 
     color: $color-text;
