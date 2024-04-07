@@ -387,6 +387,42 @@
     }
 }
 
+.stack_future_container {
+    width: calc(100% - 60px);
+    max-width: 1400px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    padding: 0 30px;
+
+    div:nth-child(1) {
+        display: flex;
+        flex-direction: column;
+
+        h1 {
+            margin: 5px 0;
+
+            font-size: 40px;
+            letter-spacing: -.5px;
+
+            text-transform: uppercase;
+        }
+    }
+
+    div:nth-child(2) {
+        display: flex;
+        flex-direction: column;
+
+        margin-right: 80px;
+
+        span {
+            line-height: 23px;
+        }
+    }
+}
+
 .contact_title {
     font-size: 35px;
 

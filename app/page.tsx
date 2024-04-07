@@ -130,7 +130,7 @@ export default function Home() {
                     }
                 </div>
             </section>
-            <section className={style.section} id='stack' style={{ padding: '200px 0 0 0', justifyItems: 'center' }}>
+            <section className={style.section} id='stack' style={{ padding: '300px 0 0 0', justifyItems: 'center' }}>
                 <div className={style.stack_container}>
                     <Stack name='Next.js' icon={nextjs} description={['App Router를 사용할 줄 압니다', 'SSR의 장점을 이용하여 SEO 최적화를 할 수 있습니다', 'middleware를 사용하여 인증/인가를 구현한 적이 있습니다']} />
                     <Stack name='React.js' icon={react} description={['컴포넌트 재사용성을 고려하여 컴포넌트를 제작할 수 있습니다', 'Webpack을 최적화해 빌드 시간을 단축시킨 경험이 있습니다', 'Recoil을 사용하여 전역 상태 관리를 한 경험이 있습니다']} />
@@ -146,9 +146,26 @@ export default function Home() {
                     <Stack name='Swagger' icon={swagger} description={['Swagger를 이용하여 Rest API 문서를 작성할 줄 압니다']} />
                 </div>
             </section>
-            <section className={style.section} id='stack' style={{ padding: '20px 0 0 0', justifyItems: 'center' }}>
-                <div className={style.stack_container}>
-                    
+            <section className={style.section} id='stack' style={{ padding: '300px 0 0 0', justifyItems: 'center' }}>
+                <div className={style.stack_future_container}>
+                    <div>
+                        <h1>web development</h1>
+                        <h1>next.js</h1>
+                        <h1>react.js</h1>
+                        <h1>clean code</h1>
+                        <h1>app development</h1>
+                        <h1>web ui-ux design</h1>
+                        <h1>design Systems</h1>
+                        <h1>figma</h1>
+                        <h1>poster design</h1>
+                        <h1>and more...</h1>
+                    </div>
+                    <div>
+                        <span>가장 최근에 작업한 작업물을 보고 싶다면?<br/>아래 버튼을 눌러 확인하세요</span>
+                        <a href="https://instagram.com/tjdwn_.firo" target='_blank' className={style.button} style={{ marginTop: '20px'}}>
+                            <FaInstagram style={{ marginRight: '10px'}} /> 인스타그램 바로가기
+                        </a>
+                    </div>
                 </div>
             </section>
             <section className={style.section} id='contact' style={{ padding: '200px 0 0 0', justifyItems: 'center' }}>
