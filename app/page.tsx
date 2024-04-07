@@ -35,8 +35,24 @@ import { projectList } from '@/data/project';
 
 type projectIndexType = 'all' | 'project' | 'design';
 
+function Stack({ name, icon, description }: StackProps) {
+    return (
+        <div className={style.stack}>
+            <div className={style.stack_header}>
+                <Image src={icon} width={50} alt={name} height={50} />
+                <span className={style.stack_name}>{name}</span>
+            </div>
+            <ul className={style.stack_description}>
+                {description.map((desc, index) => (
+                    <li key={index}>{desc}</li>
+                ))}
+            </ul>
+        </div>
+    )
+}
+
 export default function Home() {
-    const [projectIndex, setProjectIndex] = useState<projectIndexType>('project');
+    const [projectIndex, setProjectIndex] = useState<projectIndexType>('all');
     const filterProject = projectList.filter((project: ProjectProps) => 
         projectIndex === 'all' ? true : projectIndex === 'project' ? project.type === 'project' : project.type === 'design'
     )
@@ -48,8 +64,8 @@ export default function Home() {
                     <span className={style.header_title}>©devfiro</span>
                     <ul>
                         <a href='#project'>작업물 리스트</a>
-                        <a>사용하는 기술</a>
-                        <a>소셜</a>
+                        <a href='#stack'>사용하는 기술</a>
+                        <a href='#contact'>소셜</a>
                     </ul>
                     <button className={style.button} style={{ margin: '0 30px 0 auto', padding: '10px 20px' }}>외주 신청하기</button>
                 </header>
@@ -114,15 +130,33 @@ export default function Home() {
                     }
                 </div>
             </section>
-            <section className={style.section} style={{ padding: '200px 0 0 0',  justifyItems: 'center' }}>
+            <section className={style.section} id='stack' style={{ padding: '200px 0 0 0', justifyItems: 'center' }}>
+                <div className={style.stack_container}>
+                    <Stack name='Next.js' icon={nextjs} description={['App Router를 사용할 줄 압니다', 'SSR의 장점을 이용하여 SEO 최적화를 할 수 있습니다', 'middleware를 사용하여 인증/인가를 구현한 적이 있습니다']} />
+                    <Stack name='React.js' icon={react} description={['컴포넌트 재사용성을 고려하여 컴포넌트를 제작할 수 있습니다', 'Webpack을 최적화해 빌드 시간을 단축시킨 경험이 있습니다', 'Recoil을 사용하여 전역 상태 관리를 한 경험이 있습니다']} />
+                    <Stack name='Typescript' icon={typescript} description={['Union Type, Generic등의 타입스크립트 타입을 압니다', 'Interface와 Type의 차이를 압니다']} />
+                    <Stack name='Electron' icon={electron} description={['Electron을 이용하여 [ Github 잔디 기록 프로그램 ] 을 만든 경험이 있습니다', 'IPC를 이용하여 Main 프로세스와 Render 프로세스가 통신하는 방법을 압니다']} />
+                    <Stack name='Prisma' icon={prisma} description={['관계형 데이터베이스의 관계를 이용해 설계 할 줄 압니다', 'Prisma를 이용하여 DB 마이그레이션을 할 줄 압니다']} />
+                    <Stack name='Javascript' icon={javascript} description={['try / catch문을 활용하여 예외처리를 할 수 있습니다', '로컬 스토리지, 쿠키를 사용하여 데이터를 저장하는 방법을 압니다', 'map, foreach를 사용하여 배열에 대한 반복문을 효율적으로 사용하는 방법을 압니다']} />
+                    <Stack name='HTML5' icon={html} description={['시맨틱 태그를 이용하여 SEO 최적화를 한 경험이 있습니다', 'meta 태그를 이용해 다른 서비스에서 웹사이트 식별을 쉽게 만들 수 있습니다']} />
+                    <Stack name='CSS' icon={css} description={['최신 CSS 문법을 공부해 스타일 코드를 효율적으로 만들기 위해 노력하고 있습니다', 'keyframe을 사용해 웹사이트 애니메이션을 구현할 줄 압니다']} />
+                    <Stack name='Sass' icon={sass} description={['@mixin, @include, @extend 문법을 사용할 줄 압니다', '중첩 선택자가 너무 편해 매우 좋아합니다']} />
+                    <Stack name='Figma' icon={figma} description={['사용자가 편하게 볼 수 있는 서비스를 개발하기 위해 UI 디자인을 공부하고 있습니다', 'Auto Layout을 사용할 줄 압니다']} />
+                    <Stack name='Discord.js' icon={discordjs} description={['Typescript를 이용하여 발로란트 전적 검색 봇을 개발한 적이 있습니다', '자동 Slash Command Push를 구현 할 줄 압니다']} />
+                    <Stack name='Swagger' icon={swagger} description={['Swagger를 이용하여 Rest API 문서를 작성할 줄 압니다']} />
+                </div>
+            </section>
+            <section className={style.section} id='stack' style={{ padding: '20px 0 0 0', justifyItems: 'center' }}>
+                <div className={style.stack_container}>
+                    
+                </div>
+            </section>
+            <section className={style.section} id='contact' style={{ padding: '200px 0 0 0', justifyItems: 'center' }}>
                 <span className={style.contact_title}>여기로 연락주세요 😎👇</span>
                 <div className={style.contact}>
                     <MdOutlineEmail />
                     <span>me@devfiro.com</span>
                 </div>
-            </section>
-            <section className={style.section} style={{ paddingTop: 10 }}>
-                <Utterances />
             </section>
         </main>
         <SpeedInsights />

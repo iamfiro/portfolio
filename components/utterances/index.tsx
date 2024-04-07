@@ -11,11 +11,11 @@ function Utterances() {
         const config = {
             src: 'https://utteranc.es/client.js',
             repo: 'iamfiro/portfolio',
-            'issue-term': 'pathname',
+            'issue-number': '1', // Replace [ENTER ISSUE NUMBER HERE] with a valid issue number
             label: '✨댓글',
             theme: 'github-light',
             crossOrigin: 'anonymous',
-            defer: true,
+            async: true,
         };
     
         Object.entries(config).forEach(([key, value]) => {
@@ -26,7 +26,10 @@ function Utterances() {
             const existingScript = ref.current.querySelector('script');
             if (existingScript) ref.current.removeChild(existingScript);
             
-            ref.current.appendChild(script);
+            // Use setTimeout to delay the execution of the script
+            setTimeout(() => {
+                if(ref.current) ref.current.appendChild(script);
+            }, 0);
         }
     }, []);
 
