@@ -16,6 +16,8 @@ import { MdBrush } from "react-icons/md";
 import { FaBook } from "react-icons/fa6";
 import { IoMdArrowUp } from "react-icons/io";
 
+import AbstractImage from '@/public/abstract.webp';
+
 // Stack SVG
 import nextjs from '@/public/svg/nextdotjs.svg';
 import react from '@/public/svg/react.svg';
@@ -169,6 +171,9 @@ export default function Home() {
                 </div>
             </section>
             <section className={style.section} id='contact' style={{ padding: '200px 0 0 0', justifyItems: 'center' }}>
+                <Image src={AbstractImage} alt='abstract image' className={style.abstract_image} />
+            </section>
+            <section className={style.section} id='contact' style={{ padding: '150px 0 0 0', justifyItems: 'center' }}>
                 <span className={style.contact_title}>여기로 연락주세요 😎👇</span>
                 <div className={style.contact}>
                     <MdOutlineEmail />
