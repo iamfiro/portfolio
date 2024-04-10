@@ -170,10 +170,10 @@ export default function Home() {
                     </div>
                 </div>
             </section>
-            <section className={style.section} id='contact' style={{ padding: '200px 0 0 0', justifyItems: 'center' }}>
+            <section className={style.section} id='contact' style={{ padding: '200px 0 150px 0', justifyItems: 'center' }}>
                 <Image src={AbstractImage} alt='abstract image' className={style.abstract_image} />
             </section>
-            <section className={style.section} id='contact' style={{ padding: '150px 0 0 0', justifyItems: 'center' }}>
+            <section className={style.section} id='contact' style={{ justifyItems: 'center' }}>
                 <span className={style.contact_title}>여기로 연락주세요 😎👇</span>
                 <div className={style.contact}>
                     <MdOutlineEmail />
