@@ -10,6 +10,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Analytics } from "@vercel/analytics/react"
 
 import { FaInstagram } from "react-icons/fa6";
+import { FaGithub } from "react-icons/fa";
 import { MdOutlineEmail } from "react-icons/md";
 import { IoMdCode } from "react-icons/io";
 import { MdBrush } from "react-icons/md";
@@ -31,7 +32,7 @@ import sass from '@/public/svg/sass.svg';
 import figma from '@/public/svg/figma.svg';
 import discordjs from '@/public/svg/discord.svg';
 import swagger from '@/public/svg/swagger.svg';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { ProjectProps } from '@/types/project';
 import { projectList } from '@/data/project';
 
@@ -76,7 +77,7 @@ export default function Home() {
                 <div className={style.welcome_button}>
                     <button className={style.button}>외주 신청하기</button>
                     <a href="https://instagram.com/tjdwn_.firo" target='_blank' className={style.button}>
-                        <FaInstagram style={{ marginRight: '10px'}} /> 인스타그램 바로가기
+                        <FaGithub style={{ marginRight: '10px'}} /> 깃허브 바로가기
                     </a>
                 </div>
             </section>
