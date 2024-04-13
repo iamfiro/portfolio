@@ -18,7 +18,7 @@ const Header = () => {
             <ul className={style.menu}>
                 <h1>Contact</h1>
                 <a className={style.text} target='_blank' href='https://github.com/iamfiro'>Github</a>
-                <a className={style.text} target='_blank' href='https://instagram.com/tjdwn_.firo'>Instagram</a>
+                <a className={style.text} target='_blank' href='https://instagram.com/chxs_u'>Instagram</a>
             </ul>
             <a className={style.email}>( Send a mail )</a>
         </header>
