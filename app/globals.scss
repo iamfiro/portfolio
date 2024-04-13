@@ -1,20 +1,78 @@
-@import "@/style/variable.scss";
-@import url("https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.1/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css");
+:root {
+    --padding-h-15: 15px;
 
-body, html {
+    // Color
+    --color-primary: rgb(248, 72, 33);
+    --color-secondary: #FFE66D;
+    --color-tertiary: #88D8B0;
+    --color-quaternary: #6B6B6B;
+    --color-quinary: #3D3D3D;
+    --color-white: #FFFFFF;
+    --color-black: #171717;
+    --color-gray: #F5F5F5;
+    --color-gray-dark: #E0E0E0;
+    --color-gray-darker: #BDBDBD;
+    --color-gray-darkest: #828282;
+    --color-gray-light: #F2F2F2;
+    --color-gray-lighter: #F9F9F9;
+    --color-gray-lightest: #FAFAFA;
+    --color-red: #FF6B6B;
+    --color-red-dark: #E53935;
+    --color-red-darker: #D32F2F;
+    --color-red-darkest: #C62828;
+    --color-red-light: #FFEBEE;
+    --color-red-lighter: #FFCDD2;
+    --color-red-lightest: #EF9A9A;
+    --color-green: #88D8B0;
+    --color-green-dark: #43A047;
+    --color-green-darker: #388E3C;
+    --color-green-darkest: #2E7D32;
+    --color-green-light: #E8F5E9;
+    --color-green-lighter: #C8E6C9;
+    --color-green-lightest: #A5D6A7;
+    --color-blue: #64B5F6;
+    --color-blue-dark: #1E88E5;
+    --color-blue-darker: #1976D2;
+    --color-blue-darkest: #1565C0;
+    --color-blue-light: #E3F2FD;
+    --color-blue-lighter: #BBDEFB;
+    --color-blue-lightest: #90CAF9;
+    --color-yellow: #FFE66D;
+    --color-yellow-dark: #FDD835;
+    --color-yellow-darker: #FBC02D;
+    --color-yellow-darkest: #F9A825;
+}
+
+html, body {
     margin: 0;
-    scroll-behavior: smooth;
-}
-
-button, span, input, h1, a, ul, p, strong {
-    font-family: "Wanted Sans", sans-serif;
-    font-weight: 400;
-
-    color: $color-text;
-}
-
-ul {
-    list-style: none;
     padding: 0;
-    margin: 0;
+
+    min-height: 100vh;
+
+    background-color: var(--color-white);
+}
+
+.cursor {
+    --circle-size: 20px;
+
+    position: fixed;
+
+    height: var(--circle-size);
+    width: var(--circle-size);
+
+    // background-color: var(--color-primary);
+
+    mix-blend-mode: exclusion;
+    background: rgb(0, 191, 255);
+
+    border-radius: 100%;
+
+    top: calc(var(--circle-size) / 2 * -1);
+    left: calc(var(--circle-size) / 2 * -1);
+
+    
+
+    pointer-events: none;
+
+    z-index: 9999;
 }
