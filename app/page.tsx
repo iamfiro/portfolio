@@ -1,6 +1,6 @@
 
 import styles from "@/styles/page.module.scss";
-import { BigTitle, Cursor, Header, Motto, RecentProject } from "@/components";
+import { BigTitle, Cursor, Header, Motto, Project, RecentProject } from "@/components";
 
 export default function Home() {
 	return (
@@ -10,6 +10,7 @@ export default function Home() {
 			<RecentProject />
 			<BigTitle />
 			<Motto />
+			<Project />
 		</main>
 	);
 }

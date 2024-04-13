@@ -6,7 +6,7 @@ import { IoMdArrowUp } from "react-icons/io";
 const RecentProject = () => {
     return (
         <article className={style.container}>
-            <a className={`${style.a} hover`} href="">
+            <a className={`${style.a} hover`} href="#project">
                 <Image src={SampleImage} alt="Project 1"/>
                 <div className={style.wrap}>Recent project <IoMdArrowUp /></div>
             </a>
