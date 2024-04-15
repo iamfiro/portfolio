@@ -1,20 +1,18 @@
 .container {
     margin: 0 auto;
-    padding: 25px 20px;
+    padding: 0px 20px;
 }
 
 .title {
     margin: 0;
 
-    font-size: 11.5vw;
-    line-height: 10vw;
+    font-size: 147px;
+    line-height: 125px;
     font-weight: 500;
 
     letter-spacing: -8px;
 
     color: var(--color-primary);
-
-    clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
 }
 
 .right {
@@ -31,4 +29,31 @@
     color: var(--color-primary);
 
     border-bottom: 1px solid var(--color-primary);
+}
+
+@media (max-width: 790px) {
+    .container {
+        margin-top: 50px;
+    }
+    .title {
+        font-size: 100px;
+        line-height: 85px;
+        letter-spacing: -7px;
+    }
+}
+
+@media (max-width: 520px) {
+    .title {
+        font-size: 80px;
+        line-height: 85px;
+        letter-spacing: -4px;
+    }
+}
+
+@media (max-width: 430px) {
+    .title {
+        font-size: 60px;
+        line-height: 60px;
+        letter-spacing: -4px;
+    }
 }

@@ -7,7 +7,7 @@
     align-items: flex-end;
 
     img {
-        width: 400px;
+        width: 350px;
         height: auto;
     }
 }
@@ -30,7 +30,7 @@
 
     padding: 0 18px;
 
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 500;
 
     background-color: var(--color-primary);
@@ -41,9 +41,17 @@
     svg {
         margin-left: 10px;
 
-        width: 20px;
-        height: 20px;
+        width: 16px;
+        height: 16px;
 
         transform: rotate(45deg);
+    }
+}
+
+@media (max-width: 420px) {
+    .container {
+        img {
+            width: 100%;
+        }
     }
 }

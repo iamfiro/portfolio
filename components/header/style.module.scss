@@ -85,3 +85,9 @@
         cursor: pointer;
     }
 }
+
+@media (max-width: 550px) {
+    .email {
+        display: none;
+    }
+}
