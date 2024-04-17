@@ -22,7 +22,6 @@ import sass from '@/public/svg/sass.svg';
 import figma from '@/public/svg/figma.svg';
 import discordjs from '@/public/svg/discord.svg';
 import swagger from '@/public/svg/swagger.svg';
-import { useEffect } from 'react';
 
 function Stack({ name, icon, description }: StackProps) {
     return (
