@@ -1,7 +1,65 @@
-.main {
-    background-color: #FEFAF7;
+.heroContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
 
-    min-height: 300vh;
+    height: 100vh;
+}
 
-    cursor: pointer;
+.heroTitle {
+    font-size: 2.1rem;
+    font-weight: 600;
+
+    margin: 0;
+    margin-bottom: 40px;
+
+    text-wrap: balance;
+
+    line-height: 44px;
+
+    b {
+        color: var(--color-white);
+
+        font-weight: 500;
+    }
+
+    img {
+        background-color: #fff;
+
+        border-radius: 6px;
+
+        padding: 2px;
+
+        position: relative;
+        top: 3px;
+        margin-right: 6px;
+    }
+}
+
+.heroSocial {
+    width: fit-content;
+
+    padding: 12px 22px;
+    margin-bottom: 15px;
+    gap: 10px;
+
+    border-radius: 100px;
+
+    background-color: #fff;
+    color: var(--color-background);
+
+    display: flex;
+    align-items: center;
+
+    text-decoration: none;
+
+    span {
+        font-weight: 500;
+        font-size: 15px;
+    }
+
+    svg {
+        width: 20px;
+        height: 20px;
+    }
 }
