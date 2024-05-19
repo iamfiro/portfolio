@@ -2,7 +2,7 @@
     --padding-h-30: 0 30px;
 
     // Color
-    --color-background: #1c1f21;
+    --color-background: #ffffff;
     --color-text: #646b73;
     --color-white: #dbdbdb;
 }
@@ -14,11 +14,8 @@ html, body {
     scroll-behavior: smooth;
 
     min-height: 100vh;
-
-    background-color: var(--color-background);
+    
     color: var(--color-text);
-
-    background-image: url('../public/Noise.png');
 }
 
 .section {
