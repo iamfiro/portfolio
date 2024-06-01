@@ -7,16 +7,13 @@
 
     padding: 10px 0px;
 
-    position: fixed;
-    top: 0;
-
-    max-width: 1200px;
+    max-width: 1440px;
 }
 
 .nav {
-    background-color: rgba($color: #000000, $alpha: 0.08);
+    background-color: rgba($color: #000000, $alpha: 0.09);
 
-    padding: 5px;
+    padding: 3px;
 
     border-radius: 100px;
 
@@ -54,6 +51,10 @@
 
 .list {
     list-style-type: none;
+
+    display: flex;
+
+    gap: 15px;
 
     li {
         color: var(--color-text);

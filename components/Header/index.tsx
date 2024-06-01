@@ -25,7 +25,10 @@ function Header({ children }: HeaderProps) {
             </nav>
             <ul className={style.list}>
                 <li>
-                    <a href='https://devfiro.com/iamfiro' target='_blank'>GitHub</a>
+                    <a href='https://github.com/iamfiro' target='_blank'>GitHub</a>
+                </li>
+                <li>
+                    <a href='https://instagram.com/chxs_u' target='_blank'>Instagram</a>
                 </li>
             </ul>
         </header>
