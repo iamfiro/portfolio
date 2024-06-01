@@ -1,28 +1,31 @@
+@font-face {
+    font-family: 'NanumSquareRound';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@import url('https://fastly.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.1/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css');
+
 :root {
     --padding-h-30: 0 30px;
 
     // Color
-    --color-background: #ffffff;
-    --color-text: #646b73;
+    --color-black: #000000;
     --color-white: #dbdbdb;
+    --color-background: #ffffff;
+    --color-text: #89929d;
+    --color-border: rgb(229 229 229);
+
+    --font-nanum: 'NanumSquareRound', sans-serif;
+    --font-wanted: 'Wanted Sans', sans-serif;
 }
 
 html, body {
     margin: 0;
     padding: 0;
-
-    scroll-behavior: smooth;
-
-    min-height: 100vh;
-    
-    color: var(--color-text);
 }
 
-.section {
-    width: calc(100% - 60px);
-
-    padding: var(--padding-h-30);
-
-    display: flex;
-    flex-direction: column;
+* {
+    box-sizing: border-box;
 }

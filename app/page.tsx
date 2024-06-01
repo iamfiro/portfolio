@@ -1,13 +1,15 @@
+import Header from '@/components/Header';
 import style from '../styles/page.module.scss';
 
 export default function Home() {
     return (
         <>
-		<section className={style.container}>
-			<video autoPlay loop muted className={style.video}>
-				<source src='/video/background.mp4' type="video/mp4" />
-			</video>
-		</section>
+		<main className={style.container}>
+			<Header>
+				<Header.NavItem href="/home" selected>홈</Header.NavItem>
+				<Header.NavItem href="/about">프로젝트</Header.NavItem>
+			</Header>
+		</main>
         </>
     );
 }
