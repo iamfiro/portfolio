@@ -1,3 +1,4 @@
+import style from "./style.module.scss";
 import { IconCloud } from "..";
 
 const slugs = [
@@ -30,5 +31,7 @@ const slugs = [
 ];
 
 export default function HeroStack() {
-	return <IconCloud iconSlugs={slugs} />;
+	return <section className={style.container}>
+        <IconCloud iconSlugs={slugs} />
+    </section>;
 }

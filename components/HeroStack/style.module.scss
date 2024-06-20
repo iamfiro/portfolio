@@ -1,0 +1,11 @@
+.container {
+    width: 100%;
+    max-width: 1200px;
+
+    margin: 0 auto;
+
+    background-color: #fff;
+
+    border: 1px solid var(--color-gray-light);
+    border-radius: var(--radius-m);
+}
