@@ -1,16 +1,28 @@
 .container {
     width: 100%;
-    height: 400px;
+    height: auto;
+    max-width: 1200px;
 
-    padding: 30px;
+    margin: 30px auto 0 auto;
+    padding: 100px 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
     margin-top: 30px;
-}
 
-.wrap {
-    width: 100%;
-    height: calc(100% - var(--size-header));
+    span {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--color-gray-dark);
 
-    border-radius: var(--radius-m);
+        text-align: center;
 
-    background-image: url('/background/macos.jpg');
+        line-height: 3.5rem;
+
+        svg {
+            margin: 0 10px -4px 0;
+        }
+    }
 }
