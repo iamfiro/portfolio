@@ -1,3 +1,15 @@
+@keyframes UpDown {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
 .hero {
     min-height: calc(100vh);
 
@@ -5,4 +17,35 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
+
+    max-width: var(--size-max-w);
+
+    margin: 0 auto;
+    padding: 0 30px;
+}
+
+.scrollNotification {
+    display: flex;
+    align-items: center;
+    
+    margin-bottom: 15px;
+
+    gap: 15px;
+
+    animation: UpDown 2s ease-in-out infinite;
+
+    div {
+        padding: 10px 20px;
+
+        border-radius: var(--radius-max);
+
+        color: var(--color-white);
+        background-color: var(--color-text);
+
+        font-size: 0.8rem;
+    }
+
+    svg {
+        color: var(--color-text-light);
+    }
 }
