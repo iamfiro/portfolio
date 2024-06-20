@@ -1,4 +1,4 @@
-import { HeroTitle } from '@/components';
+import { HeroStack, HeroTitle } from '@/components';
 import HeroAbout from '@/components/HeroAbout';
 import style from '@/styles/portfolio.module.scss';
 import { FiArrowDownCircle } from "react-icons/fi";
@@ -16,6 +16,7 @@ export default function Home() {
                 </div>
             </section>
             <HeroAbout />
+            <HeroStack />
         </main>
         </>
     )
