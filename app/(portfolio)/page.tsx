@@ -1,4 +1,5 @@
 import { HeroTitle } from '@/components';
+import HeroAbout from '@/components/HeroAbout';
 import style from '@/styles/portfolio.module.scss';
 import { FiArrowDownCircle } from "react-icons/fi";
 
@@ -14,6 +15,7 @@ export default function Home() {
                     <FiArrowDownCircle size={30} />
                 </div>
             </section>
+            <HeroAbout />
         </main>
         </>
     )
