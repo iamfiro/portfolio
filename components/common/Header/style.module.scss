@@ -2,10 +2,9 @@
     height: var(--size-header);
     width: 100%;
 
-
     backdrop-filter: blur(10px);
 
-    background-color: #ffffff89;
+    background-color: hsla(var(--color-background), 0.5);
 
     position: fixed;
     top: 0;
@@ -17,6 +16,8 @@
 
     padding: 0 calc(100vw - var(--size-max-w));
     margin: 0 auto;
+
+    z-index: 1000;
 }
 
 // 내 이름
