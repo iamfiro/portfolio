@@ -2,7 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {}
+:root {
+    --size-header: 64px;
+}
 
 body {
     padding: 0;

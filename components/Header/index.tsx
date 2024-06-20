@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Logo from '../public/logo.png';
-import ShimmerButton from "./shimmer-button";
+import ShimmerButton from "../shimmer-button";
+import style from './header.module.scss';
 
 export default function Header() {
     return (
