@@ -3,6 +3,10 @@
     width: 100%;
     max-width: var(--size-max-w);
 
+    backdrop-filter: blur(10px);
+
+    background-color: #ffffff89;
+
     position: fixed;
     top: 0;
     left: 0;
