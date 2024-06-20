@@ -1,7 +1,7 @@
 .container {
     height: var(--size-header);
     width: 100%;
-    max-width: var(--size-max-w);
+
 
     backdrop-filter: blur(10px);
 
@@ -15,7 +15,7 @@
     justify-content: space-between;
     align-items: center;
 
-    padding: 0 30px;
+    padding: 0 calc(100vw - var(--size-max-w));
     margin: 0 auto;
 }
 
@@ -32,10 +32,13 @@
 .left, .right {
     display: flex;
     align-items: center;
+
+    margin-left: 30px;
 }
 
 .right {
     gap: 0.7rem;
+    margin-right: 30px;
 }
 
 // 네비게이션 list
