@@ -1,0 +1,8 @@
+.hero {
+    min-height: calc(100vh - var(--size-header));
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
