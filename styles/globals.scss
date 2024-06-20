@@ -11,9 +11,14 @@
     --color-gray-dark: #3A3A3A;
 
     --color-green: #00b894;
+    --color-orange: #ea6b16;
+    --color-blue: #0984e3;
+    --color-purple: #6c5ce7;
 
     --color-text: #292e37;
     --color-text-light: #b7bfcf;
+
+    --color-background: #FAFAFA;
 
     --radius-m: 12px;
     --radius-s: 6px;
@@ -26,7 +31,7 @@ body {
 
     min-height: 100vh;
 
-    background-color: #FAFAFA;
+    background-color: var(--color-background);
 }
 
 * {
