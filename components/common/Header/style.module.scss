@@ -3,6 +3,10 @@
     width: 100%;
     max-width: var(--size-max-w);
 
+    position: fixed;
+    top: 0;
+    left: 0;
+
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -37,16 +41,20 @@
 
     margin-left: 15px;
 
+    padding: 0;
+
     li {
         padding: 3px 10px;
         margin-top: -2px;
+
+        list-style: none;
 
         border-radius: var(--radius-s);
 
         &:hover { // Hover시 배경색 변경
             transition: all 0.3s ease-in-out;
 
-            background-color: var(--color-gray-light);
+            background-color: var(--color-gray-lighter);
         }
 
         a {
@@ -68,11 +76,16 @@
 // 소셜 아이콘
 .social {
     padding: 8px;
+    padding-bottom: 4px;
 
     border-radius: var(--radius-s);
 
+    color: var(--color-black);
+    
+    aspect-ratio: 1 / 1;
+
     &:hover {
-        background-color: var(--color-gray-light);
+        background-color: var(--color-gray-lighter);
 
         cursor: default;
     }
