@@ -1,7 +1,9 @@
+import { LandingHero } from "../components";
+
 function Home() {
     return (
         <>
-        asd
+        <LandingHero />
         </>
     );
 }
