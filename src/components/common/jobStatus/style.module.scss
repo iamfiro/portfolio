@@ -1,0 +1,45 @@
+@keyframes Ripple {
+    0% {
+        box-shadow: 0 0 0 0 var(--color-green);
+    }
+    100% {
+        box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+    }
+}
+
+.container {
+    width: fit-content;
+
+    margin: 0 auto;
+
+    padding: 8px 15px;
+
+    border-radius: 100px;
+    border: 2px solid var(--color-border);
+
+    background-color: var(--color-background-light);
+
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.ripple {
+    width: 10px;
+    height: 10px;
+
+    border-radius: 50%;
+
+    background-color: var(--color-green);
+
+    animation: Ripple 1.5s infinite;
+    animation-delay: 2s;
+}
+
+.text {
+    font-size: 16px;
+    
+    margin-bottom: -3px;
+
+    color: var(--color-text);
+}
