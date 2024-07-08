@@ -13,13 +13,13 @@
 
 .title {
     font-family: var(--font-primary);
-    font-size: 80px;
-    line-height: 90px;
+    font-size: 64px;
+    line-height: 80px;
     text-align: center;
 
     margin: 0;
 
-    color: var(--color-white);
+    color: var(--color-black);
 
     // background: linear-gradient(180deg, #ffffff, #ffffffba);
     // -webkit-background-clip: text;
@@ -43,4 +43,8 @@
 
 .subtitle {
     color: var(--color-text-light);
+}
+
+.buttonContainer {
+    margin: 0 auto;
 }

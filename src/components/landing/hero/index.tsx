@@ -1,5 +1,6 @@
-import { JobStatus } from '../../common';
+import { Button, JobStatus } from '../../common';
 import style from './style.module.scss';
+import { FaGithub } from "react-icons/fa";
 
 function LandingHero() {
     return (
@@ -12,6 +13,9 @@ function LandingHero() {
                 <br />
                 새로운 기술을 배우는 데 거부감이 없으며 사람들이 좋아할, 필요할 만한 서비스를 만드려고 합니다
             </h2>
+            <div className={style.buttonContainer}>
+                <Button><FaGithub size={18} /> <span style={{ marginBottom: '-2px' }}>GitHub 바로가기</span></Button>
+            </div>
         </section>
         </>
     );
