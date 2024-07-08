@@ -7,8 +7,8 @@ function Home() {
         <main className={style.main}>
             <Header>
                 <Header.NavList>
-                    <Header.NavItem>Project</Header.NavItem>
-                    <Header.NavItem>Skills</Header.NavItem>
+                    <Header.NavItem>프로젝트</Header.NavItem>
+                    <Header.NavItem>사용기술</Header.NavItem>
                     <Header.NavItem>Contact</Header.NavItem>
                 </Header.NavList>
             </Header>
