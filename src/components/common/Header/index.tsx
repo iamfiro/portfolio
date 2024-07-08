@@ -1,4 +1,4 @@
-import { Children, ReactNode } from 'react';
+import { ReactNode } from 'react';
 import style from './style.module.scss';
 
 interface HeaderProps {
