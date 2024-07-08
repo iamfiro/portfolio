@@ -15,7 +15,7 @@ html, body {
     --color-black: #000;
 
     --color-text: #7c7c7c;
-    --color-text-light: #ababab;
+    --color-text-light: #8d8c90;
 
     --color-background: #000;
     --color-background-light: #1b1b1b;
@@ -38,7 +38,7 @@ html, body {
     font-style: normal;
     font-display: swap;
     font-weight: 400 1000;
-    src: url("./woff2/WantedSansVariable.woff2") format("woff2-variations");
+    src: url("/fonts/WantedSansVariable.woff2") format("woff2-variations");
 }
 
 ::selection {
