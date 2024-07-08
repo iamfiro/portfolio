@@ -3,21 +3,28 @@
     max-width: var(--width-max);
 
     margin: 0 auto;
-    padding: calc(var(--height-header) + 80px) 15px;
+    padding: calc(var(--height-header) + 70px) 15px;
 
     display: flex;
     flex-direction: column;
     justify-content: center;
+    gap: 40px;
 }
 
 .title {
     font-family: var(--font-primary);
-    font-size: 72px;
+    font-size: 80px;
+    line-height: 90px;
     text-align: center;
 
     margin: 0;
 
     color: var(--color-white);
+
+    // background: linear-gradient(180deg, #ffffff, #ffffffba);
+    // -webkit-background-clip: text;
+    // color: transparent;
+    // background-clip: text;
 }
 
 .subtitle {
@@ -25,10 +32,11 @@
 
     font-size: 20px;
     font-weight: 500;
+    line-height: 30px;
 
     margin: 0;
 
-    color: var(--color-text);
+    color: var(--color-text-light);
 
     text-align: center;
 }
