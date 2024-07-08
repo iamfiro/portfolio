@@ -3,7 +3,7 @@
     max-width: var(--width-max);
 
     margin: 0 auto;
-    padding: 0 15px;
+    padding: calc(var(--height-header) + 100px) 15px;
 
     display: flex;
     flex-direction: column;
@@ -12,7 +12,7 @@
 
 .title {
     font-family: var(--font-primary);
-    font-size: 52px;
+    font-size: 72px;
     text-align: center;
 
     margin: 0;
@@ -23,9 +23,8 @@
 .subtitle {
     font-family: var(--font-primary);
 
-    font-size: 30px;
-    font-weight: 600;
-    line-height: 40px;
+    font-size: 20px;
+    font-weight: 500;
 
     margin: 0;
 
