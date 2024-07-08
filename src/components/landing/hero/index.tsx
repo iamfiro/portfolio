@@ -4,7 +4,11 @@ function LandingHero() {
     return (
         <>
         <section className={style.hero}>
-            <h1 className={style.title}>상상을 현실로 만드는 개발자</h1>
+            <h1 className={style.title}>
+                상상을 현실로 만드는
+                <br />
+                프론트엔드 개발자
+                </h1>
             <h2 className={style.subtitle}>
                 안녕하세요 프론트엔드 개발자 조성주 입니다
                 <br />

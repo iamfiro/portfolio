@@ -4,9 +4,23 @@
 
     margin: 0 auto;
     padding: 0 15px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
-.title, .subtitle {
+.title {
+    font-family: var(--font-primary);
+    font-size: 52px;
+    text-align: center;
+
+    margin: 0;
+
+    color: var(--color-white);
+}
+
+.subtitle {
     font-family: var(--font-primary);
 
     font-size: 30px;
@@ -16,6 +30,8 @@
     margin: 0;
 
     color: var(--color-text);
+
+    text-align: center;
 }
 
 .subtitle {
