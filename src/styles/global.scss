@@ -1,6 +1,8 @@
 html, body {
     margin: 0;
     padding: 0;
+
+    color: var(--color-white);
 }
 
 * {
@@ -17,6 +19,11 @@ html, body {
 
     --color-background: #000;
     --color-background-light: #1b1b1b;
+    --color-background-dark: #141414;
+
+    --color-border: #212121;
+
+    --color-green: #00b894;
 
     // size
     --width-max: 1200px;
