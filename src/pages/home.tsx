@@ -9,7 +9,7 @@ function Home() {
                 <Header.NavList>
                     <Header.NavItem>프로젝트</Header.NavItem>
                     <Header.NavItem>사용기술</Header.NavItem>
-                    <Header.NavItem>Contact</Header.NavItem>
+                    <Header.NavItem>소셜</Header.NavItem>
                 </Header.NavList>
             </Header>
             <LandingHero />
