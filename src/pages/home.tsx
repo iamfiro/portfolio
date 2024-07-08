@@ -1,6 +1,7 @@
 import { LandingHero } from "../components";
-import Header from "../components/common/Header";
+import { Header } from "../components/common";
 import style from '../styles/page.module.scss';
+
 function Home() {
     return (
         <>
