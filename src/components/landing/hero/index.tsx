@@ -1,9 +1,11 @@
+import { JobStatus } from '../../common';
 import style from './style.module.scss';
 
 function LandingHero() {
     return (
         <>
         <section className={style.hero}>
+            <JobStatus />
             <h1 className={style.title}>
                 상상을 현실로 만드는
                 <br />
