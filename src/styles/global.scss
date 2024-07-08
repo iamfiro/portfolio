@@ -40,3 +40,8 @@ html, body {
     font-weight: 400 1000;
     src: url("./woff2/WantedSansVariable.woff2") format("woff2-variations");
 }
+
+::selection {
+    color: #4047FD;
+    background-color: #4046fd36;
+}
