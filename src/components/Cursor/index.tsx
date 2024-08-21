@@ -34,7 +34,7 @@ const CustomCursor: React.FC<CustomCursorProps> = ({
 				color: textColor,
 			}}
 		>
-			<svg className="size-3.5" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 20 20">
+			<svg className="size-3.5" xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 20 20">
 				<path fill={cursorColor} d="M19.438 6.716 1.115.05A.832.832 0 0 0 .05 1.116L6.712 19.45a.834.834 0 0 0 1.557.025l3.198-8 7.995-3.2a.833.833 0 0 0 0-1.559h-.024Z"></path>
 			</svg>
 			<div
