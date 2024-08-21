@@ -1,6 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
+
+import "./styles/global.scss";
+
+// Pages
 import PageHome from "./pages/home.tsx";
 
 const router = createBrowserRouter([
