@@ -1,0 +1,44 @@
+body, html {
+	margin: 0;
+	padding: 0;
+
+	cursor: none;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+.custom-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 12px;
+    font-weight: bold;
+
+    color: #000; // Default text color
+
+    pointer-events: none;
+
+    z-index: 1000;
+    transform: translate(-50%, -50%);
+
+	div {
+		width: max-content;
+
+		padding: 4px 6px;
+
+		border-radius: 5px;
+
+		margin: 40px 0 0 0;
+	}
+
+	svg {
+		border-radius: 5px;
+	}
+}
