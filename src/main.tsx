@@ -6,6 +6,7 @@ import "./styles/global.scss";
 
 // Pages
 import PageHome from "./pages/home.tsx";
+import ReactLenis from "@studio-freight/react-lenis";
 
 const router = createBrowserRouter([
 	{
@@ -16,6 +17,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>
-		<RouterProvider router={router} />
+		<ReactLenis root>
+			<RouterProvider router={router} />
+		</ReactLenis>
     </React.StrictMode>,
 )
