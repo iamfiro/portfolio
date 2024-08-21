@@ -1,36 +1,26 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 interface CustomCursorProps {
     text?: string;
     cursorColor?: string;
     textColor?: string;
+	x: number;
+	y: number;
 }
 
 const CustomCursor: React.FC<CustomCursorProps> = ({
     text = "Developer", // Default text
     cursorColor = "#6c5ce7", // Default cursor color (purple)
-    textColor = "#fff" // Default text color (white)
+    textColor = "#fff", // Default text color (white)
+	x,
+	y,
 }) => {
-    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-
-    useEffect(() => {
-        const onMouseMove = (e: MouseEvent) => {
-            setMousePosition({ x: e.clientX, y: e.clientY });
-        };
-
-        window.addEventListener("mousemove", onMouseMove);
-
-        return () => {
-            window.removeEventListener("mousemove", onMouseMove);
-        };
-    }, []);
-
     return (
 		<div
 			className="custom-cursor"
 			style={{
-				top: mousePosition.y,
-				left: mousePosition.x,
+				top: y,
+				left: x,
 				color: textColor,
 			}}
 		>
