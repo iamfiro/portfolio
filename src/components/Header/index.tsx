@@ -9,6 +9,13 @@ const Header = () => {
 				<FlowerLogo className={style.flower} />
 				<img src={Logo} alt={'DEVFIRO Logo'} className={style.logo}/>
 			</div>
+			<div>
+				<button className={style.button} ref={buttonRef}>
+					<span ref={buttonTextRef}>
+						눌러서 메일 보내기
+					</span>
+				</button>
+			</div>
 		</header>
 	)
 };
