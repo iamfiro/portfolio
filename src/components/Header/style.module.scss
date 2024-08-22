@@ -84,21 +84,17 @@
 
 	overflow: hidden;
 
-	padding: 9px 19px;
+	padding: 10px 20px;
 
-	background-color: transparent;
-	color: var(--color-purple);
+	background-color: var(--color-purple);
+	color: var(--color-white);
 
 	border: 2px solid var(--color-purple);
 
-	border-radius: var(--radius-max);
-
 	font-weight: 500;
-	font-size: 15px;
+	font-size: 14px;
 
 	&:hover {
-		background-color: var(--color-purple);
-
 		color: var(--color-white);
 
 		transition: .5s all ease-in-out;
