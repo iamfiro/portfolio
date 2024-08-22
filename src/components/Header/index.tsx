@@ -1,8 +1,25 @@
 import style from './style.module.scss';
 import Logo from '../../assets/logo.svg';
 import FlowerLogo from '../../assets/flower.tsx';
+import {useLayoutEffect, useRef} from "react";
+import gsap from 'gsap';
 
 const Header = () => {
+	const buttonRef = useRef<HTMLButtonElement>(null);
+	const buttonTextRef = useRef<HTMLSpanElement>(null);
+
+	useLayoutEffect(() => {
+		const tl = gsap.timeline({ paused: true });
+
+		tl.to(buttonTextRef.current, {duration: 0.2, yPercent: -150 });
+		tl.set(buttonTextRef.current, { yPercent: 150 });
+		tl.to(buttonTextRef.current, { duration: 0.2, yPercent: 0 });
+
+		buttonRef.current?.addEventListener('mouseenter', () => {
+			tl.restart();
+		})
+	}, []);
+
 	return (
 		<header className={style.container}>
 			<div>
