@@ -1,10 +1,14 @@
 import style from './style.module.scss';
-import
+import Logo from '../../assets/logo.svg';
+import FlowerLogo from '../../assets/flower.tsx';
 
 const Header = () => {
 	return (
 		<header className={style.container}>
-			<img/>
+			<div>
+				<FlowerLogo className={style.flower} />
+				<img src={Logo} alt={'DEVFIRO Logo'} className={style.logo}/>
+			</div>
 		</header>
 	)
 };
