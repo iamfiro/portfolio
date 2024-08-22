@@ -2,7 +2,7 @@ import style from './style.module.scss';
 import Logo from '../../assets/logo.svg';
 import FlowerLogo from '../../assets/flower.tsx';
 import {useLayoutEffect, useRef} from "react";
-import {LuMail} from "react-icons/lu";
+import { IoIosArrowRoundForward } from "react-icons/io";
 import gsap from 'gsap';
 
 const Header = () => {
@@ -37,7 +37,7 @@ const Header = () => {
 			<div>
 				<button className={style.button} ref={buttonRef}>
 					<span ref={buttonTextRef}>
-						눌러서 메일 보내기
+						눌러서 메일 보내기 <IoIosArrowRoundForward size={25} />
 					</span>
 				</button>
 			</div>

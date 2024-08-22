@@ -84,7 +84,7 @@
 
 	overflow: hidden;
 
-	padding: 10px 20px;
+	padding: 8px 20px;
 
 	background-color: var(--color-purple);
 	color: var(--color-white);
@@ -104,10 +104,5 @@
 		display: flex;
 		align-items: center;
 		gap: 7px;
-
-		svg {
-			width: 16px;
-			height: 16px;
-		}
 	}
 }
