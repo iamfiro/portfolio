@@ -87,7 +87,9 @@
 	padding: 9px 19px;
 
 	background-color: transparent;
-	border: 2px solid var(--color-black);
+	color: var(--color-purple);
+
+	border: 2px solid var(--color-purple);
 
 	border-radius: var(--radius-max);
 
@@ -95,11 +97,11 @@
 	font-size: 15px;
 
 	&:hover {
-		background-color: var(--color-primary);
+		background-color: var(--color-purple);
 
 		color: var(--color-white);
 
-		transition: .8s all ease-in-out;
+		transition: .5s all ease-in-out;
 	}
 
 	span {
