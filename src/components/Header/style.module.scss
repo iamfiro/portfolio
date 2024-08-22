@@ -1,0 +1,73 @@
+.container {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+
+	width: 100%;
+	max-width: var(--max-width);
+	height: 70px;
+
+	margin: 0 auto;
+	padding: 0 20px;
+}
+
+.logo {
+	height: 24px;
+	margin-left: 5px;
+}
+
+@keyframes Spin {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+@keyframes gradient-flower {
+	0% {
+		--first-color: #acff83;
+		--second-color: #01e447;
+	}
+	25% {
+		--logo-first-color: #927ddb;
+		--logo-second-color: #fd9ad1;
+	}
+	50% {
+		--logo-first-color: #649bff;
+		--logo-second-color: #575fff;
+	}
+	75% {
+		--logo-first-color: #acff83;
+		--logo-second-color: #01e447;
+	}
+	100% {
+		--logo-first-color: #ff8708;
+		--logo-second-color: #f1b9f1;
+	}
+}
+
+.flower {
+	height: 24px;
+	width: 24px;
+
+	transition: all 0.3s ease-in-out;
+
+	animation:
+		Spin 3s ease-out infinite, /* Adjusting duration to match rotation cycle */
+		gradient-flower 10s linear infinite; /* Adjusting duration to match rotation cycle */
+
+	svg {
+		fill: url(#flowerGradient);
+	}
+
+	/* Gradient color control */
+	& svg defs stop:first-of-type {
+		stop-color: var(--logo-first-color);
+	}
+
+	& svg defs stop:last-of-type {
+		stop-color: var(--logo-second-color);
+	}
+}
