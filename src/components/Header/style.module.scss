@@ -13,7 +13,9 @@
 
 .logo {
 	height: 24px;
-	margin-left: 5px;
+	margin-left: -5px;
+
+	z-index: 1000;
 }
 
 @keyframes Spin {
@@ -49,14 +51,18 @@
 }
 
 .flower {
-	height: 24px;
-	width: 24px;
+	height: 28px;
+	width: 28px;
+
+	margin-bottom: -2px;
 
 	transition: all 0.3s ease-in-out;
 
 	animation:
-		Spin 3s ease-out infinite, /* Adjusting duration to match rotation cycle */
+		Spin 2.2s ease-out infinite, /* Adjusting duration to match rotation cycle */
 		gradient-flower 10s linear infinite; /* Adjusting duration to match rotation cycle */
+
+	z-index: 0;
 
 	svg {
 		fill: url(#flowerGradient);
@@ -70,4 +76,21 @@
 	& svg defs stop:last-of-type {
 		stop-color: var(--logo-second-color);
 	}
+}
+
+.button {
+	display: inline-grid;
+	align-items: center;
+
+	overflow: hidden;
+
+	padding: 9px 19px;
+
+	background-color: transparent;
+	border: 2px solid var(--color-black);
+
+	border-radius: var(--radius-max);
+
+	font-weight: 500;
+	font-size: 15px;
 }
