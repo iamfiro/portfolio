@@ -79,7 +79,7 @@
 }
 
 .button {
-	display: inline-grid;
+	display: flex;
 	align-items: center;
 
 	overflow: hidden;
@@ -93,4 +93,10 @@
 
 	font-weight: 500;
 	font-size: 15px;
+
+	span {
+		display: flex;
+		align-items: center;
+		gap: 7px;
+	}
 }

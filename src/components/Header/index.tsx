@@ -2,6 +2,7 @@ import style from './style.module.scss';
 import Logo from '../../assets/logo.svg';
 import FlowerLogo from '../../assets/flower.tsx';
 import {useLayoutEffect, useRef} from "react";
+import { LuMail } from "react-icons/lu";
 import gsap from 'gsap';
 
 const Header = () => {
@@ -11,7 +12,7 @@ const Header = () => {
 	useLayoutEffect(() => {
 		const tl = gsap.timeline({ paused: true });
 
-		tl.to(buttonTextRef.current, {duration: 0.2, yPercent: -150 });
+		tl.to(buttonTextRef.current, { duration: 0.2, yPercent: -150 });
 		tl.set(buttonTextRef.current, { yPercent: 150 });
 		tl.to(buttonTextRef.current, { duration: 0.2, yPercent: 0 });
 
@@ -29,7 +30,7 @@ const Header = () => {
 			<div>
 				<button className={style.button} ref={buttonRef}>
 					<span ref={buttonTextRef}>
-						눌러서 메일 보내기
+						<LuMail /> 눌러서 메일 보내기
 					</span>
 				</button>
 			</div>
