@@ -1,9 +1,10 @@
 import style from './style.module.scss';
+import
 
 const Header = () => {
 	return (
-		<header className={style.contai}>
-			<h1>header</h1>
+		<header className={style.container}>
+			<img/>
 		</header>
 	)
 };
