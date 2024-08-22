@@ -26,7 +26,8 @@ body, html {
     pointer-events: none;
 
     z-index: 1000;
-    transform: translate(-50%, -50%);
+
+	margin-top: -23px;
 
 	div {
 		width: max-content;
