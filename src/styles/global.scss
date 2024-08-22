@@ -1,12 +1,62 @@
+@import url("https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css");
+
 body, html {
 	margin: 0;
 	padding: 0;
-
-	cursor: none;
 }
 
 * {
 	box-sizing: border-box;
+
+	font-family: "Wanted Sans Variable", "Wanted Sans", -apple-system, BlinkMacSystemFont, system-ui, "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;;
+
+	cursor: none;
+}
+
+:root {
+    // Breakpoints
+    --max-width: 1440px;
+    --max-banner: 1200px;
+
+    // Colors
+    --color-border: #eaeaea;
+
+    --color-black: #000;
+    --color-white: #fff;
+
+    --color-primary: #1ebaff;
+	--color-primary-dark: #0f94d0;
+	--color-primary-light: #62cfff;
+
+	--color-green: #1ad53c;
+	--color-green-light: rgba(26, 213, 60, 0.1);
+
+	--color-red: #fa6c6e;
+
+	--color-yellow: #ffc53d;
+
+	--color-gray-010: #fafafa;
+    --color-gray-020: #fafafa;
+    --color-gray-030: #F2F2F2;
+    --color-gray-050: #EBEBEB;
+	--color-gray-080: #E0E0E0;
+    --color-gray-100: #d0d0d0;
+    --color-gray-200: #B5B5B5;
+    --color-gray-400: #9e9e9e;
+    --color-gray-500: #747474;
+    --color-gray-600: #585858;
+    --color-gray-700: #464646;
+
+    // Radius
+    --radius-ss: 6px;
+    --radius-s: 8px;
+    --radius-m: 10px;
+    --radius-l: 12px;
+    --radius-max: 1000px;
+
+	// Flower
+	--logo-first-color: #acff83;
+	--logo-second-color: #01e447;
 }
 
 .custom-cursor {

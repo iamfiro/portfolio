@@ -11,8 +11,10 @@
   },
   "dependencies": {
     "@studio-freight/react-lenis": "^0.0.47",
+    "gsap": "^3.12.5",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-icons": "^5.3.0",
     "react-router-dom": "^6.26.1",
     "sass": "^1.77.8"
   },
