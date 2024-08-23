@@ -13,6 +13,7 @@ import Texture1 from "../../assets/image/newjeans_black.png";
 import Texture2 from "../../assets/image/newjeans.webp";
 import Noise from "../../assets/image/displacement/noise.png";
 import {Canvas} from "@react-three/fiber";
+import ProjectList from "../../constant/project.ts";
 
 interface ProjectProps {
 	index: number;
@@ -73,20 +74,7 @@ const Hero = () => {
 		}, 3000);
 	}, []);
 
-	const projects = [
-		{
-			index: 1,
-			name: '선린투데이',
-			year: 2024,
-			thumbnails: 'https://i.namu.wiki/i/w11dbZZeomJI4bD3_KItw3vq7tgglcM1YQA_xHULxMsixPpY1S7KcB8WrEFhJNuSuejiiQkicGKMH12JvpUqBQ.webp',
-			type: 'project'
-		},
-		{index: 2, name: '디자인 프로젝트', year: 2023, thumbnails: 'https://example.com/design-project.jpg', type: 'design'},
-		{index: 3, name: '기타 작업', year: 2022, thumbnails: 'https://example.com/other-work.jpg', type: 'other'},
-		// 추가 프로젝트 데이터
-	];
-
-	const filteredProjects = projects.filter((project) =>
+	const filteredProjects = ProjectList.filter((project) =>
 		projectTab === 'all' ? true : project.type === projectTab
 	);
 
