@@ -24,7 +24,7 @@ interface ProjectProps {
 	setHoveredIndex: (index: number | null) => void;
 }
 
-const Project = ({index, name, year, thumbnails, href, hoveredIndex, setHoveredIndex}: ProjectProps) => {
+const Project = ({index, name, year, href, hoveredIndex, setHoveredIndex}: ProjectProps) => {
 	const navigate = useNavigate();
 	const isOtherHovered = hoveredIndex !== null && hoveredIndex !== index;
 	const isHovered = hoveredIndex === index;
