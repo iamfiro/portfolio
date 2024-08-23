@@ -2,7 +2,7 @@ import style from './style.module.scss';
 import {TiWeatherCloudy} from "react-icons/ti";
 import {Column, Row} from "../index.ts";
 import {IoArrowDownOutline} from "react-icons/io5";
-import {useEffect, useLayoutEffect, useRef, useState} from "react";
+import {useLayoutEffect, useRef, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import TitleCreativeLogo from "../../assets/hero_title_creative.svg";
 import TitleDeveloperLogo from "../../assets/hero_title_developer.svg";
