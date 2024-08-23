@@ -2,7 +2,7 @@ import style from './style.module.scss';
 import Logo from '../../assets/logo.svg';
 import FlowerLogo from '../../assets/flower.tsx';
 import {useLayoutEffect, useRef} from "react";
-import {LuMail} from "react-icons/lu";
+import { IoIosArrowRoundForward } from "react-icons/io";
 import gsap from 'gsap';
 
 const Header = () => {
@@ -14,8 +14,8 @@ const Header = () => {
 		const tl = gsap.timeline({ paused: true });
 
 		// 텍스트가 올라가면서 사라진 후 아래에서 다시 나타나는 애니메이션
-		tl.to(buttonTextRef.current, { duration: 0.2, yPercent: -150 });
-		tl.set(buttonTextRef.current, { yPercent: 150 });
+		tl.to(buttonTextRef.current, { duration: 0.2, yPercent: -200 });
+		tl.set(buttonTextRef.current, { yPercent: 200 });
 		tl.to(buttonTextRef.current, { duration: 0.2, yPercent: 0 });
 
 		// 버튼에 마우스 호버시 애니메이션 실행
@@ -37,7 +37,7 @@ const Header = () => {
 			<div>
 				<button className={style.button} ref={buttonRef}>
 					<span ref={buttonTextRef}>
-						<LuMail /> 눌러서 메일 보내기
+						눌러서 메일 보내기 <IoIosArrowRoundForward size={25} />
 					</span>
 				</button>
 			</div>
@@ -46,3 +46,4 @@ const Header = () => {
 };
 
 export default Header;
+
