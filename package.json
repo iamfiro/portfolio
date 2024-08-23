@@ -12,6 +12,7 @@
   "dependencies": {
     "@studio-freight/react-lenis": "^0.0.47",
     "gsap": "^3.12.5",
+    "hover-effect": "^1.2.1",
     "leva": "^0.9.35",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
