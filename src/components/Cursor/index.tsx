@@ -1,17 +1,13 @@
 import React from "react";
 
 interface CustomCursorProps {
-    text?: string;
     cursorColor?: string;
-    textColor?: string;
 	x: number;
 	y: number;
 }
 
 const CustomCursor: React.FC<CustomCursorProps> = ({
-    text = "Developer", // Default text
     cursorColor = "#000", // Default cursor color (purple)
-    textColor = "#fff", // Default text color (white)
 	x,
 	y,
 }) => {
