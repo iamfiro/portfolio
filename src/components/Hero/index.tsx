@@ -39,7 +39,7 @@ const Project = ({index, name, year, href, hoveredIndex, setHoveredIndex}: Proje
 			style={{opacity: isOtherHovered ? 0.35 : 1}}
 		>
 			<Column style={{gap: '11px'}}>
-				<Row style={{gap: '50px'}}>
+				<Row style={{gap: '30px'}}>
 					<span className={style.projectIndex}>0{index}</span>
 					<span className={style.projectName}>{name}</span>
 				</Row>
