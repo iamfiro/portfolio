@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import {shaderMaterial, useTexture} from '@react-three/drei';
 import {useFrame, extend, ReactThreeFiber} from '@react-three/fiber';
-import {useRef, useState} from 'react';
+import {useRef} from 'react';
 
 // Define the interface for your custom ShaderMaterial
 interface ImageFadeMaterialImpl extends THREE.ShaderMaterial {
@@ -85,6 +85,7 @@ const FadingImage = ({image, image2, displacement, isHovered}: FadingImageProps)
 			<planeGeometry args={[2.7, 1.7]}/>
 			<imageFadeMaterial
 				ref={ref}
+				// @ts-expect-error This error is expected because the property might be undefined
 				tex={texture1}
 				tex2={texture2}
 				disp={dispTexture}
