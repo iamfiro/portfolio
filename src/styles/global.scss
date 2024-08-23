@@ -84,6 +84,9 @@ body, html {
 	div {
 		width: max-content;
 
+		background-color: var(--color-primary);
+		color: var(--color-white);
+
 		padding: 4px 6px;
 
 		margin: 40px 0 0 0;
