@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@react-three/fiber": "^8.17.5",
     "@studio-freight/react-lenis": "^0.0.47",
     "gsap": "^3.12.5",
     "hover-effect": "^1.2.1",
