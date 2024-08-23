@@ -1,0 +1,29 @@
+.container {
+	width: 100%;
+	height: 100vh;
+
+	display: flex;
+
+	div {
+		width: 50%;
+		height: 100%;
+
+		display: flex;
+		flex-direction: column;
+
+
+		padding: 50px 20px 0 20px;
+	}
+}
+
+.href {
+	list-style: none;
+
+	padding: 0;
+	margin: 0;
+
+	li {
+		display: flex;
+		gap: 5px;
+	}
+}
