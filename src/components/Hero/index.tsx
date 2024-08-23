@@ -114,10 +114,10 @@ const Hero = () => {
 					</Row>
 				</Row>
 				<div className={style.projectList}>
-					{filteredProjects.map((project) => (
+					{filteredProjects.map((project, index) => (
 						<Project
-							key={project.index}
-							index={project.index}
+							key={index}
+							index={index + 1}
 							name={project.name}
 							year={project.year}
 							thumbnails={project.thumbnails}
