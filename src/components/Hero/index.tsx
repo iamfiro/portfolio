@@ -9,8 +9,6 @@ import TitleDeveloperLogo from "../../assets/hero_title_developer.svg";
 import { MdOutlineSchool } from "react-icons/md";
 import gsap from 'gsap';
 import FadingImage from "../FadingImage";
-import Texture1 from "../../assets/image/newjeans_black.png";
-import Texture2 from "../../assets/image/newjeans.webp";
 import Noise from "../../assets/image/displacement/noise.png";
 import {Canvas} from "@react-three/fiber";
 import ProjectList from "../../constant/project.ts";
@@ -20,12 +18,13 @@ interface ProjectProps {
 	name: string;
 	year: number;
 	thumbnails: string;
+	thumbnails2: string;
 	href: string;
 	hoveredIndex: number | null;
 	setHoveredIndex: (index: number | null) => void;
 }
 
-const Project = ({index, name, year, href, hoveredIndex, setHoveredIndex}: ProjectProps) => {
+const Project = ({index, name, year, href, hoveredIndex, setHoveredIndex, thumbnails, thumbnails2}: ProjectProps) => {
 	const navigate = useNavigate();
 	const isOtherHovered = hoveredIndex !== null && hoveredIndex !== index;
 	const isHovered = hoveredIndex === index;
@@ -45,8 +44,8 @@ const Project = ({index, name, year, href, hoveredIndex, setHoveredIndex}: Proje
 				</Row>
 				<span className={style.projectYear}>( {year} )</span>
 			</Column>
-			<Canvas style={{ width: '270px', height: '170px' }} camera={{ position: [0, 0, 2], fov: 50 }}>
-				<FadingImage isHovered={isHovered} image={Texture1} image2={Texture2} displacement={Noise} />
+			<Canvas style={{ width: '270px', height: '170px' }} camera={{ position: [0, 0, 2], fov: 45 }}>
+				<FadingImage isHovered={isHovered} image={thumbnails} image2={thumbnails2} displacement={Noise} />
 			</Canvas>
 		</article>
 	);
@@ -121,7 +120,8 @@ const Hero = () => {
 							name={project.name}
 							year={project.year}
 							thumbnails={project.thumbnails}
-							href={''}
+							thumbnails2={project.thumbnails2}
+							href={project.href}
 							hoveredIndex={hoveredIndex}
 							setHoveredIndex={setHoveredIndex}
 						/>
