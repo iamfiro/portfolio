@@ -27,7 +27,7 @@ const Header = () => {
 	}, []);
 
 	return (
-		<header className={`${style.container}`} style={{ borderBottomWidth: isScrolled ? '0px' : '1px' }}>
+		<header className={`${style.container}`} style={{ borderBottomWidth: isScrolled ? '0px' : '2px' }}>
 			<span className={style.title}>@devfiro</span>
 			<img src={Logo} alt="logo" className={style.logo}/>
 			<span className={style.time}>Seoul, Korea {time}</span>
