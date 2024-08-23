@@ -8,7 +8,7 @@ const PageHome = () => {
 		<>
 			<Header />
 			<Hero />
-			<CustomCursor text={'Anonymous'} x={mousePosition.x} y={mousePosition.y} />
+			<CustomCursor x={mousePosition.x} y={mousePosition.y} />
 		</>
 	)
 }
