@@ -8,6 +8,11 @@ import TitleCreativeLogo from "../../assets/hero_title_creative.svg";
 import TitleDeveloperLogo from "../../assets/hero_title_developer.svg";
 import { MdOutlineSchool } from "react-icons/md";
 import gsap from 'gsap';
+import FadingImage from "../FadingImage";
+import Texture1 from "../../assets/image/newjeans_black.png";
+import Texture2 from "../../assets/image/newjeans.webp";
+import Noise from "../../assets/image/displacement/noise.png";
+import {Canvas} from "@react-three/fiber";
 
 interface ProjectProps {
 	index: number;
@@ -22,6 +27,7 @@ interface ProjectProps {
 const Project = ({index, name, year, thumbnails, href, hoveredIndex, setHoveredIndex}: ProjectProps) => {
 	const navigate = useNavigate();
 	const isOtherHovered = hoveredIndex !== null && hoveredIndex !== index;
+	const isHovered = hoveredIndex === index;
 
 	return (
 		<article
@@ -29,7 +35,7 @@ const Project = ({index, name, year, thumbnails, href, hoveredIndex, setHoveredI
 			onClick={() => navigate(href)}
 			onMouseEnter={() => setHoveredIndex(index)}
 			onMouseLeave={() => setHoveredIndex(null)}
-			style={{opacity: isOtherHovered ? 0.5 : 1}}
+			style={{opacity: isOtherHovered ? 0.35 : 1}}
 		>
 			<Column style={{gap: '11px'}}>
 				<Row style={{gap: '50px'}}>
@@ -38,7 +44,9 @@ const Project = ({index, name, year, thumbnails, href, hoveredIndex, setHoveredI
 				</Row>
 				<span className={style.projectYear}>( {year} )</span>
 			</Column>
-			<img src={thumbnails} alt={name}/>
+			<Canvas style={{ width: '270px', height: '170px' }} camera={{ position: [0, 0, 2], fov: 50 }}>
+				<FadingImage isHovered={isHovered} image={Texture1} image2={Texture2} displacement={Noise} />
+			</Canvas>
 		</article>
 	);
 };
@@ -47,6 +55,8 @@ const Hero = () => {
 	const [projectTab, setProjectTab] = useState<'all' | 'project' | 'design' | 'other'>('all');
 	const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 	const scrollToRef = useRef<HTMLSpanElement>(null);
+	const titleTopRef = useRef<HTMLImageElement>(null);
+	const titleBottomRef = useRef<HTMLImageElement>(null)
 
 	useLayoutEffect(() => {
 		// GSAP 타임라인 선언
@@ -83,13 +93,18 @@ const Hero = () => {
 	return (
 		<div className={style.container}>
 			<section className={style.left}>
-				<span className={style.weather}>
-					<TiWeatherCloudy size={20}/> 32 °C, Cloudy
-				</span>
-				<Column style={{ gap: '30px'}}>
-					<Column style={{ gap: '10px'}}>
-						<img src={TitleCreativeLogo} alt={'CREATIVE DEVELOPER'} className={style.title}/>
-						<img src={TitleDeveloperLogo} alt={'CREATIVE DEVELOPER'} className={style.title} style={{ width: '90%' }} />
+				<Row style={{ justifyContent: 'space-between' }}>
+					<span className={style.weather}>
+						<TiWeatherCloudy size={20}/> 32 °C, Cloudy
+					</span>
+					<Column>
+						<div />
+					</Column>
+				</Row>
+				<Column style={{gap: '30px'}}>
+					<Column style={{gap: '10px'}}>
+						<img src={TitleCreativeLogo} alt={'CREATIVE DEVELOPER'} className={style.title} ref={titleTopRef} />
+						<img src={TitleDeveloperLogo} alt={'CREATIVE DEVELOPER'} className={style.title} style={{ width: '95%' }} ref={titleBottomRef} />
 						<h2 className={style.introduce}><MdOutlineSchool /> Sunrin High School</h2>
 					</Column>
 					<button className={style.scrollTo}>
