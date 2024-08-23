@@ -21,6 +21,17 @@
 	font-size: 13px;
 }
 
+@keyframes Spinning {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}
+
 .logo {
 	width: 17px;
+
+	animation: Spinning 25s linear infinite;
 }
