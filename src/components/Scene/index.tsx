@@ -1,7 +1,7 @@
 import {Canvas} from "@react-three/fiber";
 import {Environment} from "@react-three/drei";
 
-const Scene = () => {
+const DonutScene = () => {
 	return (
 		<Canvas>
 			<directionalLight intensity={2} position={[0, 2, 3]}/>
@@ -10,4 +10,4 @@ const Scene = () => {
 	)
 }
 
-export default Scene;
+export default DonutScene;
