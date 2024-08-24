@@ -2,35 +2,48 @@
 	width: 100%;
 
 	display: flex;
+	gap: 40px;
 
 	background-color: var(--color-backgroud);
 
 	border-bottom: 1px solid var(--color-primary);
 
-	padding: 250px 30px;
+	padding: 100px 30px;
 }
 
 .socialContainer {
 	display: flex;
 	flex-direction: column;
 
-	width: 400px;
+	width: 50%;
+
+	margin-top: 13px;
 }
 
 .socialSection {
-	padding: 15px 0;
+	padding: 10px 0;
 
 	border-bottom: 1px solid var(--color-primary);
 
 	&:hover:not(:first-child) {
 		opacity: .5;
 		transition: all .3s ease-in-out;
+
+		.socialLink {
+			svg {
+				transition: all .3s ease-in-out;
+				transform: rotate(135deg);
+			}
+		}
 	}
 }
 
 .socialTitle {
 	font-size: 16px;
 	font-weight: 600;
+
+	margin-bottom: 5px;
+
 	color: var(--color-primary);
 }
 
@@ -43,9 +56,17 @@
 	gap: 7px;
 
 	svg {
-		width: 17px;
-		height: 17px;
+		width: 16px;
+		height: 16px;
 	}
+}
+
+.socialItem {
+	display: flex;
+
+	color: var(--color-primary);
+
+	text-decoration: none;
 }
 
 .socialLink {
@@ -56,9 +77,56 @@
 
 	display: flex;
 	align-items: center;
-	gap: 5px;
+	gap: 7px;
 
 	svg {
 		transform: rotate(45deg);
+	}
+}
+
+// About
+
+.aboutContainer {
+	width: 50%;
+}
+
+.aboutTitle {
+	width: 100%;
+
+	display: inline-block;
+
+	font-family: var(--font-fira);
+	font-size: 50px;
+	font-weight: 400;
+	letter-spacing: -2px;
+
+	color: var(--color-primary);
+
+	padding-bottom: 5px;
+
+	border-bottom: 1px solid var(--color-primary);
+}
+
+.aboutContent {
+	width: 100%;
+
+	align-items: flex-start !important;
+	gap: 10px;
+
+	margin-top: 10px;
+
+	p {
+		font-size: 20px;
+		color: var(--color-text);
+
+		width: 80%;
+
+		line-height: 30px;
+	}
+
+	span:first-child {
+		opacity: 0.3;
+
+		margin-right: 20px;
 	}
 }

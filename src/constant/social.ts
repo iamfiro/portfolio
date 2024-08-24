@@ -11,5 +11,9 @@ export const SocialList: Social[] = [
 	{
 		name: 'Instagram',
 		link: 'https://www.instagram.com/chxs_u'
+	},
+	{
+		name: 'hello@devfiro.com',
+		link: 'mailto:hello@devfiro.com'
 	}
 ]

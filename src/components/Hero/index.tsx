@@ -110,10 +110,10 @@ const Hero = () => {
 
 	// 타이틀 애니메이션
 	useLayoutEffect(() => {
-		gsap.fromTo('#hero_title_creative', {y: 100}, {y: 0, duration: .8, delay: .5});
-		gsap.fromTo('#hero_title_developer', {y: 100}, {y: 0, duration: .8, delay: .5});
-		gsap.fromTo('#hero_title_school', {y: 50, opacity: 0}, {y: 0, opacity: 1, duration: 1.2, delay: .5});
-		gsap.fromTo('#hero_title_scroll', {x: -50, opacity: 0}, {x: 0, opacity: 1, duration: 1, delay: 1.2});
+		gsap.fromTo('#hero_title_creative', {y: 100}, {y: 0, duration: 2, delay: .5, ease: 'circ.out'});
+		gsap.fromTo('#hero_title_developer', {y: 100}, {y: 0, duration: 2, delay: .5, ease: 'power3'});
+		gsap.fromTo('#hero_title_school', {y: 50, opacity: 0}, {y: 0, opacity: 2, duration: 1.2, delay: .5});
+		gsap.fromTo('#hero_title_scroll', {x: -50, opacity: 0}, {x: 0, opacity: 1, duration: 1, delay: 1.2, ease: 'power1'});
 	}, []);
 
 	// 프로젝트 애니메이션
@@ -121,7 +121,7 @@ const Hero = () => {
 		const target = gsap.utils.toArray(document.getElementsByClassName('hero_title_project'));
 
 		target.forEach((element, index) => {
-			gsap.fromTo(element as HTMLDivElement, {y: 180, opacity: 0.2}, {y: 0, opacity: 1, duration: 1, delay: .5 + index * 0.15});
+			gsap.fromTo(element as HTMLDivElement, {y: 180, opacity: 0.2}, {y: 0, opacity: 1, duration: 1, delay: .5 + index * 0.15, ease: 'power3'});
 		})
 	}, []);
 
