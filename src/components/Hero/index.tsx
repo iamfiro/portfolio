@@ -1,4 +1,4 @@
-import {useEffect, useLayoutEffect, useRef, useState} from 'react';
+import {useLayoutEffect, useRef, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {Column, Row} from '../index.ts';
 import style from './style.module.scss';
@@ -23,19 +23,20 @@ interface ProjectProps {
 	href: string;
 	hoveredIndex: number | null;
 	setHoveredIndex: (index: number | null) => void;
+	className?: string;
 }
 
 // Define the 4tab type
 type ProjectTab = 'all' | 'project' | 'design' | 'other';
 
-const Project = ({index, name, year, href, hoveredIndex, setHoveredIndex, thumbnails, thumbnails2}: ProjectProps) => {
+const Project = ({index, name, year, href, hoveredIndex, setHoveredIndex, thumbnails, thumbnails2, className}: ProjectProps) => {
 	const navigate = useNavigate();
 	const isOtherHovered = hoveredIndex !== null && hoveredIndex !== index;
 	const isHovered = hoveredIndex === index;
 
 	return (
 		<article
-			className={style.project}
+			className={`${style.project} ${className}`}
 			onClick={() => navigate(href)}
 			onMouseEnter={() => setHoveredIndex(index)}
 			onMouseLeave={() => setHoveredIndex(null)}
@@ -62,7 +63,6 @@ const Hero = () => {
 	const scrollToRef = useRef<HTMLSpanElement>(null);
 	const heroContainerRef = useRef<HTMLDivElement>(null);
 	const titleContainerRef = useRef<HTMLDivElement>(null);
-	const endOfHeroRef = useRef<HTMLDivElement>(null);
 
 	useLayoutEffect(() => {
 		const tl = gsap.timeline({paused: true});
@@ -78,34 +78,52 @@ const Hero = () => {
 		return () => clearInterval(interval);
 	}, []);
 
-useEffect(() => {
-    const handleScroll = () => {
-        if (!titleContainerRef.current || !heroContainerRef.current) return;
+	// 스크롤 fixed 애니메이션
+	useLayoutEffect(() => {
+		const handleScroll = () => {
+			if (!titleContainerRef.current || !heroContainerRef.current) return;
 
-        const heroRect = heroContainerRef.current.getBoundingClientRect();
-        const titleRect = titleContainerRef.current.getBoundingClientRect();
+			const heroRect = heroContainerRef.current.getBoundingClientRect();
+			const titleRect = titleContainerRef.current.getBoundingClientRect();
 
-		console.log(
-			'titleRect.bottom:', titleRect.bottom,
-			'heroRect.bottom:', heroRect.bottom - 31,
-			'titleRect.top:', titleRect.top,
-			'heroRect.top:', heroRect.top
-		)
+			console.log(
+				'titleRect.bottom:', titleRect.bottom,
+				'heroRect.bottom:', heroRect.bottom - 31,
+				'titleRect.top:', titleRect.top,
+				'heroRect.top:', heroRect.top
+			)
 
 
-        if (titleRect.bottom > heroRect.bottom - 31) {
-            setIsFixed(false);
-        }
-        else if (titleRect.top < heroRect.top + 60) {
-            setIsFixed(true);
-        }
-    };
+			if (titleRect.bottom > heroRect.bottom - 31) {
+				setIsFixed(false);
+			}
+			else if (titleRect.top < heroRect.top + 60) {
+				setIsFixed(true);
+			}
+		};
 
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-        window.removeEventListener('scroll', handleScroll);
-    };
-}, []);
+		window.addEventListener('scroll', handleScroll);
+		return () => {
+			window.removeEventListener('scroll', handleScroll);
+		};
+	}, []);
+
+	// 타이틀 애니메이션
+	useLayoutEffect(() => {
+		gsap.fromTo('#hero_title_creative', {y: 100}, {y: 0, duration: .8, delay: .5});
+		gsap.fromTo('#hero_title_developer', {y: 100}, {y: 0, duration: .8, delay: .5});
+		gsap.fromTo('#hero_title_school', {y: 50, opacity: 0}, {y: 0, opacity: 1, duration: 1.2, delay: .5});
+		gsap.fromTo('#hero_title_scroll', {x: -50, opacity: 0}, {x: 0, opacity: 1, duration: 1, delay: 1.2});
+	}, []);
+
+	// 프로젝트 애니메이션
+	useLayoutEffect(() => {
+		const target = gsap.utils.toArray(document.getElementsByClassName('hero_title_project'));
+
+		target.forEach((element, index) => {
+			gsap.fromTo(element as HTMLDivElement, {y: 180}, {y: 0, duration: 1, delay: .5 + index * 0.15});
+		})
+	}, []);
 
 	const filteredProjects = ProjectList.filter((project) =>
 		projectTab === 'all' ? true : project.type === projectTab
@@ -134,14 +152,31 @@ useEffect(() => {
 					ref={titleContainerRef}
 				>
 					<Column style={{gap: '10px'}}>
-						<img src={TitleCreativeLogo} alt={'CREATIVE DEVELOPER'} className={style.title}/>
-						<img src={TitleDeveloperLogo} alt={'CREATIVE DEVELOPER'} className={style.title} style={{width: '95%'}}/>
+						<div style={{overflowY: 'hidden'}}>
+							<img
+								src={TitleCreativeLogo}
+								alt={'CREATIVE DEVELOPER'}
+								className={style.title}
+								id={'hero_title_creative'}
+							/>
+						</div>
+						<div style={{overflowY: 'hidden'}}>
+							<img
+								src={TitleDeveloperLogo}
+								alt={'CREATIVE DEVELOPER'}
+								className={style.title}
+								style={{width: '95%'}}
+								id={'hero_title_developer'}
+							/>
+						</div>
 						<h2 className={style.introduce}>
-							<MdOutlineSchool/> Sunrin High School
+							<span id={"hero_title_school"}>
+								<MdOutlineSchool/> Sunrin High School
+							</span>
 						</h2>
 					</Column>
 					<button className={style.scrollTo}>
-						<span className={style.scrollTo} ref={scrollToRef}>( <IoArrowDownOutline/> 아래로 스크롤하세요 )</span>
+						<span className={style.scrollTo} ref={scrollToRef} id={"hero_title_scroll"}>( <IoArrowDownOutline/> 아래로 스크롤하세요 )</span>
 					</button>
 				</div>
 			</section>
@@ -165,22 +200,24 @@ useEffect(() => {
 				</Row>
 				<div className={style.projectList}>
 					{filteredProjects.map((project, index) => (
-						<Project
-							key={index}
-							index={index + 1}
-							name={project.name}
-							year={project.year}
-							thumbnails={project.thumbnails}
-							thumbnails2={project.thumbnails2}
-							href={project.href}
-							hoveredIndex={hoveredIndex}
-							setHoveredIndex={setHoveredIndex}
-						/>
+						<div style={{overflowY: 'hidden'}}>
+							<Project
+								key={index}
+								index={index + 1}
+								name={project.name}
+								year={project.year}
+								thumbnails={project.thumbnails}
+								thumbnails2={project.thumbnails2}
+								href={project.href}
+								hoveredIndex={hoveredIndex}
+								setHoveredIndex={setHoveredIndex}
+								className={'hero_title_project'}
+							/>
+						</div>
 					))}
 				</div>
 				<img src={GitHeader} alt={'GitHeader'} className={style.gitHeader}/>
 			</section>
-			<div ref={endOfHeroRef} style={{ height: '1px'}} />
 		</div>
 	);
 };
