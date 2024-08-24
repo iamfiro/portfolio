@@ -6,8 +6,6 @@
 
 	background-color: var(--color-backgroud);
 
-	border-bottom: 1px solid var(--color-primary);
-
 	section {
 		width: 50%;
 		min-height: calc(100vh - 40px);
@@ -17,10 +15,6 @@
 
 		margin: 40px 0 0 0;
 	}
-}
-
-.right {
-	border-left: 1px solid var(--color-primary);
 }
 
 .left {
@@ -56,9 +50,9 @@
 }
 
 .recentProject {
-	border-bottom: 1px solid var(--color-primary);
-
 	padding: 13px 20px;
+
+	margin-top: 120px;
 
 	width: 100%;
 }
