@@ -124,14 +124,15 @@ const Hero = () => {
 		target.forEach((element, index) => {
 			gsap.fromTo(element as HTMLDivElement, {y: 180, opacity: 0.2}, {y: 0, opacity: 1, duration: 1, delay: .5 + index * 0.15, ease: 'power3'});
 		});
+	}, [projectTab]);
 
-		gsap.fromTo('.hero_project_title', {opacity: 0}, {opacity: 1, duration: 1});
+	useLayoutEffect(() => {
+		gsap.fromTo('.hero_project_title', {opacity: 0}, {opacity: 1, duration: 1, delay: .5, ease: 'power1'});
 	}, []);
 
 	const filteredProjects = ProjectList.filter((project) =>
 		projectTab === 'all' ? true : project.type === projectTab
 	);
-
 	return (
 		<div className={style.container} ref={heroContainerRef}>
 			<section className={style.left}>
