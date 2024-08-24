@@ -73,7 +73,7 @@ const Hero = () => {
 
 		const interval = setInterval(() => {
 			tl.restart();
-		}, 3000);
+		}, 2500);
 
 		return () => clearInterval(interval);
 	}, []);
@@ -121,7 +121,7 @@ const Hero = () => {
 		const target = gsap.utils.toArray(document.getElementsByClassName('hero_title_project'));
 
 		target.forEach((element, index) => {
-			gsap.fromTo(element as HTMLDivElement, {y: 180}, {y: 0, duration: 1, delay: .5 + index * 0.15});
+			gsap.fromTo(element as HTMLDivElement, {y: 180, opacity: 0.2}, {y: 0, opacity: 1, duration: 1, delay: .5 + index * 0.15});
 		})
 	}, []);
 
@@ -134,6 +134,7 @@ const Hero = () => {
 			<section className={style.left}>
 				<Row style={{justifyContent: 'space-between'}}>
 					<span className={style.weather}>
+						{/* TODO: 날씨 구현 */}
 						<TiWeatherCloudy size={20}/> 32 °C, Cloudy
 					</span>
 					<Column>
