@@ -8,6 +8,7 @@ const PageHome = () => {
 		<>
 			<Header />
 			<Hero />
+			<h1>asd</h1>
 			<CustomCursor x={mousePosition.x} y={mousePosition.y} />
 		</>
 	)
