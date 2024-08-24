@@ -1,0 +1,64 @@
+.container {
+	width: 100%;
+
+	display: flex;
+
+	background-color: var(--color-backgroud);
+
+	border-bottom: 1px solid var(--color-primary);
+
+	padding: 250px 30px;
+}
+
+.socialContainer {
+	display: flex;
+	flex-direction: column;
+
+	width: 400px;
+}
+
+.socialSection {
+	padding: 15px 0;
+
+	border-bottom: 1px solid var(--color-primary);
+
+	&:hover:not(:first-child) {
+		opacity: .5;
+		transition: all .3s ease-in-out;
+	}
+}
+
+.socialTitle {
+	font-size: 16px;
+	font-weight: 600;
+	color: var(--color-primary);
+}
+
+.socialName {
+	font-size: 16px;
+	color: var(--color-text);
+
+	display: flex;
+	align-items: center;
+	gap: 7px;
+
+	svg {
+		width: 17px;
+		height: 17px;
+	}
+}
+
+.socialLink {
+	font-size: 16px;
+	color: var(--color-text);
+
+	text-decoration: none;
+
+	display: flex;
+	align-items: center;
+	gap: 5px;
+
+	svg {
+		transform: rotate(45deg);
+	}
+}
