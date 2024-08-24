@@ -98,3 +98,9 @@ body, html {
 		border-radius: 5px;
 	}
 }
+
+
+::selection {
+	background-color: var(--color-primary);
+	color: var(--color-white);
+}
