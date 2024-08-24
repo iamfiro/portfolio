@@ -1,9 +1,13 @@
-import SunrinToday from '../assets/image/sunrin-today.webp';
-import SunrinTodayBlack from '../assets/image/sunrin-today_black.png';
-import NoDream from '../assets/image/nodream.png';
-import NoDreamBlack from '../assets/image/nodream_black.png';
-import Watch from '../assets/image/watch.webp';
-import WatchBlack from '../assets/image/watch_black.png';
+import SunrinToday from '../assets/image/project/sunrin-today.webp';
+import SunrinTodayBlack from '../assets/image/project/sunrin-today_black.png';
+import NoDream from '../assets/image/project/nodream.png';
+import NoDreamBlack from '../assets/image/project/nodream_black.png';
+import Watch from '../assets/image/project/watch.webp';
+import WatchBlack from '../assets/image/project/watch_black.png';
+import LofiStation from '../assets/image/project/lofi.png';
+import LofiStationBlack from '../assets/image/project/lofi_black.png';
+import NewJeans from '../assets/image/project/newjeans.webp';
+import NewJeansBlack from '../assets/image/project/newjeans_black.png';
 
 export interface Project {
 	type: 'project' | 'design' | 'other';
@@ -38,6 +42,22 @@ export const ProjectList: Project[] = [
 		thumbnails: WatchBlack,
 		thumbnails2: Watch,
 		href: '/project/watch',
+	},
+	{
+		type: 'project',
+		name: '뉴진스 포스터 디자인',
+		year: 2023,
+		thumbnails: NewJeansBlack,
+		thumbnails2: NewJeans,
+		href: '/project/newjeans',
+	},
+	{
+		type: 'project',
+		name: 'Lofi Station',
+		year: 2022,
+		thumbnails: LofiStationBlack,
+		thumbnails2: LofiStation,
+		href: '/project/lofi',
 	}
 ]
 
