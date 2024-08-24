@@ -6,10 +6,18 @@ const PageHome = () => {
 	const mousePosition = useMousePosition();
 	return (
 		<>
-			<Header />
-			<Hero />
+			<Header/>
+			<Hero/>
 			<h1>asd</h1>
-			<CustomCursor x={mousePosition.x} y={mousePosition.y} />
+			<h1>asd</h1>
+			<h1>asd</h1>
+			<h1>asd</h1>
+			<h1>asd</h1>
+			<h1>asd</h1>
+			<h1>asd</h1>
+			<h1>asd</h1>
+			<h1>asd</h1>
+			<CustomCursor x={mousePosition.x} y={mousePosition.y}/>
 		</>
 	)
 }

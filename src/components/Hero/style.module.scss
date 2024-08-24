@@ -24,8 +24,6 @@
 }
 
 .left {
-	height: calc(100vh - 40px) !important;
-
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
@@ -139,4 +137,16 @@
 
 .projectIndex, .projectName {
 	font-size: 22px;
+}
+
+.stickyContainer {
+	//position: fixed;
+	bottom: 30px;
+	left: 30px;
+}
+
+.gitHeader {
+	width: 70%;
+
+	margin: 150px auto 60px auto;
 }
