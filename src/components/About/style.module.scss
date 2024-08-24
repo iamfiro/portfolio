@@ -33,7 +33,7 @@
 
 .divider {
 	width: 100%;
-	height: 10px;
+	height: 2px;
 
 	border: 0;
 
@@ -50,19 +50,51 @@
 	justify-content: space-between;
 
 	margin-top: 30px;
+
+	div {
+		width: 50%;
+	}
 }
 
 
-.iamTitle {
+.iamTitle, .iamTitleSymbol {
 	font-size: 22px;
 	font-weight: 500;
 
-	margin: 20px 0;
+	margin: 20px 10px 0 0;
 
 	opacity: .7;
+}
 
-	&::before {
-		content: "●";
-    	margin-right: 10px;
+.iamContent {
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+
+	margin: 0 0 100px 0;
+
+	max-width: 600px;
+
+	color: var(--color-gray-400);
+
+	font-size: 22px;
+
+	strong {
+		color: var(--color-primary);
+
+		font-weight: 500;
+
+		display: flex;
+		align-items: center;
+
+		font-size: 24px;
+	};
+
+	svg {
+		width: 20px;
+
+		margin-right: 15px;
+
+		opacity: .3;
 	}
 }
