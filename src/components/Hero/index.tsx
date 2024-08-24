@@ -108,13 +108,24 @@ const Hero = () => {
 		gsap.fromTo('#hero_title_scroll', {x: -50, opacity: 0}, {x: 0, opacity: 1, duration: 1, delay: 1.2, ease: 'power1'});
 	}, []);
 
+	// Hero 프로젝트 Selector 애니메이션
+	useLayoutEffect(() => {
+		const target = gsap.utils.toArray(document.getElementsByClassName('hero_project_select'));
+
+		target.forEach((element, index) => {
+			gsap.fromTo(element as HTMLButtonElement, {y: 50, opacity: 0}, {y: 0, opacity: 1, duration: 1, delay: .5 + index * 0.15, ease: 'power3'});
+		})
+	}, []);
+
 	// 프로젝트 애니메이션
 	useLayoutEffect(() => {
 		const target = gsap.utils.toArray(document.getElementsByClassName('hero_title_project'));
 
 		target.forEach((element, index) => {
 			gsap.fromTo(element as HTMLDivElement, {y: 180, opacity: 0.2}, {y: 0, opacity: 1, duration: 1, delay: .5 + index * 0.15, ease: 'power3'});
-		})
+		});
+
+		gsap.fromTo('.hero_project_title', {opacity: 0}, {opacity: 1, duration: 1});
 	}, []);
 
 	const filteredProjects = ProjectList.filter((project) =>
@@ -175,18 +186,18 @@ const Hero = () => {
 			</section>
 			<section className={style.right} style={{alignItems: 'flex-end'}}>
 				<Row className={style.recentProject}>
-					<span>최근 프로젝트</span>
+					<span className={'hero_project_title'}>최근 프로젝트</span>
 					<Row className={style.projectSelect}>
-						<button data-selected={projectTab === 'all'} onClick={() => setProjectTab('all')}>
+						<button data-selected={projectTab === 'all'} onClick={() => setProjectTab('all')} className={'hero_project_select'}>
 							전체
 						</button>
-						<button data-selected={projectTab === 'project'} onClick={() => setProjectTab('project')}>
+						<button data-selected={projectTab === 'project'} onClick={() => setProjectTab('project')} className={'hero_project_select'}>
 							프로젝트
 						</button>
-						<button data-selected={projectTab === 'design'} onClick={() => setProjectTab('design')}>
+						<button data-selected={projectTab === 'design'} onClick={() => setProjectTab('design')} className={'hero_project_select'}>
 							디자인
 						</button>
-						<button data-selected={projectTab === 'other'} onClick={() => setProjectTab('other')}>
+						<button data-selected={projectTab === 'other'} onClick={() => setProjectTab('other')} className={'hero_project_select'}>
 							기타
 						</button>
 					</Row>
