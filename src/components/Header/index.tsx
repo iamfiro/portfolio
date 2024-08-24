@@ -19,7 +19,7 @@ const Header = () => {
 	// 스크롤 감지 및 border-width 변경
 	useEffect(() => {
 		const handleScroll = () => {
-			setIsScrolled(window.scrollY !== 0);
+			setIsScrolled(window.scrollY > 30);
 		};
 
 		window.addEventListener('scroll', handleScroll);
