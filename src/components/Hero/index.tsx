@@ -86,14 +86,6 @@ const Hero = () => {
 			const heroRect = heroContainerRef.current.getBoundingClientRect();
 			const titleRect = titleContainerRef.current.getBoundingClientRect();
 
-			console.log(
-				'titleRect.bottom:', titleRect.bottom,
-				'heroRect.bottom:', heroRect.bottom - 31,
-				'titleRect.top:', titleRect.top,
-				'heroRect.top:', heroRect.top
-			)
-
-
 			if (titleRect.bottom > heroRect.bottom - 31) {
 				setIsFixed(false);
 			}
