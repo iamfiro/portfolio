@@ -2,12 +2,14 @@ import style from './style.module.scss';
 import {Row} from "../index.ts";
 import {SocialList} from "../../constant/social.ts";
 import { MdArrowUpward } from "react-icons/md";
-import {FaGithub} from "react-icons/fa";
+import {FaGithub, FaInstagram} from "react-icons/fa";
 
 function SocialTitleToIcon(title: string) {
 	switch (title) {
 		case 'Github':
 			return <FaGithub />
+		case 'Instagram':
+			return <FaInstagram />
 		default:
 			return title;
 	}
