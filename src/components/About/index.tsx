@@ -3,7 +3,6 @@ import {useLayoutEffect} from "react";
 import SplitType from "split-type";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
-import { IoMdFlower } from "react-icons/io";
 
 const About = () => {
 	gsap.registerPlugin(ScrollTrigger);
