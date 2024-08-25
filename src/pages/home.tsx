@@ -1,6 +1,6 @@
 import {CustomCursor, Header} from "../components";
 import useMousePosition from "../hooks/useMouseEvent.ts";
-import Hero from "../components/Hero";
+import {About, Hero} from "../components";
 
 const PageHome = () => {
 	const mousePosition = useMousePosition();
@@ -8,6 +8,7 @@ const PageHome = () => {
 		<>
 			<Header/>
 			<Hero/>
+			<About />
 			<h1>asd</h1>
 			<h1>asd</h1>
 			<h1>asd</h1>

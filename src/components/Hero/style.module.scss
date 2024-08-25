@@ -6,8 +6,6 @@
 
 	background-color: var(--color-backgroud);
 
-	border-bottom: 1px solid var(--color-primary);
-
 	section {
 		width: 50%;
 		min-height: calc(100vh - 40px);
@@ -17,10 +15,6 @@
 
 		margin: 40px 0 0 0;
 	}
-}
-
-.right {
-	border-left: 1px solid var(--color-primary);
 }
 
 .left {
@@ -56,9 +50,9 @@
 }
 
 .recentProject {
-	border-bottom: 1px solid var(--color-primary);
-
 	padding: 13px 20px;
+
+	margin-top: 120px;
 
 	width: 100%;
 }
@@ -153,4 +147,36 @@
 	width: 70%;
 
 	margin: 150px auto 60px auto;
+}
+
+// 로딩 화면
+.loadingContainer {
+	width: 100%;
+	height: 100vh;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 1000;
+
+	background-color: var(--color-white);
+
+	div {
+		display: flex;
+		gap: 15px;
+	}
+
+	.loadingLogo {
+		width: 170px;
+	}
+
+	.loadingProgress {
+		font-size: 18px;
+
+		width: 28px;
+	}
 }
