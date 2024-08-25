@@ -13,6 +13,8 @@ import ProjectList from '../../constant/project.ts';
 import TitleCreativeLogo from '../../assets/hero_title_creative.svg';
 import TitleDeveloperLogo from '../../assets/hero_title_developer.svg';
 import GitHeader from '../../assets/image/svg/git-header.svg';
+import {createPortal} from "react-dom";
+import DEVFIRO_Logo from '../../assets/DEVFIRO.svg';
 
 interface ProjectProps {
 	index: number;
@@ -133,97 +135,166 @@ const Hero = () => {
 	const filteredProjects = ProjectList.filter((project) =>
 		projectTab === 'all' ? true : project.type === projectTab
 	);
+
+	const [loadingProgress, setLoadingProgress] = useState(0);
+	const loadingContainerRef = useRef<HTMLDivElement>(null);
+	const loadingContentRef = useRef<HTMLDivElement>(null);
+
+	// 로딩 카운터 애니메이션
+	useLayoutEffect(() => {
+		let loadingProgress = 0;
+		function StartLoading() {
+			if (loadingProgress < 100) {
+				const increment = Math.floor(Math.random() * 10) + 1;
+				loadingProgress = Math.min(loadingProgress + increment, 100);
+				setLoadingProgress(loadingProgress);
+
+				const delay = Math.floor(Math.random() * 3000) + 2200;
+				setTimeout(StartLoading, delay);
+			}
+		}
+
+		const interval = setInterval(StartLoading, 100);
+
+		return () => clearInterval(interval);
+	}, []);
+
+	// 로딩 후 애니메이션
+	useLayoutEffect(() => {
+		gsap.to(loadingContainerRef.current, {
+			scale: 0.3,
+			ease: 'power4.inOut',
+			duration: 2,
+			delay: 2,
+		})
+
+		gsap.to(loadingContentRef.current, {
+			scale: 1.8,
+			ease: 'power4.inOut',
+			duration: 2,
+			delay: 2,
+		});
+
+		gsap.fromTo(loadingContainerRef.current, {
+			clipPath: 'polygon(0 0, 100% 0%, 100% 100%, 0 100%)',
+			ease: 'power4.inOut'
+		}, {
+			clipPath: 'polygon(0 0, 100% 0%, 100% 0%, 0 0%)',
+			ease: 'power4.inOut',
+			duration: 2,
+			delay: 2.75,
+		})
+	}, []);
+
 	return (
-		<div className={style.container} ref={heroContainerRef}>
-			<section className={style.left}>
-				<Row style={{justifyContent: 'space-between'}}>
+		<>
+			<div className={style.container} ref={heroContainerRef}>
+				<section className={style.left}>
+					<Row style={{justifyContent: 'space-between'}}>
 					<span className={style.weather}>
 						{/* TODO: 날씨 구현 */}
 						<TiWeatherCloudy size={20}/> 32 °C, Cloudy
 					</span>
-					<Column>
-						<div/>
-					</Column>
-				</Row>
-				<div
-					style={{
-						display: 'flex',
-						flexDirection: 'column',
-						gap: '30px',
-						position: isFixed ? 'fixed' : 'unset',
-						width: isFixed ? 'calc(50% - 60px)' : '100%',
-					}}
-					className={style.stickyContainer}
-					ref={titleContainerRef}
-				>
-					<Column style={{gap: '10px'}}>
-						<div style={{overflowY: 'hidden'}}>
-							<img
-								src={TitleCreativeLogo}
-								alt={'CREATIVE DEVELOPER'}
-								className={style.title}
-								id={'hero_title_creative'}
-							/>
-						</div>
-						<div style={{overflowY: 'hidden'}}>
-							<img
-								src={TitleDeveloperLogo}
-								alt={'CREATIVE DEVELOPER'}
-								className={style.title}
-								style={{width: '95%'}}
-								id={'hero_title_developer'}
-							/>
-						</div>
-						<h2 className={style.introduce}>
+						<Column>
+							<div/>
+						</Column>
+					</Row>
+					<div
+						style={{
+							display: 'flex',
+							flexDirection: 'column',
+							gap: '30px',
+							position: isFixed ? 'fixed' : 'unset',
+							width: isFixed ? 'calc(50% - 60px)' : '100%',
+						}}
+						className={style.stickyContainer}
+						ref={titleContainerRef}
+					>
+						<Column style={{gap: '10px'}}>
+							<div style={{overflowY: 'hidden'}}>
+								<img
+									src={TitleCreativeLogo}
+									alt={'CREATIVE DEVELOPER'}
+									className={style.title}
+									id={'hero_title_creative'}
+								/>
+							</div>
+							<div style={{overflowY: 'hidden'}}>
+								<img
+									src={TitleDeveloperLogo}
+									alt={'CREATIVE DEVELOPER'}
+									className={style.title}
+									style={{width: '95%'}}
+									id={'hero_title_developer'}
+								/>
+							</div>
+							<h2 className={style.introduce}>
 							<span id={"hero_title_school"}>
 								<MdOutlineSchool/> Sunrin High School
 							</span>
-						</h2>
-					</Column>
-					<button className={style.scrollTo}>
-						<span className={style.scrollTo} ref={scrollToRef} id={"hero_title_scroll"}>( <IoArrowDownOutline/> 아래로 스크롤하세요 )</span>
-					</button>
-				</div>
-			</section>
-			<section className={style.right} style={{alignItems: 'flex-end'}}>
-				<Row className={style.recentProject}>
-					<span className={'hero_project_title'}>최근 프로젝트</span>
-					<Row className={style.projectSelect}>
-						<button data-selected={projectTab === 'all'} onClick={() => setProjectTab('all')} className={'hero_project_select'}>
-							전체
+							</h2>
+						</Column>
+						<button className={style.scrollTo}>
+							<span className={style.scrollTo} ref={scrollToRef} id={"hero_title_scroll"}>( <IoArrowDownOutline/> 아래로 스크롤하세요 )</span>
 						</button>
-						<button data-selected={projectTab === 'project'} onClick={() => setProjectTab('project')} className={'hero_project_select'}>
-							프로젝트
-						</button>
-						<button data-selected={projectTab === 'design'} onClick={() => setProjectTab('design')} className={'hero_project_select'}>
-							디자인
-						</button>
-						<button data-selected={projectTab === 'other'} onClick={() => setProjectTab('other')} className={'hero_project_select'}>
-							기타
-						</button>
+					</div>
+				</section>
+				<section className={style.right} style={{alignItems: 'flex-end'}}>
+					<Row className={style.recentProject}>
+						<span className={'hero_project_title'}>최근 프로젝트</span>
+						<Row className={style.projectSelect}>
+							<button data-selected={projectTab === 'all'} onClick={() => setProjectTab('all')}
+									className={'hero_project_select'}>
+								전체
+							</button>
+							<button data-selected={projectTab === 'project'} onClick={() => setProjectTab('project')}
+									className={'hero_project_select'}>
+								프로젝트
+							</button>
+							<button data-selected={projectTab === 'design'} onClick={() => setProjectTab('design')}
+									className={'hero_project_select'}>
+								디자인
+							</button>
+							<button data-selected={projectTab === 'other'} onClick={() => setProjectTab('other')}
+									className={'hero_project_select'}>
+								기타
+							</button>
+						</Row>
 					</Row>
-				</Row>
-				<div className={style.projectList}>
-					{filteredProjects.map((project, index) => (
-						<div style={{overflowY: 'hidden'}}>
-							<Project
-								key={index}
-								index={index + 1}
-								name={project.name}
-								year={project.year}
-								thumbnails={project.thumbnails}
-								thumbnails2={project.thumbnails2}
-								href={project.href}
-								hoveredIndex={hoveredIndex}
-								setHoveredIndex={setHoveredIndex}
-								className={'hero_title_project'}
-							/>
+					<div className={style.projectList}>
+						{filteredProjects.map((project, index) => (
+							<div style={{overflowY: 'hidden'}}>
+								<Project
+									key={index}
+									index={index + 1}
+									name={project.name}
+									year={project.year}
+									thumbnails={project.thumbnails}
+									thumbnails2={project.thumbnails2}
+									href={project.href}
+									hoveredIndex={hoveredIndex}
+									setHoveredIndex={setHoveredIndex}
+									className={'hero_title_project'}
+								/>
+							</div>
+						))}
+					</div>
+					<img src={GitHeader} alt={'GitHeader'} className={style.gitHeader}/>
+				</section>
+			</div>
+			{
+				createPortal(
+					<>
+						<div className={style.loadingContainer} ref={loadingContainerRef}>
+							<div ref={loadingContentRef}>
+								<span className={style.loadingProgress}>{loadingProgress}</span>
+								<img src={DEVFIRO_Logo} alt={'DEVFIRO_Logo'} className={style.loadingLogo}/>
+							</div>
 						</div>
-					))}
-				</div>
-				<img src={GitHeader} alt={'GitHeader'} className={style.gitHeader}/>
-			</section>
-		</div>
+					</>, document.body
+				)
+			}
+		</>
 	);
 };
 
