@@ -208,7 +208,7 @@ const Hero = () => {
 		}, {clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)', duration: 1.5, delay: 3.7, ease: 'power1'});
 
 		target.forEach((element, index) => {
-			gsap.fromTo(element as HTMLButtonElement, {y: 50, opacity: 0}, {y: 0, opacity: 1, duration: 1, delay: 3.7 + index * 0.15, ease: 'power3'});
+			gsap.fromTo(element as HTMLButtonElement, {y: 50, opacity: 0}, {y: 0, opacity: 1, duration: 1, delay: 3.7 + index * 0.05, ease: 'power3'});
 		});
 	}, []);
 
