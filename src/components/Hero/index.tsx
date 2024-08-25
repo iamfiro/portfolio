@@ -15,6 +15,7 @@ import TitleDeveloperLogo from '../../assets/hero_title_developer.svg';
 import GitHeader from '../../assets/image/svg/git-header.svg';
 import {createPortal} from "react-dom";
 import DEVFIRO_Logo from '../../assets/DEVFIRO.svg';
+import { Project as ProjectType } from "../../constant/project.ts";
 
 interface ProjectProps {
 	index: number;
@@ -61,6 +62,7 @@ const Project = ({index, name, year, href, hoveredIndex, setHoveredIndex, thumbn
 const Hero = () => {
 	const [projectTab, setProjectTab] = useState<ProjectTab>('all');
 	const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+	const [isFirstLoad, setIsFirstLoad] = useState(true);
 	const [isFixed, setIsFixed] = useState(true);
 	const scrollToRef = useRef<HTMLSpanElement>(null);
 	const heroContainerRef = useRef<HTMLDivElement>(null);
@@ -104,35 +106,43 @@ const Hero = () => {
 
 	// 타이틀 애니메이션
 	useLayoutEffect(() => {
-		gsap.fromTo('#hero_title_creative', {y: 100}, {y: 0, duration: 2, delay: .5, ease: 'circ.out'});
-		gsap.fromTo('#hero_title_developer', {y: 100}, {y: 0, duration: 2, delay: .5, ease: 'power3'});
-		gsap.fromTo('#hero_title_school', {y: 50, opacity: 0}, {y: 0, opacity: 2, duration: 1.2, delay: .5});
-		gsap.fromTo('#hero_title_scroll', {x: -50, opacity: 0}, {x: 0, opacity: 1, duration: 1, delay: 1.2, ease: 'power1'});
+		gsap.fromTo('#hero_title_creative', {y: 100}, {y: 0, duration: 2, delay: 3.7, ease: 'circ.out'});
+		gsap.fromTo('#hero_title_developer', {y: 100}, {y: 0, duration: 2, delay: 3.7, ease: 'power3'});
+		gsap.fromTo('#hero_title_school', {y: 50, opacity: 0}, {y: 0, opacity: 2, duration: 1.2, delay: 3.7});
+		gsap.fromTo('#hero_title_scroll', {x: -50, opacity: 0}, {x: 0, opacity: 1, duration: 1, delay: 4.4, ease: 'power1'});
 	}, []);
 
-	// Hero 프로젝트 Selector 애니메이션
-	useLayoutEffect(() => {
-		const target = gsap.utils.toArray(document.getElementsByClassName('hero_project_select'));
-
-		target.forEach((element, index) => {
-			gsap.fromTo(element as HTMLButtonElement, {y: 50, opacity: 0}, {y: 0, opacity: 1, duration: 1, delay: .5 + index * 0.15, ease: 'power3'});
-		})
-	}, []);
-
-	// 프로젝트 애니메이션
 	useLayoutEffect(() => {
 		const target = gsap.utils.toArray(document.getElementsByClassName('hero_title_project'));
 
 		target.forEach((element, index) => {
-			gsap.fromTo(element as HTMLDivElement, {y: 180, opacity: 0.2}, {y: 0, opacity: 1, duration: 1, delay: .5 + index * 0.15, ease: 'power3'});
+			gsap.fromTo(element as HTMLButtonElement, {y: 50, opacity: 0}, {y: 0, opacity: 1, duration: 1, delay: 3.7 + index * 0.15, ease: 'power3'});
+			gsap.to(element as HTMLDivElement, {y: 180, opacity: 0.0, duration: 0});
 		});
-	}, [projectTab]);
-
-	useLayoutEffect(() => {
-		gsap.fromTo('.hero_project_title', {opacity: 0}, {opacity: 1, duration: 1, delay: .5, ease: 'power1'});
 	}, []);
 
-	const filteredProjects = ProjectList.filter((project) =>
+	// 프로젝트 애니메이션
+	useLayoutEffect(() => {
+		console.log(isFirstLoad);
+		if(isFirstLoad) {
+			setIsFirstLoad(false);
+
+			const target = gsap.utils.toArray(document.getElementsByClassName('hero_title_project'));
+
+			target.forEach((element, index) => {
+				gsap.to(element as HTMLDivElement, {y: 180, opacity: 0.0, duration: 0});
+				gsap.fromTo(element as HTMLDivElement, {y: 180, opacity: 0.2}, {y: 0, opacity: 1, duration: 1, delay: 3.7 + index * 0.15, ease: 'power3'});
+			});
+		} else {
+			const target = gsap.utils.toArray(document.getElementsByClassName('hero_title_project'));
+
+			target.forEach((element, index) => {
+				gsap.fromTo(element as HTMLDivElement, {y: 180, opacity: 0.2}, {y: 0, opacity: 1, duration: 1, delay: .5 + index * 0.15, ease: 'power3'});
+			});
+		}
+	}, [projectTab]);
+
+	const filteredProjects: ProjectType[] = ProjectList.filter((project) =>
 		projectTab === 'all' ? true : project.type === projectTab
 	);
 
@@ -186,12 +196,28 @@ const Hero = () => {
 		})
 	}, []);
 
+	useLayoutEffect(() => {
+		const target = gsap.utils.toArray(document.getElementsByClassName('hero_project_select'));
+
+		gsap.fromTo('.hero_project_title', {
+			clipPath: 'polygon(0 0, 0% 0, 0% 100%, 0 100%)'
+		}, {clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)', duration: 1, delay: 3.7, ease: 'power1'});
+
+		gsap.fromTo('.hero_weather', {
+			clipPath: 'polygon(0 0, 0% 0, 0% 100%, 0 100%)'
+		}, {clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)', duration: 1.5, delay: 3.7, ease: 'power1'});
+
+		target.forEach((element, index) => {
+			gsap.fromTo(element as HTMLButtonElement, {y: 50, opacity: 0}, {y: 0, opacity: 1, duration: 1, delay: 3.7 + index * 0.15, ease: 'power3'});
+		});
+	}, []);
+
 	return (
 		<>
 			<div className={style.container} ref={heroContainerRef}>
 				<section className={style.left}>
 					<Row style={{justifyContent: 'space-between'}}>
-					<span className={style.weather}>
+					<span className={`${style.weather} hero_weather`}>
 						{/* TODO: 날씨 구현 */}
 						<TiWeatherCloudy size={20}/> 32 °C, Cloudy
 					</span>
