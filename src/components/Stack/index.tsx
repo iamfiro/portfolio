@@ -19,7 +19,6 @@ const Stack = () => {
 				start: 'top bottom',
 				end: 'top top',
 				scrub: 1,
-				markers: true,
 				onEnter: () => console.log('enter'),
 				onLeave: () => console.log('leave'),
 			},
