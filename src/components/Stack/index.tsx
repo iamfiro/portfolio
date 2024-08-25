@@ -72,7 +72,7 @@ const Stack = () => {
 
 	useLayoutEffect(() => {
 		const titles = titleRefs.current;
-		const fixedHeight = 800; // Fixed height for start and end triggers
+		const fixedHeight = 1200; // Fixed height for start and end triggers
 		const tabs: Array<'frontend' | 'backend' | 'etc'> = ['frontend', 'backend', 'etc']; // Explicitly typed array
 
 		titles.forEach((titleRef, index) => {
@@ -80,7 +80,7 @@ const Stack = () => {
 				gsap.to(titleRef, {
 					scrollTrigger: {
 						trigger: containerRef.current,
-						start: `top+=${fixedHeight * (index + 1)}px top`, // Start after scrolling down by 600px
+						start: index === 0 ? 'top+=600px top' : `top+=${fixedHeight * (index + 1)}px top`, // Adjust start value for the first titleRef
 						end: `+=${fixedHeight * (index + 1)}px`, // End after an additional 600px
 						onEnter: () => {
 							setTabIndex(tabs[index]);
