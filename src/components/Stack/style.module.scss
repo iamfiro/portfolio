@@ -1,0 +1,41 @@
+.container {
+	width: 100%;
+	height: 400vh;
+
+	position: absolute;
+	z-index: 999;
+	background-color: white;
+}
+
+.storiesProgressContainer {
+	max-width: var(--max-width);
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+
+	margin: 0 auto;
+
+	height: 5px;
+
+	background-color: var(--color-backgroud);
+}
+
+.storiesProgress {
+	width: 100%;
+	height: 100%;
+
+	border-radius: var(--radius-max);
+
+	background-color: #d1d3cf;
+}
+
+.storiesProgress_bar {
+	height: 100%;
+	width: 10px	;
+
+	border-radius: var(--radius-max);
+
+	background-color: #7e8379;
+}
