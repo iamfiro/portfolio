@@ -82,7 +82,6 @@ const Stack = () => {
 						trigger: containerRef.current,
 						start: `top+=${fixedHeight * (index + 1)}px top`, // Start after scrolling down by 600px
 						end: `+=${fixedHeight * (index + 1)}px`, // End after an additional 600px
-						markers: true,
 						onEnter: () => {
 							setTabIndex(tabs[index]);
 						},
