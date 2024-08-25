@@ -1,41 +1,66 @@
 .container {
 	width: 100%;
-	height: 400vh;
-
-	position: absolute;
-	z-index: 999;
-	background-color: white;
-}
-
-.storiesProgressContainer {
-	max-width: var(--max-width);
+	height: 4500px;
 
 	display: flex;
-	justify-content: center;
-	align-items: center;
-	gap: 10px;
-
-	margin: 0 auto;
-
-	height: 5px;
+	flex-direction: column;
 
 	background-color: var(--color-backgroud);
 }
 
-.storiesProgress {
+.wrap {
 	width: 100%;
-	height: 100%;
+	height: calc(100vh - 160px);
 
-	border-radius: var(--radius-max);
-
-	background-color: #d1d3cf;
+	display: flex;
+	flex-direction: row;
+	gap: 30px;
 }
 
-.storiesProgress_bar {
-	height: 100%;
-	width: 10px	;
+.sectionList {
+	width: 50%;
 
-	border-radius: var(--radius-max);
+	display: flex;
+	flex-direction: column;
+	gap: 60px;
+}
 
-	background-color: #7e8379;
+.sectionTitle {
+	font-size: 42px;
+	font-weight: 500;
+
+	margin: 0;
+}
+
+.stackContainer {
+	width: calc(50% - 60px);
+
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	align-content: flex-start;
+	gap: 80px;
+
+	padding: 0 30px;
+}
+
+.stack {
+	width: 100px;
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 20px;
+
+	img {
+		width: 60px;
+		height: 60px;
+	}
+
+	span {
+		font-size: 16px;
+		font-weight: 500;
+
+		text-align: center;
+	}
 }
