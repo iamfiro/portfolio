@@ -6,10 +6,12 @@ import { MdComputer } from "react-icons/md";
 import { FiServer } from "react-icons/fi";
 import { FaBullseye } from "react-icons/fa";
 import {Stack as StackType, StackList} from "../../constant/stack.ts";
+import {Column} from "../index.ts";
 
 const Stack = () => {
 	const containerRef = useRef<HTMLDivElement>(null);
 	const wrapRef = useRef<HTMLDivElement>(null);
+	const progressBarRef = useRef<HTMLDivElement>(null); // Reference for progress bar
 	const [tabIndex, setTabIndex] = useState<'frontend' | 'backend' | 'etc' | 'none'>('none');
 	const [filteredStack, setFilteredStack] = useState<StackType[]>([]);
 	const [sectionData, setSectionData] = useState<{isFixed: boolean, lastLeave: 'top' | 'bottom'}>({
@@ -50,6 +52,13 @@ const Stack = () => {
 						isFixed: true,
 						lastLeave: 'bottom'
 					});
+				},
+				onUpdate: (self) => {
+					// Update progress bar width
+					if (progressBarRef.current) {
+						const progress = self.progress * 100;
+						progressBarRef.current.style.width = `${progress}%`;
+					}
 				},
 			},
 		});
@@ -134,29 +143,34 @@ const Stack = () => {
 				left: sectionData.isFixed ? 30 : 0,
 			}}>
 				<div className={style.sectionList}>
-					<h2
-						className={`${style.sectionTitle} stack_list_title`}
-						ref={(el) => titleRefs.current[0] = el}
-						style={{
-							opacity: tabIndex === 'frontend' ? .7 : .3,
-						}}
-					><MdComputer/> 프론트엔드</h2>
-					<h2
-						className={`${style.sectionTitle} stack_list_title`}
-						ref={(el) => titleRefs.current[1] = el}
-						data-selected={tabIndex === 'backend'}
-						style={{
-							opacity: tabIndex === 'backend' ? .7 : .3,
-						}}
-					><FiServer/> 백엔드</h2>
-					<h2
-						className={`${style.sectionTitle} stack_list_title`}
-						ref={(el) => titleRefs.current[2] = el}
-						data-selected={tabIndex === 'etc'}
-						style={{
-							opacity: tabIndex === 'etc' ? .7 : .3,
-						}}
-					><FaBullseye/> 기타</h2>
+					<Column style={{gap: '60px'}}>
+						<h2
+							className={`${style.sectionTitle} stack_list_title`}
+							ref={(el) => titleRefs.current[0] = el}
+							style={{
+								opacity: tabIndex === 'frontend' ? .7 : .3,
+							}}
+						><MdComputer/> 프론트엔드</h2>
+						<h2
+							className={`${style.sectionTitle} stack_list_title`}
+							ref={(el) => titleRefs.current[1] = el}
+							data-selected={tabIndex === 'backend'}
+							style={{
+								opacity: tabIndex === 'backend' ? .7 : .3,
+							}}
+						><FiServer/> 백엔드</h2>
+						<h2
+							className={`${style.sectionTitle} stack_list_title`}
+							ref={(el) => titleRefs.current[2] = el}
+							data-selected={tabIndex === 'etc'}
+							style={{
+								opacity: tabIndex === 'etc' ? .7 : .3,
+							}}
+						><FaBullseye/> 기타</h2>
+					</Column>
+					<div className={style.progressBarContainer}>
+						<div className={style.progressBar} ref={progressBarRef}></div>
+					</div>
 				</div>
 				<div className={style.stackContainer}>
 					{
