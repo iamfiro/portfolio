@@ -123,7 +123,6 @@ const Hero = () => {
 
 	// 프로젝트 애니메이션
 	useLayoutEffect(() => {
-		console.log(isFirstLoad);
 		if(isFirstLoad) {
 			setIsFirstLoad(false);
 

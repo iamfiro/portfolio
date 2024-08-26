@@ -110,7 +110,6 @@ const Stack = () => {
 	}, []); // No dependency on dynamic section heights, just the fixed value
 
 	useLayoutEffect(() => {
-		console.log('filteredStack', filteredStack);
 		const target = gsap.utils.toArray(document.getElementsByClassName('stack_item'));
 
 		target.forEach((el, index) => {
