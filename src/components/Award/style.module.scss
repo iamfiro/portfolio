@@ -1,0 +1,40 @@
+.container {
+	width: 100%;
+
+	background-color: var(--color-backgroud);
+
+	padding: 500px 30px;
+
+	display: flex;
+	flex-direction: column;
+}
+.title {
+	width: 100%;
+}
+
+.awardList {
+	margin: 80px 0 0 0;
+
+	border-top: 1px solid var(--color-primary);
+}
+
+.award {
+	height: 130px;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 10px;
+
+	border-bottom: 1px solid var(--color-primary);
+
+	font-size: 30px;
+}
+
+.awardYear {
+	font-size: 18px;
+	font-weight: 500;
+
+	opacity: .5;
+
+}
