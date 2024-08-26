@@ -139,6 +139,7 @@ const Stack = () => {
 				position: sectionData.isFixed ? 'fixed' : 'relative',
 				marginLeft: sectionData.isFixed ? 0 : 30,
 				marginTop: sectionData.isFixed ? 0 : 80,
+				width: sectionData.isFixed ? 'calc(100% - 60px)' : '100%',
 				top: sectionData.isFixed ? 80 : 0,
 				left: sectionData.isFixed ? 30 : 0,
 			}}>
