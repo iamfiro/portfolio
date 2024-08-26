@@ -1,0 +1,101 @@
+.wrap {
+	background-color: var(--color-backgroud);
+}
+
+.container {
+	height: 400px;
+
+	background-color: var(--color-backgroud);
+
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.content {
+	width: 100%;
+
+	padding: 30px;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.left {
+	width: 500px;
+	height: 100%;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+
+	padding: 30px;
+}
+
+.copyright {
+	font-size: 18px;
+	font-weight:00;
+}
+
+.socialContainer {
+	width: 300px;
+}
+
+.socialHeader, .social {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+
+	padding: 10px 0;
+
+	border-bottom: 1px solid var(--color-primary);
+
+	font-size: 16px;
+	text-decoration: none;
+
+	color: var(--color-primary);
+
+	svg {
+		transform: rotate(45deg);
+	}
+}
+
+.right {
+	width: 100%;
+
+	padding: 30px;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	align-items: flex-end;
+}
+
+.emailIcon {
+	width: 95%;
+}
+
+.contact {
+	width: 300px;
+	height: 55px;
+
+	border-radius: var(--radius-max);
+
+	border: 1px solid var(--color-primary);
+
+	background-color: transparent;
+
+	font-size: 17px;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	svg {
+		margin-left: 10px;
+
+		width: 20px;
+		height: 20px;
+	}
+}
