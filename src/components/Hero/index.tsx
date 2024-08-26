@@ -123,7 +123,6 @@ const Hero = () => {
 
 	// 프로젝트 애니메이션
 	useLayoutEffect(() => {
-		console.log(isFirstLoad);
 		if(isFirstLoad) {
 			setIsFirstLoad(false);
 
@@ -289,7 +288,7 @@ const Hero = () => {
 					</Row>
 					<div className={style.projectList}>
 						{filteredProjects.map((project, index) => (
-							<div style={{overflowY: 'hidden'}}>
+							<div key={index} style={{overflowY: 'hidden'}}>
 								<Project
 									key={index}
 									index={index + 1}
