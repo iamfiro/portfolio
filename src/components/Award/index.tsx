@@ -1,5 +1,5 @@
 import style from './style.module.scss';
-import {useLayoutEffect, useRef, useState} from "react";
+import {useLayoutEffect, useRef} from "react";
 import AwardImage from '../../assets/image/svg/Awards.svg';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
@@ -7,7 +7,6 @@ import {Column} from "../index.ts";
 import AwardList from "../../constant/award.ts";
 
 const Award = () => {
-	// const [activeMenu, setActiveMenu] = useState<number | null>(null);
 	const titleRef = useRef<HTMLImageElement>(null);
 
 	useLayoutEffect(() => {
@@ -16,14 +15,27 @@ const Award = () => {
 		gsap.to(titleRef.current, {
 			scrollTrigger: {
 				trigger: titleRef.current,
-				start: 'bottom bottom',
+				start: 'bottom bottom+=100px',
 				end: 'center center',
 				scrub: 1,
-				onEnter: () => {
-					console.log('Enter');
-				}
 			},
+			ease: 'power1.inOut',
 			width: '10%'
+		});
+
+		gsap.fromTo('.award_list', {
+			opacity: 0,
+			y: 100
+		}, {
+			opacity: 1,
+			y: 0,
+			duration: .8,
+			stagger: .2,
+			scrollTrigger: {
+				trigger: titleRef.current,
+				start: 'top center',
+				end: 'center center',
+			}
 		});
 	}, []);
 
@@ -33,7 +45,7 @@ const Award = () => {
 			<Column className={style.awardList}>
 				{
 					AwardList.map((award, index) => (
-						<article className={style.award} key={index}>
+						<article className={`${style.award} award_list`} key={index}>
 							<span className={style.awardYear}>( {award.year} )</span>
 							<span>{award.title}</span>
 						</article>
