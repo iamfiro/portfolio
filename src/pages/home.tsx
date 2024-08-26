@@ -10,15 +10,6 @@ const PageHome = () => {
 			<About />
 			<Stack />
 			<Footer />
-			<h1>asd</h1>
-			<h1>asd</h1>
-			<h1>asd</h1>
-			<h1>asd</h1>
-			<h1>asd</h1>
-			<h1>asd</h1>
-			<h1>asd</h1>
-			<h1>asd</h1>
-			<h1>asd</h1>
 			<CustomCursor x={mousePosition.x} y={mousePosition.y}/>
 		</>
 	)
