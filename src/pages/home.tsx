@@ -9,8 +9,8 @@ const PageHome = () => {
 			<Hero/>
 			<About />
 			<Stack />
-			<Footer />
 			<Award />
+			<Footer />
 			<CustomCursor x={mousePosition.x} y={mousePosition.y}/>
 		</>
 	)
