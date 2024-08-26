@@ -140,7 +140,7 @@ const Hero = () => {
 				gsap.fromTo(element as HTMLDivElement, {y: 180, opacity: 0.2}, {y: 0, opacity: 1, duration: 1, delay: .5 + index * 0.15, ease: 'power3'});
 			});
 		}
-	}, [isFirstLoad, projectTab]);
+	}, [projectTab]);
 
 	const filteredProjects: ProjectType[] = ProjectList.filter((project) =>
 		projectTab === 'all' ? true : project.type === projectTab
