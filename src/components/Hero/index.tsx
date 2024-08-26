@@ -288,7 +288,7 @@ const Hero = () => {
 					</Row>
 					<div className={style.projectList}>
 						{filteredProjects.map((project, index) => (
-							<div style={{overflowY: 'hidden'}}>
+							<div key={index} style={{overflowY: 'hidden'}}>
 								<Project
 									key={index}
 									index={index + 1}
