@@ -1,10 +1,38 @@
+'use client'
+
 import style from './HomeHero.module.scss';
 import { IoMdArrowUp } from "react-icons/io";
 import { BsRssFill } from "react-icons/bs";
+import {useEffect, useRef} from "react";
+import {gsap} from "gsap";
+import {ScrollTrigger} from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const HomeHero = () => {
+    const containerRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if(!containerRef.current) return;
+
+        gsap.fromTo(containerRef.current, {
+            marginTop: 0,
+        }, {
+            y: '20vh',
+            ease: 'linear',
+
+            scrollTrigger: {
+                trigger: containerRef.current,
+                start: 'top top',
+                end: 'bottom top',
+                scrub: true,
+                markers: true,
+            }
+        })
+    }, []);
+
     return (
-        <div className={style.wrap}>
+        <div className={style.wrap} ref={containerRef}>
             <div className={style.container}>
                 <div className={style.top}>
                     <h1 className={style.title}>
