@@ -32,7 +32,7 @@ const HomeHero = () => {
                             <span>최근 블로그</span>
                         </div>
                         <div className={style.name}>
-                            <span>인공지능과 사람 지능의 인가관계</span>
+                            <span>인공지능과 사람 지능의 인과관계</span>
                             <IoMdArrowUp/>
                         </div>
                         <span className={style.content}>
