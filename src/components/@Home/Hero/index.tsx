@@ -27,7 +27,20 @@ const HomeHero = () => {
                 end: 'bottom top',
                 scrub: true,
             }
-        })
+        });
+
+        gsap.to(containerRef.current, {
+            opacity: 0,
+            ease: 'linear',
+
+            scrollTrigger: {
+                trigger: containerRef.current,
+                start: 'top top',
+                end: 'bottom-=150px center',
+                scrub: true,
+                markers: true,
+            }
+        });
     }, []);
 
     return (
