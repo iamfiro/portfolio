@@ -67,7 +67,7 @@
 }
 
 .nav {
-    @include flex(row, flex-start, center, 25px);
+    @include flex(row, flex-start, center, 25);
 
     list-style: none;
 
