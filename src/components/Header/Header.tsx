@@ -6,9 +6,6 @@ const Header = () => {
     return (
         <header className={style.header}>
             <div className={style.maxWidth}>
-                <Link href={'/'} className={style.logoCTA}>
-                    <h1 className={style.title}>@devfiro</h1>
-                </Link>
                 <ul className={style.nav}>
                     <li>
                         <Link href={'/blog'}>블로그</Link>
@@ -23,6 +20,9 @@ const Header = () => {
                         <Link href={'/contact'}>문의하기</Link>
                     </li>
                 </ul>
+                <Link href={'/'} className={style.logoCTA}>
+                    <h1 className={style.title}>devfiro</h1>
+                </Link>
                 <Link href={'mailto:hello@de vfiro.com'} className={style.email}>
                     <HiOutlineMail size={20}/>
                     <span>hello@devfiro.com</span>
