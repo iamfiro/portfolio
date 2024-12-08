@@ -1,0 +1,48 @@
+.container {
+    @include flex(row, center, center, 50);
+
+    width: 90vw;
+    height: 100vh;
+
+    z-index: 100;
+    position: relative;
+
+    margin: 0 auto;
+
+    border-radius: 30px;
+
+    background-color: #EAEAEA;
+}
+
+.mockup {
+    width: 230px;
+    height: 500px;
+}
+
+@keyframes upDown {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+.mockup {
+    animation: upDown 4s infinite;
+
+    &:first-child {
+        animation-delay: 0.5s;
+
+        margin-top: -30px;
+    }
+
+    &:last-child {
+        animation-delay: 1s;
+
+        margin-bottom: -90px;
+    }
+}
