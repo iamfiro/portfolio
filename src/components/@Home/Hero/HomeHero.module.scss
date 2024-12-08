@@ -134,7 +134,15 @@
     .content {
         color: $text-description-color;
 
-        @include textOverflow(3);
+        display: -webkit-box;
+        display: -ms-flexbox;
+
+        overflow:hidden;
+
+        text-overflow: ellipsis;
+
+        -webkit-box-orient:vertical;
+        -webkit-line-clamp: 3;
     }
 
     .category {
