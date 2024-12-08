@@ -1,0 +1,153 @@
+.wrap {
+    width: 100%;
+    height: calc(100vh - 50px);
+
+    padding: $padding;
+
+    @include flex;
+}
+
+.container {
+    @include maxWidth();
+    @include flex(column, space-between);
+
+    padding: 60px 0 20px 0;
+}
+
+.top {
+    @include flex(row, space-between, flex-start);
+
+    padding-top: 50px;
+
+    .title {
+        font-size: 5rem;
+        font-weight: 600;
+        letter-spacing: -0.1rem;
+
+        color: $text-color;
+
+        margin: 0;
+
+        span:first-child {
+            color: $secondary-light;
+        }
+    }
+
+    .tag {
+        @include flex;
+
+        article {
+            padding: 15px 25px;
+
+            border-radius: 999px;
+
+            background-color: $background-secondary;
+            color: $secondary;
+
+            font-weight: 500;
+
+            &:first-child {
+                background-color: $black;
+
+                color: $white;
+            }
+        }
+    }
+}
+
+.bottom {
+    @include flex(row, null, flex-end, 80);
+}
+
+.recentProject {
+    @include flex(column);
+
+    img {
+        height: 180px;
+        aspect-ratio: 16/9;
+        object-fit: cover;
+    }
+
+    div {
+        @include flex(row, space-between, center, 15);
+
+        width: fit-content;
+
+        padding: 15px 25px;
+
+        background-color: $black;
+
+        span {
+            font-size: 1.1rem;
+            font-weight: 500;
+
+            color: $white;
+        }
+
+        svg {
+            @include icon(25px, $white);
+
+            transform: rotate(45deg);
+        }
+    }
+
+    .name {
+        margin-top: 10px;
+
+        font-weight: 600;
+        font-size: 1.2rem;
+    }
+}
+
+.recentBlog {
+    @include flex(column, null, null, 10);
+
+    width: 340px;
+
+    text-decoration: none;
+
+    &:hover {
+        cursor: pointer;
+    }
+
+    &:active {
+        opacity: 0.7;
+    }
+
+    .name {
+        @include flex(row, space-between, center);
+
+        span {
+            font-size: 1.2rem;
+            font-weight: 600;
+
+            color: $black;
+        }
+        svg {
+            @include icon(25px, $black);
+
+            transform: rotate(45deg);
+        }
+    }
+
+    .content {
+        color: $text-description-color;
+
+        @include textOverflow(3);
+    }
+
+    .category {
+        @include flex(row, null, center, 6);
+
+        color: $secondary;
+
+        span {
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        svg {
+            @include icon(14px);
+        }
+    }
+}
