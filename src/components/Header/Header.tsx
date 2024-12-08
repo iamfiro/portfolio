@@ -9,24 +9,24 @@ const Header = () => {
                 <Link href={'/'} className={style.logoCTA}>
                     <h1 className={style.title}>@devfiro</h1>
                 </Link>
-                <Link href={'mailto:hello@de vfiro.com'} className={style.email}>
-                    <HiOutlineMail size={20} />
-                    <span>hello@devfiro.com</span>
-                </Link>
                 <ul className={style.nav}>
                     <li>
-                        <Link href={'/blog'}>Blog</Link>
+                        <Link href={'/blog'}>블로그</Link>
                     </li>
                     <li>
-                        <Link href={'/project'}>Project</Link>
+                        <Link href={'/project'}>프로젝트</Link>
                     </li>
                     <li>
-                        <Link href={'/activity'}>Activity</Link>
+                        <Link href={'/activity'}>활동</Link>
                     </li>
                     <li>
-                        <Link href={'/contact'}>Contact</Link>
+                        <Link href={'/contact'}>문의하기</Link>
                     </li>
                 </ul>
+                <Link href={'mailto:hello@de vfiro.com'} className={style.email}>
+                    <HiOutlineMail size={20}/>
+                    <span>hello@devfiro.com</span>
+                </Link>
             </div>
         </header>
     )
