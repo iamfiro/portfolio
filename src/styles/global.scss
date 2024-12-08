@@ -1,6 +1,11 @@
 // Wanted Sans 폰트 불러오기
 @import url("https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css");
 
+body, html {
+    margin: 0;
+    padding: 0;
+}
+
 * {
     // padding, border를 포함한 요소의 전체 너비와 높이를 계산
     box-sizing: border-box;
