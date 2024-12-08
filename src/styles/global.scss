@@ -1,0 +1,9 @@
+// Wanted Sans 폰트 불러오기
+@import url("https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css");
+
+* {
+    // padding, border를 포함한 요소의 전체 너비와 높이를 계산
+    box-sizing: border-box;
+    // 모든 요소의 폰트를 Wanted Sans로 설정
+    font-family: "Wanted Sans Variable", "Wanted Sans", -apple-system, BlinkMacSystemFont, system-ui, "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+}
