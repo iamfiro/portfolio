@@ -1,5 +1,12 @@
+import {Header} from "@/components";
+
 export default function Home() {
     return (
-        <h1>페이지</h1>
+        <>
+            <Header />
+            <div style={{width: '100vw', height: '80vh', backgroundColor: '#EEE'}}>
+
+            </div>
+        </>
     );
 }
