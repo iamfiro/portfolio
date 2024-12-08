@@ -21,7 +21,7 @@ const HeroApp = () => {
         const scrollTrigger = {
             trigger: container,
             start: "top bottom",
-            end: "bottom bottom",
+            end: "bottom bottom+=150px",
             scrub: true,
         };
 
