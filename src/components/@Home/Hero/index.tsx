@@ -1,7 +1,6 @@
 import style from './HomeHero.module.scss';
 import { IoMdArrowUp } from "react-icons/io";
 import { BsRssFill } from "react-icons/bs";
-import Link from "next/link";
 
 const HomeHero = () => {
     return (
@@ -27,7 +26,7 @@ const HomeHero = () => {
                             <IoMdArrowUp/>
                         </div>
                     </article>
-                    <div href={'/blog/human-by-ai-persona'} className={style.recentBlog}>
+                    <div className={style.recentBlog}>
                         <div className={style.category}>
                             <BsRssFill />
                             <span>최근 블로그</span>
