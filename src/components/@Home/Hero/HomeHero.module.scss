@@ -100,7 +100,7 @@
 }
 
 .recentBlog {
-    @include flex(column, null, null, 10);
+    @include flex(column, null, null, 15);
 
     width: 340px;
 
