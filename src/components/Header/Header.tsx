@@ -10,23 +10,21 @@ const Header = () => {
                     <h1 className={style.title}>@devfiro</h1>
                 </Link>
                 <Link href={'mailto:hello@de vfiro.com'} className={style.email}>
-                    <HiOutlineMail />
+                    <HiOutlineMail size={20} />
                     <span>hello@devfiro.com</span>
                 </Link>
                 <ul className={style.nav}>
                     <li>
-                        <Link href={'/blog'}>블로그</Link>
+                        <Link href={'/blog'}>Blog</Link>
                     </li>
                     <li>
-                        <Link href={'/project'}>프로젝트</Link>
+                        <Link href={'/project'}>Project</Link>
                     </li>
                     <li>
-                        <Link href={'/activity'}>활동</Link>
+                        <Link href={'/activity'}>Activity</Link>
                     </li>
                     <li>
-                        <Link href={'/contact'}>
-                            연락하기
-                        </Link>
+                        <Link href={'/contact'}>Contact</Link>
                     </li>
                 </ul>
             </div>
