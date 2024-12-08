@@ -1,3 +1,6 @@
+@use "variables";
+@use "mixins";
+
 // Pretendard로 폰트 불러오기
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
 
@@ -12,19 +15,4 @@ body, html {
     box-sizing: border-box;
     // 모든 요소의 폰트를 Pretendard로 설정
     font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
-}
-
-:root {
-    --max-width: 1600px;
-
-    // Colors
-    --black: #000;
-    --white: #fff;
-    --color-background-secondary: #EEE;
-    --color-secondary: #9e9e9e;
-    --color-secondary-text: #818181;
-    --color-text: #333;
-    --color-border: #d5d5d5;
-
-    --padding: 0 50px;
 }
