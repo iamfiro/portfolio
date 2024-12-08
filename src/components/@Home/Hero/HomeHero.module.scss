@@ -101,7 +101,6 @@
 
 .recentBlog {
     @include flex(column, null, null, 10);
-    gap: 10px;
 
     width: 340px;
 
@@ -134,15 +133,7 @@
     .content {
         color: $text-description-color;
 
-        display: -webkit-box;
-        display: -ms-flexbox;
-
-        overflow:hidden;
-
-        text-overflow: ellipsis;
-
-        -webkit-box-orient:vertical;
-        -webkit-line-clamp: 3;
+        @include textOverflow($clamp: 3)
     }
 
     .category {
