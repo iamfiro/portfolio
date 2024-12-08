@@ -1,6 +1,6 @@
 .wrap {
     width: 100%;
-    height: calc(100vh - 50px);
+    height: calc(100vh - 20px);
 
     padding: $padding;
 
@@ -11,7 +11,7 @@
     @include maxWidth();
     @include flex(column, space-between);
 
-    padding: 60px 0 20px 0;
+    padding: 60px 0 40px 0;
 }
 
 .top {
