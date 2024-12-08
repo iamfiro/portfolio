@@ -15,13 +15,14 @@ body, html {
 }
 
 :root {
-    --max-width: 1400px;
+    --max-width: 1600px;
 
     // Colors
+    --color-background-secondary: #EEE;
     --color-secondary: #9e9e9e;
     --color-secondary-text: #818181;
     --color-text: #333;
-    --color-border: #ececec;
+    --color-border: #d5d5d5;
 
     --padding: 0 20px;
 }
