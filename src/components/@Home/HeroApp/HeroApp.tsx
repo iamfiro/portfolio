@@ -22,9 +22,10 @@ const HeroApp = () => {
             {
                 borderRadius: 0,
                 width: '100%',
+                ease: 'power2.inOut',
                 scrollTrigger: {
                     trigger: containerRef.current,
-                    start: "top+=200px bottom",
+                    start: "top+=50px bottom",
                     end: "bottom bottom",
                     scrub: true,
                 },
