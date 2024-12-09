@@ -38,7 +38,6 @@ const HomeHero = () => {
                 start: 'top top',
                 end: 'bottom-=150px center',
                 scrub: true,
-                markers: true,
             }
         });
     }, []);
