@@ -6,41 +6,14 @@ import {useEffect, useRef} from "react";
 import {gsap} from "gsap";
 import {ScrollTrigger} from "gsap/ScrollTrigger";
 import RecentBlogPost from "@/components/@Home/RecentBlogPost/RecentBlogPost";
+import {useHeroAnimation} from "@/components/@Home/Hero/Hero.hook";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const HomeHero = () => {
     const containerRef = useRef<HTMLDivElement>(null);
 
-    useEffect(() => {
-        if(!containerRef.current) return;
-
-        gsap.fromTo(containerRef.current, {
-            marginTop: 0,
-        }, {
-            y: '20vh',
-            ease: 'linear',
-
-            scrollTrigger: {
-                trigger: containerRef.current,
-                start: 'top top',
-                end: 'bottom top',
-                scrub: true,
-            }
-        });
-
-        gsap.to(containerRef.current, {
-            opacity: 0,
-            ease: 'linear',
-
-            scrollTrigger: {
-                trigger: containerRef.current,
-                start: 'top top',
-                end: 'bottom-=150px center',
-                scrub: true,
-            }
-        });
-    }, []);
+    useHeroAnimation({containerRef});
 
     return (
         <div className={style.wrap} ref={containerRef}>
