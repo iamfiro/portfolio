@@ -1,7 +1,9 @@
+'use client'
+
 import style from './HomeHero.module.scss';
-import { IoMdArrowUp } from "react-icons/io";
 import RecentBlogPost from "@/components/@Home/RecentBlogPost/RecentBlogPost";
 import {useHeroAnimation} from "@/components/@Home/Hero/Hero.hook";
+import RecentProject from "@/components/@Home/RecentProject/RecentProject";
 
 const HomeHero = () => {
     const containerRef = useHeroAnimation();
@@ -22,13 +24,7 @@ const HomeHero = () => {
                     </section>
                 </div>
                 <section className={style.bottom}>
-                    <article className={style.recentProject}>
-                        <img src="/project/nodream.png" alt="hero-image"/>
-                        <div>
-                            <span>최근 프로젝트</span>
-                            <IoMdArrowUp/>
-                        </div>
-                    </article>
+                    <RecentProject />
                     <RecentBlogPost />
                 </section>
             </div>
