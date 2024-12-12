@@ -1,11 +1,14 @@
-import {RefObject, useEffect} from "react";
+'use client'
+
+import {Ref, useEffect, useRef} from "react";
 import {gsap} from "gsap";
+import {ScrollTrigger} from "gsap/ScrollTrigger";
 
-interface UseHeroAnimationProps {
-	containerRef: RefObject<HTMLDivElement>
-}
+gsap.registerPlugin(ScrollTrigger);
 
-export const useHeroAnimation = ({containerRef}: UseHeroAnimationProps) => {
+export const useHeroAnimation = (): Ref<HTMLDivElement> => {
+	const containerRef = useRef<HTMLDivElement>(null);
+
     useEffect(() => {
         if(!containerRef.current) return;
 
@@ -35,4 +38,6 @@ export const useHeroAnimation = ({containerRef}: UseHeroAnimationProps) => {
             }
         });
     }, []);
+
+	return containerRef;
 }

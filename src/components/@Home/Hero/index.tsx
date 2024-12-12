@@ -1,19 +1,10 @@
-'use client'
-
 import style from './HomeHero.module.scss';
 import { IoMdArrowUp } from "react-icons/io";
-import {useEffect, useRef} from "react";
-import {gsap} from "gsap";
-import {ScrollTrigger} from "gsap/ScrollTrigger";
 import RecentBlogPost from "@/components/@Home/RecentBlogPost/RecentBlogPost";
 import {useHeroAnimation} from "@/components/@Home/Hero/Hero.hook";
 
-gsap.registerPlugin(ScrollTrigger);
-
 const HomeHero = () => {
-    const containerRef = useRef<HTMLDivElement>(null);
-
-    useHeroAnimation({containerRef});
+    const containerRef = useHeroAnimation();
 
     return (
         <div className={style.wrap} ref={containerRef}>
