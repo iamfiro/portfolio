@@ -1,46 +1,10 @@
-'use client'
-
 import style from './HomeHero.module.scss';
 import { IoMdArrowUp } from "react-icons/io";
-import {useEffect, useRef} from "react";
-import {gsap} from "gsap";
-import {ScrollTrigger} from "gsap/ScrollTrigger";
 import RecentBlogPost from "@/components/@Home/RecentBlogPost/RecentBlogPost";
-
-gsap.registerPlugin(ScrollTrigger);
+import {useHeroAnimation} from "@/components/@Home/Hero/Hero.hook";
 
 const HomeHero = () => {
-    const containerRef = useRef<HTMLDivElement>(null);
-
-    useEffect(() => {
-        if(!containerRef.current) return;
-
-        gsap.fromTo(containerRef.current, {
-            marginTop: 0,
-        }, {
-            y: '20vh',
-            ease: 'linear',
-
-            scrollTrigger: {
-                trigger: containerRef.current,
-                start: 'top top',
-                end: 'bottom top',
-                scrub: true,
-            }
-        });
-
-        gsap.to(containerRef.current, {
-            opacity: 0,
-            ease: 'linear',
-
-            scrollTrigger: {
-                trigger: containerRef.current,
-                start: 'top top',
-                end: 'bottom-=150px center',
-                scrub: true,
-            }
-        });
-    }, []);
+    const containerRef = useHeroAnimation();
 
     return (
         <div className={style.wrap} ref={containerRef}>
