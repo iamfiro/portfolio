@@ -8,11 +8,12 @@ export const useHeroAppContainerAnimation = (): Ref<HTMLDivElement> => {
 	const containerRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
-		const container = containerRef.current;
-		if (!container) return;
+		if (!containerRef.current) {
+			throw Error('containerRef가 Element를 참조하지 않습니다.');
+		}
 
 		const scrollTrigger = {
-			trigger: container,
+			trigger: containerRef.current,
 			start: "top bottom",
 			end: "bottom bottom+=150px",
 			scrub: true,
@@ -20,7 +21,7 @@ export const useHeroAppContainerAnimation = (): Ref<HTMLDivElement> => {
 
 		// 메인 애니메이션
 		gsap.fromTo(
-			container,
+			containerRef.current,
 			{
 				borderRadius: 50,
 				width: '90%',
