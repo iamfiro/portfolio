@@ -41,7 +41,7 @@ export const useHeroAnimation = (): Ref<HTMLDivElement> => {
                 scrub: true,
             }
         });
-    }, []);
+    });
 
 	return containerRef;
 }

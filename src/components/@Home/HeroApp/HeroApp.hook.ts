@@ -40,7 +40,7 @@ export const useHeroAppContainerAnimation = (): Ref<HTMLDivElement> => {
 		return () => {
 			ScrollTrigger.getAll().forEach(t => t.kill());
 		};
-	}, []);
+	});
 
 	return containerRef;
 }
