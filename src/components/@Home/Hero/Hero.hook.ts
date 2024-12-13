@@ -12,6 +12,10 @@ export const useHeroAnimation = (): Ref<HTMLDivElement> => {
     useEffect(() => {
         if(!containerRef.current) return;
 
+        if (!containerRef) {
+			throw Error('containerRef가 Element를 참조하지 않습니다.');
+		}
+
         gsap.fromTo(containerRef.current, {
             marginTop: 0,
         }, {
@@ -37,7 +41,7 @@ export const useHeroAnimation = (): Ref<HTMLDivElement> => {
                 scrub: true,
             }
         });
-    }, []);
+    });
 
 	return containerRef;
 }

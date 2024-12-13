@@ -1,0 +1,39 @@
+.recentProject {
+    @include flex(column);
+
+    img {
+        height: 180px;
+        aspect-ratio: 16/9;
+        object-fit: cover;
+    }
+
+    div {
+        @include flex(row, space-between, center, 15);
+
+        width: fit-content;
+
+        padding: 15px 25px;
+
+        background-color: $black;
+
+        span {
+            font-size: 1.1rem;
+            font-weight: 500;
+
+            color: $white;
+        }
+
+        svg {
+            @include icon(25px, $white);
+
+            transform: rotate(45deg);
+        }
+    }
+
+    .name {
+        margin-top: 10px;
+
+        font-weight: 600;
+        font-size: 1.2rem;
+    }
+}
