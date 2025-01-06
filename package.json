@@ -1,0 +1,13 @@
+{
+  "name": "portfolio",
+  "version": "1.0.0",
+  "description": "",
+  "main": "iamfiro의 뽀뜨뽈리오 사이트",
+  "keywords": [],
+  "license": "ISC",
+  "author": {
+    "name": "Sungju Cho",
+    "email": "hello@devfiro.com",
+    "url": "https://github.com/iamfiro"
+  }
+}
