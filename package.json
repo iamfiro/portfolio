@@ -5,6 +5,11 @@
   "main": "iamfiro의 뽀뜨뽈리오 사이트",
   "keywords": [],
   "license": "ISC",
+  "scripts": {
+    "shared": "pnpm -F @portfolio/shared",
+    "web": "pnpm -F @portfolio/web",
+    "dev": "pnpm -r dev"
+  },
   "author": {
     "name": "Sungju Cho",
     "email": "hello@devfiro.com",
