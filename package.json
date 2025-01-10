@@ -1,18 +1,25 @@
 {
   "name": "portfolio",
-  "version": "1.0.0",
-  "description": "",
-  "main": "iamfiro의 뽀뜨뽈리오 사이트",
-  "keywords": [],
-  "license": "ISC",
+  "version": "0.1.0",
+  "private": true,
   "scripts": {
-    "shared": "pnpm -F @portfolio/shared",
-    "web": "pnpm -F @portfolio/web",
-    "dev": "pnpm -r dev"
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
-  "author": {
-    "name": "Sungju Cho",
-    "email": "hello@devfiro.com",
-    "url": "https://github.com/iamfiro"
+  "dependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "next": "15.1.4"
+  },
+  "devDependencies": {
+    "typescript": "^5",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "15.1.4",
+    "@eslint/eslintrc": "^3"
   }
 }
