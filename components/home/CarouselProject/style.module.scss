@@ -9,5 +9,10 @@
 }
 
 .image {
+    width: auto;
+    height: 500px;
+
+    border: 1px solid $color-border;
+
     border-radius: 16px;
 }

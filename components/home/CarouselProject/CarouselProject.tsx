@@ -31,10 +31,10 @@ const CarouselProjectItem = ({name, stack, imageSrc}: CarouselProjectItemProps) 
 		<Flex justify="start" className={s.container} gap={14}>
 			<Image
 				className={s.image}
-				src={TestImage}
+				src={imageSrc}
 				alt={name}
-				height={500}
-				width={undefined}
+				height={10}
+				width={2000}
 			/>
             <Flex justify='between'>
                 <span>{name}</span>
