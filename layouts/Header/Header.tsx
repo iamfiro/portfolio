@@ -2,10 +2,9 @@ import { Flex } from '@creative-kit/react'
 
 import s from './style.module.scss'
 
-import { PropsWithChildren } from 'react'
 import Image from 'next/image'
 
-const Header = ({ children }: PropsWithChildren) => {
+const Header = () => {
 	return (
 		<Flex justify="center" direction="row" className={s.container}>
 			<header className={s.header}>
@@ -34,5 +33,3 @@ const Header = ({ children }: PropsWithChildren) => {
 }
 
 export default Header
-
-//

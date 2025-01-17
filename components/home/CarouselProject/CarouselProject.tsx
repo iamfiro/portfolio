@@ -4,7 +4,6 @@ import { PropsWithChildren } from 'react';
 import s from './style.module.scss';
 
 import Image from 'next/image';
-import TestImage from '@/public/a.png';
 
 import { AvailableTechStack } from '@/constants/Project';
 import { StaticImport } from 'next/dist/shared/lib/get-img-props';
