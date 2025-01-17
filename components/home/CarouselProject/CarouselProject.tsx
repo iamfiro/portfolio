@@ -5,8 +5,9 @@ import s from './style.module.scss';
 
 import Image from 'next/image';
 
-import { AvailableTechStack } from '@/constants/Project';
+import { AvailableTechStack, humanizeTechStackName } from '@/constants/Project';
 import { StaticImport } from 'next/dist/shared/lib/get-img-props';
+import StackIcon from '@/components/ui/StackIcon/StackIcon';
 
 const CarouselProject = ({ children }: PropsWithChildren) => {
 	return (
@@ -25,7 +26,11 @@ interface CarouselProjectItemProps {
 	imageSrc: string | StaticImport;
 }
 
-const CarouselProjectItem = ({name, stack, imageSrc}: CarouselProjectItemProps) => {
+const CarouselProjectItem = ({
+	name,
+	stack,
+	imageSrc,
+}: CarouselProjectItemProps) => {
 	return (
 		<Flex justify="start" className={s.container} gap={14}>
 			<Image
@@ -35,10 +40,20 @@ const CarouselProjectItem = ({name, stack, imageSrc}: CarouselProjectItemProps) 
 				height={10}
 				width={2000}
 			/>
-            <Flex justify='between'>
-                <span>{name}</span>
-                {stack}
-            </Flex>
+			<Flex justify="between">
+				<span>{name}</span>
+				<Flex gap={8}>
+					{stack.map((stackName) => (
+						<StackIcon
+							key={stackName}
+							iconName={stackName}
+							size={18}
+							showTooltip
+                            tooltipName={humanizeTechStackName(stackName)}
+						/>
+					))}
+				</Flex>
+			</Flex>
 		</Flex>
 	);
 };
