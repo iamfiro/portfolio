@@ -87,6 +87,15 @@ $loader-color-secondary: #000;
         justify-content: center;
         align-items: center;
     }
+
+    &.fullRadius {
+        border-radius: 999px;
+    }
+
+    &.fullWidth {
+        width: 100%;
+        display: block;
+    }
 }
 
 .loader {

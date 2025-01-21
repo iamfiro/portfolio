@@ -7,6 +7,9 @@ interface ButtonBaseProps {
 	variant?: 'primary' | 'secondary';
 	size?: 'sm' | 'md' | 'lg';
 
+    fullRadius?: boolean;
+    fullWidth?: boolean;
+
 	leadingIcon?: React.ReactNode;
 	trailingIcon?: React.ReactNode;
 
@@ -18,16 +21,16 @@ type ButtonProps = ButtonBaseProps & PropsWithChildren
 const Button = forwardRef(function Button(props: ButtonProps, ref: Ref<any>) {
 	const {
 		variant = 'primary',
-		size = 'lg',
-		leadingIcon,
-		trailingIcon,
+		size = 'md',
+		leadingIcon, trailingIcon,
+        fullRadius, fullWidth,
 		children,
 		isLoading,
 		...rest
 	} = props;
 
     const as = props.href ? 'a' : 'button';
-    const className = `${s.button} ${isLoading ? s.loading : ''}`;
+    const className = `${s.button} ${isLoading ? s.loading : ''} ${fullRadius ? s.fullRadius : ''} ${fullWidth ? s.fullWidth : ''}`;
     const render = isLoading ? (
         <span className={s.loader} />
     ) : (

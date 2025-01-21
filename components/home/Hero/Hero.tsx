@@ -16,10 +16,9 @@ const Hero = () => {
 			</h1>
 			<h2 className={s.description}>부가 설명입니다.</h2>
 			<Button
-				variant="primary"
-				size="md"
 				leadingIcon={<GrArticle />}
                 href='#blog'
+                fullRadius
 			>
 				블로그 방문하기
 			</Button>
