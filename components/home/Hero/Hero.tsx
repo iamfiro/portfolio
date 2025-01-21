@@ -1,7 +1,9 @@
 import Button from '@/components/ui/Button/Button';
 import s from './style.module.scss';
 
+import { MdAlternateEmail } from 'react-icons/md';
 import { GrArticle } from 'react-icons/gr';
+import { Flex } from '@creative-kit/react';
 
 const Hero = () => {
 	return (
@@ -15,13 +17,23 @@ const Hero = () => {
 				도전하는 것을 즐깁니다.
 			</h1>
 			<h2 className={s.description}>부가 설명입니다.</h2>
-			<Button
-				leadingIcon={<GrArticle />}
-                href='#blog'
-                fullRadius
-			>
-				블로그 방문하기
-			</Button>
+			<Flex direction="column" gap={6}>
+				<Button
+					leadingIcon={<MdAlternateEmail />}
+					href="#blog"
+					fullRadius
+				>
+					appturbo102@gmail.com
+				</Button>
+				<Button
+					variant="secondary"
+					leadingIcon={<GrArticle />}
+					href="#blog"
+					fullRadius
+				>
+					블로그 방문하기
+				</Button>
+			</Flex>
 		</section>
 	);
 };

@@ -1,4 +1,4 @@
-import { ComponentPropsWithRef, createElement, forwardRef, HTMLAttributes, PropsWithChildren, Ref } from 'react';
+import { createElement, forwardRef, PropsWithChildren, Ref } from 'react';
 import s from './style.module.scss';
 
 interface ButtonBaseProps {
@@ -18,6 +18,7 @@ interface ButtonBaseProps {
 
 type ButtonProps = ButtonBaseProps & PropsWithChildren
 
+// @typescript-eslint/no-explicit-any
 const Button = forwardRef(function Button(props: ButtonProps, ref: Ref<any>) {
 	const {
 		variant = 'primary',

@@ -1,5 +1,4 @@
 import { Flex } from '@creative-kit/react';
-import { PropsWithChildren } from 'react';
 
 import s from './style.module.scss';
 

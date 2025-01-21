@@ -1,0 +1,30 @@
+.title {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.subTitle {
+    font-size: 18px;
+    font-weight: 500;
+
+    color: $color-text-secondary;
+
+    margin-bottom: 10px;
+}
+
+.stackWrapper {
+    padding: 10px 0;
+}
+
+.descriptionList {
+    list-style-type: disc;
+
+    margin: 10px 0 20px 0;
+    padding: 0 14px;
+
+    color: $color-text-secondary;
+
+    font-size: 14px;
+    line-height: 25px;
+}
