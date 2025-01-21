@@ -1,0 +1,18 @@
+[
+    {
+        "id": "tapie-rebranding",
+        "name": "테이피 웹사이트 리브랜딩",
+        "description": "테이피 웹사이트 리브랜딩",
+        "stack": ["react", "nextjs"],
+        "image": "tapie/brand.png",
+        "date": "2021-07-01"
+    },
+    {
+        "id": "nodream",
+        "name": "온디바이스 졸음운전 방지 AI 서비스 - Nodream",
+        "description": "테이피 웹사이트 리브랜딩",
+        "stack": ["react", "nextjs"],
+        "image": "nodream/thumbnail.png",
+        "date": "2021-07-01"
+    }
+]
