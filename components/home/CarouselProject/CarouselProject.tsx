@@ -3,59 +3,24 @@ import { PropsWithChildren } from 'react';
 
 import s from './style.module.scss';
 
-import Image from 'next/image';
+import project from '@/public/projects/_carouselProject.json'
 
-import { AvailableTechStack, humanizeTechStackName } from '@/constants/Project';
-import { StaticImport } from 'next/dist/shared/lib/get-img-props';
-import StackIcon from '@/components/ui/StackIcon/StackIcon';
+import CarouselProjectItem from './CarouselProjectItem';
+import { AvailableTechStack } from '@/constants/Project';
 
-const CarouselProject = ({ children }: PropsWithChildren) => {
+const CarouselProject = () => {
 	return (
 		<Flex gap={20} className={s.wrapper}>
-			{children}
+			{project.map((item, index) => (
+				<CarouselProjectItem
+					key={index}
+					name={item.name}
+					stack={item.stack as AvailableTechStack[]}
+					imageSrc={item.image}
+				/>
+			))}
 		</Flex>
 	);
 };
 
 export default CarouselProject;
-
-// Item
-interface CarouselProjectItemProps {
-	name: string;
-	stack: AvailableTechStack[];
-	imageSrc: string | StaticImport;
-}
-
-const CarouselProjectItem = ({
-	name,
-	stack,
-	imageSrc,
-}: CarouselProjectItemProps) => {
-	return (
-		<Flex justify="start" className={s.container} gap={12}>
-			<Image
-				className={s.image}
-				src={imageSrc}
-				alt={name}
-				height={10}
-				width={2000}
-			/>
-			<Flex justify="between">
-				<span className={s.projectName}>{name}</span>
-				<Flex gap={8}>
-					{stack.map((stackName) => (
-						<StackIcon
-							key={stackName}
-							iconName={stackName}
-							size={14}
-							showTooltip
-                            tooltipName={humanizeTechStackName(stackName)}
-						/>
-					))}
-				</Flex>
-			</Flex>
-		</Flex>
-	);
-};
-
-CarouselProject.Item = CarouselProjectItem;
