@@ -1,4 +1,4 @@
-import { AvailableTechStack, humanizeTechStackName } from '@/constants/Project';
+import { humanizeTechStackName } from '@/constants/Project';
 import Image from 'next/image';
 
 import s from './style.module.scss';
@@ -16,7 +16,7 @@ interface ProjectItemProps {
 }
 
 const ProjectItem = (props: ProjectItemProps) => {
-	const { title, description, image, link, date, stack } = props;
+	const { title, description, image, link, stack } = props;
 
 	return (
 		<a href={link} className={s.projectLink}>
