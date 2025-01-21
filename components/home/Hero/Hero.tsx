@@ -23,7 +23,7 @@ const Hero = () => {
 					href="#blog"
 					fullRadius
 				>
-					appturbo102@gmail.com
+					hello@devfiro.com
 				</Button>
 				<Button
 					variant="secondary"
