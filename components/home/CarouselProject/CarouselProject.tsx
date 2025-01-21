@@ -32,7 +32,7 @@ const CarouselProjectItem = ({
 	imageSrc,
 }: CarouselProjectItemProps) => {
 	return (
-		<Flex justify="start" className={s.container} gap={14}>
+		<Flex justify="start" className={s.container} gap={12}>
 			<Image
 				className={s.image}
 				src={imageSrc}
@@ -41,13 +41,13 @@ const CarouselProjectItem = ({
 				width={2000}
 			/>
 			<Flex justify="between">
-				<span>{name}</span>
+				<span className={s.projectName}>{name}</span>
 				<Flex gap={8}>
 					{stack.map((stackName) => (
 						<StackIcon
 							key={stackName}
 							iconName={stackName}
-							size={18}
+							size={14}
 							showTooltip
                             tooltipName={humanizeTechStackName(stackName)}
 						/>
