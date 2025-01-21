@@ -21,7 +21,7 @@ const CarouselProjectItem = ({
 		<Flex justify="start" className={s.container} gap={12}>
 			<Image
 				className={s.image}
-				src={imageSrc}
+				src={`/projects/${imageSrc}`}
 				alt={name}
 				height={10}
 				width={2000}

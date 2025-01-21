@@ -2,26 +2,26 @@
     {
         "name": "테이피 웹사이트 리브랜딩",
         "stack": ["react", "nextjs"],
-        "image": "/a.png"
+        "image": "tapie/brand.png"
     },
     {
         "name": "프레시오",
         "stack": ["react"],
-        "image": "/projects/fresio/onboard_main.png"
+        "image": "fresio/onboard_main.png"
     },
     {
         "name": "프레시오",
         "stack": ["react"],
-        "image": "/projects/fresio/onboard_timer.png"
+        "image": "fresio/onboard_timer.png"
     },
     {
         "name": "프레시오",
         "stack": ["react"],
-        "image": "/projects/fresio/onboard_diet.png"
+        "image": "fresio/onboard_diet.png"
     },
     {
         "name": "프레시오",
         "stack": ["react"],
-        "image": "/projects/fresio/setting.png"
+        "image": "fresio/setting.png"
     }
 ]
