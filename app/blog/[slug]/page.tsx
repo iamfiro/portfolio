@@ -6,15 +6,14 @@ import { MDXRemote } from 'next-mdx-remote/rsc';
 import { Flex } from '@creative-kit/react';
 
 interface PageProps {
-	params: {
+	params: Promise<{
 		slug: string;
-	};
-	searchParams: { [key: string]: string | string[] | undefined };
+	}>;
 }
 
-export async function generateMetadata(
-	{ params }: PageProps,
-): Promise<Metadata> {
+export async function generateMetadata({
+	params,
+}: PageProps): Promise<Metadata> {
 	const { slug } = await params;
 	const post = await parseMDX(`posts/content/${slug}.mdx`);
 
