@@ -1,5 +1,7 @@
 import type { NextConfig } from 'next';
 import createMDX from '@next/mdx';
+import rehypeCodeTitles from 'rehype-code-titles';
+import rehypePrism from 'rehype-prism-plus';
 
 const nextConfig: NextConfig = {
 	sassOptions: {
@@ -19,6 +21,11 @@ const nextConfig: NextConfig = {
 	}
 };
 
-const withMDX = createMDX({})
+const withMDX = createMDX({
+	options: {
+		rehypePlugins: [rehypeCodeTitles, rehypePrism],
+		remarkPlugins: [],
+	}
+})
 
 export default withMDX(nextConfig);

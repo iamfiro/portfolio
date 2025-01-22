@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -22,6 +22,8 @@
     "react-dom": "^19.0.0",
     "react-icons": "^5.4.0",
     "reading-time": "^1.5.0",
+    "rehype-code-titles": "^1.2.0",
+    "rehype-prism-plus": "^2.0.0",
     "sass": "^1.83.1"
   },
   "devDependencies": {
