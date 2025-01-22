@@ -7,3 +7,13 @@
 
     margin: 0 auto;
 }
+
+.blogLayout {
+    gap: 40px;
+
+    width: min($max-width-blog, 100%);
+
+    padding: 40px 20px 0 20px;
+
+    margin: 0 auto;
+}
