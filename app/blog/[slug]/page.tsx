@@ -14,7 +14,6 @@ interface PageProps {
 
 export async function generateMetadata(
 	{ params }: PageProps,
-	parent: ResolvingMetadata,
 ): Promise<Metadata> {
 	const { slug } = await params;
 	const post = await parseMDX(`posts/content/${slug}.mdx`);
