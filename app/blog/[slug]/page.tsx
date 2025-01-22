@@ -1,7 +1,7 @@
 import { BlogHeader } from '@/layouts/BlogHeader';
 import BlogLayout from '@/layouts/BlogLayout';
 import { getAllPosts, parseMDX, parseMDXDetail } from '@/lib/mdx';
-import { Metadata, ResolvingMetadata } from 'next';
+import { Metadata } from 'next';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import { Flex } from '@creative-kit/react';
 
