@@ -1,0 +1,47 @@
+.postGroupYear {
+    color: $color-text-secondary;
+
+    font-size: 16px;
+    font-family: $font-ridi;
+}
+
+.postListItem {
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    transition: all 0.3s ease-in-out;
+
+    span {
+        font-size: 16px;
+
+        font-family: $font-ridi;
+        color: $color-text-primary;
+
+        padding: 5px;
+        margin: -5px;
+
+        border-radius: 6px;
+
+        // 날짜
+        &:last-child {
+            color: $color-text-secondary;
+        }
+    }
+
+    &:hover {
+        cursor: pointer;
+
+        transition: all 0.2s ease-in-out;
+
+        span {
+            background-color: $color-surface-tertiary;
+        }
+
+        & ~ .postListItem {
+            opacity: 0.5;
+        }
+    }
+}
