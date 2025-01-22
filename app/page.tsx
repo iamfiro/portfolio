@@ -1,3 +1,4 @@
+import { Award } from '@/components/home/Award';
 import CarouselProject from '@/components/home/CarouselProject/CarouselProject';
 import { Hero } from '@/components/home/Hero';
 import { Project } from '@/components/home/Project';
@@ -11,6 +12,7 @@ const Page = () => {
 			<HomeLayout>
 				<Hero />
 				<Project />
+				<Award />
 				<Stack />
 			</HomeLayout>
 		</>

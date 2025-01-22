@@ -9,6 +9,7 @@ import { ProjectStackType } from './shared';
 
 const Project = () => {
     const projectList = projects.slice(0, 3);
+    
 	return (
 		<section>
 			<h1 className={s.title}>프로젝트</h1>

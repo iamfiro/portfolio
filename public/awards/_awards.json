@@ -1,0 +1,26 @@
+[
+    {
+        "id": "donghaeng-2024",
+        "name": "동행 해커톤 창의재단이사장상(2위)",
+        "date": "2024",
+        "description": "창의재단이사장상 수상"
+    },
+    {
+        "id": "appjam-27th",
+        "name": "앱잼 27th 미래부문 최우수상(1위)",
+        "date": "2024",
+        "description": "앱잼 27th 최우수상 수상"
+    },
+    {
+        "id": "sunrin-thon-10th",
+        "name": "선린톤 10th 금상 (1위)",
+        "date": "2024",
+        "description": "선린톤 10th 금상 수상"
+    },
+    {
+        "id": "sunrin-algorithm-2024",
+        "name": "천하제일 코딩대회 은상 (2위위)",
+        "date": "2024",
+        "description": "천하제일 코딩대회 은상 수상"
+    }
+]

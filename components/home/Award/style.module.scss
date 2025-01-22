@@ -1,0 +1,28 @@
+.title {
+    @include HomeTitle()
+}
+
+.awardTitle {
+    font-size: 18px;
+    font-weight: 500;
+
+    margin: 0;
+}
+
+.awardDate {
+    font-size: 18px;
+    font-weight: 500;
+
+    color: $color-text-secondary;
+
+    margin: 0;
+}
+
+.awardDescription {
+    font-size: 14px;
+    font-weight: 400;
+
+    color: $color-text-secondary;
+
+    margin-top: 10px;
+}
