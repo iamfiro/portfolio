@@ -1,10 +1,9 @@
-import { serialize } from 'next-mdx-remote/serialize';
-import { BlogBody } from '@/layouts/BlogBody';
 import { BlogHeader } from '@/layouts/BlogHeader';
 import BlogLayout from '@/layouts/BlogLayout';
 import { getAllPosts, parseMDX, parseMDXDetail } from '@/lib/mdx';
 import { Metadata, ResolvingMetadata } from 'next';
 import { MDXRemote } from 'next-mdx-remote/rsc';
+import { Flex } from '@creative-kit/react';
 
 interface PageProps {
 	params: {
@@ -17,7 +16,7 @@ export async function generateMetadata(
 	{ params }: PageProps,
 	parent: ResolvingMetadata,
 ): Promise<Metadata> {
-	const {slug} = await params;
+	const { slug } = await params;
 	const post = await parseMDX(`posts/content/${slug}.mdx`);
 
 	return {
@@ -55,14 +54,16 @@ export async function generateStaticParams() {
 }
 
 const Page = async ({ params }: PageProps) => {
-	const {slug} = await params;
+	const { slug } = await params;
 
 	const post = await parseMDXDetail(`posts/content/${slug}.mdx`);
 
 	return (
 		<BlogLayout>
 			<BlogHeader {...post} />
-			<MDXRemote source={post.content} />
+			<Flex direction="column">
+				<MDXRemote source={post.content} />
+			</Flex>
 		</BlogLayout>
 	);
 };

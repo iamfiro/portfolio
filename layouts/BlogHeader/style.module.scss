@@ -20,4 +20,10 @@
     margin-top: 14px;
 
     border-radius: 12px;
+
+    width: 100%;
+    height: fit-content;
+    aspect-ratio: 16/9;
+
+    object-fit: cover;
 }
