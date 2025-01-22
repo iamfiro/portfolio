@@ -6,14 +6,22 @@ import { ProjectStackType } from './shared';
 import { Flex } from '@creative-kit/react';
 import StackIcon from '@/components/ui/StackIcon/StackIcon';
 
-interface ProjectItemProps {
+type ProjectMetadata = {
 	title: string;
 	description: string;
+	date: string;
+};
+
+type ProjectAsset = {
 	image: string;
 	link: string;
-	date: string;
+};
+
+type ProjectTechnology = {
 	stack: ProjectStackType;
-}
+};
+
+interface ProjectItemProps extends ProjectMetadata, ProjectAsset, ProjectTechnology {}
 
 const ProjectItem = (props: ProjectItemProps) => {
 	const { title, description, image, link, stack } = props;
