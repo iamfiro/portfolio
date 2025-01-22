@@ -6,6 +6,9 @@ import { getAllPosts } from "@/lib/mdx";
 
 const PostRootPage = async () => {
     const posts = await getAllPosts();
+
+    console.log(posts);
+
     return (
         <BlogLayout>
             <BlogRootHero />
@@ -14,6 +17,7 @@ const PostRootPage = async () => {
                     id: post.filePath,
                     name: post.data.title,
                     date: post.data.date,
+                    filePath: post.filePath,
                 }))
             }/>
         </BlogLayout>

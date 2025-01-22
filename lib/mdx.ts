@@ -7,9 +7,12 @@ import path from 'path';
  * @param mdxSource
  * @returns
  */
-export const parseMDX = async (mdxSource: string) => {
-	const { content, data } = matter(mdxSource);
-	return { content, data };
+export const parseMDX = async (mdxSource: string, fileName?: string) => {
+    const { content, data } = matter(mdxSource);
+    return {
+        content,
+        data,
+    };
 };
 
 /***

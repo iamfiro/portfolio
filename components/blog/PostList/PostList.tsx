@@ -21,6 +21,7 @@ const PostList = ({ posts }: PostListProps) => {
 					{yearPosts.map((post) => (
 						<PostListItem
 							key={post.id}
+                            id={post.id}
 							name={post.name}
 							date={post.date}
 							isOtherItemHovered={isOtherItemHovered(post.id)}
