@@ -1,4 +1,4 @@
-import { Flex } from '@creative-kit/react';
+import { getMonthAndDay } from '@/lib/date';
 import s from './style.module.scss';
 
 interface PostListItemProps {
@@ -17,7 +17,7 @@ const PostListItem = ({ name, date, isOtherItemHovered, onHover }: PostListItemP
             onMouseLeave={() => onHover(false)}
         >
             <span className={s.postListItemName}>{name}</span>
-            <span className={s.postListItemDate}>{date}</span>
+            <span className={s.postListItemDate}>{getMonthAndDay(date)}</span>
         </a>
     );
 }

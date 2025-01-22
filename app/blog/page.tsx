@@ -2,22 +2,20 @@ import {BlogRootHero} from "@/components/blog/Hero";
 import { PostList } from "@/components/blog/PostList";
 import BlogLayout from "@/layouts/BlogLayout";
 
+import { getAllPosts } from "@/lib/mdx";
+
 const PostRootPage = async () => {
+    const posts = await getAllPosts();
     return (
         <BlogLayout>
             <BlogRootHero />
-            <PostList posts={[
-                {
-                    id: '1',
-                    name: '프론트엔드 개발자가 되기 위한 로드맵',
-                    date: '01. 01.',
-                },
-                {
-                    id: '2',
-                    name: '디자이너가 사랑하는 상업용 무료 폰트 명조체 5가지',
-                    date: '04. 02.',
-                }
-            ]}/>
+            <PostList posts={
+                posts.map((post) => ({
+                    id: post.filePath,
+                    name: post.data.title,
+                    date: post.data.date,
+                }))
+            }/>
         </BlogLayout>
     );
 }

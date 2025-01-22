@@ -20,7 +20,7 @@ const Hero = () => {
 			<Flex direction="column" gap={6}>
 				<Button
 					leadingIcon={<MdAlternateEmail />}
-					href="#blog"
+					href="mailto:hello@devfiro"
 					fullRadius
 				>
 					hello@devfiro.com
@@ -28,7 +28,7 @@ const Hero = () => {
 				<Button
 					variant="secondary"
 					leadingIcon={<GrArticle />}
-					href="#blog"
+					href="/blog"
 					fullRadius
 				>
 					블로그 방문하기

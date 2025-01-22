@@ -1,29 +1,38 @@
-'use client'
+'use client';
 
-import { useState } from 'react';
 import PostListGroup from './PostGroup';
 import PostListItem from './PostItem';
+import { usePostsByYear } from '@/hooks/blog/useSortPostsByYear';
+import { useHover } from '@/hooks/blog/usePostItemHover';
+import { PostItem } from '@/types/blog';
 
 interface PostListProps {
-    posts: { id: string; name: string, date: string }[];
+	posts: PostItem[];
 }
 
 const PostList = ({ posts }: PostListProps) => {
-    const [hoveredItem, setHoveredItem] = useState<string | null>(null);
+	const { isOtherItemHovered, handleHover } = useHover();
+	const groupedPosts = usePostsByYear(posts);
 
-    return (
-        <PostListGroup year={2024}>
-            {posts.map((post) => (
-                <PostListItem 
-                    key={post.id}
-                    name={post.name}
-                    date={post.date}
-                    isOtherItemHovered={hoveredItem !== null && hoveredItem !== post.id}
-                    onHover={(isHovered) => setHoveredItem(isHovered ? post.id : null)}
-                />
-            ))}
-        </PostListGroup>
-    );
-}
+	return (
+		<>
+			{groupedPosts.map(([year, yearPosts]) => (
+				<PostListGroup key={year} year={parseInt(year)}>
+					{yearPosts.map((post) => (
+						<PostListItem
+							key={post.id}
+							name={post.name}
+							date={post.date}
+							isOtherItemHovered={isOtherItemHovered(post.id)}
+							onHover={(isHovered) =>
+								handleHover(post.id, isHovered)
+							}
+						/>
+					))}
+				</PostListGroup>
+			))}
+		</>
+	);
+};
 
 export default PostList;
