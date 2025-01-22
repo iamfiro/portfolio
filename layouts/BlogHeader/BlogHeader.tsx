@@ -39,7 +39,6 @@ const BlogHeader = (props: BlogHeaderProps) => {
                 width={1200}
                 height={630}
                 className={s.thumbnail}
-                layout="responsive"
             />
 		</header>
 	);

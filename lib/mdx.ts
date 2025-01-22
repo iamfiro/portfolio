@@ -17,8 +17,6 @@ export const parseMDX = async (mdxPath: string) => {
 		// MDX 파일을 파싱합니다
 		const { content, data } = matter(fileContent);
 
-		console.log(data);
-
 		return {
 			content,
 			data,

@@ -7,8 +7,6 @@ import { getAllPosts } from "@/lib/mdx";
 const PostRootPage = async () => {
     const posts = await getAllPosts();
 
-    console.log(posts);
-
     return (
         <BlogLayout>
             <BlogRootHero />
