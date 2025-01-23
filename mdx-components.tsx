@@ -5,7 +5,7 @@ import Image from 'next/image';
 import s from '@/styles/blog.module.scss';
 import Link from 'next/link';
 
-export function useMDXComponents(components: MDXComponents): MDXComponents {
+export function MDXComponents(components: MDXComponents): MDXComponents {
 	return {
 		img: (props) => (
 			<Image

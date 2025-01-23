@@ -13,7 +13,7 @@ import rehypeCodeTitles from 'rehype-code-titles';
 import '@/styles/prism-gh.scss';
 
 import s from '@/styles/blog.module.scss';
-import { useMDXComponents } from '@/mdx-components';
+import { MDXComponents } from '@/mdx-components';
 
 interface PageProps {
 	params: Promise<{
@@ -61,10 +61,6 @@ export async function generateStaticParams() {
 	}));
 }
 
-const rehypeOptions = {
-	keepBackground: true,
-};
-
 const Page = async ({ params }: PageProps) => {
 	const { slug } = await params;
 
@@ -77,7 +73,7 @@ const Page = async ({ params }: PageProps) => {
 				<Flex direction="column" className={s.b}>
 					<MDXRemote
 						source={post.content}
-						components={useMDXComponents({})}
+						components={MDXComponents({})}
 						options={{
 							mdxOptions: {
 								remarkPlugins: [remarkGfm],

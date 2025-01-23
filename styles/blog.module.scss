@@ -1,5 +1,4 @@
 .b {
-    font-weight: 300 !important;
     h1 {
         font-size: 20px;
         font-weight: 600;
@@ -74,7 +73,7 @@
     }
 
     blockquote {
-        margin: 0;
+        margin: 0 0 14px 0;
         padding: 3px 15px;
 
         border-left: 4px solid $color-border;
