@@ -96,6 +96,30 @@
     pre {
         margin: 0 0 14px 0;
     }
+
+    table {
+        width: fit-content;
+        border-collapse: collapse;
+
+        table, th, td {
+            border: 1px solid $color-border;
+        }
+
+        td {
+            min-width: 60px;
+            padding: 10px 15px;
+
+            font-weight: 400;
+        }
+
+        th {
+            padding: 10px 15px;
+        }
+
+        tr:nth-child(2n) {
+            background-color: $color-surface-secondary;
+        }
+    }
 }
 
 .imageComponent {
