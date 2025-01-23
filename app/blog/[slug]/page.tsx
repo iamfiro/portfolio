@@ -14,6 +14,7 @@ import '@/styles/prism-gh.scss';
 
 import s from '@/styles/blog.module.scss';
 import { MDXComponents } from '@/mdx-components';
+import Giscus from '@/components/blog/Giscus/Giscus';
 
 interface PageProps {
 	params: Promise<{
@@ -87,6 +88,7 @@ const Page = async ({ params }: PageProps) => {
 						}}
 					/>
 				</Flex>
+				<Giscus />
 			</BlogLayout>
 		</div>
 	);
