@@ -58,7 +58,7 @@
         }
     }
 
-    a {
+    a:not([data-type="heading"]) {
         color: $color-primary;
 
         text-decoration: underline;

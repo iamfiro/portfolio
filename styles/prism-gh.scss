@@ -9,7 +9,6 @@ code[class*="language-"] {
   color: #24292f;
   font-size: 13px;
   text-shadow: none;
-  font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
   direction: ltr;
   text-align: left;
   white-space: pre;
@@ -158,14 +157,4 @@ pre[class*="language-"] > code[class*="language-"] {
     content: attr(line);
 
     font-size: 12px;
-}
-
-
-
-.code-line.inserted {
-  background-color: rgba(16, 185, 129, 0.2); /* Set inserted line (+) color */
-}
-
-.code-line.deleted {
-  background-color: rgba(239, 68, 68, 0.2); /* Set deleted line (-) color */
 }
