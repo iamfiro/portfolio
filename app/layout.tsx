@@ -20,7 +20,7 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang="ko">
+		<html lang="ko" data-arp="true">
 			<body className={`${RIDIFont.className} ${JetbrainsMono.className}`}>
 				{children}
 			</body>
