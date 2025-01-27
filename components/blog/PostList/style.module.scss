@@ -47,3 +47,20 @@
         }
     }
 }
+
+.postListItemName {
+    max-width: 85%;
+
+
+    // width 넘어가면 ... 처리
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+@media (max-width: 520px) {
+    .postGroupContainer {
+        flex-direction: column;
+        gap: 15px !important;
+    }   
+}
