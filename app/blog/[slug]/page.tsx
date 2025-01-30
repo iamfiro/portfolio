@@ -16,6 +16,7 @@ import s from '@/styles/blog.module.scss';
 import { MDXComponents } from '@/mdx-components';
 import Giscus from '@/components/blog/Giscus/Giscus';
 import { TOC } from '@/components/blog/TOC';
+import Footer from '@/layouts/Footer/Footer';
 
 interface PageProps {
 	params: Promise<{
@@ -91,6 +92,7 @@ const Page = async ({ params }: PageProps) => {
 					/>
 				</Flex>
 				<Giscus />
+				<Footer />
 			</BlogLayout>
 		</div>
 	);
