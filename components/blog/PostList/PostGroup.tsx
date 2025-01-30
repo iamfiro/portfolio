@@ -10,7 +10,7 @@ interface PostListGroupProps extends PropsWithChildren {
 
 const PostListGroup = ({children, year}: PostListGroupProps) => {
     return (
-        <Flex gap={40}>
+        <Flex gap={40} className={s.postGroupContainer}>
             <span className={s.postGroupYear}>{year}</span>
             <Flex direction='column' gap={20} style={{width: '100%'}}>
                 {children}

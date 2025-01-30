@@ -2,7 +2,7 @@
     {
         "name": "테이피 웹사이트 리브랜딩",
         "stack": ["react", "nextjs"],
-        "image": "tapie/brand.png"
+        "image": "tapie/brand.webp"
     },
     {
         "name": "프레시오",

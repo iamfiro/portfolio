@@ -15,6 +15,7 @@ import '@/styles/prism-gh.scss';
 import s from '@/styles/blog.module.scss';
 import { MDXComponents } from '@/mdx-components';
 import Giscus from '@/components/blog/Giscus/Giscus';
+import { TOC } from '@/components/blog/TOC';
 
 interface PageProps {
 	params: Promise<{
@@ -69,6 +70,7 @@ const Page = async ({ params }: PageProps) => {
 
 	return (
 		<div>
+			<TOC />
 			<BlogLayout>
 				<BlogHeader {...post} />
 				<Flex direction="column" className={s.b}>

@@ -1,6 +1,6 @@
 import s from './style.module.scss';
 
-interface HeadingProps extends React.HTMLAttributes<HTMLHeadingElement> {}
+type HeadingProps = React.HTMLAttributes<HTMLHeadingElement>;
 
 const Heading = (props: HeadingProps) => {
 	return (
