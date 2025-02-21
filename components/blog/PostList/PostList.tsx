@@ -5,6 +5,7 @@ import PostListItem from './PostItem';
 import { usePostsByYear } from '@/hooks/blog/useSortPostsByYear';
 import { useHover } from '@/hooks/blog/usePostItemHover';
 import { PostItem } from '@/types/blog';
+import { Flex } from '@creative-kit/react';
 
 interface PostListProps {
 	posts: PostItem[];
@@ -15,7 +16,7 @@ const PostList = ({ posts }: PostListProps) => {
 	const groupedPosts = usePostsByYear(posts);
 
 	return (
-		<>
+		<Flex direction='column' gap={30}>
 			{groupedPosts.map(([year, yearPosts]) => (
 				<PostListGroup key={year} year={parseInt(year)}>
 					{yearPosts.map((post) => (
@@ -32,7 +33,7 @@ const PostList = ({ posts }: PostListProps) => {
 					))}
 				</PostListGroup>
 			))}
-		</>
+		</Flex>
 	);
 };
 
