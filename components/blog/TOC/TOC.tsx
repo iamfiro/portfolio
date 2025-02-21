@@ -28,7 +28,7 @@ const TOC = () => {
 			headingElementList.forEach((header) => observer.unobserve(header));
 		};
 	}, [pathname]);
-
+	
 	if(!headingElements.length) return null;
 
 	return (
