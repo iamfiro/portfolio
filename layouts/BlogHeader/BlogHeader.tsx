@@ -33,13 +33,15 @@ const BlogHeader = (props: BlogHeaderProps) => {
 					<span className={s.date}>{readingMinutes}분</span>
 				</Flex>
 			</Flex>
-            <Image
-                src={thumbnail}
-                alt={title}
-                width={1200}
-                height={630}
-                className={s.thumbnail}
-            />
+			{thumbnail && (
+				<Image
+					src={thumbnail}
+					alt={title}
+					width={1200}
+					height={630}
+					className={s.thumbnail}
+				/>
+			)}
 		</header>
 	);
 };
