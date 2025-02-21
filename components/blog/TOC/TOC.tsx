@@ -29,9 +29,7 @@ const TOC = () => {
 		};
 	}, [pathname]);
 
-	useEffect(() => {
-		console.log(currentId);
-	}, [currentId]);
+	if(!headingElements.length) return null;
 
 	return (
 		<div className={s.container}>
