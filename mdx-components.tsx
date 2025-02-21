@@ -12,9 +12,12 @@ export function MDXComponents(components: MDXComponents): MDXComponents {
 		img: (props) => (
 			<Image
 				{...props}
-				width={1140}
-				height={1600}
+				width={560}
+				height={320}
+				alt={props.alt}
 				className={s.imageComponent}
+				quality={75} // Add quality attribute for image optimization
+				loading="lazy" // Add lazy loading for better performance
 			/>
 		),
 		a: (props) => <Link {...props} className={s.link} />,
