@@ -27,3 +27,31 @@
         }
     }
 }
+
+.hyperlinkContainer {
+    width: 100%;
+
+    .hyperlink {
+        width: 100%;
+
+        padding: $spacing-moderate $spacing-medium;
+
+        text-decoration: none;
+
+        svg, span {
+            color: $text-secondary;
+        }
+
+        .left {
+            gap: $spacing-moderate;
+        }
+
+        &.active {
+            background-color: $background-invert;
+
+            svg, span {
+                color: $text-inverted;
+            }
+        }
+    }
+}
