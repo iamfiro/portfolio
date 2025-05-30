@@ -1,6 +1,7 @@
 import { VStack } from "@/components/ui";
 import { SidebarHeader, SidebarHyperlink } from "@/components/ui/sidebar";
 import { HyperLink } from "@/components/ui/sidebar/shared";
+import SidebarSocial from "@/components/ui/sidebar/parts/Social";
 
 import s from "./style.module.scss";
 
@@ -31,6 +32,7 @@ export default function Sidebar() {
     return (
         <VStack className={s.sidebar}>
             <SidebarHeader />
+            <SidebarSocial />
             <SidebarHyperlink links={hyperlink} />
         </VStack>
     )

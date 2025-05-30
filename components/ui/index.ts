@@ -6,3 +6,5 @@ export { default as Sidebar } from "@/components/ui/sidebar/Sidebar";
 export * from "@/components/ui/sidebar/shared";
 
 export { default as Typo } from "@/components/ui/typo/Typography";
+
+export { default as Divider } from "@/components/ui/divider/Divider";

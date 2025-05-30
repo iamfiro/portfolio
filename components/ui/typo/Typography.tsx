@@ -1,6 +1,6 @@
 import React, { ElementType } from 'react';
 
-import s from './style.module.scss';
+import s from './style.module.scss'
 
 type Variant = 'micro' | 'caption' | 'subtext' | 'body' | 'bodyLarge' | 'headline' | 'title';
 

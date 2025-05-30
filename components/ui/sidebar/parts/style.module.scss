@@ -55,3 +55,48 @@
         }
     }
 }
+
+.social {
+    height: 50px;
+    width: 100%;
+
+    .email {
+        min-width: 205px;
+
+        border: 0;
+
+        background-color: $background-accent;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: $spacing-moderate;
+
+        color: $text-inverted;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
+    .socialButton {
+        width: 100%;
+
+        text-decoration: none;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: $spacing-narrow;
+
+        color: $text-secondary;
+
+        &:hover {
+            opacity: 0.5;
+        }
+    }
+
+    .socialButton:first-child {
+        background-color: red;
+    }
+}
