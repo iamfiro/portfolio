@@ -23,7 +23,7 @@ export default function SidebarSocial() {
                 {isCopied ? (
                     <>
                         <CopyCheck size={18} />
-                        <Typo.Body>Copied!</Typo.Body>
+                        <Typo.Body>Copied!</Typo.Body>  
                     </>
                 ) : (
                     <>
@@ -33,13 +33,13 @@ export default function SidebarSocial() {
                 )}
             </button>
             <a href="https://github.com/iamfiro" target="_blank" className={s.socialButton}>
-                <Image src={'/svg/github.svg'} alt="Github" width={18} height={18} />
-                <Typo.Body>iamfiro</Typo.Body>
+                <Image src={'/svg/github.svg'} alt="Github" width={16} height={16} />
+                <Typo.Subtext>iamfiro</Typo.Subtext>
             </a>
             <Divider fullHeight />
             <a href="https://instagram.com/chxs_u" target="_blank" className={s.socialButton}>
-                <Image src={'/svg/instagram.svg'} alt="Instagram" width={18} height={18} />
-                <Typo.Body>chxs_u</Typo.Body>
+                <Image src={'/svg/instagram.svg'} alt="Instagram" width={16} height={16} />
+                <Typo.Subtext>chxs_u</Typo.Subtext>
             </a>
 
         </HStack>

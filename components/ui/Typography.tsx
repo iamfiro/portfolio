@@ -1,3 +1,4 @@
+import { GeistMono } from '@/lib/font';
 import React, { ElementType } from 'react';
 
 type Variant = 'micro' | 'caption' | 'subtext' | 'body' | 'bodyLarge' | 'headline' | 'title';
@@ -25,7 +26,7 @@ const Typo: Record<Capitalize<Variant>, React.FC<BaseProps>> = {} as never;
 	Typo[componentName] = ({style, as: Component = 'span', ...props}) => (
 		<Component
 			style={{...styles[key], ...style}}
-			className={`${props.className ?? ''}`}
+			className={`${props.className ?? ''} ${GeistMono.className}`}
 			{...props}
 		/>
 	);
