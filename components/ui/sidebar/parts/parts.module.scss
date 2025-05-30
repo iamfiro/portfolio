@@ -45,10 +45,10 @@
         }
 
         &.active {
-            background-color: var(--background-invert);
+            background-color: var(--background-accent);
 
             svg, span {
-                color: var(--text-inverted);
+                color: var(--text-accent);
             }
         }
     }
@@ -70,7 +70,7 @@
         justify-content: center;
         gap: var(--spacing-moderate);
 
-        color: var(--text-inverted);
+        color: var(--text-accent);
 
         &:hover {
             cursor: pointer;
