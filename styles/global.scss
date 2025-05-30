@@ -9,14 +9,12 @@ body, html {
   box-sizing: border-box;
 }
 
-span, p, h1, h2, h3, h4, label {
-  font-family: "Pretendard", sans-serif;
-  font-weight: 400;
-}
-
 main {
   width: 100%;
   min-height: 100vh;
 
   background-color: $background-default;
+
+  font-family: "Pretendard", sans-serif;
+  font-weight: 400;
 }

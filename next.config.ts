@@ -1,7 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  sassOptions: {
+    includePaths: ['./styles', './components'],
+    prependData: `@import "styles/token/color.scss"; @import "styles/token/radius.scss"; @import "styles/token/spacing.scss";`,
+  },
 };
 
 export default nextConfig;
