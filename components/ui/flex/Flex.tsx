@@ -1,7 +1,7 @@
 import {createElement, forwardRef, Ref} from "react";
 import cn from "classnames";
 
-import {FlexProps} from "@/components/ui/layout/flex/shared";
+import {FlexProps} from "@/components/ui/flex/shared";
 
 import s from './style.module.scss';
 

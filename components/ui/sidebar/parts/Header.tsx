@@ -2,7 +2,7 @@ import { Sun } from 'lucide-react';
 
 import { HStack, Typo } from '@/components/ui';
 
-import s from './style.module.scss';
+import s from './parts.module.scss';
 
 export default function SidebarHeader() {
     return (

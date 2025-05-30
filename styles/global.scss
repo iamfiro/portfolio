@@ -1,3 +1,63 @@
+@use './reset.scss';
+
+:root {
+  // Light mode (default)
+  --background-default: #FFFFFF;
+  --background-subtle: #efefef;
+  --background-disabled: #CCCCCC;
+  --background-accent: #121212;
+
+  --text-primary: #000000;
+  --text-secondary: #727272;
+  --text-disabled: #A0A0A0;
+  --text-accent: #FFFFFF;
+
+  --border-default: #e6e6e6;
+
+  // Radius
+  --radius-none: 0px;
+  --radius-tiny: 4px;
+  --radius-small: 8px;
+  --radius-medium: 12px;
+  --radius-large: 16px;
+  --radius-big: 20px;
+  --radius-huge: 32px;
+  --radius-full: 9999px;
+
+  // Shadow
+  --shadow-default: 0px 1px 2px rgba(0, 0, 0, 0.07);
+
+  // Spacing
+  --spacing-none: 0px;
+  --spacing-tiny: 4px;
+  --spacing-narrow: 6px;
+  --spacing-small: 8px;
+  --spacing-moderate: 12px;
+  --spacing-medium: 16px;
+  --spacing-large: 24px;
+  --spacing-big: 32px;
+  --spacing-huge: 40px;
+  --spacing-massive: 48px;
+  --spacing-colossal: 64px;
+}
+
+[data-theme="dark"] {
+  --background-default: #121212;
+  --background-subtle: #1e1e1e;
+  --background-disabled: #333333;
+  --background-accent: #FFFFFF;
+
+  --text-primary: #FFFFFF;
+  --text-secondary: #A0A0A0;
+  --text-disabled: #727272;
+  --text-accent: #000000;
+
+  --border-default: #333333;
+
+  // Shadow (다크모드에서는 더 강한 그림자)
+  --shadow-default: 0px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
 body, html {
   margin: 0;
   padding: 0;
@@ -10,6 +70,6 @@ body, html {
 main {
   width: 100%;
   min-height: 100vh;
-
-  background-color: $background-default;
+  background-color: var(--background-default);
+  color: var(--text-primary);
 }

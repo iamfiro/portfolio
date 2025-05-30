@@ -1,14 +1,14 @@
 .header {
     width: 100%;
     
-    padding: $spacing-small $spacing-medium;
+    padding: var(--spacing-small) var(--spacing-medium);
 
     display: flex;
     justify-content: space-between;
     align-items: center;
 
     .title {
-        gap: $spacing-small;
+        gap: var(--spacing-small);
 
         h1 {
             margin: 0;
@@ -18,10 +18,10 @@
     }
 
     .weather {
-        gap: $spacing-narrow;
+        gap: var(--spacing-narrow);
 
         span, svg {
-            color: $text-secondary;
+            color: var(--text-secondary);
         }
     }
 }
@@ -32,23 +32,23 @@
     .hyperlink {
         width: 100%;
 
-        padding: $spacing-moderate $spacing-medium;
+        padding: var(--spacing-moderate) var(--spacing-medium);
 
         text-decoration: none;
 
         svg, span {
-            color: $text-secondary;
+            color: var(--text-secondary);
         }
 
         .left {
-            gap: $spacing-moderate;
+            gap: var(--spacing-moderate);
         }
 
         &.active {
-            background-color: $background-invert;
+            background-color: var(--background-invert);
 
             svg, span {
-                color: $text-inverted;
+                color: var(--text-inverted);
             }
         }
     }
@@ -63,14 +63,14 @@
 
         border: 0;
 
-        background-color: $background-accent;
+        background-color: var(--background-accent);
 
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: $spacing-moderate;
+        gap: var(--spacing-moderate);
 
-        color: $text-inverted;
+        color: var(--text-inverted);
 
         &:hover {
             cursor: pointer;
@@ -85,13 +85,13 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: $spacing-small;
+        gap: var(--spacing-small);
 
-        color: $text-secondary;
+        color: var(--text-secondary);
 
         &:hover {
-            background-color: $background-subtle;
-            color: $text-primary;
+            background-color: var(--background-subtle);
+            color: var(--text-primary);
         }
     }
 

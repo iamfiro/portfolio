@@ -3,10 +3,10 @@
 import { BriefcaseBusiness, FolderKanban, Home, Rss } from "lucide-react";
 import { usePathname } from "next/navigation";
 
-import VStack from "@/components/ui/layout/VStack/VStack";
+import VStack from "@/components/ui/VStack";
 import { HStack, SidebarHyperlinkProps, Typo } from "@/components/ui";
 
-import s from './style.module.scss';
+import s from './parts.module.scss';
 
 const icons = {
     Home,

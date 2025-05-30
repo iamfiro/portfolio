@@ -6,7 +6,7 @@ import Image from "next/image";
 
 import { Divider, HStack, Typo } from "@/components/ui";
 
-import s from './style.module.scss'
+import s from './parts.module.scss'
 
 export default function SidebarSocial() {
     const [isCopied, setIsCopied] = useState(false);
