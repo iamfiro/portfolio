@@ -1,8 +1,0 @@
-{
-  "name": "ui",
-  "version": "0.0.0",
-  "main": "src/index.ts",
-  "dependencies": {
-    "react": "^18.2.0"
-  }
-}
