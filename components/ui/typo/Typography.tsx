@@ -1,7 +1,5 @@
 import React, { ElementType } from 'react';
 
-import s from './style.module.scss'
-
 type Variant = 'micro' | 'caption' | 'subtext' | 'body' | 'bodyLarge' | 'headline' | 'title';
 
 const styles: Record<Variant, React.CSSProperties> = {
@@ -27,7 +25,7 @@ const Typo: Record<Capitalize<Variant>, React.FC<BaseProps>> = {} as never;
 	Typo[componentName] = ({style, as: Component = 'span', ...props}) => (
 		<Component
 			style={{...styles[key], ...style}}
-			className={`${props.className ?? ''} ${s.text}`}
+			className={`${props.className ?? ''}`}
 			{...props}
 		/>
 	);
