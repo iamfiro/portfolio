@@ -12,7 +12,7 @@ export default function SidebarSocial() {
     const [isCopied, setIsCopied] = useState(false);
 
     const handleCopy = () => {
-        navigator.clipboard.writeText('firo@firo.dev');
+        navigator.clipboard.writeText('hello@devfiro.com');
         setIsCopied(true);
         setTimeout(() => setIsCopied(false), 2000);
     };
@@ -28,7 +28,7 @@ export default function SidebarSocial() {
                 ) : (
                     <>
                         <Copy size={18} />
-                        <Typo.Body>firo@firo.dev</Typo.Body>
+                        <Typo.Body>hi@devfiro.com</Typo.Body>
                     </>
                 )}
             </button>

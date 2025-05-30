@@ -9,7 +9,7 @@ interface DividerProps extends Partial<Pick<LayoutSizeProps, 'fullWidth' | 'full
 
 export default function Divider(props: DividerProps) {
     return <div className={s.divider} style={{
-        width: props.fullWidth ? '100%' : props.width ?? '2px',
-        height: props.fullHeight ? '100%' : props.height ?? '2px',
+        minWidth: props.fullWidth ? '100%' : props.width ?? '1px',
+        minHeight: props.fullHeight ? '100%' : props.height ?? '1px',
     }} />
 }

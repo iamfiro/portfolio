@@ -7,8 +7,6 @@
     justify-content: space-between;
     align-items: center;
 
-    border-bottom: 1px solid $border-default;
-
     .title {
         gap: $spacing-small;
 
@@ -57,7 +55,7 @@
 }
 
 .social {
-    height: 50px;
+    height: 45px;
     width: 100%;
 
     .email {
@@ -87,12 +85,13 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: $spacing-narrow;
+        gap: $spacing-small;
 
         color: $text-secondary;
 
         &:hover {
-            opacity: 0.5;
+            background-color: $background-subtle;
+            color: $text-primary;
         }
     }
 

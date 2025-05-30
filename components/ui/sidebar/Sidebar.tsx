@@ -1,4 +1,4 @@
-import { VStack } from "@/components/ui";
+import { Divider, VStack } from "@/components/ui";
 import { SidebarHeader, SidebarHyperlink } from "@/components/ui/sidebar";
 import { HyperLink } from "@/components/ui/sidebar/shared";
 import SidebarSocial from "@/components/ui/sidebar/parts/Social";
@@ -30,9 +30,16 @@ const hyperlink: HyperLink[] = [
 
 export default function Sidebar() {
     return (
-        <VStack className={s.sidebar}>
-            <SidebarHeader />
-            <SidebarSocial />
+        <VStack className={s.sidebar} justify="between">
+            <VStack fullWidth>
+                <SidebarHeader />
+                <Divider fullWidth />
+                <SidebarSocial />
+                <Divider fullWidth />
+            </VStack>
+            <VStack fullWidth fullHeight>
+                a
+            </VStack>
             <SidebarHyperlink links={hyperlink} />
         </VStack>
     )
