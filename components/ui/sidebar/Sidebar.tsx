@@ -1,9 +1,7 @@
 import { Divider, VStack } from "@/components/ui";
-
 import SidebarHeader from "@/components/ui/sidebar/parts/Header";
 import SidebarSocial from "@/components/ui/sidebar/parts/Social";
 import SidebarHyperlink from "@/components/ui/sidebar/parts/Hyperlink";
-
 import { HyperLink } from "@/components/ui/sidebar/shared";
 
 import s from "./style.module.scss";

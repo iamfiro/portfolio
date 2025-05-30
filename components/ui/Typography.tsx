@@ -1,5 +1,6 @@
-import { GeistMono } from '@/lib/font';
 import React, { ElementType } from 'react';
+
+import { GeistMono } from '@/lib/font';
 
 type Variant = 'micro' | 'caption' | 'subtext' | 'body' | 'bodyLarge' | 'headline' | 'title';
 
