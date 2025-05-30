@@ -1,4 +1,4 @@
-@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css");
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
 
 body, html {
   margin: 0;
@@ -15,6 +15,7 @@ main {
 
   background-color: $background-default;
 
-  font-family: "Pretendard", sans-serif;
+  font-family: "JetBrains Mono", sans-serif;
+  letter-spacing: .2px;
   font-weight: 400;
 }

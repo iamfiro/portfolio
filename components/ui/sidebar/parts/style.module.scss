@@ -1,0 +1,29 @@
+.header {
+    width: 100%;
+    
+    padding: $spacing-small $spacing-medium;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    border-bottom: 1px solid $border-default;
+
+    .title {
+        gap: $spacing-small;
+
+        h1 {
+            margin: 0;
+
+            font-weight: 400;
+        }
+    }
+
+    .weather {
+        gap: $spacing-narrow;
+
+        span, svg {
+            color: $text-secondary;
+        }
+    }
+}
