@@ -26,7 +26,7 @@ const Typo: Record<Capitalize<Variant>, React.FC<BaseProps>> = {} as never;
 	const componentName = key.charAt(0).toUpperCase() + key.slice(1) as Capitalize<Variant>;
 	Typo[componentName] = ({style, as: Component = 'span', ...props}) => (
 		<Component
-			style={{...styles[key], ...style}}
+			style={{...styles[key], ...style, fontWeight: 300}}
 			className={`${props.className ?? ''} ${GeistMono.className}`}
 			{...props}
 		/>
