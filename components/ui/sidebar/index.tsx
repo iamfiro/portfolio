@@ -1,8 +1,11 @@
 import { Divider, VStack } from "@/components/ui";
-import SidebarHeader from "@/components/ui/sidebar/parts/Header";
-import SidebarSocial from "@/components/ui/sidebar/parts/Social";
-import SidebarHyperlink from "@/components/ui/sidebar/parts/Hyperlink";
-import { HyperLink } from "@/components/ui/sidebar/shared";
+import SidebarContent from "@/components/ui/Sidebar/parts/Content";
+import SidebarHeader from "@/components/ui/Sidebar/parts/Header";
+import SidebarSocial from "@/components/ui/Sidebar/parts/Social";
+import SidebarHyperlink from "@/components/ui/Sidebar/parts/Hyperlink";
+import { HyperLink } from "@/components/ui/Sidebar/shared";
+import SidebarRecentBlogFetch from "@/components/ui/Sidebar/parts/RecentBlog";
+
 
 import s from "./style.module.scss";
 import SidebarLocalTime from "./parts/LocalTime";
@@ -41,8 +44,9 @@ export default function Sidebar() {
                 <SidebarLocalTime location="Korea, Seoul" />
                 <Divider fullWidth />
             </VStack>
-            <VStack fullWidth fullHeight>
-                a
+            <VStack fullWidth fullHeight className={s.content}>
+                <SidebarRecentBlogFetch />
+                <SidebarContent />
             </VStack>
             <SidebarHyperlink links={hyperlink} />
         </VStack>

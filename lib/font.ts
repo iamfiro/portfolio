@@ -18,4 +18,5 @@ export const GeistMono = localFont({
       style: 'normal',
     },
   ],
+  fallback: ['Pretendard Variable'],
 })

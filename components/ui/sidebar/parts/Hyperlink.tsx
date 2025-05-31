@@ -2,6 +2,7 @@
 
 import { BriefcaseBusiness, FolderKanban, Home, Rss } from "lucide-react";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
 
 import VStack from "@/components/ui/VStack";
 import { HStack, SidebarHyperlinkProps, Typo } from "@/components/ui";
@@ -26,14 +27,14 @@ export default function SidebarHyperlink({links}: SidebarHyperlinkProps) {
                 const isActive = pathname === link.href;
 
                 return (
-                    <a href={link.href} className={`${s.hyperlink} ${isActive ? s.active : ''}`} key={link.href}>
+                    <Link href={link.href} className={`${s.hyperlink} ${isActive ? s.active : ''}`} key={link.href}>
                         <HStack align='center' justify="between" fullWidth>
                             <HStack className={s.left} align="center">
                                 {styledIcon}
                                 <Typo.Body>{link.label}</Typo.Body>
                             </HStack>
                         </HStack>
-                    </a>
+                    </Link>
                 )
             })}
         </VStack>

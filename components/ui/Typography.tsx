@@ -18,6 +18,7 @@ type BaseProps = React.HTMLAttributes<HTMLSpanElement> & {
 	style?: React.CSSProperties;
 	children?: React.ReactNode;
 	as?: ElementType;
+	weight?: number;
 };
 
 const Typo: Record<Capitalize<Variant>, React.FC<BaseProps>> = {} as never;
@@ -26,7 +27,7 @@ const Typo: Record<Capitalize<Variant>, React.FC<BaseProps>> = {} as never;
 	const componentName = key.charAt(0).toUpperCase() + key.slice(1) as Capitalize<Variant>;
 	Typo[componentName] = ({style, as: Component = 'span', ...props}) => (
 		<Component
-			style={{...styles[key], ...style, fontWeight: 300}}
+			style={{...styles[key], ...style, fontWeight: props.weight ?? 300}}
 			className={`${props.className ?? ''} ${GeistMono.className}`}
 			{...props}
 		/>

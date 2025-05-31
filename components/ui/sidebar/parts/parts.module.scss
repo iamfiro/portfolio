@@ -110,3 +110,13 @@
         gap: var(--spacing-tiny);
     }
 }
+
+.content {
+    div {
+        gap: var(--spacing-moderate);
+
+        .copyright {
+            color: var(--text-secondary);
+        }
+    }
+}

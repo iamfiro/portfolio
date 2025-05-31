@@ -1,6 +1,12 @@
 .sidebar {
-    width: 470px;
+    width: 500px;
     height: 100vh;
 
     border-right: 1px solid var(--border-default);
+}
+
+.content {
+    justify-content: space-between;
+
+    padding: var(--spacing-large);
 }
