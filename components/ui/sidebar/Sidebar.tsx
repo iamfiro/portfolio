@@ -5,6 +5,7 @@ import SidebarHyperlink from "@/components/ui/sidebar/parts/Hyperlink";
 import { HyperLink } from "@/components/ui/sidebar/shared";
 
 import s from "./style.module.scss";
+import SidebarLocalTime from "./parts/LocalTime";
 
 const hyperlink: HyperLink[] = [
     {
@@ -33,9 +34,11 @@ export default function Sidebar() {
     return (
         <VStack className={s.sidebar} justify="between">
             <VStack fullWidth>
-                <SidebarHeader />
+                <SidebarHeader name="Cho sung ju" weather="20°C" />
                 <Divider fullWidth />
-                <SidebarSocial />
+                <SidebarSocial email="hi@devfiro.com" githubId="iamfiro" instagramId="chxs_u" />
+                <Divider fullWidth />
+                <SidebarLocalTime location="Korea, Seoul" />
                 <Divider fullWidth />
             </VStack>
             <VStack fullWidth fullHeight>

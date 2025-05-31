@@ -5,21 +5,30 @@ import { useState } from "react";
 import Image from "next/image";
 
 import { Divider, HStack, Typo } from "@/components/ui";
+import { copyToClipboard } from "@/lib/clipboard";
 
 import s from './parts.module.scss'
 
-export default function SidebarSocial() {
+type Props = {
+    email: string;
+    githubId: string;
+    instagramId: string;
+}
+
+export default function SidebarSocial({ email, githubId, instagramId }: Props) {
     const [isCopied, setIsCopied] = useState(false);
 
-    const handleCopy = () => {
-        navigator.clipboard.writeText('hello@devfiro.com');
-        setIsCopied(true);
-        setTimeout(() => setIsCopied(false), 2000);
+    const handleCopyEmail = async () => {
+        const success = await copyToClipboard(email);
+        if (success) {
+            setTimeout(() => setIsCopied(true), 2000);
+        }
     };
+
 
     return (
         <HStack className={s.social}>
-            <button className={s.email} onClick={handleCopy}>
+            <button className={s.email} onClick={handleCopyEmail}>
                 {isCopied ? (
                     <>
                         <CopyCheck size={18} />
@@ -28,18 +37,18 @@ export default function SidebarSocial() {
                 ) : (
                     <>
                         <Copy size={18} />
-                        <Typo.Body>hi@devfiro.com</Typo.Body>
+                        <Typo.Body>{email}</Typo.Body>
                     </>
                 )}
             </button>
-            <a href="https://github.com/iamfiro" target="_blank" className={s.socialButton}>
+            <a href={`https://github.com/${githubId}`} target="_blank" className={s.socialButton}>
                 <Image src={'/svg/github.svg'} alt="Github" width={16} height={16} />
-                <Typo.Subtext>iamfiro</Typo.Subtext>
+                <Typo.Subtext>{githubId}</Typo.Subtext>
             </a>
             <Divider fullHeight />
-            <a href="https://instagram.com/chxs_u" target="_blank" className={s.socialButton}>
+            <a href={`https://instagram.com/${instagramId}`} target="_blank" className={s.socialButton}>
                 <Image src={'/svg/instagram.svg'} alt="Instagram" width={16} height={16} />
-                <Typo.Subtext>chxs_u</Typo.Subtext>
+                <Typo.Subtext>{instagramId}</Typo.Subtext>
             </a>
 
         </HStack>

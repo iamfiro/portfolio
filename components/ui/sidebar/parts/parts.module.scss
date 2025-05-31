@@ -17,6 +17,10 @@
         }
     }
 
+    .name {
+        text-transform: uppercase;
+    }
+
     .weather {
         gap: var(--spacing-narrow);
 
@@ -33,8 +37,6 @@
         width: 100%;
 
         padding: var(--spacing-moderate) var(--spacing-medium);
-
-        text-decoration: none;
 
         svg, span {
             color: var(--text-secondary);
@@ -61,8 +63,6 @@
     .email {
         min-width: 205px;
 
-        border: 0;
-
         background-color: var(--background-accent);
 
         display: flex;
@@ -71,16 +71,10 @@
         gap: var(--spacing-moderate);
 
         color: var(--text-accent);
-
-        &:hover {
-            cursor: pointer;
-        }
     }
 
     .socialButton {
         width: 100%;
-
-        text-decoration: none;
 
         display: flex;
         align-items: center;
@@ -97,5 +91,22 @@
 
     .socialButton:first-child {
         background-color: red;
+    }
+}
+
+.time {
+    width: 100%;
+
+    padding: var(--spacing-moderate) var(--spacing-medium);
+
+    color: var(--text-secondary);
+
+    justify-content: space-between;
+    align-items: center;
+
+    .left {
+        align-items: center;
+
+        gap: var(--spacing-tiny);
     }
 }

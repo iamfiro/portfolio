@@ -8,3 +8,5 @@ export * from "@/components/ui/sidebar/shared";
 export { default as Typo } from "@/components/ui/Typography";
 
 export { default as Divider } from "@/components/ui/Divider";
+
+export { default as TimeDisplay } from "@/components/ui/TimeDisplay";
