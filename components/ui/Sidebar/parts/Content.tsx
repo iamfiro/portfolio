@@ -7,7 +7,7 @@ export default function SidebarContent() {
         <VStack className={s.content}>
             <VStack>
                 <Typo.Headline>
-                   Hello, I'm Cho sung ju, A Frontend developer.
+                   Hello, I'm Cho sung ju, A Frontend developer building helpful services and exploring new technologies
                 </Typo.Headline>
                 <Typo.Body className={s.copyright}>© 2025</Typo.Body>
             </VStack>
