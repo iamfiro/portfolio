@@ -1,6 +1,5 @@
 @use './reset.scss';
 
-@import url("https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css");
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
 
 :root {
@@ -66,8 +65,14 @@ body, html {
   padding: 0;
 }
 
+body {
+  display: flex;
+}
+
 * {
   box-sizing: border-box;
+
+  font-weight: 500;
 }
 
 main {
@@ -86,4 +91,8 @@ button {
 a {
   text-decoration: none;
   color: inherit;
+}
+
+main {
+  padding: 30px;
 }
