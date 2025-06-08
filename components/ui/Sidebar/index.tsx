@@ -44,7 +44,7 @@ export default function Sidebar() {
             </VStack>
             <VStack fullWidth fullHeight className={s.content}>
                 {/* <SidebarRecentBlogFetch /> */}
-                <SidebarContent />
+                {/*<SidebarContent />*/}
             </VStack>
             <SidebarHyperlink links={hyperlink} />
         </VStack>
