@@ -1,0 +1,28 @@
+.heading{ 
+    position: relative;
+
+    text-decoration: none;
+    
+    color: $color-text-primary;
+
+    &:hover::before {
+        content: "#";
+
+        position: absolute;
+
+        display: inline-block;
+
+        width: 15px;
+        height: 15px;
+
+        left: calc(100% + .5rem);
+        top: 50%;
+        transform: translateY(-75%);
+
+        vertical-align: middle;
+        
+        opacity: 0.5;
+
+        transition: opacity 0.2s ease;
+    }
+}

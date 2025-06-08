@@ -1,7 +1,7 @@
 import {createElement, forwardRef, Ref} from "react";
 import cn from "classnames";
 
-import {FlexProps} from "@/components/ui/Flex/shared";
+import { flexAlign, flexDirection, flexJustify, FlexProps, flexWrap } from "@/components/ui/Flex/shared";
 
 import s from './style.module.scss';
 
@@ -20,18 +20,18 @@ const Flex = forwardRef(function Flex(props: FlexProps, ref: Ref<unknown>) {
     className: cn(
       s.flexLayout,
       {
-        [s.row]: direction === "row",
-        [s.column]: direction === "column",
-        [s.justifyStart]: justify === "start",
-        [s.justifyEnd]: justify === "end",
-        [s.justifyCenter]: justify === "center",
-        [s.justifyBetween]: justify === "between",
-        [s.justifyAround]: justify === "around",
-        [s.alignStart]: align === "start",
-        [s.alignEnd]: align === "end",
-        [s.alignCenter]: align === "center",
-        [s.alignStretch]: align === "stretch",
-        [s.wrap]: wrap === "wrap",
+        [s.row]: direction === flexDirection.row,
+        [s.column]: direction === flexDirection.column,
+        [s.justifyStart]: justify === flexJustify.start,
+        [s.justifyEnd]: justify === flexJustify.end,
+        [s.justifyCenter]: justify === flexJustify.center,
+        [s.justifyBetween]: justify === flexJustify.between,
+        [s.justifyAround]: justify === flexJustify.around,
+        [s.alignStart]: align === flexAlign.start,
+        [s.alignEnd]: align === flexAlign.end,
+        [s.alignCenter]: align === flexAlign.center,
+        [s.alignStretch]: align === flexAlign.stretch,
+        [s.wrap]: wrap === flexWrap.wrap,
         [s.fullHeight]: fullHeight,
         [s.fullWidth]: fullWidth,
       },

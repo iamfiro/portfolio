@@ -1,1 +1,0 @@
-export { default as BaseLayout } from "@/components/Layout/BaseLayout";

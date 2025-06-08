@@ -1,1 +1,0 @@
-export { default as BlogLinkCard } from "@/components/Blog/LinkCard"

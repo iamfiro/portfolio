@@ -1,0 +1,40 @@
+.title {
+    @include HomeTitle;
+}
+
+.projectLink {
+    text-decoration: none;
+}
+
+.projectItem {
+    display: flex;
+    flex-direction: column;
+
+    margin-bottom: 30px;
+
+    &:active {
+        transform: scale(0.98);
+    }
+}
+
+.projectThumbnail {
+    width: 100%;
+    height: fit-content;
+
+    aspect-ratio: 16/9; // 이미지가 16/9 형식을 지키도록 설정
+    object-fit: cover;
+
+    border-radius: 14px;
+}
+
+.projectName {
+    font-size: 18px;
+    font-weight: 500;
+
+    color: $color-text-primary;
+}
+
+.projectDescription {
+    margin-top: 10px;
+    color: $color-text-secondary;
+}

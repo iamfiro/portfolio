@@ -1,0 +1,1 @@
+export { default as CarouselProject } from './carousel-project';

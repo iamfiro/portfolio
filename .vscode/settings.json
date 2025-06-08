@@ -1,5 +1,24 @@
 {
     "files.exclude": {
         "**/node_modules": true
+    },
+    "editor.tabSize": 2,
+    "editor.insertSpaces": false,
+    "editor.detectIndentation": false,
+    "[typescript]": {
+        "editor.tabSize": 2,
+        "editor.insertSpaces": false
+    },
+    "[typescriptreact]": {
+        "editor.tabSize": 2,
+        "editor.insertSpaces": false
+    },
+    "[javascript]": {
+        "editor.tabSize": 2,
+        "editor.insertSpaces": false
+    },
+    "[javascriptreact]": {
+        "editor.tabSize": 2,
+        "editor.insertSpaces": false
     }
 }

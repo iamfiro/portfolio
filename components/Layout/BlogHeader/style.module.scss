@@ -1,0 +1,30 @@
+.title {
+    font-size: 18px;
+    font-weight: 500;
+
+    font-family: $font-ridi;
+}
+
+.date {
+    font-size: 14px;
+    color: $color-text-secondary;
+    
+    font-family: $font-ridi;
+}
+
+.icon {
+    font-size: 20px;
+    color: $color-text-secondary;
+}
+
+.thumbnail {
+    margin-top: 20px;
+
+    border-radius: 12px;
+
+    width: 100%;
+    height: fit-content;
+    aspect-ratio: 16/9;
+
+    object-fit: cover;
+}
