@@ -1,9 +1,10 @@
-import BaseLayout from "@/components/Layout/BaseLayout";
+import { BaseLayout } from "@/components/Layout";
+import { Title } from "@/components/ui";
 
 export default function Blog() {
   return (
     <BaseLayout>
-      <h1>Blog</h1>
+      <Title />
     </BaseLayout>
   );
 }

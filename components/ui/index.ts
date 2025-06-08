@@ -10,3 +10,5 @@ export { default as Typo } from "@/components/ui/Typography";
 export { default as Divider } from "@/components/ui/Divider";
 
 export { default as TimeDisplay } from "@/components/ui/TimeDisplay";
+
+export { default as Title } from "@/components/ui/Title";
