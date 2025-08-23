@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { useEffect, useRef } from "react";
-import * as THREE from "three";
+import { useEffect, useRef } from 'react';
+import * as THREE from 'three';
 
-import { displayShader, fluidShader, vertexSource } from "./shader";
+import { displayShader, fluidShader, vertexSource } from './shader';
 
 export interface FlutedGlassProps {
   /** 배경 텍스처 이미지 경로 (public 기준) */
@@ -35,10 +35,10 @@ const config = {
 };
 
 export default function FlutedGlass({
-  imageSrc: _imageSrc = "/background.jpg",
+  imageSrc: _imageSrc = '/background.jpg',
   className,
-  width = "100%",
-  height = "100%",
+  width = '100%',
+  height = '100%',
   useDevicePixelRatio = true,
 }: FlutedGlassProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -51,10 +51,10 @@ export default function FlutedGlass({
       canvas,
       antialias: true,
       alpha: true,
-      powerPreference: "high-performance",
+      powerPreference: 'high-performance',
     });
     renderer.setPixelRatio(
-      useDevicePixelRatio ? Math.min(window.devicePixelRatio || 1, 2) : 1,
+      useDevicePixelRatio ? Math.min(window.devicePixelRatio || 1, 2) : 1
     );
 
     // 공용 카메라/지오메트리(풀스크린)
@@ -67,7 +67,7 @@ export default function FlutedGlass({
         minFilter: THREE.LinearFilter,
         magFilter: THREE.LinearFilter,
         format: THREE.RGBAFormat,
-      },
+      }
     );
 
     const fluidTarget2 = new THREE.WebGLRenderTarget(
@@ -77,7 +77,7 @@ export default function FlutedGlass({
         minFilter: THREE.LinearFilter,
         magFilter: THREE.LinearFilter,
         format: THREE.RGBAFormat,
-      },
+      }
     );
 
     let currentFluidTarget = fluidTarget1;
@@ -92,7 +92,7 @@ export default function FlutedGlass({
         iResolution: {
           value: new THREE.Vector2(
             renderer.domElement.width,
-            renderer.domElement.height,
+            renderer.domElement.height
           ),
         },
         iMouse: { value: new THREE.Vector4(0, 0, 0, 0) },
@@ -114,7 +114,7 @@ export default function FlutedGlass({
         iResolution: {
           value: new THREE.Vector2(
             renderer.domElement.width,
-            renderer.domElement.height,
+            renderer.domElement.height
           ),
         },
         iFluid: { value: currentFluidTarget.texture },
@@ -156,12 +156,12 @@ export default function FlutedGlass({
         mouseX,
         mouseY,
         prevMouseX,
-        prevMouseY,
+        prevMouseY
       );
     }
 
-    document.addEventListener("mousemove", handleMouseMove);
-    document.addEventListener("mouseleave", handleMouseLeave);
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseleave', handleMouseLeave);
 
     function animate() {
       requestAnimationFrame(animate);
@@ -234,7 +234,7 @@ export default function FlutedGlass({
       frameCount = 0;
     };
 
-    window.addEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
 
     // 초기 크기 설정 및 애니메이션 시작
     initializeSize();
@@ -242,9 +242,9 @@ export default function FlutedGlass({
 
     // cleanup 함수
     return () => {
-      window.removeEventListener("resize", handleResize);
-      canvas.removeEventListener("mousemove", handleMouseMove);
-      canvas.removeEventListener("mouseleave", handleMouseLeave);
+      window.removeEventListener('resize', handleResize);
+      canvas.removeEventListener('mousemove', handleMouseMove);
+      canvas.removeEventListener('mouseleave', handleMouseLeave);
 
       // 리소스 정리
       geometry.dispose();
@@ -432,7 +432,7 @@ export default function FlutedGlass({
     >
       <canvas
         ref={canvasRef}
-        style={{ width: "100%", height: "100%", display: "block" }}
+        style={{ width: '100%', height: '100%', display: 'block' }}
       />
     </div>
   );

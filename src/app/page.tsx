@@ -1,7 +1,7 @@
-import { FlutedGlass } from "@/components/ui/fluted-glass";
-import Header from "@/components/ui/header";
+import { FlutedGlass } from '@/components/ui/fluted-glass';
+import Header from '@/components/ui/header';
 
-import s from "@/styles/app/page.module.scss";
+import s from '@/styles/app/page.module.scss';
 
 export default function Home() {
   return (
