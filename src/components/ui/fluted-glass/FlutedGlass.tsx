@@ -16,6 +16,22 @@ export interface FlutedGlassProps {
   className?: string;
   /** 고해상도 스케일링 사용 여부 (기본 true) */
   useDevicePixelRatio?: boolean;
+  /** 디바이스 픽셀 비율 상한 (기본 1.5) */
+  maxPixelRatio?: number;
+  /** 시뮬레이션 해상도 스케일 (0~1, 기본 0.5) */
+  simResolutionScale?: number;
+  /** 목표 FPS (기본 30) */
+  targetFPS?: number;
+  /** 유휴 상태일 때 FPS (기본 8, 0이면 완전 일시정지) */
+  idleFPS?: number;
+  /** 탭 비활성화 시 일시정지 (기본 true) */
+  pauseOnHidden?: boolean;
+  /** 입력 유휴 시 저전력 모드 (기본 true) */
+  pauseWhenIdle?: boolean;
+  /** 유휴로 간주하는 ms (기본 1500ms) */
+  idleMs?: number;
+  /** 안티앨리어싱 사용 여부 (기본 false) */
+  antialias?: boolean;
 }
 
 const config = {
@@ -40,6 +56,14 @@ export default function FlutedGlass({
   width = '100%',
   height = '100%',
   useDevicePixelRatio = true,
+  maxPixelRatio = 1.5,
+  simResolutionScale = 0.5,
+  targetFPS = 30,
+  idleFPS = 8,
+  pauseOnHidden = true,
+  pauseWhenIdle = true,
+  idleMs = 1500,
+  antialias = false,
 }: FlutedGlassProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -49,20 +73,22 @@ export default function FlutedGlass({
 
     const renderer = new THREE.WebGLRenderer({
       canvas,
-      antialias: true,
+      antialias,
       alpha: true,
       powerPreference: 'high-performance',
     });
     renderer.setPixelRatio(
-      useDevicePixelRatio ? Math.min(window.devicePixelRatio || 1, 2) : 1
+      useDevicePixelRatio
+        ? Math.min(window.devicePixelRatio || 1, maxPixelRatio)
+        : 1
     );
 
     // 공용 카메라/지오메트리(풀스크린)
     const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
 
     const fluidTarget1 = new THREE.WebGLRenderTarget(
-      renderer.domElement.width,
-      renderer.domElement.height,
+      Math.max(1, Math.floor(renderer.domElement.width * simResolutionScale)),
+      Math.max(1, Math.floor(renderer.domElement.height * simResolutionScale)),
       {
         minFilter: THREE.LinearFilter,
         magFilter: THREE.LinearFilter,
@@ -71,8 +97,8 @@ export default function FlutedGlass({
     );
 
     const fluidTarget2 = new THREE.WebGLRenderTarget(
-      renderer.domElement.width,
-      renderer.domElement.height,
+      Math.max(1, Math.floor(renderer.domElement.width * simResolutionScale)),
+      Math.max(1, Math.floor(renderer.domElement.height * simResolutionScale)),
       {
         minFilter: THREE.LinearFilter,
         magFilter: THREE.LinearFilter,
@@ -91,8 +117,14 @@ export default function FlutedGlass({
         iTime: { value: 0 },
         iResolution: {
           value: new THREE.Vector2(
-            renderer.domElement.width,
-            renderer.domElement.height
+            Math.max(
+              1,
+              Math.floor(renderer.domElement.width * simResolutionScale)
+            ),
+            Math.max(
+              1,
+              Math.floor(renderer.domElement.height * simResolutionScale)
+            )
           ),
         },
         iMouse: { value: new THREE.Vector4(0, 0, 0, 0) },
@@ -138,7 +170,10 @@ export default function FlutedGlass({
     let prevMouseX = 0;
     let prevMouseY = 0;
 
-    let lastMoveTime = 0;
+    let lastMoveTime = performance.now();
+    let rafId = 0;
+    let isPaused = false;
+    let lastRenderMs = 0;
 
     function handleMouseLeave() {
       fluidMaterial.uniforms.iMouse.value.set(0, 0, 0, 0);
@@ -160,13 +195,45 @@ export default function FlutedGlass({
       );
     }
 
-    document.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('mouseleave', handleMouseLeave);
+    canvas.addEventListener('mousemove', handleMouseMove);
+    canvas.addEventListener('mouseleave', handleMouseLeave);
+
+    const handleVisibilityChange = () => {
+      if (!pauseOnHidden) return;
+      if (document.hidden) {
+        isPaused = true;
+        if (rafId) {
+          cancelAnimationFrame(rafId);
+          rafId = 0;
+        }
+      } else {
+        isPaused = false;
+        if (!rafId) animate();
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibilityChange);
 
     function animate() {
-      requestAnimationFrame(animate);
+      rafId = requestAnimationFrame(animate);
 
       const time = performance.now() / 1000;
+      const nowMs = performance.now();
+
+      if (isPaused) return;
+
+      let effectiveFps = targetFPS;
+      if (pauseWhenIdle && nowMs - lastMoveTime > idleMs) {
+        if (idleFPS <= 0) {
+          return;
+        }
+        effectiveFps = Math.min(effectiveFps, idleFPS);
+      }
+      const interval = 1000 / Math.max(1, effectiveFps);
+      if (nowMs - lastRenderMs < interval) {
+        return;
+      }
+      lastRenderMs = nowMs;
+
       fluidMaterial.uniforms.iTime.value = time;
       displayMaterial.uniforms.iTime.value = time;
       fluidMaterial.uniforms.iFrame.value = frameCount;
@@ -211,11 +278,14 @@ export default function FlutedGlass({
       const height = canvas.clientHeight;
       renderer.setSize(width, height);
 
-      fluidMaterial.uniforms.iResolution.value.set(width, height);
+      const simW = Math.max(1, Math.floor(width * simResolutionScale));
+      const simH = Math.max(1, Math.floor(height * simResolutionScale));
+
+      fluidMaterial.uniforms.iResolution.value.set(simW, simH);
       displayMaterial.uniforms.iResolution.value.set(width, height);
 
-      fluidTarget1.setSize(width, height);
-      fluidTarget2.setSize(width, height);
+      fluidTarget1.setSize(simW, simH);
+      fluidTarget2.setSize(simW, simH);
 
       frameCount = 0;
     };
@@ -225,11 +295,14 @@ export default function FlutedGlass({
       const height = canvas.clientHeight;
       renderer.setSize(width, height);
 
-      fluidMaterial.uniforms.iResolution.value.set(width, height);
+      const simW = Math.max(1, Math.floor(width * simResolutionScale));
+      const simH = Math.max(1, Math.floor(height * simResolutionScale));
+
+      fluidMaterial.uniforms.iResolution.value.set(simW, simH);
       displayMaterial.uniforms.iResolution.value.set(width, height);
 
-      fluidTarget1.setSize(width, height);
-      fluidTarget2.setSize(width, height);
+      fluidTarget1.setSize(simW, simH);
+      fluidTarget2.setSize(simW, simH);
 
       frameCount = 0;
     };
@@ -243,8 +316,11 @@ export default function FlutedGlass({
     // cleanup 함수
     return () => {
       window.removeEventListener('resize', handleResize);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
       canvas.removeEventListener('mousemove', handleMouseMove);
       canvas.removeEventListener('mouseleave', handleMouseLeave);
+
+      if (rafId) cancelAnimationFrame(rafId);
 
       // 리소스 정리
       geometry.dispose();
