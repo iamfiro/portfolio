@@ -1,17 +1,13 @@
-import { FlutedGlass } from '@/components/ui/fluted-glass';
+import { MainLayout } from '@/components/layouts';
 import Header from '@/components/ui/header';
-
-import s from '@/styles/app/page.module.scss';
 
 export default function Home() {
   return (
-    <div>
+    <MainLayout>
       <Header />
-      <div className={s.hero}>
-        <div className={s.fluidOverlay}>
-          <FlutedGlass />
-        </div>
-      </div>
-    </div>
+      <h1>
+        안녕하세요 <img src="/home/wave.gif" alt="wave" />
+      </h1>
+    </MainLayout>
   );
 }

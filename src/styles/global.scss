@@ -1,4 +1,4 @@
-@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css");
+@import url("https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/static/split/WantedSans.min.css");
 
 body, html {
     margin: 0;
@@ -11,6 +11,6 @@ body, html {
     box-sizing: border-box;
 }
 
-h1, h2, h3, h4, h5, h6, span, p {
-    font-family: "Pretendard", sans-serif;
+* {
+    font-family: "Wanted Sans", sans-serif, "Apple SD Gothic Neo", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }

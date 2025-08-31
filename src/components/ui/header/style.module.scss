@@ -1,34 +1,46 @@
 .header {
     width: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 100;
 
     display: flex;
     align-items: center;
     justify-content: space-between;
 
     border-radius: $radius-full;
+}
 
-    padding: $spacing-moderate;
+.header img {
+    width: 56px;
+    height: 56px;
 }
 
 .list {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: $spacing-moderate;
 
     padding: 0;
     margin: 0;
 
     list-style: none;
 
-    li {}
+    li {
+        background-color: $color-surface-secondary;
+        color: $color-text-secondary;
+
+        border-radius: $radius-full;
+        padding: $spacing-12 $spacing-20;
+
+        &[data-active="true"] {
+            background-color: $color-surface-brand;
+            color: $color-white;
+        }
+    }
 
     a {
         text-decoration: none;
-        color: $color-text;
+
+        color: inherit;
+
+        font-size: 18px;
     }
 }
