@@ -1,0 +1,13 @@
+.base {
+    width: min(100%, $max-width);
+
+    margin: 0 auto;
+    padding-bottom: 100px;
+    padding-inline: $padding;
+    background-color: $surface;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 75px;
+}

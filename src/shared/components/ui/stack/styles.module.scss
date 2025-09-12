@@ -1,0 +1,78 @@
+// Stack 컴포넌트 스타일
+
+// HStack (가로 배치)
+.hstack {
+  display: flex;
+  flex-direction: row;
+}
+
+// VStack (세로 배치)
+.vstack {
+  display: flex;
+  flex-direction: column;
+}
+
+// Full width/height 클래스들
+.fullWidth {
+  width: 100%;
+}
+
+.fullHeight {
+  height: 100%;
+}
+
+// Wrap 클래스
+.wrap {
+  flex-wrap: wrap;
+}
+
+// Align 클래스들
+.align-start {
+  align-items: flex-start;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.align-end {
+  align-items: flex-end;
+}
+
+.align-stretch {
+  align-items: stretch;
+}
+
+// Justify 클래스들
+.justify-start {
+  justify-content: flex-start;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-end {
+  justify-content: flex-end;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.justify-around {
+  justify-content: space-around;
+}
+
+.justify-evenly {
+  justify-content: space-evenly;
+}
+
+// Gap 클래스들 (필요시 사용)
+.gap-4 { gap: 4px; }
+.gap-8 { gap: 8px; }
+.gap-12 { gap: 12px; }
+.gap-16 { gap: 16px; }
+.gap-20 { gap: 20px; }
+.gap-24 { gap: 24px; }
+.gap-32 { gap: 32px; }

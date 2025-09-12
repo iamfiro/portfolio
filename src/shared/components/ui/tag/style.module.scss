@@ -1,0 +1,27 @@
+.tag {
+    padding: $spacing-4 $spacing-10;
+    color: $text-subtle;
+    border-radius: $radius-8;
+    border: 1px solid $border;
+    font-size: 12px;
+    transition: all 0.2s ease;
+    display: inline-block;
+    user-select: none;
+
+    &:hover {
+        opacity: 0.8;
+    }
+
+    &.lg {
+        padding: $spacing-6 $spacing-12;
+        font-size: 14px;
+        border-radius: $radius-10;
+    }
+
+    &.active {
+        background-color: $surface-brand;
+        color: $text-white;
+        
+        border: 0;
+    }
+}

@@ -1,0 +1,43 @@
+.card {
+    display: flex;
+    gap: $spacing-24;
+    align-items: center;
+
+    text-decoration: none;
+}
+
+.thumbnail {
+    width: 300px;
+    height: 190px;
+
+    object-fit: cover;
+
+    border-radius: $radius-14;
+}
+
+.name {
+    color: $text;
+
+    line-height: 1.4;
+
+    word-break: keep-all;
+}
+
+.description, .date, .time, .separator {
+    color: $text-subtle;
+}
+
+.description {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+}
+
+.clock {
+    width: 14px;
+    height: 14px;
+
+    color: $text-subtle;
+}

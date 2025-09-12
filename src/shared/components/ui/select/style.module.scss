@@ -1,0 +1,151 @@
+.select {
+  position: relative;
+  display: inline-block;
+  outline: none;
+
+  &.fullWidth {
+    width: 100%;
+  }
+
+  &.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  &.open .arrow {
+    transform: rotate(180deg);
+  }
+}
+
+.trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $spacing-10;
+  padding: $spacing-12 $spacing-16;
+  border: 1px solid $border;
+  border-radius: $radius-16;
+  background-color: $surface;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover:not(.disabled) {
+    border-color: $border-subtle;
+  }
+
+  &:focus-within {
+    border-color: $surface-brand;
+    box-shadow: 0 0 0 2px $surface-brand-subtle;
+  }
+}
+
+.icon {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+
+.label {
+  color: $text;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.description {
+  color: $text-subtle;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.arrow {
+  flex-shrink: 0;
+  color: $text-subtle;
+  transition: transform 0.2s ease;
+}
+
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  margin-top: $spacing-6;
+  background-color: $surface;
+  border: 1px solid $border;
+  border-radius: $radius-12;
+  box-shadow: $shadow;
+  max-height: 200px;
+  overflow-y: auto;
+  animation: dropdownFadeIn 0.15s ease-out;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  gap: $spacing-12;
+  padding: $spacing-12 $spacing-16;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+  border-bottom: 1px solid $border-subtle;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &:hover:not(.disabled) {
+    background-color: $surface-subtle;
+  }
+
+  &.selected {
+    background-color: $surface-brand-subtle;
+    color: $text-brand-heavy;
+  }
+
+  &.disabled {
+    color: $text-subtle;
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+}
+
+
+// Animation
+@keyframes dropdownFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// 스크롤바 스타일링 (global.scss와 일치)
+.dropdown::-webkit-scrollbar {
+  width: 4px;
+}
+
+.dropdown::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.dropdown::-webkit-scrollbar-thumb {
+  background: $border;
+  border-radius: 2px;
+}
+
+.dropdown::-webkit-scrollbar-thumb:hover {
+  background: $text-subtle;
+}
