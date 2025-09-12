@@ -2,13 +2,21 @@ import { Calendar, Hash } from "lucide-react";
 
 import { BlogCard } from "@/feature/blog";
 import { BaseLayout } from "@/shared/components/layouts";
-import { FlexJustify, HStack, Select, Tag, Typo } from "@/shared/components/ui";
+import {
+  FlexJustify,
+  HStack,
+  Select,
+  Tag,
+  Typo,
+  VStack,
+} from "@/shared/components/ui";
 
 import s from "./blog.module.scss";
 
 export default function Blog() {
   return (
     <BaseLayout>
+      <div aria-label="spacer" />
       <div className={s.thumbnail}>
         <div>
           <img src="/icon/folder.png" className={s.thumbnail_icon_lt} />
@@ -27,14 +35,18 @@ export default function Blog() {
         </div>
       </div>
       <HStack gap={64} justify={FlexJustify.Between} fullWidth>
-        <BlogCard
-          id="1"
-          name="OpenSearch Analyzer를 활용한 검색기능 알아보기"
-          description="OpenSearch Analyzer를 활용한 검색 서비스를 간단한 예제와 함께 알아봅니다."
-          thumbnail="/sample_thumbnail.png"
-          date={new Date()}
-          tags={["AI", "OpenSearch", "Elasticsearch"]}
-        />
+        <VStack gap={32}>
+          {Array.from({ length: 10 }).map((_, index) => (
+            <BlogCard
+              id="1"
+              name="OpenSearch Analyzer를 활용한 검색기능 알아보기"
+              description="OpenSearch Analyzer를 활용한 검색 서비스를 간단한 예제와 함께 알아봅니다."
+              thumbnail="/sample_thumbnail.png"
+              date={new Date()}
+              tags={["AI", "OpenSearch", "Elasticsearch"]}
+            />
+          ))}
+        </VStack>
         <div className={s.right}>
           <Select
             fullWidth
@@ -76,6 +88,9 @@ export default function Blog() {
           </section>
         </div>
       </HStack>
+      <Typo.Subtext className={s.copyright}>
+        ⓒ {new Date().getFullYear()}. Cho Sungju All rights reserved.
+      </Typo.Subtext>
     </BaseLayout>
   );
 }

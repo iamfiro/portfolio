@@ -63,7 +63,7 @@
 
 .thumbnail_icon_lt {
     position: relative;
-    left: -25px;
+    left: -30px;
     top: -25px;
 
     transform: rotate(-30deg);
@@ -71,10 +71,10 @@
 
 .thumbnail_icon_rt {
     position: relative;
-    right: -35px;
+    right: -40px;
     top: -35px;
 
-    transform: rotate(30deg);
+    transform: rotate(20deg);
 }
 
 .thumbnail_icon_rb {
@@ -97,6 +97,9 @@
     display: flex;
     flex-direction: column;
     gap: $spacing-32;
+    position: sticky;
+    top: 30px;
+    align-self: flex-start;
 }
 
 .category_filter {
@@ -116,4 +119,8 @@
         gap: $spacing-6;
         align-items: center;
     }
+}
+
+.copyright {
+    color: $text-subtle;
 }
