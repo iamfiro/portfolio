@@ -5,6 +5,7 @@ import { BaseLayout } from "@/shared/components/layouts";
 import {
   FlexJustify,
   HStack,
+  SearchBar,
   Select,
   Tag,
   Typo,
@@ -35,8 +36,9 @@ export default function Blog() {
         </div>
       </div>
       <HStack gap={64} justify={FlexJustify.Between} fullWidth>
-        <VStack gap={32}>
-          {Array.from({ length: 10 }).map((_, index) => (
+        <VStack gap={24}>
+          <SearchBar className={s.search_bar} />
+          {Array.from({ length: 10 }).map(() => (
             <BlogCard
               id="1"
               name="OpenSearch Analyzer를 활용한 검색기능 알아보기"

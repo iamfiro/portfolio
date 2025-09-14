@@ -38,7 +38,7 @@
         color: $text-subtle;
     }
 
-    div {
+    div:first-child, div:last-child {
         width: 100%;
         position: absolute;
         
