@@ -1,6 +1,9 @@
+import { useQuery } from "@tanstack/react-query";
 import { Calendar, Hash } from "lucide-react";
 
-import { BlogCard } from "@/feature/blog";
+import { getPosts } from "@/feature/blog/api";
+import { BlogCard } from "@/feature/blog/components";
+import { PostsResponse } from "@/feature/blog/schema";
 import { BaseLayout } from "@/shared/components/layouts";
 import {
   FlexJustify,
@@ -15,6 +18,21 @@ import {
 import s from "./blog.module.scss";
 
 export default function Blog() {
+  const { data: posts, isLoading } = useQuery<PostsResponse>({
+    queryKey: ["posts"],
+    queryFn: getPosts,
+  });
+
+  console.log(posts);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (!posts) {
+    return <div>No posts found</div>;
+  }
+
   return (
     <BaseLayout>
       <div aria-label="spacer" />
@@ -38,14 +56,14 @@ export default function Blog() {
       <HStack gap={64} justify={FlexJustify.Between} fullWidth>
         <VStack gap={24}>
           <SearchBar className={s.search_bar} />
-          {Array.from({ length: 10 }).map(() => (
+          {posts.data.map((post) => (
             <BlogCard
-              id="1"
-              name="OpenSearch Analyzer를 활용한 검색기능 알아보기"
-              description="OpenSearch Analyzer를 활용한 검색 서비스를 간단한 예제와 함께 알아봅니다."
-              thumbnail="/sample_thumbnail.png"
-              date={new Date()}
-              tags={["AI", "OpenSearch", "Elasticsearch"]}
+              id={post.id}
+              title={post.title}
+              description={post.description}
+              thumbnail={post.thumbnail}
+              date={new Date(post.date)}
+              tags={post.tags}
             />
           ))}
         </VStack>

@@ -1,10 +1,9 @@
-export function parseMarkdown(markdown: string): {
-  title: string;
-  date: Date;
-  desc: string;
-  thumbnail: string;
-  tags: string[];
+export function parseMarkdown(
+  markdown: string,
+  filename: string,
+): {
   content: string;
+  [key: string]: string | string[] | Date;
 } {
   const lines = markdown.split("\n");
   let metadataStart = -1;
@@ -29,33 +28,34 @@ export function parseMarkdown(markdown: string): {
         if (trimmed && trimmed.includes(": ")) {
           const [key, ...valueParts] = trimmed.split(": ");
           const value = valueParts.join(": ").trim();
-          acc[key] = value;
+
+          // 특별한 타입 변환 처리
+          if (key === "tags") {
+            acc[key] = parseTags(value);
+          } else if (key === "date") {
+            acc[key] = new Date(value);
+          } else {
+            acc[key] = value;
+          }
         }
         return acc;
       },
-      {} as Record<string, string>,
+      {} as Record<string, string | string[] | Date>,
     );
 
     const contentLines = lines.slice(metadataEnd + 1);
     const content = contentLines.join("\n").trim();
 
     return {
-      title: metadataObject.title || "",
-      date: metadataObject.date ? new Date(metadataObject.date) : new Date(),
-      desc: metadataObject.desc || "",
-      thumbnail: metadataObject.thumbnail || "",
-      tags: parseTags(metadataObject.tags),
       content: content,
+      title: filename.replace(".md", ""),
+      ...metadataObject,
     };
   }
 
   return {
-    title: "",
-    date: new Date(),
-    desc: "",
-    thumbnail: "",
-    tags: [],
     content: markdown,
+    title: filename.replace(".md", ""),
   };
 }
 

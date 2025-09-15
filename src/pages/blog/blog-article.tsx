@@ -1,6 +1,13 @@
+import { useQuery } from "@tanstack/react-query";
 import { Clock } from "lucide-react";
 import Markdown from "react-markdown";
+import { useParams } from "react-router-dom";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { oneLight } from "react-syntax-highlighter/dist/esm/styles/prism";
 
+import { getPost } from "@/feature/blog/api";
+import { Giscus } from "@/feature/blog/components";
+import { PostResponse } from "@/feature/blog/schema";
 import { BaseLayout } from "@/shared/components/layouts";
 import {
   Avatar,
@@ -11,49 +18,29 @@ import {
   Typo,
   VStack,
 } from "@/shared/components/ui";
-import { parseMarkdown } from "@/shared/utils/markdown";
 
 import "@/shared/styles/markdown.scss";
+import "@/shared/styles/prism-gh.scss";
 import s from "./blog-article.module.scss";
 
-const markdown = `
----
-title: [dreamhack] CSRF
-date: 2024-12-06
-desc: CSRF 공격을 통해 플래그를 획득하는 방법을 설명합니다.
-thumbnail: /sample_thumbnail.png
-tags: [OpenSearch, d, Search]
----
-
-어제 XSS 문제를 끝내고 오늘 CSRF 문제를 풀어보았다
-XSS에서 익숙해진 개념과 사이트 디자인인지 삽질했던 어제와 달리 오늘은 수월하게 문제를 해결하였다
-
-## XSS와 CSRF
-### 공통점
-둘 다 클라이언트를 대상으로 진행하는 공격이며, 사용자가 악성 스크립트가 포함된 페이지를 방문하게 해야 한다
-### 차이점
-XSS는 사용자 인증 정보인 쿠키 및 세션 토큰을 탈취 목적으로 하는 공격이며, 공격할 사이트의 오리진에서 스크립트를 실행시킨다
-r
-CSRF는 사용자가 특정 페이지에 HTTP 요청을 보내는 것을 목적으로 하는 공격이다
-
----
-이번 CSRF 문제는 XSS와 다르게 \`/vuln\` 라우팅에 XSS 방지 기능이 들어가 있었다 (\`frame\`, \`script\`, \`on\`은 '*****' 문자로 치환)
-
-그렇기 때문에 XSS 공격때 사용했던 \`<script>\` 태그, \`<img>\`의 \`onerror\` 속성을 이용한 공격은 불가능한 상태였다
-
-\`<img>\`에서 이미지를 불러오기 위해 \`src\`에 있는 url에 요청을 한다는 점을 이용해 CSRF 공격을 실행하였다
-
-\`\`\`html
-<img src="/admin/notice_flag?userid=admin" />
-\`\`\`
-\`/flag\` 페이지에 위 코드를 입력하고 제출을 누르면 해당 img 태그에 있는 주소로 클라이언트가 요청을 보내기 때문에 Flag가 정상적으로 memo에 저장되는것을 볼 수 있다
-
-![](/posts/dreamhack/csrf/csrf-url.png)
-![](/posts/dreamhack/csrf/csrf-flag.png)
-`;
+// oneLight 스타일을 고정값으로 사용
+const CODE_HIGHLIGHT_STYLE = oneLight;
 
 export default function BlogArticle() {
-  const { title, date, thumbnail, content, tags } = parseMarkdown(markdown);
+  const { id } = useParams();
+
+  const { data: post, isLoading } = useQuery<PostResponse>({
+    queryKey: ["post", id],
+    queryFn: () => getPost(id || ""),
+  });
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (!post) {
+    return <div>No post found</div>;
+  }
 
   return (
     <>
@@ -61,10 +48,12 @@ export default function BlogArticle() {
       <BaseLayout className={s.container}>
         <VStack className={s.content_container}>
           <VStack gap={16}>
-            <Typo.Display className={s.title}>{title}</Typo.Display>
+            <Typo.Display as="h1" className={s.title}>
+              {post.data.title}
+            </Typo.Display>
             <HStack gap={8}>
               <Typo.Body className={s.description}>
-                {date.toLocaleDateString()}
+                {new Date(post.data.date).toLocaleDateString()}
               </Typo.Body>
               <Typo.Body className={s.description}>•</Typo.Body>
               <HStack align={FlexAlign.Center} gap={4}>
@@ -76,11 +65,11 @@ export default function BlogArticle() {
 
           <div className={s.sub_header}>
             <HStack align={FlexAlign.Center} gap={12}>
-              <Avatar src="/sample_profile.jpg" size={32} />
+              <Avatar src={"/sample_profile.jpg"} size={32} />
               <Typo.Body>Cho Sungju</Typo.Body>
             </HStack>
             <HStack gap={8}>
-              {tags.map((tag) => (
+              {post.data.tags.map((tag) => (
                 <Tag size="lg" key={tag}>
                   {tag}
                 </Tag>
@@ -89,14 +78,43 @@ export default function BlogArticle() {
           </div>
 
           <img
-            src={thumbnail}
-            alt={`${title} thumbnail`}
+            src={post.data.thumbnail}
+            alt={`${post.data.title} thumbnail`}
             className={s.thumbnail}
           />
 
           <div className={"markdown_article"}>
-            <Markdown>{content}</Markdown>
+            <Markdown
+              components={{
+                code({ className, children, ...props }) {
+                  const match = /language-(\w+)/.exec(className || "");
+                  const language = match ? match[1] : "";
+
+                  if (language) {
+                    return (
+                      <SyntaxHighlighter
+                        style={CODE_HIGHLIGHT_STYLE}
+                        language={language}
+                        PreTag="div"
+                        className="code-block"
+                      >
+                        {String(children).replace(/\n$/, "")}
+                      </SyntaxHighlighter>
+                    );
+                  }
+
+                  return (
+                    <code className={className} {...props}>
+                      {children}
+                    </code>
+                  );
+                },
+              }}
+            >
+              {post.data.content}
+            </Markdown>
           </div>
+          <Giscus style={{ width: "100%" }} />
         </VStack>
       </BaseLayout>
     </>

@@ -1,7 +1,16 @@
 .markdown_article {
-    h1 {
+    h2 {
+        font-size: 26px;
+        font-weight: 600;
+
+        margin-block: $spacing-24;
+    }
+
+    h3 {
         font-size: 20px;
         font-weight: 600;
+
+        margin-block: $spacing-16;
     }
 
     strong {
@@ -13,14 +22,14 @@
 
         font-size: 18px;
 
-        font-weight: 400;
+        font-weight: 300;
         line-height: 32px;
 
         margin: 0 0 14px 0;
     }
 
     // `text` 문법
-    :not(pre) > code {
+    :not(.code-block) > code {
         background-color: $surface-subtle;
 
         padding: 2px 4px;
@@ -45,8 +54,10 @@
         text-decoration: none;
 
         li {
-            font-weight: 400;
             line-height: 30px;
+
+            font-size: 18px;
+            font-weight: 300;
 
             list-style-type: none;
 
@@ -57,6 +68,20 @@
 
                 margin-right: 7px;
             }
+        }
+    }
+
+    ol {
+        margin: 0 0 14px 32px;
+        padding: 0;
+
+        li {
+            line-height: 38px;
+
+            font-size: 18px;
+            font-weight: 300;
+
+
         }
     }
 
