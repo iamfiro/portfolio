@@ -1,5 +1,20 @@
-import Skeleton from "../skeleton";
+import { Skeleton } from "../";
 
-export default function TagSkeleton() {
-  return <Skeleton height="30px" width="74px" borderRadius="6px" />;
+interface TagSkeletonProps {
+  width?: string | number;
+  height?: string | number;
+}
+
+export default function TagSkeleton({
+  width = "60px",
+  height = "32px",
+}: TagSkeletonProps) {
+  return (
+    <Skeleton
+      width={width}
+      height={height}
+      borderRadius="16px"
+      animation="pulse"
+    />
+  );
 }
