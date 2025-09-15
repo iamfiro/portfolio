@@ -1,10 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { Clock } from "lucide-react";
 import { Helmet } from "react-helmet";
-import Markdown from "react-markdown";
 import { useParams } from "react-router-dom";
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { oneLight } from "react-syntax-highlighter/dist/esm/styles/prism";
 
 import { getPost } from "@/feature/blog/api";
 import { Giscus } from "@/feature/blog/components";
