@@ -1,7 +1,10 @@
+import { useQueryClient } from "@tanstack/react-query";
 import { Clock } from "lucide-react";
 
 import { Post } from "@/feature/blog/schema";
 import { FlexAlign, HStack, Tag, Typo, VStack } from "@/shared/components/ui";
+
+import { getPost } from "../../api";
 
 import BlogCardSkeleton from "./skeleton";
 
@@ -12,6 +15,15 @@ interface BlogCardProps extends Post {
 }
 
 export default function BlogCard(props: BlogCardProps) {
+  const queryClient = useQueryClient();
+
+  const handleMouseEnter = () => {
+    queryClient.prefetchQuery({
+      queryKey: ["post", props.title],
+      queryFn: () => getPost(props.title),
+    });
+  };
+
   const {
     title,
     description,
@@ -26,7 +38,11 @@ export default function BlogCard(props: BlogCardProps) {
   }
 
   return (
-    <a href={`/blog/${title}`} className={s.card}>
+    <a
+      href={`/blog/${title}`}
+      className={s.card}
+      onMouseEnter={handleMouseEnter}
+    >
       <img src={thumbnail} alt={`${title} thumbnail`} className={s.thumbnail} />
       <VStack gap={12}>
         <HStack gap={6} align={FlexAlign.Center}>

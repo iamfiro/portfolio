@@ -12,8 +12,11 @@ app.get("/posts", (c) => {
   });
 });
 
-app.get("/post/:title", (c) => {
+app.get("/post/:title", async (c) => {
   const title = c.req.param("title");
+
+  // 2초 지연
+  await new Promise((resolve) => setTimeout(resolve, 2000));
 
   const post = getPost(title);
 
