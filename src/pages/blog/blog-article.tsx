@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { Clock } from "lucide-react";
+import { Helmet } from "react-helmet";
 import Markdown from "react-markdown";
 import { useParams } from "react-router-dom";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
@@ -13,6 +14,7 @@ import {
   Avatar,
   FlexAlign,
   HStack,
+  MarkdownRenderer,
   Spacing,
   Tag,
   Typo,
@@ -23,13 +25,12 @@ import "@/shared/styles/markdown.scss";
 import "@/shared/styles/prism-gh.scss";
 import s from "./blog-article.module.scss";
 
-// oneLight 스타일을 고정값으로 사용
-const CODE_HIGHLIGHT_STYLE = oneLight;
+type Post = NonNullable<PostResponse>;
 
 export default function BlogArticle() {
   const { id } = useParams();
 
-  const { data: post, isLoading } = useQuery<PostResponse>({
+  const { data: post, isLoading } = useQuery<Post>({
     queryKey: ["post", id],
     queryFn: () => getPost(id || ""),
   });
@@ -44,6 +45,9 @@ export default function BlogArticle() {
 
   return (
     <>
+      <Helmet>
+        <title>{post.data.title}</title>
+      </Helmet>
       <Spacing size={32} />
       <BaseLayout className={s.container}>
         <VStack className={s.content_container}>
@@ -84,35 +88,7 @@ export default function BlogArticle() {
           />
 
           <div className={"markdown_article"}>
-            <Markdown
-              components={{
-                code({ className, children, ...props }) {
-                  const match = /language-(\w+)/.exec(className || "");
-                  const language = match ? match[1] : "";
-
-                  if (language) {
-                    return (
-                      <SyntaxHighlighter
-                        style={CODE_HIGHLIGHT_STYLE}
-                        language={language}
-                        PreTag="div"
-                        className="code-block"
-                      >
-                        {String(children).replace(/\n$/, "")}
-                      </SyntaxHighlighter>
-                    );
-                  }
-
-                  return (
-                    <code className={className} {...props}>
-                      {children}
-                    </code>
-                  );
-                },
-              }}
-            >
-              {post.data.content}
-            </Markdown>
+            <MarkdownRenderer>{post.data.content || ""}</MarkdownRenderer>
           </div>
           <Giscus style={{ width: "100%" }} />
         </VStack>

@@ -7,7 +7,7 @@ import Tag from "@/shared/components/ui/tag";
 import s from "./style.module.scss";
 
 export default function BlogCard(props: Post) {
-  const { id, title, description, thumbnail, date, tags } = props;
+  const { title, description, thumbnail, date, tags } = props;
   return (
     <a href={`/blog/${title}`} className={s.card}>
       <img src={thumbnail} alt={`${title} thumbnail`} className={s.thumbnail} />
