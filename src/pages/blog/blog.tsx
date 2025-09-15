@@ -5,6 +5,7 @@ import { useSearchParams } from "react-router-dom";
 
 import { getPosts } from "@/feature/blog/api";
 import { BlogCard } from "@/feature/blog/components";
+import BlogCardSkeleton from "@/feature/blog/components/card/skeleton";
 import { useBlogFilter } from "@/feature/blog/hooks";
 import { PostsResponse } from "@/feature/blog/schema";
 import { BaseLayout } from "@/shared/components/layouts";
@@ -15,6 +16,7 @@ import {
   SearchBar,
   Select,
   Tag,
+  TagSkeleton,
   Typo,
   VStack,
 } from "@/shared/components/ui";
@@ -63,14 +65,6 @@ export default function Blog() {
     }
   }, [searchParams, allTags, selectedTags, toggleTag]);
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (!posts) {
-    return <div>No posts found</div>;
-  }
-
   return (
     <BaseLayout>
       <div aria-label="spacer" />
@@ -100,7 +94,11 @@ export default function Blog() {
             placeholder="글 검색하기..."
           />
 
-          {sortedPosts.length > 0 ? (
+          {isLoading ? (
+            Array.from({ length: 3 }, (_, index) => (
+              <BlogCardSkeleton key={index} />
+            ))
+          ) : sortedPosts.length > 0 ? (
             sortedPosts.map((post) => (
               <BlogCard
                 key={post.id}
@@ -150,18 +148,26 @@ export default function Blog() {
               <Hash /> 카테고리
             </Typo.BodyLarge>
 
-            <HStack gap={6} wrap fullWidth>
-              {allTags.map((tag) => (
-                <Tag
-                  key={tag}
-                  size="lg"
-                  onClick={() => toggleTag(tag)}
-                  active={isTagSelected(tag)}
-                >
-                  {tag}
-                </Tag>
-              ))}
-            </HStack>
+            {isLoading ? (
+              <HStack gap={6} wrap fullWidth>
+                {Array.from({ length: 10 }, (_, index) => (
+                  <TagSkeleton key={index} />
+                ))}
+              </HStack>
+            ) : (
+              <HStack gap={6} wrap fullWidth>
+                {allTags.map((tag) => (
+                  <Tag
+                    key={tag}
+                    size="lg"
+                    onClick={() => toggleTag(tag)}
+                    active={isTagSelected(tag)}
+                  >
+                    {tag}
+                  </Tag>
+                ))}
+              </HStack>
+            )}
           </section>
         </div>
       </HStack>

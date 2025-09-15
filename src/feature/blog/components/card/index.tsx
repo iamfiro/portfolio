@@ -3,10 +3,28 @@ import { Clock } from "lucide-react";
 import { Post } from "@/feature/blog/schema";
 import { FlexAlign, HStack, Tag, Typo, VStack } from "@/shared/components/ui";
 
+import BlogCardSkeleton from "./skeleton";
+
 import s from "./style.module.scss";
 
-export default function BlogCard(props: Post) {
-  const { title, description, thumbnail, date, tags } = props;
+interface BlogCardProps extends Post {
+  isLoading?: boolean;
+}
+
+export default function BlogCard(props: BlogCardProps) {
+  const {
+    title,
+    description,
+    thumbnail,
+    date,
+    tags,
+    isLoading = false,
+  } = props;
+
+  if (isLoading) {
+    return <BlogCardSkeleton />;
+  }
+
   return (
     <a href={`/blog/${title}`} className={s.card}>
       <img src={thumbnail} alt={`${title} thumbnail`} className={s.thumbnail} />
