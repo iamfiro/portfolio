@@ -1,4 +1,3 @@
-import { serve } from "@hono/node-server";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 
@@ -10,8 +9,11 @@ const app = new Hono();
 app.use(
   "*",
   cors({
-    origin: "http://localhost:5173",
-    allowHeaders: ["*"],
+    origin:
+      process.env.NODE_ENV === "production"
+        ? ["https://devfiro.com"]
+        : "http://localhost:5173",
+    allowHeaders: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowMethods: ["*"],
   }),
 );
@@ -25,12 +27,5 @@ app.get("/", (c) => {
   });
 });
 
-serve(
-  {
-    fetch: app.fetch,
-    port: 3000,
-  },
-  (info) => {
-    console.log(`Server is running on http://localhost:${info.port}`);
-  },
-);
+// Vercel에서는 export default로 핸들러를 내보내야 함
+export default app;
