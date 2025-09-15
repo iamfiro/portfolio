@@ -1,8 +1,7 @@
 import { Clock } from "lucide-react";
 
 import { Post } from "@/feature/blog/schema";
-import { FlexAlign, HStack, Typo, VStack } from "@/shared/components/ui";
-import Tag from "@/shared/components/ui/tag";
+import { FlexAlign, HStack, Tag, Typo, VStack } from "@/shared/components/ui";
 
 import s from "./style.module.scss";
 
