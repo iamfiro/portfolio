@@ -42,7 +42,7 @@ const Typo = <T extends React.ElementType = "span">({
   );
 };
 
-// 개별 타이포그래피 컴포넌트들
+/* eslint-disable @typescript-eslint/no-explicit-any */
 Typo.Display = (props: any) => <Typo variant="display" {...props} />;
 Typo.Headline = (props: any) => <Typo variant="headline" {...props} />;
 Typo.BodyLarge = (props: any) => <Typo variant="bodyLarge" {...props} />;

@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { Calendar, Hash } from "lucide-react";
-import { useEffect } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
 import { getPosts } from "@/feature/blog/api";
@@ -23,6 +23,8 @@ import s from "./blog.module.scss";
 
 export default function Blog() {
   const [searchParams] = useSearchParams();
+  const [sortBy, setSortBy] = useState("latest");
+
   const { data: posts, isLoading } = useQuery<PostsResponse>({
     queryKey: ["posts"],
     queryFn: getPosts,
@@ -38,7 +40,18 @@ export default function Blog() {
     setQuery,
   } = useBlogFilter({ posts: posts?.data || [] });
 
-  // URL 파라미터에서 초기 태그 설정
+  // 정렬된 포스트 목록
+  const sortedPosts = useMemo(() => {
+    if (!finalFilteredPosts) return [];
+
+    return [...finalFilteredPosts].sort((a, b) => {
+      const dateA = new Date(a.date).getTime();
+      const dateB = new Date(b.date).getTime();
+
+      return sortBy === "latest" ? dateB - dateA : dateA - dateB;
+    });
+  }, [finalFilteredPosts, sortBy]);
+
   useEffect(() => {
     const tagParam = searchParams.get("tag");
     if (
@@ -87,8 +100,8 @@ export default function Blog() {
             placeholder="글 검색하기..."
           />
 
-          {finalFilteredPosts.length > 0 ? (
-            finalFilteredPosts.map((post) => (
+          {sortedPosts.length > 0 ? (
+            sortedPosts.map((post) => (
               <BlogCard
                 key={post.id}
                 id={post.id}
@@ -129,7 +142,8 @@ export default function Blog() {
                 description: "오래된 항목부터 표시 합니다.",
               },
             ]}
-            value="latest"
+            value={sortBy}
+            onChange={setSortBy}
           />
           <section className={s.category_filter}>
             <Typo.BodyLarge className={s.category_filter_title}>
