@@ -1,6 +1,6 @@
 import { Component, ErrorInfo, ReactNode } from "react";
 
-import { FlexAlign, HStack, Typo, VStack } from "../ui";
+import { FlexAlign, Typo, VStack } from "../ui";
 
 interface Props {
   children: ReactNode;
