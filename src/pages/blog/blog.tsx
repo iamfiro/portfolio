@@ -1,11 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
 import { Calendar, Hash } from "lucide-react";
+import { useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 
 import { getPosts } from "@/feature/blog/api";
 import { BlogCard } from "@/feature/blog/components";
+import { useBlogFilter } from "@/feature/blog/hooks";
 import { PostsResponse } from "@/feature/blog/schema";
 import { BaseLayout } from "@/shared/components/layouts";
 import {
+  FlexAlign,
   FlexJustify,
   HStack,
   SearchBar,
@@ -18,12 +22,33 @@ import {
 import s from "./blog.module.scss";
 
 export default function Blog() {
+  const [searchParams] = useSearchParams();
   const { data: posts, isLoading } = useQuery<PostsResponse>({
     queryKey: ["posts"],
     queryFn: getPosts,
   });
 
-  console.log(posts);
+  const {
+    allTags,
+    selectedTags,
+    finalFilteredPosts,
+    searchQuery,
+    toggleTag,
+    isTagSelected,
+    setQuery,
+  } = useBlogFilter({ posts: posts?.data || [] });
+
+  // URL 파라미터에서 초기 태그 설정
+  useEffect(() => {
+    const tagParam = searchParams.get("tag");
+    if (
+      tagParam &&
+      allTags.includes(tagParam) &&
+      !selectedTags.includes(tagParam)
+    ) {
+      toggleTag(tagParam);
+    }
+  }, [searchParams, allTags, selectedTags, toggleTag]);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -54,18 +79,39 @@ export default function Blog() {
         </div>
       </div>
       <HStack gap={64} justify={FlexJustify.Between} fullWidth>
-        <VStack gap={24}>
-          <SearchBar className={s.search_bar} />
-          {posts.data.map((post) => (
-            <BlogCard
-              id={post.id}
-              title={post.title}
-              description={post.description}
-              thumbnail={post.thumbnail}
-              date={new Date(post.date)}
-              tags={post.tags}
-            />
-          ))}
+        <VStack gap={24} fullWidth>
+          <SearchBar
+            className={s.search_bar}
+            value={searchQuery}
+            onChange={setQuery}
+            placeholder="글 검색하기..."
+          />
+
+          {finalFilteredPosts.length > 0 ? (
+            finalFilteredPosts.map((post) => (
+              <BlogCard
+                key={post.id}
+                id={post.id}
+                title={post.title}
+                description={post.description}
+                thumbnail={post.thumbnail}
+                date={new Date(post.date)}
+                tags={post.tags}
+              />
+            ))
+          ) : (
+            <VStack
+              gap={16}
+              align={FlexAlign.Center}
+              className={s.no_result}
+              fullWidth
+            >
+              <Typo.Headline>검색 결과가 없습니다</Typo.Headline>
+              <Typo.Body className={s.no_result_description}>
+                다른 검색어나 태그를 시도해보세요
+              </Typo.Body>
+            </VStack>
+          )}
         </VStack>
         <div className={s.right}>
           <Select
@@ -91,19 +137,16 @@ export default function Blog() {
             </Typo.BodyLarge>
 
             <HStack gap={6} wrap fullWidth>
-              <Tag size="lg">Next.js</Tag>
-              <Tag size="lg">React</Tag>
-              <Tag size="lg">TypeScript</Tag>
-              <Tag size="lg">Tailwind CSS</Tag>
-              <Tag size="lg">Node.js</Tag>
-              <Tag size="lg">Express</Tag>
-              <Tag size="lg">MongoDB</Tag>
-              <Tag size="lg">PostgreSQL</Tag>
-              <Tag size="lg">Redis</Tag>
-              <Tag size="lg">Docker</Tag>
-              <Tag size="lg">Kubernetes</Tag>
-              <Tag size="lg">AWS</Tag>
-              <Tag size="lg">GCP</Tag>
+              {allTags.map((tag) => (
+                <Tag
+                  key={tag}
+                  size="lg"
+                  onClick={() => toggleTag(tag)}
+                  active={isTagSelected(tag)}
+                >
+                  {tag}
+                </Tag>
+              ))}
             </HStack>
           </section>
         </div>

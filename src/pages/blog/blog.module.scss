@@ -124,3 +124,12 @@
 .copyright {
     color: $text-subtle;
 }
+
+.no_result {
+    padding: $spacing-40 0;
+    text-align: center;
+
+    .no_result_description {
+        color: $text-subtle;
+    }
+}

@@ -16,7 +16,11 @@ export function getPosts() {
             "utf8",
           );
 
-          return parseMarkdown(postContent, post);
+          const parsedPost = parseMarkdown(postContent, post);
+          // content 제거하고 반환
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          const { content, ...postWithoutContent } = parsedPost;
+          return postWithoutContent;
         } catch (error) {
           console.error(`Error reading post file ${post}:`, error);
           return null;
