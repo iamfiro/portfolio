@@ -66,7 +66,10 @@ export default function BlogArticle() {
 
           <div className={s.sub_header}>
             <HStack align={FlexAlign.Center} gap={12}>
-              <Avatar src={"/sample_profile.jpg"} size={32} />
+              <Avatar
+                src={"https://avatars.githubusercontent.com/u/72495729?v=4"}
+                size={32}
+              />
               <Typo.Body>Cho Sungju</Typo.Body>
             </HStack>
             <HStack gap={8}>
