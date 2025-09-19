@@ -1,4 +1,52 @@
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css");
+@import "./variables.scss";
+
+:root {
+    // Spacing
+    --spacing-4: #{$spacing-4};
+    --spacing-6: #{$spacing-6};
+    --spacing-8: #{$spacing-8};
+    --spacing-10: #{$spacing-10};
+    --spacing-12: #{$spacing-12};
+    --spacing-14: #{$spacing-14};
+    --spacing-16: #{$spacing-16};
+    --spacing-20: #{$spacing-20};
+    --spacing-24: #{$spacing-24};
+    --spacing-32: #{$spacing-32};
+    --spacing-40: #{$spacing-40};
+    --spacing-48: #{$spacing-48};
+    --spacing-64: #{$spacing-64};
+    --spacing-100: #{$spacing-100};
+
+    // Radius
+    --radius-4: #{$radius-4};
+    --radius-8: #{$radius-8};
+    --radius-10: #{$radius-10};
+    --radius-12: #{$radius-12};
+    --radius-14: #{$radius-14};
+    --radius-16: #{$radius-16};
+    --radius-20: #{$radius-20};
+    --radius-32: #{$radius-32};
+    --radius-64: #{$radius-64};
+    --radius-full: #{$radius-full};
+
+    // Colors
+    --color-white: #{$color-white};
+    --color-black: #{$color-black};
+    --text: #{$text};
+    --text-subtle: #{$text-subtle};
+    --text-white: #{$text-white};
+    --text-brand: #{$text-brand};
+    --text-brand-heavy: #{$text-brand-heavy};
+    --text-brand-subtle: #{$text-brand-subtle};
+    --surface: #{$surface};
+    --surface-subtle: #{$surface-subtle};
+    --surface-brand: #{$surface-brand};
+    --surface-brand-heavy: #{$surface-brand-heavy};
+    --surface-brand-subtle: #{$surface-brand-subtle};
+    --border: #{$border};
+    --border-subtle: #{$border-subtle};
+}
 
 body, html {
     margin: 0;

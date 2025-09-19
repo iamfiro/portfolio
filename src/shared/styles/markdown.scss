@@ -1,131 +1,181 @@
 .markdown_article {
+    // 제목 계층 구조
     h2 {
-        font-size: 26px;
+        font-size: 32px;
         font-weight: 600;
 
-        margin-block: $spacing-24;
+        margin-top: $spacing-48;
+        margin-bottom: $spacing-24;
+        
+        &:first-child {
+            margin-top: 0;
+        }
     }
 
     h3 {
-        font-size: 20px;
+        font-size: 22px;
         font-weight: 600;
 
-        margin-block: $spacing-16;
+        margin-top: $spacing-32;
+        margin-bottom: $spacing-16;
+        
+        &:first-child {
+            margin-top: 0;
+        }
     }
 
     strong {
         font-weight: 600;
     }
 
+    // 단락 스타일 - 계층적 spacing
     p {
         color: $text;
 
         font-size: 18px;
-
         font-weight: 300;
         line-height: 32px;
 
-        margin: 0 0 14px 0;
+        margin: 0 0 $spacing-20 0;
+        
+        &:last-child {
+            margin-bottom: 0;
+        }
     }
 
-    // `text` 문법
-    :not(.code-block) > code {
-        background-color: $surface-subtle;
-
-        padding: 2px 4px;
-
-        border: 1px solid $border;
-        border-radius: 4px;
-
-        font-size: 14px;
-
-        margin-right: 3px;
-    }
+    // 인라인 코드 - GitHub 스타일로 통일 (prism-gh.scss에서 처리)
+    // :not(pre) > code 스타일은 prism-gh.scss에서 관리됨
 
     // 이탤릭 체
     em {
-        margin-right: 3px;
+        margin-right: $spacing-4;
     }
 
-    ul {
-        margin: 0 0 14px 10px;
-        padding: 0;
-
-        text-decoration: none;
+    // 리스트 기본 스타일
+    ul, ol {
+        margin: 0 0 $spacing-24 0;
+        padding-left: $spacing-24;
 
         li {
-            line-height: 30px;
-
+            line-height: 1.6;
             font-size: 18px;
             font-weight: 300;
+            color: $text;
+            margin-bottom: $spacing-8;
 
-            list-style-type: none;
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
 
-            &::before {
-                content: "–";
-
-                color: $text-subtle;
-
-                margin-right: 7px;
+        // 리스트 내부 단락
+        p {
+            margin-bottom: $spacing-8;
+            
+            &:last-child {
+                margin-bottom: 0;
             }
         }
     }
 
-    ol {
-        margin: 0 0 14px 32px;
-        padding: 0;
-
-        li {
-            line-height: 38px;
-
-            font-size: 18px;
-            font-weight: 300;
-
-
+    ul {
+        list-style-type: disc;
+        
+        // 중첩된 리스트 스타일
+        ul {
+            margin: $spacing-8 0 0 0;
+            padding-left: $spacing-24;
+            list-style-type: circle;
         }
     }
 
+    ol {
+        list-style-type: decimal;
+        counter-reset: list-counter;
+        
+        li {
+            counter-increment: list-counter;
+            
+            &::marker {
+                color: $text-brand;
+                font-weight: 600;
+            }
+        }
+
+        // 중첩된 리스트 스타일
+        ol {
+            margin: $spacing-8 0 0 0;
+            padding-left: $spacing-24;
+            
+            li::marker {
+                color: $text-subtle;
+            }
+        }
+    }
+
+    // 링크 스타일
     a:not([data-type="heading"]) {
         color: $text-brand;
 
         text-decoration: underline;
-        text-underline-offset: 4px;
+        text-underline-offset: $spacing-4;
 
         transition: color 0.2s ease-in-out;
-        
 
         &:hover {
             color: $text-subtle;
         }
     }
 
+    // 인용구
     blockquote {
-        margin: 0 0 14px 0;
-        padding: 3px 15px;
+        margin: 0 0 $spacing-24 0;
+        padding: $spacing-16 $spacing-24;
 
-        border-left: 4px solid $border;
+        border-left: 4px solid $text-brand;
+        background-color: $surface-subtle;
 
         p {
             margin: 0;
-
-            font-size: 15px;
+            font-size: 18px;
+            color: $text;
+            line-height: 1.8;
+            
+            // 텍스트 내용을 각 줄로 분리하여 표시
+            white-space: pre-line;
+            word-wrap: break-word;
+            
+            // 특정 패턴 뒤에 줄바꿈 강제
+            &::after {
+                content: "\A";
+                white-space: pre;
+                display: inline;
+            }
+            
+            &:last-child::after {
+                content: "";
+            }
+        }
+        
+        // 만약 여러 p 태그로 분리된 경우
+        p + p {
+            margin-top: $spacing-8;
         }
     }
 
+    // 구분선
     hr {
         border: 0;
         border-top: 1px solid $border;
 
-        margin: 50px 0;
+        margin: $spacing-48 0;
     }
 
-    pre {
-        margin: 0 0 14px 0;
-    }
-
+    // 테이블
     table {
         width: fit-content;
         border-collapse: collapse;
+        margin: 0 0 $spacing-24 0;
 
         table, th, td {
             border: 1px solid $border;
@@ -133,28 +183,52 @@
 
         td {
             min-width: 60px;
-            padding: 10px 15px;
+            padding: $spacing-12 $spacing-16;
 
             font-weight: 400;
+            font-size: 16px;
         }
 
         th {
-            padding: 10px 15px;
+            padding: $spacing-12 $spacing-16;
+            font-weight: 600;
+            background-color: $surface-subtle;
         }
 
         tr:nth-child(2n) {
             background-color: $surface-subtle;
         }
     }
+
+    // 코드 블록 스타일 - GitHub 스타일로 통일 (prism-gh.scss에서 처리)
+    // .github-code-block 클래스로 관리됨
+
+    :not(pre) > code {
+        background-color: $surface-subtle;
+
+        padding: $spacing-4 $spacing-6;
+
+        border: 1px solid $border;
+        border-radius: $radius-4;
+
+        font-size: 14px;
+
+        margin-right: $spacing-4;
+    }
+
 }
 
+// 이미지 컴포넌트
 .imageComponent {
     width: 100%;
     height: auto;
 
-    border-radius: 10px;
-
+    border-radius: $radius-10;
     border: 1px solid $border;
 
-    margin: 0 0 14px 0;
+    margin: 0 0 $spacing-24 0;
+    
+    &:last-child {
+        margin-bottom: 0;
+    }
 }

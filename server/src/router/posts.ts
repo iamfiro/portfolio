@@ -6,6 +6,7 @@ const app = new Hono();
 
 app.get("/posts", (c) => {
   const posts = getPosts();
+
   return c.json({
     ok: true,
     data: posts,

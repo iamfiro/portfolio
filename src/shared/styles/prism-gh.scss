@@ -7,14 +7,13 @@
 pre[class*="language-"],
 code[class*="language-"] {
   color: #24292f;
-  font-size: 14px;
   text-shadow: none;
   direction: ltr;
   text-align: left;
   white-space: pre;
   word-spacing: normal;
   word-break: normal;
-  line-height: 1.6;
+  line-height: 1.5;
   -moz-tab-size: 4;
   -o-tab-size: 4;
   tab-size: 4;
@@ -22,6 +21,10 @@ code[class*="language-"] {
   -moz-hyphens: none;
   -ms-hyphens: none;
   hyphens: none;
+
+  letter-spacing: 0.01em;
+
+  font-size: 14px !important;
 }
 pre[class*="language-"]::selection,
 code[class*="language-"]::selection,
@@ -37,18 +40,18 @@ code[class*="language-"]::mozselection {
   }
 }
 pre[class*="language-"] {
-  padding: 16px;
-  margin: 16px 0;
+  padding: 1em;
+  margin: .5em 0;
   overflow: auto;
-  border-radius: $radius-16;
-    background-color: red;
+
+  border: 1px solid $border;
+  border-radius: 10px;
 }
 :not(pre) > code[class*="language-"] {
-  padding: 3px 6px;
-  border-radius: 4px;
+  padding: .1em .3em;
+  border-radius: .3em;
   color: #24292f;
-  font-family: 'JetBrains Mono', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-  font-size: 14px;
+  background: #eff1f3;
 }
 /* Line highlighting */
 pre[data-line] {
@@ -141,9 +144,7 @@ pre[class*="language-"] > code[class*="language-"] {
 }
 
 .code-line, .token {
-    font-size: 14px;
-    font-family: 'JetBrains Mono', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-    line-height: 1.6;
+    font-family: 'JetBrains Mono', monospace;
 }
 
 .line-number::before {
@@ -156,6 +157,11 @@ pre[class*="language-"] > code[class*="language-"] {
   
     color: $text-subtle;
     content: attr(line);
+}
 
-    font-size: 12px;
+.github-code-block {
+  background-color: $surface !important;
+  border: 1px solid $border;
+
+  border-radius: $radius-12;
 }
