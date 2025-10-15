@@ -1,0 +1,9 @@
+.projectCarousel {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-20;
+
+    padding: $spacing-20;
+
+    overflow-x: hidden;
+}

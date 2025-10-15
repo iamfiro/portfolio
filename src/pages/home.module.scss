@@ -1,0 +1,19 @@
+.container {
+    width: 100%;
+    min-height: 100vh;
+
+    background-color: black;
+}
+
+.title {
+    position: absolute;
+    top: calc(100% - 230px);
+    left: 60px;
+    // transform: translate(-50%, -50%);
+    color: $text-white;
+    font-size: 90px;
+    font-weight: 400;
+    line-height: 0.95;
+    text-align: left;
+    z-index: 10;
+}
