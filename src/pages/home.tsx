@@ -1,4 +1,4 @@
-import { PixelBlast, ProjectCarousel } from "@/feature/home/components";
+import { Hero, PixelBlast } from "@/feature/home/components";
 
 import s from "./home.module.scss";
 
@@ -21,12 +21,7 @@ export default function Home() {
           edgeFade={0}
         />
       </div>
-      <ProjectCarousel />
-      <h1 className={s.title}>
-        선도적인
-        <br />
-        프로그래머이자 아티스트.
-      </h1>
+      <Hero />
     </main>
   );
 }

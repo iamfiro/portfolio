@@ -1,52 +1,7 @@
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css");
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DotGothic16&display=swap');
 @import "./variables.scss";
-
-:root {
-    // Spacing
-    --spacing-4: #{$spacing-4};
-    --spacing-6: #{$spacing-6};
-    --spacing-8: #{$spacing-8};
-    --spacing-10: #{$spacing-10};
-    --spacing-12: #{$spacing-12};
-    --spacing-14: #{$spacing-14};
-    --spacing-16: #{$spacing-16};
-    --spacing-20: #{$spacing-20};
-    --spacing-24: #{$spacing-24};
-    --spacing-32: #{$spacing-32};
-    --spacing-40: #{$spacing-40};
-    --spacing-48: #{$spacing-48};
-    --spacing-64: #{$spacing-64};
-    --spacing-100: #{$spacing-100};
-
-    // Radius
-    --radius-4: #{$radius-4};
-    --radius-8: #{$radius-8};
-    --radius-10: #{$radius-10};
-    --radius-12: #{$radius-12};
-    --radius-14: #{$radius-14};
-    --radius-16: #{$radius-16};
-    --radius-20: #{$radius-20};
-    --radius-32: #{$radius-32};
-    --radius-64: #{$radius-64};
-    --radius-full: #{$radius-full};
-
-    // Colors
-    --color-white: #{$color-white};
-    --color-black: #{$color-black};
-    --text: #{$text};
-    --text-subtle: #{$text-subtle};
-    --text-white: #{$text-white};
-    --text-brand: #{$text-brand};
-    --text-brand-heavy: #{$text-brand-heavy};
-    --text-brand-subtle: #{$text-brand-subtle};
-    --surface: #{$surface};
-    --surface-subtle: #{$surface-subtle};
-    --surface-brand: #{$surface-brand};
-    --surface-brand-heavy: #{$surface-brand-heavy};
-    --surface-brand-subtle: #{$surface-brand-subtle};
-    --border: #{$border};
-    --border-subtle: #{$border-subtle};
-}
 
 body, html {
     margin: 0;
@@ -55,7 +10,7 @@ body, html {
 
 * {
     box-sizing: border-box;
-    font-family: "Pretendard", sans-serif;
+    font-family: "Poppins", sans-serif;
 }
 
 h1, h2, h3, h4, h5, h6, p {

@@ -1,0 +1,117 @@
+.hero {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    padding: $spacing-24;
+
+    pointer-events: none;
+}
+
+.header {
+    width: 100%;
+
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    .link {
+        display: flex;
+        flex-direction: column;
+    
+        color: $text-subtle;
+    
+        margin: 0;
+        padding: 0;
+    
+        display: flex;
+        flex-direction: column;
+        gap: $spacing-4;
+    
+        pointer-events: auto;
+    
+        span {
+            // text-transform: uppercase;
+    
+            font-weight: 500;
+        }
+    
+        li {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+    
+            a {
+                text-decoration: none;
+                
+                color: $text;
+    
+                font-weight: 500;
+            }
+        }
+    }
+
+    .email {
+        color: $text;
+        text-decoration: none;
+    
+        pointer-events: auto;
+    
+        span {
+            display: flex;
+            align-items: center;
+            gap: $spacing-4;
+        }
+    }
+}
+
+.localtime {
+    margin-left: auto;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: $spacing-6;
+
+    color: $text;
+
+    padding: $spacing-32;
+
+    span {
+        letter-spacing: -0.05em;
+    }
+
+    .time {
+        font-size: 60px;
+
+        font-weight: 300;
+        font-family: "DotGothic16", sans-serif;
+    }
+}
+
+.title {
+    color: $text;
+
+    padding: $spacing-32;
+
+    font-size: 90px;
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: -0.05em;
+    text-align: left;
+
+    font-family: "Poppins", sans-serif;
+
+    b {
+        font-family: "gambarino", sans-serif;
+        font-weight: 400;
+    }
+}
