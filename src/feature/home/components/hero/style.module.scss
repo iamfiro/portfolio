@@ -94,30 +94,25 @@
     }
 }
 
-.letter {
-    width: 100%;
+.bottom {
+    color: $text;
+    align-items: flex-end;
     justify-content: space-between;
-    
-    color: $text;
-
-    padding: $spacing-32;
-}
-
-.title {
-    color: $text;
 
     padding: $spacing-32;
 
-    font-size: 90px;
-    font-weight: 400;
-    line-height: 1.2;
-    letter-spacing: -0.05em;
-    text-align: left;
-
-    font-family: "Poppins", sans-serif;
-
-    b {
-        font-family: "gambarino", sans-serif;
+    .title {
+        font-size: 90px;
         font-weight: 400;
+        line-height: 1.2;
+        letter-spacing: -0.05em;
+        text-align: left;
+
+        font-family: "Poppins", sans-serif;
+
+        b {
+            font-family: "gambarino", sans-serif;
+            font-weight: 400;
+        }
     }
 }

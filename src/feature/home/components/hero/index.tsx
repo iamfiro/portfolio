@@ -49,7 +49,6 @@ export default function Hero() {
         <header className={s.header}>
           <img src="logo.svg" alt="logo" width={190} />
           <ul className={s.link}>
-            <Typo.Body>Hyperlink</Typo.Body>
             <li>
               <a href="/">Home</a>
             </li>
@@ -70,7 +69,6 @@ export default function Hero() {
             </li>
           </ul>
           <ul className={s.link}>
-            <Typo.Body>Social</Typo.Body>
             <li>
               <a
                 href={LINK.instagram}
@@ -104,16 +102,13 @@ export default function Hero() {
           </a>
         </header>
       </HStack>
-      <HStack className={s.letter}>
-        <Typo.Body>Place where well-crafted service are born.</Typo.Body>
-        <Typo.Body>ⓒ 2025. Cho Sungju All rights reserved.</Typo.Body>
-      </HStack>
-      <HStack fullWidth>
+      <HStack fullWidth className={s.bottom}>
         <h1 className={s.title}>
           Turning <b>Ideas</b> into
           <br />
           Digital Reality
         </h1>
+        <Typo.Body>ⓒ 2025. Cho Sungju All rights reserved.</Typo.Body>
       </HStack>
     </section>
   );
