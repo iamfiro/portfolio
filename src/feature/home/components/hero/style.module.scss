@@ -55,6 +55,28 @@
                 color: $text;
     
                 font-weight: 500;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+
+    .locationWrapper {
+        color: $text;
+        .location {
+            display: flex;
+            align-items: center;
+
+            &::before {
+                content: "";
+                display: inline-block;
+                width: 14px;
+                height: 14px;
+                background-color: $text;
+                border-radius: 50%;
+                margin-right: $spacing-6;
             }
         }
     }
@@ -73,28 +95,13 @@
     }
 }
 
-.localtime {
-    margin-left: auto;
-
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: $spacing-6;
-
+.letter {
+    width: 100%;
+    justify-content: space-between;
+    
     color: $text;
 
     padding: $spacing-32;
-
-    span {
-        letter-spacing: -0.05em;
-    }
-
-    .time {
-        font-size: 60px;
-
-        font-weight: 300;
-        font-family: "DotGothic16", sans-serif;
-    }
 }
 
 .title {
