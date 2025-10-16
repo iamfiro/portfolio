@@ -49,6 +49,7 @@ export default function Hero() {
         <header className={s.header}>
           <img src="logo.svg" alt="logo" width={190} />
           <ul className={s.link}>
+            <Typo.Body>Hyperlink</Typo.Body>
             <li>
               <a href="/">Home</a>
             </li>
