@@ -69,7 +69,7 @@ const createTouchTexture = () => {
   }[] = [];
   let last: { x: number; y: number } | null = null;
   const maxAge = 64;
-  let radius = 0.1 * size;
+  let radius = 0.05 * size; // 기본 반경을 더 작게
   const speed = 1 / maxAge;
   const clear = () => {
     ctx.fillStyle = "black";
@@ -389,7 +389,19 @@ const PixelBlast: React.FC<PixelBlastProps> = ({
     y: number;
     w: number;
     h: number;
-  }>({ pending: false, x: 0, y: 0, w: 1, h: 1 });
+    isHovering: boolean;
+    lastX: number;
+    lastY: number;
+  }>({
+    pending: false,
+    x: 0,
+    y: 0,
+    w: 1,
+    h: 1,
+    isHovering: false,
+    lastX: 0,
+    lastY: 0,
+  });
   const timeUniformRefs = useRef<{ liquidTime?: THREE.Uniform } | null>(null);
 
   const threeRef = useRef<{
@@ -425,7 +437,8 @@ const PixelBlast: React.FC<PixelBlastProps> = ({
     liquidEffect?: Effect;
     _cleanupExtra?: () => void;
     _handlers?: {
-      onPointerDown: (e: PointerEvent) => void;
+      onPointerEnter: (e: PointerEvent) => void;
+      onPointerLeave: (e: PointerEvent) => void;
       onPointerMove: (e: PointerEvent) => void;
     };
   } | null>(null);
@@ -460,8 +473,12 @@ const PixelBlast: React.FC<PixelBlastProps> = ({
         // 안전한 이벤트 리스너 해제
         if (t._handlers) {
           t.renderer.domElement.removeEventListener(
-            "pointerdown",
-            t._handlers.onPointerDown,
+            "pointerenter",
+            t._handlers.onPointerEnter,
+          );
+          t.renderer.domElement.removeEventListener(
+            "pointerleave",
+            t._handlers.onPointerLeave,
           );
           t.renderer.domElement.removeEventListener(
             "pointermove",
@@ -624,19 +641,141 @@ const PixelBlast: React.FC<PixelBlastProps> = ({
           h: renderer.domElement.height,
         };
       };
-      const onPointerDown = (e: PointerEvent) => {
-        const { fx, fy } = mapToPixels(e);
-        const ix = threeRef.current?.clickIx ?? 0;
-        uniforms.uClickPos.value[ix].set(fx, fy);
-        uniforms.uClickTimes.value[ix] = uniforms.uTime.value;
-        if (threeRef.current) threeRef.current.clickIx = (ix + 1) % MAX_CLICKS;
+      const onPointerEnter = (e: PointerEvent) => {
+        const { fx, fy, w, h } = mapToPixels(e);
+        pointerStateRef.current.isHovering = true;
+        pointerStateRef.current.x = fx;
+        pointerStateRef.current.y = fy;
+        pointerStateRef.current.w = w;
+        pointerStateRef.current.h = h;
+        pointerStateRef.current.lastX = fx;
+        pointerStateRef.current.lastY = fy;
+        pointerStateRef.current.pending = true;
+
+        // 호버 시 랜덤 효과 패턴 생성
+        const patternType = Math.floor(Math.random() * 4); // 0-3 패턴 타입
+        const centerX = fx;
+        const centerY = fy;
+        const spreadRadius = Math.min(w, h) * (0.02 + Math.random() * 0.05); // 2-7% 반경 (더 작게)
+
+        let patternCount = 0;
+        const positions: { x: number; y: number }[] = [];
+
+        switch (patternType) {
+          case 0: // 원형 패턴
+            patternCount = Math.floor(Math.random() * 4) + 2; // 2-5개 (더 적게)
+            for (let i = 0; i < patternCount; i++) {
+              const angle =
+                (i / patternCount) * Math.PI * 2 + Math.random() * 0.5;
+              const distance = spreadRadius * (0.5 + Math.random() * 0.5);
+              positions.push({
+                x: centerX + Math.cos(angle) * distance,
+                y: centerY + Math.sin(angle) * distance,
+              });
+            }
+            break;
+
+          case 1: // 랜덤 산재 패턴
+            patternCount = Math.floor(Math.random() * 5) + 2; // 2-6개 (더 적게)
+            for (let i = 0; i < patternCount; i++) {
+              const angle = Math.random() * Math.PI * 2;
+              const distance = Math.random() * spreadRadius;
+              positions.push({
+                x: centerX + Math.cos(angle) * distance,
+                y: centerY + Math.sin(angle) * distance,
+              });
+            }
+            break;
+
+          case 2: {
+            // 선형 패턴
+            patternCount = Math.floor(Math.random() * 3) + 2; // 2-4개 (더 적게)
+            const lineAngle = Math.random() * Math.PI * 2;
+            for (let i = 0; i < patternCount; i++) {
+              const t = (i / (patternCount - 1)) * 2 - 1; // -1 to 1
+              const distance = t * spreadRadius;
+              positions.push({
+                x: centerX + Math.cos(lineAngle) * distance,
+                y: centerY + Math.sin(lineAngle) * distance,
+              });
+            }
+            break;
+          }
+
+          case 3: // 스파이럴 패턴
+            patternCount = Math.floor(Math.random() * 4) + 2; // 2-5개 (더 적게)
+            for (let i = 0; i < patternCount; i++) {
+              const t = i / patternCount;
+              const angle = t * Math.PI * 4; // 2바퀴 스파이럴
+              const distance = t * spreadRadius;
+              positions.push({
+                x: centerX + Math.cos(angle) * distance,
+                y: centerY + Math.sin(angle) * distance,
+              });
+            }
+            break;
+        }
+
+        // 생성된 위치들에 효과 적용
+        positions.forEach((pos, _index) => {
+          const delay = Math.random() * 0.2; // 최대 0.2초 지연
+
+          // 클릭 효과 생성
+          const ix = threeRef.current?.clickIx ?? 0;
+          uniforms.uClickPos.value[ix].set(pos.x, pos.y);
+          uniforms.uClickTimes.value[ix] = uniforms.uTime.value + delay;
+          if (threeRef.current)
+            threeRef.current.clickIx = (ix + 1) % MAX_CLICKS;
+
+          // 터치 효과 생성
+          if (touch) {
+            touch.addTouch({ x: pos.x / w, y: pos.y / h });
+          }
+        });
+      };
+
+      const onPointerLeave = (_e: PointerEvent) => {
+        pointerStateRef.current.isHovering = false;
+        pointerStateRef.current.pending = false;
       };
       const onPointerMove = (e: PointerEvent) => {
-        if (!touch) return;
         const { fx, fy, w, h } = mapToPixels(e);
-        pointerStateRef.current = { pending: true, x: fx, y: fy, w, h };
+        const currentState = pointerStateRef.current;
+
+        // 마우스가 실제로 움직였는지 확인 (최소 이동 거리 체크)
+        const deltaX = Math.abs(fx - currentState.lastX);
+        const deltaY = Math.abs(fy - currentState.lastY);
+        const minMovement = 3; // 최소 이동 픽셀 (덜 민감하게)
+
+        if (deltaX > minMovement || deltaY > minMovement) {
+          pointerStateRef.current = {
+            pending: true,
+            x: fx,
+            y: fy,
+            w,
+            h,
+            isHovering: currentState.isHovering,
+            lastX: fx,
+            lastY: fy,
+          };
+
+          // 마우스 움직임에 따라 즉시 효과 생성 (호버 상태와 관계없이)
+          if (touch) {
+            touch.addTouch({ x: fx / w, y: fy / h });
+          }
+
+          // 클릭 효과도 마우스 움직임에 따라 생성
+          const ix = threeRef.current?.clickIx ?? 0;
+          uniforms.uClickPos.value[ix].set(fx, fy);
+          uniforms.uClickTimes.value[ix] = uniforms.uTime.value;
+          if (threeRef.current)
+            threeRef.current.clickIx = (ix + 1) % MAX_CLICKS;
+        }
       };
-      renderer.domElement.addEventListener("pointerdown", onPointerDown, {
+      renderer.domElement.addEventListener("pointerenter", onPointerEnter, {
+        passive: true,
+      });
+      renderer.domElement.addEventListener("pointerleave", onPointerLeave, {
         passive: true,
       });
       renderer.domElement.addEventListener("pointermove", onPointerMove, {
@@ -681,6 +820,7 @@ const PixelBlast: React.FC<PixelBlastProps> = ({
               touch.addTouch({ x: ps.x / ps.w, y: ps.y / ps.h });
               pointerStateRef.current.pending = false;
             }
+
             touch.update();
           }
           if (composer) composer.render();
@@ -704,7 +844,7 @@ const PixelBlast: React.FC<PixelBlastProps> = ({
         composer,
         touch,
         liquidEffect,
-        _handlers: { onPointerDown, onPointerMove },
+        _handlers: { onPointerEnter, onPointerLeave, onPointerMove },
       };
       // 클린업 추가 등록
       (threeRef.current as { _cleanupExtra?: () => void })._cleanupExtra =
@@ -753,8 +893,12 @@ const PixelBlast: React.FC<PixelBlastProps> = ({
       // 안전한 이벤트 리스너 해제
       if (t._handlers) {
         t.renderer.domElement.removeEventListener(
-          "pointerdown",
-          t._handlers.onPointerDown,
+          "pointerenter",
+          t._handlers.onPointerEnter,
+        );
+        t.renderer.domElement.removeEventListener(
+          "pointerleave",
+          t._handlers.onPointerLeave,
         );
         t.renderer.domElement.removeEventListener(
           "pointermove",

@@ -11,8 +11,6 @@
     align-items: flex-start;
     justify-content: space-between;
 
-    padding: $spacing-24;
-
     pointer-events: none;
 }
 
@@ -22,6 +20,10 @@
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
+
+    padding: $spacing-24;
+
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 100%);
 
     .link {
         display: flex;
@@ -99,7 +101,7 @@
     align-items: flex-end;
     justify-content: space-between;
 
-    padding: $spacing-32;
+    padding: $spacing-48;
 
     .title {
         font-size: 90px;
