@@ -52,6 +52,7 @@
     
             a {
                 text-decoration: none;
+                font-family: "Poppins", sans-serif;
                 
                 color: $text;
     
@@ -92,6 +93,8 @@
             display: flex;
             align-items: center;
             gap: $spacing-4;
+
+            font-family: "Poppins", sans-serif;
         }
     }
 }
@@ -116,5 +119,9 @@
             font-family: "gambarino", sans-serif;
             font-weight: 400;
         }
+    }
+
+    .copyright {
+        font-family: "Poppins", sans-serif;
     }
 }

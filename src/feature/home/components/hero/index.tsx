@@ -108,7 +108,9 @@ export default function Hero() {
           <br />
           Digital Reality
         </h1>
-        <Typo.Body>ⓒ 2025. Cho Sungju All rights reserved.</Typo.Body>
+        <Typo.Body className={s.copyright}>
+          ⓒ 2025. Cho Sungju All rights reserved.
+        </Typo.Body>
       </HStack>
     </section>
   );
