@@ -1,7 +1,7 @@
 import BlogArticleList from "@/feature/blog/components/article-list";
 import ErrorBoundary from "@/shared/components/error-boundary";
 import { BaseLayout } from "@/shared/components/layouts";
-import { Header, Typo } from "@/shared/components/ui";
+import { Header, Spacing, Typo } from "@/shared/components/ui";
 
 import s from "./blog.module.scss";
 
@@ -9,7 +9,7 @@ export default function Blog() {
   return (
     <BaseLayout>
       <Header />
-      <div aria-label="spacer" />
+      <Spacing size={48} />
       <div className={s.thumbnail}>
         <div>
           <img src="/icon/folder.png" className={s.thumbnail_icon_lt} />

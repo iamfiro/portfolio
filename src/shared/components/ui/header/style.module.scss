@@ -10,8 +10,10 @@
 }
 
 .header {
-    width: 416px;
+    width: fit-content;
     height: 60px;
+
+    flex-shrink: 0;
 
     border-radius: $radius-14;
     
@@ -23,7 +25,7 @@
 
     padding: $spacing-6 $spacing-6;
 
-    box-shadow: 0px 3px 20px 2px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 3px 20px 2px rgba(0, 0, 0, 0.05);
 
     img {
         width: 30px;
@@ -41,11 +43,15 @@
 
     height: 100%;
 
+    flex-shrink: 0;
+
     li {
         list-style: none;
         margin: 0;
         padding: 0;
 
+        min-width: 80px;
+        width: fit-content;
         height: 100%;
 
         padding: 0 $spacing-12;
@@ -53,6 +59,8 @@
         display: flex;
         align-items: center;
         justify-content: center;
+
+        flex-shrink: 0;
 
         border: 1.5px solid $border-inverse;
         border-radius: $radius-10;
@@ -67,6 +75,8 @@
 
         &.active {
             background-color: $surface-brand;
+
+            padding: 0 $spacing-16;
 
             a, span {
                 color: $text;
