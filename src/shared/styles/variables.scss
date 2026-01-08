@@ -28,6 +28,7 @@ $radius-12: 12px;
 $radius-14: 14px;
 $radius-16: 16px;
 $radius-20: 20px;
+$radius-24: 24px;
 $radius-32: 32px;
 $radius-64: 64px;
 $radius-full: 9999px;
@@ -37,26 +38,30 @@ $color-white: #FFFFFF;
 $color-black: #000000;
 
 // Text Colors
-$text: #fff;
+$text: #000000;
 $text-subtle: #919191;
+$text-inverse: #FFFFFF;
 
 // Brand Text Colors
-$text-brand: #45C1FF;
+$text-brand: #1180ff;
 $text-brand-heavy: #0D8FCF;
 $text-brand-subtle: #EAF8FF;
 
 // Surface Colors
 $surface: #FFFFFF;
 $surface-subtle: #FAFAFA;
+$surface-inverse: #242424;
+$surface-inverse-subtle: #424242;
 $surface-white: #FFFFFF;
 
 // Brand Surface Colors
-$surface-brand: #45C1FF;
+$surface-brand: #dbff11;
 $surface-brand-heavy: #0D8FCF;
 $surface-brand-subtle: #EAF8FF;
 
 // Border Colors
 $border: #eaeaea;
+$border-inverse: #393939;
 $border-subtle: #EFEFEF;
 
 // Shadow Scale

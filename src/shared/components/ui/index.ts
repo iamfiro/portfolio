@@ -8,3 +8,4 @@ export { FlexAlign, FlexJustify, HStack, VStack } from "./stack";
 export { default as Tag } from "./tag";
 export { default as TagSkeleton } from "./tag/skeleton";
 export { default as Typo } from "./typo";
+export { default as Header } from "./header";

@@ -1,13 +1,14 @@
 import BlogArticleList from "@/feature/blog/components/article-list";
 import ErrorBoundary from "@/shared/components/error-boundary";
 import { BaseLayout } from "@/shared/components/layouts";
-import { Typo } from "@/shared/components/ui";
+import { Header, Typo } from "@/shared/components/ui";
 
 import s from "./blog.module.scss";
 
 export default function Blog() {
   return (
     <BaseLayout>
+      <Header />
       <div aria-label="spacer" />
       <div className={s.thumbnail}>
         <div>
