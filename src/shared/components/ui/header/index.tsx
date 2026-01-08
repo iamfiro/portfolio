@@ -4,14 +4,14 @@ import { LINK } from "@/shared/constants";
 
 export default function Header() {
     const location = useLocation();
-    const isActive = (path: string) => location.pathname === path;
+    const isActive = (path: string) => location.pathname.includes(path);
     
     return (
         <header className={s.container}>
             <section className={s.header}>
                 <img src="/logo_white.svg" alt="logo" />
                 <ul className={s.link}>
-                    <li className={isActive("/") ? s.active : ""}>
+                    <li className={location.pathname === "/" ? s.active : ""}>
                         <a href="/">포트폴리오</a>
                     </li>
                     <li className={isActive("/projects") ? s.active : ""}>
