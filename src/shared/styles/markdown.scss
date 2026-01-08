@@ -1,43 +1,69 @@
 .markdown_article {
     // 제목 계층 구조
     h2 {
-        font-size: 32px;
-        font-weight: 600;
+        color: $text;
 
-        margin-top: $spacing-48;
+        font-size: 32px;
+        font-weight: 700;
+        line-height: 1.4;
+        letter-spacing: -0.02em;
+
+        margin-top: $spacing-64;
         margin-bottom: $spacing-24;
-        
+
+        padding-bottom: $spacing-12;
+
+        border-bottom: 1px solid $border-subtle;
+
         &:first-child {
             margin-top: 0;
         }
     }
 
     h3 {
-        font-size: 22px;
-        font-weight: 600;
+        color: $text;
 
-        margin-top: $spacing-32;
-        margin-bottom: $spacing-16;
-        
+        font-size: 24px;
+        font-weight: 600;
+        line-height: 1.5;
+        letter-spacing: -0.01em;
+
+        margin-top: $spacing-48;
+        margin-bottom: $spacing-20;
+
         &:first-child {
             margin-top: 0;
         }
     }
 
+    h4 {
+        color: $text;
+
+        font-size: 20px;
+        font-weight: 600;
+        line-height: 1.5;
+
+        margin-top: $spacing-32;
+        margin-bottom: $spacing-16;
+    }
+
     strong {
+        color: $text;
+
         font-weight: 600;
     }
 
     // 단락 스타일 - 계층적 spacing
     p {
-        color: $color-black;
+        color: $text;
 
-        font-size: 18px;
-        font-weight: 300;
-        line-height: 32px;
+        font-size: 17px;
+        font-weight: 400;
+        line-height: 1.6;
+        letter-spacing: -0.003em;
 
-        margin: 0 0 $spacing-20 0;
-        
+        margin: 0 0 $spacing-24 0;
+
         &:last-child {
             margin-bottom: 0;
         }
@@ -48,20 +74,26 @@
 
     // 이탤릭 체
     em {
+        font-style: italic;
+
         margin-right: $spacing-4;
     }
 
     // 리스트 기본 스타일
-    ul, ol {
-        margin: 0 0 $spacing-24 0;
-        padding-left: $spacing-24;
+    ul,
+    ol {
+        margin: 0 0 $spacing-32 0;
+        padding-left: $spacing-32;
 
         li {
-            line-height: 1.6;
-            font-size: 18px;
-            font-weight: 300;
             color: $text;
-            margin-bottom: $spacing-8;
+
+            font-size: 17px;
+            font-weight: 400;
+            line-height: 1.8;
+            letter-spacing: -0.003em;
+
+            margin-bottom: $spacing-12;
 
             &:last-child {
                 margin-bottom: 0;
@@ -70,8 +102,8 @@
 
         // 리스트 내부 단락
         p {
-            margin-bottom: $spacing-8;
-            
+            margin-bottom: $spacing-12;
+
             &:last-child {
                 margin-bottom: 0;
             }
@@ -80,11 +112,12 @@
 
     ul {
         list-style-type: disc;
-        
+
         // 중첩된 리스트 스타일
         ul {
-            margin: $spacing-8 0 0 0;
+            margin: $spacing-12 0 0 0;
             padding-left: $spacing-24;
+
             list-style-type: circle;
         }
     }
@@ -92,21 +125,22 @@
     ol {
         list-style-type: decimal;
         counter-reset: list-counter;
-        
+
         li {
             counter-increment: list-counter;
-            
+
             &::marker {
                 color: $text-brand;
+
                 font-weight: 600;
             }
         }
 
         // 중첩된 리스트 스타일
         ol {
-            margin: $spacing-8 0 0 0;
+            margin: $spacing-12 0 0 0;
             padding-left: $spacing-24;
-            
+
             li::marker {
                 color: $text-subtle;
             }
@@ -118,84 +152,131 @@
         color: $text-brand;
 
         text-decoration: underline;
+        text-decoration-thickness: 1px;
         text-underline-offset: $spacing-4;
 
-        transition: color 0.2s ease-in-out;
+        transition: all 0.2s ease;
 
         &:hover {
-            color: $text-subtle;
+            color: $text-brand-heavy;
+
+            text-decoration-thickness: 2px;
         }
     }
 
     // 인용구
     blockquote {
-        margin: 0 0 $spacing-24 0;
-        padding: $spacing-16 $spacing-24;
+        position: relative;
 
-        border-left: 4px solid $text-brand;
+        margin: 0 0 $spacing-32 0;
+        padding: $spacing-20 $spacing-24;
+
         background-color: $surface-subtle;
 
+        border-left: 4px solid $text-brand;
+        border-radius: $radius-4;
+
         p {
-            margin: 0;
-            font-size: 18px;
             color: $text;
+
+            font-size: 16px;
+            font-weight: 400;
             line-height: 1.8;
-            
-            // 텍스트 내용을 각 줄로 분리하여 표시
-            white-space: pre-line;
-            word-wrap: break-word;
-            
-            // 특정 패턴 뒤에 줄바꿈 강제
-            &::after {
-                content: "\A";
-                white-space: pre;
-                display: inline;
-            }
-            
-            &:last-child::after {
-                content: "";
-            }
+            letter-spacing: -0.003em;
+
+            margin: 0;
         }
-        
-        // 만약 여러 p 태그로 분리된 경우
+
         p + p {
-            margin-top: $spacing-8;
+            margin-top: $spacing-16;
+        }
+
+        strong {
+            color: $text;
+
+            font-weight: 600;
+        }
+
+        code {
+            background-color: $surface;
         }
     }
 
     // 구분선
     hr {
-        border: 0;
-        border-top: 1px solid $border;
+        width: 100%;
+        height: 1px;
 
-        margin: $spacing-48 0;
+        margin: $spacing-64 0;
+
+        background-color: $border-subtle;
+
+        border: none;
+
+        opacity: 0.6;
     }
 
     // 테이블
     table {
-        width: fit-content;
+        width: 100%;
+
         border-collapse: collapse;
-        margin: 0 0 $spacing-24 0;
+        border-spacing: 0;
 
-        table, th, td {
-            border: 1px solid $border;
-        }
+        margin: 0 0 $spacing-32 0;
 
+        border: 1px solid $border;
+        border-radius: $radius-8;
+
+        overflow: hidden;
+
+        th,
         td {
-            min-width: 60px;
             padding: $spacing-12 $spacing-16;
 
-            font-weight: 400;
-            font-size: 16px;
+            text-align: left;
+
+            border-bottom: 1px solid $border;
         }
 
         th {
-            padding: $spacing-12 $spacing-16;
+            color: $text;
+
+            font-size: 15px;
             font-weight: 600;
+
             background-color: $surface-subtle;
         }
 
-        tr:nth-child(2n) {
+        td {
+            color: $text;
+
+            font-size: 15px;
+            font-weight: 400;
+            line-height: 1.6;
+
+            background-color: $surface;
+        }
+
+        tbody tr {
+            transition: background-color 0.15s ease;
+
+            &:hover {
+                background-color: $surface-subtle;
+
+                td {
+                    background-color: transparent;
+                }
+            }
+
+            &:last-child {
+                td {
+                    border-bottom: none;
+                }
+            }
+        }
+
+        tr:nth-child(even) td {
             background-color: $surface-subtle;
         }
     }
@@ -204,16 +285,17 @@
     // .github-code-block 클래스로 관리됨
 
     :not(pre) > code {
-        background-color: $surface-subtle;
+        color: $text-brand-heavy;
 
-        padding: $spacing-4 $spacing-6;
+        background-color: $surface-brand-subtle;
+
+        font-size: 15px;
+        font-weight: 500;
+
+        padding: $spacing-4 $spacing-8;
 
         border: 1px solid $border;
         border-radius: $radius-4;
-
-        font-size: 14px;
-
-        margin-right: $spacing-4;
     }
 
 }
@@ -223,11 +305,24 @@
     width: 100%;
     height: auto;
 
-    border-radius: $radius-10;
-    border: 1px solid $border;
+    margin: $spacing-32 0;
 
-    margin: 0 0 $spacing-24 0;
-    
+    border: 1px solid $border;
+    border-radius: $radius-12;
+
+    box-shadow: $shadow;
+
+    transition: all 0.3s ease;
+
+    &:hover {
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        transform: translateY(-2px);
+    }
+
+    &:first-child {
+        margin-top: 0;
+    }
+
     &:last-child {
         margin-bottom: 0;
     }

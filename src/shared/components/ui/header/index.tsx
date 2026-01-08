@@ -1,13 +1,43 @@
 import { useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
 import s from "./style.module.scss";
 import { LINK } from "@/shared/constants";
 
 export default function Header() {
     const location = useLocation();
     const isActive = (path: string) => location.pathname.includes(path);
-    
+    const [isVisible, setIsVisible] = useState(true);
+    const [lastScrollY, setLastScrollY] = useState(0);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const currentScrollY = window.scrollY;
+            const scrollDifference = currentScrollY - lastScrollY;
+
+            if (currentScrollY <= 0) {
+                setIsVisible(true);
+            }
+            
+            else if (scrollDifference > 0 && currentScrollY > 200 && Math.abs(scrollDifference) > 10) {
+                setIsVisible(false);
+            }
+            
+            else if (scrollDifference < 0) {
+                setIsVisible(true);
+            }
+
+            setLastScrollY(currentScrollY);
+        };
+
+        window.addEventListener("scroll", handleScroll, { passive: true });
+
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
+    }, [lastScrollY]);
+
     return (
-        <header className={s.container}>
+        <header className={`${s.container} ${isVisible ? s.visible : s.hidden}`}>
             <section className={s.header}>
                 <img src="/logo_white.svg" alt="logo" />
                 <ul className={s.link}>

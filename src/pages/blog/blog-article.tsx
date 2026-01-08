@@ -10,6 +10,7 @@ import { BaseLayout } from "@/shared/components/layouts";
 import {
   Avatar,
   FlexAlign,
+  Header,
   HStack,
   MarkdownRenderer,
   Spacing,
@@ -45,7 +46,8 @@ export default function BlogArticle() {
       <Helmet>
         <title>{post.data.title}</title>
       </Helmet>
-      <Spacing size={32} />
+      <Header />
+      <Spacing size={48} />
       <BaseLayout className={s.container}>
         <VStack className={s.content_container}>
           <VStack gap={16}>
