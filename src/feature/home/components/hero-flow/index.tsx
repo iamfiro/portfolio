@@ -5,6 +5,8 @@ import {
   ReactNode,
   useCallback,
   useMemo,
+  useRef,
+  useState,
 } from "react";
 import ReactFlow, {
   Edge,
@@ -65,10 +67,10 @@ function SourceNode({ data }: NodeProps<CustomNodeData>) {
 
 function ProductNode({ data }: NodeProps<CustomNodeData>) {
   return (
-    <Card variant="outlined" className={s.productCard} p={20}>
+    <Flex className={s.productNode}>
       {data.children}
       <Handle type="target" position={Position.Top} className={s.handle} />
-    </Card>
+    </Flex>
   );
 }
 
@@ -101,6 +103,14 @@ interface HeroFlowProps {
 }
 
 function HeroFlowRoot({ children, className }: HeroFlowProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [nodeExtent, setNodeExtent] = useState<
+    [[number, number], [number, number]]
+  >([
+    [-Infinity, -Infinity],
+    [Infinity, Infinity],
+  ]);
+
   const { initialNodes, initialEdges } = useMemo(() => {
     const nodes: Node<CustomNodeData>[] = [];
     const edges: Edge[] = [];
@@ -169,9 +179,23 @@ function HeroFlowRoot({ children, className }: HeroFlowProps) {
 
   const proOptions = useMemo(() => ({ hideAttribution: true }), []);
 
-  const onInit = useCallback(() => {
-    // Flow 초기화 시 필요한 작업
-  }, []);
+  const onInit = useCallback(
+    (reactFlowInstance: { getViewport: () => { zoom: number } }) => {
+      if (!containerRef.current) return;
+      const { width, height } = containerRef.current.getBoundingClientRect();
+      const { zoom } = reactFlowInstance.getViewport();
+
+      const padding = 100;
+      const halfWidth = width / zoom / 2 - padding;
+      const halfHeight = height / zoom / 2 - padding;
+
+      setNodeExtent([
+        [-halfWidth, -halfHeight],
+        [halfWidth, halfHeight],
+      ]);
+    },
+    [],
+  );
 
   return (
     <Flex className={containerClassName}>
@@ -197,6 +221,7 @@ function HeroFlowRoot({ children, className }: HeroFlowProps) {
         minZoom={1}
         maxZoom={1}
         autoPanOnNodeDrag={false}
+        nodeExtent={nodeExtent}
       />
     </Flex>
   );

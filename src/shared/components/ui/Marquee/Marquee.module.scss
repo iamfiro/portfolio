@@ -1,0 +1,87 @@
+@keyframes scroll-left {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(var(--scroll-offset));
+    }
+}
+
+@keyframes scroll-right {
+    0% {
+        transform: translateX(var(--scroll-offset));
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+.marquee {
+    position: relative;
+    width: 100%;
+
+    overflow: hidden;
+}
+
+.track {
+    display: flex;
+
+    flex-direction: row;
+    align-items: center;
+
+    width: max-content;
+
+    animation: scroll-left linear infinite;
+
+    will-change: transform;
+}
+
+.track.right {
+    animation-name: scroll-right;
+}
+
+.set {
+    display: flex;
+
+    flex-direction: row;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.pauseOnHover:hover .track {
+    animation-play-state: paused;
+}
+
+.item {
+    display: flex;
+
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+}
+
+.edgeGradient::before,
+.edgeGradient::after {
+    content: "";
+
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: $spacing-40;
+
+    pointer-events: none;
+
+    z-index: 1;
+}
+
+.edgeGradient::before {
+    left: 0;
+
+    background: linear-gradient(to right, var(--gradient-color, $surface) 0%, transparent 100%);
+}
+
+.edgeGradient::after {
+    right: 0;
+
+    background: linear-gradient(to left, var(--gradient-color, $surface) 0%, transparent 100%);
+}

@@ -43,7 +43,7 @@ export default function Hero() {
           <StackCard />
         </HeroFlow.Source>
 
-        <HeroFlow.Product id="product" position={{ x: 0, y: 180 }}>
+        <HeroFlow.Product id="product" position={{ x: 0, y: 120 }}>
           <ProductCard />
         </HeroFlow.Product>
       </HeroFlow>

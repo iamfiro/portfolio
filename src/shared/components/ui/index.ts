@@ -192,6 +192,10 @@ export type { ResizableProps } from './Resizable/Resizable'
 export { Footer } from './Footer/Footer'
 export type { FooterProps } from './Footer/Footer'
 
+// Marquee
+export { Marquee } from './Marquee/Marquee'
+export type { MarqueeProps } from './Marquee/Marquee'
+
 // Utils
 export { cn, buildLayoutStyle, buildSpacingStyle, NOOP } from './_utils'
 
