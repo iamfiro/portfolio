@@ -6,6 +6,7 @@ import { RouterProvider } from "react-router-dom";
 
 import router from "@/app/router";
 
+import "reactflow/dist/style.css";
 import "@/shared/styles/global.scss";
 
 const queryClient = new QueryClient({

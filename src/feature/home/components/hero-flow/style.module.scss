@@ -1,0 +1,136 @@
+.flowContainer {
+    width: 100%;
+    height: 100%;
+}
+
+.nodeCard {
+    border-radius: $radius-12;
+
+    border-width: 1px;
+    border-color: $border-subtle;
+
+    min-width: 260px;
+
+    background-color: $surface-subtlest;
+}
+
+.handle {
+    width: 8px;
+    height: 8px;
+
+    background-color: $text-muted;
+    border: none;
+
+    opacity: 0;
+    transition: opacity $transition-fast;
+
+    .nodeCard:hover &,
+    .productCard:hover & {
+        opacity: 1;
+    }
+}
+
+// ============================================
+// Card Content Styles
+// ============================================
+
+.cardContent {
+    width: 100%;
+}
+
+.cardIcon {
+    color: $text-subtle;
+}
+
+.cardTitle {
+    font-size: $font-size-sm;
+    font-weight: 500;
+    color: $text-subtle;
+}
+
+.cardChildren {
+    width: 100%;
+}
+
+
+.colorDot {
+    width: 16px;
+    height: 16px;
+
+    border-radius: $radius-full;
+}
+
+// Person
+
+.personCardList {
+    width: 100%;
+
+    padding: 0;
+    margin: 0;
+
+    li {
+        width: 100%;
+
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+
+        border-bottom: 1px solid $border-subtle;
+
+        padding: $spacing-10 $spacing-4;
+
+        span {
+            font-size: $font-size-xs;
+
+            font-weight: 500;
+
+            &:first-child {
+                color: $text-muted;
+
+                text-transform: uppercase;
+            }
+        }
+        
+        &:first-child {
+            padding-top: $spacing-4;
+        }
+
+        &:last-child {
+            border-bottom: none;
+
+            padding-bottom: $spacing-4;
+        }
+    }
+}
+
+.ideaImage {
+    height: 150px;
+    width: 300px;
+
+    opacity: 0.7;
+    border-radius: $radius-12;
+}
+
+// ============================================
+// Responsive
+// ============================================
+
+@media (max-width: 768px) {
+    .nodeCard {
+        min-width: 120px;
+
+        padding: $spacing-10 $spacing-12;
+    }
+
+    .productCard {
+        min-width: 120px;
+
+        padding: $spacing-10 $spacing-12;
+    }
+
+    .techIcon {
+        width: 20px;
+        height: 20px;
+    }
+}
