@@ -1,0 +1,34 @@
+.dataList {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-12;
+
+  margin: 0;
+}
+
+.item {
+  display: flex;
+  align-items: baseline;
+  gap: $spacing-16;
+
+  padding-bottom: $spacing-12;
+
+  border-bottom: 1px solid $border;
+}
+
+.label {
+  flex-shrink: 0;
+
+  min-width: 120px;
+
+  font-size: 14px;
+  font-weight: $font-weight-medium;
+  color: $text-subtle;
+}
+
+.value {
+  margin: 0;
+
+  font-size: 14px;
+  color: $text;
+}

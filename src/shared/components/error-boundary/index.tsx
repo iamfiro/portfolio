@@ -1,6 +1,6 @@
 import { Component, ErrorInfo, ReactNode } from "react";
 
-import { FlexAlign, Typo, VStack } from "../ui";
+import { Flex, Heading, Text } from "../ui";
 
 interface Props {
   children: ReactNode;
@@ -35,9 +35,10 @@ export default class ErrorBoundary extends Component<Props, State> {
       }
 
       return (
-        <VStack
+        <Flex
+          direction="column"
           gap={24}
-          align={FlexAlign.Center}
+          align="center"
           style={{
             padding: "2rem",
             textAlign: "center",
@@ -45,18 +46,20 @@ export default class ErrorBoundary extends Component<Props, State> {
             justifyContent: "center",
           }}
         >
-          <VStack gap={16} align={FlexAlign.Center}>
+          <Flex direction="column" gap={16} align="center">
             <img
               src="/icon/error.png"
               alt="error image"
               width={100}
               height={100}
             />
-            <Typo.Headline>⚠️ 오류가 발생했습니다</Typo.Headline>
-            <Typo.Body>
+            <Heading as="h3" size="xl">
+              ⚠️ 오류가 발생했습니다
+            </Heading>
+            <Text>
               페이지를 불러오는 중 문제가 발생했습니다. 잠시 후 다시
               시도해주세요.
-            </Typo.Body>
+            </Text>
             {this.state.error && (
               <details style={{ marginTop: "1rem" }}>
                 <summary style={{ cursor: "pointer", marginBottom: "0.5rem" }}>
@@ -76,7 +79,7 @@ export default class ErrorBoundary extends Component<Props, State> {
                 </pre>
               </details>
             )}
-            {/* <HStack gap={16}>
+            {/* <Flex gap={16}>
               <button
                 onClick={() => window.location.reload()}
                 style={{
@@ -103,9 +106,9 @@ export default class ErrorBoundary extends Component<Props, State> {
               >
                 이전 페이지
               </button>
-            </HStack> */}
-          </VStack>
-        </VStack>
+            </Flex> */}
+          </Flex>
+        </Flex>
       );
     }
 

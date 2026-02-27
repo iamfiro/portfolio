@@ -1,0 +1,49 @@
+.wrapper {
+  width: 100%;
+
+  border: 1px solid $border;
+  border-radius: $radius-12;
+
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+
+  border-collapse: collapse;
+}
+
+.th {
+  padding: $spacing-12 $spacing-16;
+
+  border-bottom: 2px solid $border;
+
+  background-color: $surface-subtle;
+
+  font-size: 13px;
+  font-weight: $font-weight-semibold;
+  text-align: left;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: $text-subtle;
+}
+
+.td {
+  padding: $spacing-12 $spacing-16;
+
+  border-bottom: 1px solid $border;
+
+  font-size: 14px;
+  color: $text;
+}
+
+.striped tbody tr:nth-child(even) { background-color: $surface-subtle; }
+.hoverable tbody tr:hover { background-color: $surface-subtle; }
+
+.empty {
+  padding: $spacing-48 $spacing-16;
+
+  font-size: 14px;
+  text-align: center;
+  color: $text-subtle;
+}

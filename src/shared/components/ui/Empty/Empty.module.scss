@@ -1,0 +1,35 @@
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding: $spacing-48 $spacing-24;
+
+  text-align: center;
+}
+
+.icon {
+  margin-bottom: $spacing-12;
+
+  font-size: 40px;
+  color: $text-subtle;
+}
+
+.title {
+  margin: 0;
+
+  font-size: 16px;
+  font-weight: $font-weight-medium;
+  color: $text;
+}
+
+.description {
+  margin: $spacing-6 0 0;
+
+  font-size: 14px;
+  color: $text-subtle;
+}
+
+.action {
+  margin-top: $spacing-16;
+}

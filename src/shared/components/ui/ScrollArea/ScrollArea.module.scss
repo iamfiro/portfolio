@@ -1,0 +1,22 @@
+.scrollArea {
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: $radius-full;
+
+    background: $border;
+
+    &:hover { background: $text-subtle; }
+  }
+}
+
+.vertical { overflow-y: auto; overflow-x: hidden; }
+.horizontal { overflow-x: auto; overflow-y: hidden; }
+.both { overflow: auto; }

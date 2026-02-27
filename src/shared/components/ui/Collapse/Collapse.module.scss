@@ -1,0 +1,9 @@
+.collapse {
+  overflow: hidden;
+
+  transition: height 0.2s ease;
+}
+
+.open {
+  overflow: visible;
+}

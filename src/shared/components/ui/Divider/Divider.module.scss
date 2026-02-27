@@ -1,0 +1,43 @@
+.divider {
+  flex-shrink: 0;
+}
+
+.horizontal {
+  width: 100%;
+  height: 1px;
+
+  background-color: $border;
+}
+
+.vertical {
+  width: 1px;
+  height: 100%;
+
+  background-color: $border;
+}
+
+.withLabel {
+  display: flex;
+  align-items: center;
+
+  height: auto;
+
+  background: none;
+
+  &::before, &::after {
+    content: '';
+    flex: 1;
+
+    height: 1px;
+
+    background-color: $border;
+  }
+}
+
+.label {
+  padding: 0 $spacing-12;
+
+  font-size: 13px;
+  color: $text-subtle;
+  white-space: nowrap;
+}

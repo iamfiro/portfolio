@@ -1,0 +1,27 @@
+.link {
+  font-weight: $font-weight-medium;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+  transition: color 0.15s ease;
+
+  &:focus-visible { outline: 3px solid $surface-brand; outline-offset: 2px; border-radius: 2px; }
+}
+
+.default {
+  color: $text;
+
+  &:hover { color: $text-subtle; }
+}
+
+.subtle {
+  color: $text-subtle;
+
+  &:hover { color: $text; }
+}
+
+.brand {
+  color: $text-brand-heavy;
+
+  &:hover { color: $text-brand; }
+}

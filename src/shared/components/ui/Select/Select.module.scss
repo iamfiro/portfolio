@@ -1,0 +1,67 @@
+.wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+
+  border: 2px solid $border;
+  border-radius: $radius-12;
+
+  background-color: $surface;
+
+  transition: border-color 0.15s ease;
+
+  &:focus-within { border-color: $surface-brand; }
+}
+
+.select {
+  flex: 1;
+  width: 100%;
+
+  padding-right: $spacing-32;
+
+  border: none;
+
+  background: transparent;
+
+  font-size: 16px;
+  color: $text;
+  cursor: pointer;
+  outline: none;
+  appearance: none;
+
+  &:disabled { opacity: 0.5; cursor: not-allowed; }
+}
+
+.chevron {
+  position: absolute;
+  right: $spacing-12;
+
+  color: $text-subtle;
+  pointer-events: none;
+}
+
+.sm {
+  padding: $spacing-8 $spacing-12;
+
+  .select { font-size: 14px; }
+}
+
+.md {
+  padding: $spacing-12 $spacing-16;
+
+  .select { font-size: 16px; }
+}
+
+.lg {
+  padding: $spacing-14 $spacing-20;
+
+  .select { font-size: 18px; }
+}
+
+.error {
+  border-color: $text-danger;
+
+  &:focus-within { border-color: $text-danger; }
+}
+
+.fullWidth { width: 100%; }

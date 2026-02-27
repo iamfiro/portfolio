@@ -1,0 +1,92 @@
+.checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-8;
+
+  cursor: pointer;
+}
+
+.input {
+  position: absolute;
+
+  width: 1px;
+  height: 1px;
+
+  margin: -1px;
+  padding: 0;
+
+  border: 0;
+
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+.check {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+
+  border: 2px solid $border;
+  border-radius: $radius-8;
+
+  background-color: $surface;
+
+  transition: all 0.15s ease;
+
+  svg { opacity: 0; transition: opacity 0.15s ease; }
+}
+
+.input:checked + .check {
+  border-color: $surface-brand;
+
+  background-color: $surface-brand;
+
+  svg { opacity: 1; }
+}
+
+.input:focus-visible + .check {
+  outline: 3px solid $surface-brand;
+  outline-offset: 2px;
+}
+
+.input:disabled + .check {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.label {
+  font-size: 15px;
+  color: $text;
+}
+
+.error .check {
+  border-color: $text-danger;
+}
+
+.group {
+  margin: 0;
+  padding: 0;
+
+  border: none;
+}
+
+.legend {
+  margin-bottom: $spacing-8;
+
+  font-size: 14px;
+  font-weight: $font-weight-medium;
+  color: $text;
+}
+
+.items {
+  display: flex;
+  gap: $spacing-12;
+}
+
+.column { flex-direction: column; }
+.row { flex-direction: row; flex-wrap: wrap; }

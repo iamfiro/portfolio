@@ -1,0 +1,54 @@
+.tree {
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+.children {
+  margin: 0;
+  padding: 0 0 0 $spacing-20;
+
+  list-style: none;
+}
+
+.item {
+  user-select: none;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: $spacing-6;
+
+  padding: $spacing-4 $spacing-8;
+
+  border-radius: $radius-8;
+
+  font-size: 14px;
+  cursor: pointer;
+
+  &:hover { background-color: $surface-subtle; }
+}
+
+.chevron {
+  flex-shrink: 0;
+
+  color: $text-subtle;
+  transition: transform 0.15s ease;
+}
+
+.expanded { transform: rotate(90deg); }
+
+.spacer { width: 14px; flex-shrink: 0; }
+
+.icon {
+  display: inline-flex;
+  flex-shrink: 0;
+
+  font-size: 16px;
+}
+
+.label {
+  color: $text;
+}

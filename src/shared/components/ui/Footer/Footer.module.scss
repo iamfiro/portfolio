@@ -1,0 +1,18 @@
+.footer {
+  width: 100%;
+
+  border-top: 1px solid $border;
+
+  background-color: $surface;
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  max-width: $max-width;
+
+  margin: 0 auto;
+  padding: $spacing-24 $padding;
+}

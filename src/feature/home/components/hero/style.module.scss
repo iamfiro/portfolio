@@ -1,127 +1,31 @@
 .hero {
+    height: calc(100vh - 64px);
+    width: 100%;
+
+    background-color: $surface;
+
+    background-image: url('/images/home/background_dot.png');
+    background-size: 17px ;
+}
+
+.content {
     position: absolute;
-    top: 0;
-    left: 0;
-
-    width: 100%;
-    height: 100vh;
-
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: space-between;
-
-    pointer-events: none;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
-.header {
-    width: 100%;
+.title {
+    font-size: $font-size-4xl;
+    font-weight: 500;
 
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-
-    padding: $spacing-24;
-
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 100%);
-
-    .link {
-        display: flex;
-        flex-direction: column;
-    
-        color: $text-subtle;
-    
-        margin: 0;
-        padding: 0;
-    
-        display: flex;
-        flex-direction: column;
-        gap: $spacing-4;
-    
-        pointer-events: auto;
-    
-        span {
-            font-weight: 400;
-            font-family: "gambarino", sans-serif;
-        }
-    
-        li {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-    
-            a {
-                text-decoration: none;
-                font-family: "Poppins", sans-serif;
-                
-                color: $text;
-    
-                font-weight: 500;
-
-                &:hover {
-                    text-decoration: underline;
-                }
-            }
-        }
-    }
-
-    .locationWrapper {
-        color: $text;
-        .location {
-            display: flex;
-            align-items: center;
-
-            &::before {
-                content: "";
-                display: inline-block;
-                width: 14px;
-                height: 14px;
-                background-color: $text;
-                border-radius: 50%;
-                margin-right: $spacing-6;
-            }
-        }
-    }
-
-    .email {
-        color: $text;
-        text-decoration: none;
-    
-        pointer-events: auto;
-    
-        span {
-            display: flex;
-            align-items: center;
-            gap: $spacing-4;
-
-            font-family: "Poppins", sans-serif;
-        }
-    }
+    color: $color-white;
 }
 
-.bottom {
-    color: $text;
-    align-items: flex-end;
-    justify-content: space-between;
+.description {
+    font-size: $font-size-md;
 
-    padding: $spacing-48;
+    color: $text-subtle;
 
-    .title {
-        font-size: 90px;
-        font-weight: 400;
-        line-height: 1.2;
-        letter-spacing: -0.05em;
-        text-align: left;
-
-        font-family: "Poppins", sans-serif;
-
-        b {
-            font-family: "gambarino", sans-serif;
-            font-weight: 400;
-        }
-    }
-
-    .copyright {
-        font-family: "Poppins", sans-serif;
-    }
+    line-height: 1.5;
 }

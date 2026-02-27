@@ -1,0 +1,32 @@
+.datePicker {
+  display: inline-block;
+
+  border: 2px solid $border;
+  border-radius: $radius-12;
+
+  background-color: $surface;
+
+  font-family: inherit;
+  font-size: 16px;
+  color: $text;
+  transition: border-color 0.15s ease;
+
+  &:focus {
+    border-color: $surface-brand;
+    outline: none;
+  }
+
+  &:disabled { opacity: 0.5; cursor: not-allowed; }
+}
+
+.sm { padding: $spacing-8 $spacing-12; font-size: 14px; }
+.md { padding: $spacing-12 $spacing-16; font-size: 16px; }
+.lg { padding: $spacing-14 $spacing-20; font-size: 18px; }
+
+.error {
+  border-color: $text-danger;
+
+  &:focus { border-color: $text-danger; }
+}
+
+.fullWidth { width: 100%; }

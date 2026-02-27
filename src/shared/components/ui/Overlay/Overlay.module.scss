@@ -1,0 +1,36 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: rgba(0, 0, 0, 0.5);
+
+  animation: fadeIn 0.15s ease;
+}
+
+.blur {
+  backdrop-filter: blur(4px);
+}
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 998;
+
+  background-color: rgba(0, 0, 0, 0.3);
+
+  animation: fadeIn 0.15s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .overlay, .backdrop { animation: none; }
+}

@@ -1,0 +1,61 @@
+.iconButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+  border-radius: $radius-8;
+
+  background-color: transparent;
+
+  cursor: pointer;
+  transition: all 0.15s ease;
+
+  &:focus-visible { outline: 3px solid $surface-brand; outline-offset: 2px; }
+  &:disabled { opacity: 0.5; cursor: not-allowed; }
+}
+
+.primary {
+  background-color: $surface-brand;
+
+  color: $text;
+
+  &:hover { background-color: $surface-brand-heavy; }
+}
+
+.secondary {
+  background-color: $surface-subtle;
+
+  &:hover { background-color: $border; }
+}
+
+.ghost {
+  &:hover { background-color: $surface-subtle; }
+}
+
+.danger {
+  color: $text-danger;
+
+  &:hover { background-color: $surface-danger-subtle; }
+}
+
+.sm {
+  width: 32px;
+  height: 32px;
+
+  font-size: 14px;
+}
+
+.md {
+  width: 40px;
+  height: 40px;
+
+  font-size: 18px;
+}
+
+.lg {
+  width: 48px;
+  height: 48px;
+
+  font-size: 22px;
+}

@@ -14,5 +14,10 @@
 }
 
 .no_result_description {
-  color: #666;
+  color: $text-muted;
+}
+
+.active_tag {
+  background-color: $surface-brand;
+  color: $text-inverse;
 }

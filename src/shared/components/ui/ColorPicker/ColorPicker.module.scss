@@ -1,0 +1,34 @@
+.colorPicker {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-8;
+
+  cursor: pointer;
+}
+
+.input {
+  border: 2px solid $border;
+  border-radius: $radius-8;
+
+  background: none;
+
+  cursor: pointer;
+  appearance: none;
+
+  &::-webkit-color-swatch-wrapper { padding: 2px; }
+  &::-webkit-color-swatch { border: none; border-radius: $radius-4; }
+
+  &:focus-visible {
+    outline: 3px solid $surface-brand;
+    outline-offset: 2px;
+  }
+}
+
+.sm .input { width: 28px; height: 28px; }
+.md .input { width: 36px; height: 36px; }
+.lg .input { width: 44px; height: 44px; }
+
+.label {
+  font-size: 14px;
+  color: $text;
+}

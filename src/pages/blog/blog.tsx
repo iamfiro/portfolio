@@ -1,7 +1,7 @@
 import BlogArticleList from "@/feature/blog/components/article-list";
 import ErrorBoundary from "@/shared/components/error-boundary";
 import { BaseLayout } from "@/shared/components/layouts";
-import { Header, Spacing, Typo } from "@/shared/components/ui";
+import { Header, Spacer, Text } from "@/shared/components/ui";
 
 import s from "./blog.module.scss";
 
@@ -9,7 +9,7 @@ export default function Blog() {
   return (
     <BaseLayout>
       <Header />
-      <Spacing size={48} />
+      <Spacer size={48} />
       <div className={s.thumbnail}>
         <div>
           <img src="/icon/folder.png" className={s.thumbnail_icon_lt} />
@@ -36,9 +36,9 @@ export default function Blog() {
         <BlogArticleList />
       </ErrorBoundary>
 
-      <Typo.Subtext className={s.copyright}>
+      <Text size="sm" className={s.copyright}>
         ⓒ {new Date().getFullYear()}. Cho Sungju All rights reserved.
-      </Typo.Subtext>
+      </Text>
     </BaseLayout>
   );
 }

@@ -1,0 +1,36 @@
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-4;
+}
+
+.label {
+  font-size: 13px;
+  font-weight: $font-weight-medium;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: $text-subtle;
+}
+
+.value {
+  font-size: 32px;
+  font-weight: $font-weight-bold;
+  color: $text;
+  line-height: 1.1;
+}
+
+.help {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-6;
+
+  font-size: 13px;
+  color: $text-subtle;
+}
+
+.trend {
+  font-weight: $font-weight-medium;
+}
+
+.up { color: $text-success; }
+.down { color: $text-danger; }

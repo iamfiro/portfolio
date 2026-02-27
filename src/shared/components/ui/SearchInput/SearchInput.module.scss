@@ -1,0 +1,64 @@
+.wrapper {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-8;
+
+  border: 2px solid $border;
+  border-radius: $radius-12;
+
+  background-color: $surface;
+
+  transition: border-color 0.15s ease;
+
+  &:focus-within { border-color: $surface-brand; }
+}
+
+.input {
+  flex: 1;
+  width: 100%;
+
+  border: none;
+
+  background: transparent;
+
+  font-size: 16px;
+  color: $text;
+  outline: none;
+
+  &::placeholder { color: $text-subtle; }
+  &::-webkit-search-cancel-button { display: none; }
+}
+
+.searchIcon {
+  flex-shrink: 0;
+
+  color: $text-subtle;
+}
+
+.clearBtn {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+
+  width: 24px;
+  height: 24px;
+
+  padding: 0;
+
+  border: none;
+  border-radius: $radius-full;
+
+  background-color: $surface-subtle;
+
+  color: $text-subtle;
+  cursor: pointer;
+
+  &:hover { background-color: $border; }
+}
+
+.sm { padding: $spacing-8 $spacing-12; }
+.md { padding: $spacing-12 $spacing-16; }
+.lg { padding: $spacing-14 $spacing-20; }
+
+.fullWidth { width: 100%; }

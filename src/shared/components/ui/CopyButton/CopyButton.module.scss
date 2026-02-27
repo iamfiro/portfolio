@@ -1,0 +1,36 @@
+.copyButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: $spacing-6;
+
+  border: 1px solid $border;
+  border-radius: $radius-8;
+
+  background-color: $surface;
+
+  color: $text-subtle;
+  cursor: pointer;
+  transition: all 0.15s ease;
+
+  &:hover {
+    background-color: $surface-subtle;
+
+    color: $text;
+  }
+
+  &:focus-visible {
+    outline: 3px solid $surface-brand;
+    outline-offset: 2px;
+  }
+}
+
+.sm { padding: $spacing-4 $spacing-8; }
+.md { padding: $spacing-6 $spacing-10; }
+
+.copied {
+  color: $text-success;
+
+  &:hover { color: $text-success; }
+}

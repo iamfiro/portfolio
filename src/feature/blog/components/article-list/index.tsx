@@ -1,20 +1,17 @@
 import { useQuery } from "@tanstack/react-query";
-import { Calendar, Hash } from "lucide-react";
+import { Hash } from "lucide-react";
 import { useMemo, useState } from "react";
 
 import { getPosts } from "@/feature/blog/api";
 import { useBlogFilter } from "@/feature/blog/hooks";
 import { PostsResponse } from "@/feature/blog/schema";
 import {
-  FlexAlign,
-  FlexJustify,
-  HStack,
-  SearchBar,
+  Flex,
+  SearchInput,
   Select,
+  Skeleton,
   Tag,
-  TagSkeleton,
-  Typo,
-  VStack,
+  Text,
 } from "@/shared/components/ui";
 
 import BlogCard from "../card";
@@ -60,13 +57,14 @@ export default function BlogArticleList() {
   }
 
   return (
-    <HStack gap={64} justify={FlexJustify.Between} fullWidth>
-      <VStack gap={24} fullWidth>
-        <SearchBar
+    <Flex gap={64} justify="space-between" width="100%">
+      <Flex direction="column" gap={24} width="100%">
+        <SearchInput
           className={s.search_bar}
           value={searchQuery}
-          onChange={setQuery}
+          onChange={(e) => setQuery(e.target.value)}
           placeholder="글 검색하기..."
+          fullWidth
         />
 
         {isLoading ? (
@@ -86,60 +84,49 @@ export default function BlogArticleList() {
             />
           ))
         ) : (
-          <VStack gap={16} align={FlexAlign.Center} fullWidth>
-            <Typo.Headline>검색 결과가 없습니다</Typo.Headline>
-            <Typo.Body className={s.no_result_description}>
+          <Flex direction="column" gap={16} align="center" width="100%">
+            <Text size="xl" weight="semibold">검색 결과가 없습니다</Text>
+            <Text className={s.no_result_description}>
               다른 검색어나 태그를 시도해보세요
-            </Typo.Body>
-          </VStack>
+            </Text>
+          </Flex>
         )}
-      </VStack>
+      </Flex>
       <div className={s.right}>
         <Select
           fullWidth
-          icon={Calendar}
-          options={[
-            {
-              value: "latest",
-              label: "최신순",
-              description: "최신 항목부터 표시 합니다.",
-            },
-            {
-              value: "oldest",
-              label: "오래된순",
-              description: "오래된 항목부터 표시 합니다.",
-            },
-          ]}
           value={sortBy}
-          onChange={setSortBy}
-        />
+          onChange={(e) => setSortBy(e.target.value)}
+        >
+          <option value="latest">최신순</option>
+          <option value="oldest">오래된순</option>
+        </Select>
         <section className={s.category_filter}>
-          <Typo.BodyLarge className={s.category_filter_title}>
+          <Text size="lg" weight="semibold" className={s.category_filter_title}>
             <Hash /> 카테고리
-          </Typo.BodyLarge>
+          </Text>
 
           {isLoading ? (
-            <HStack gap={6} wrap fullWidth>
+            <Flex gap={6} wrap width="100%">
               {Array.from({ length: 10 }, (_, index) => (
-                <TagSkeleton key={index} />
+                <Skeleton key={index} width={60} height={32} />
               ))}
-            </HStack>
+            </Flex>
           ) : (
-            <HStack gap={6} wrap fullWidth>
+            <Flex gap={6} wrap width="100%">
               {allTags.map((tag) => (
                 <Tag
                   key={tag}
-                  size="lg"
                   onClick={() => toggleTag(tag)}
-                  active={isTagSelected(tag)}
+                  className={isTagSelected(tag) ? s.active_tag : ""}
                 >
                   {tag}
                 </Tag>
               ))}
-            </HStack>
+            </Flex>
           )}
         </section>
       </div>
-    </HStack>
+    </Flex>
   );
 }

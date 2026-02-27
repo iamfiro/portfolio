@@ -1,0 +1,104 @@
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1100;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: $spacing-24;
+
+  background-color: rgba(0, 0, 0, 0.5);
+
+  overscroll-behavior: contain;
+  animation: fadeIn 0.15s ease;
+}
+
+.modal {
+  display: flex;
+  flex-direction: column;
+
+  max-height: calc(100vh - 48px);
+
+  border-radius: $radius-16;
+
+  background-color: $surface;
+
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  overflow: hidden;
+  animation: scaleIn 0.15s ease;
+}
+
+.sm { width: 400px; }
+.md { width: 520px; }
+.lg { width: 680px; }
+.xl { width: 900px; }
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: $spacing-20 $spacing-24;
+
+  border-bottom: 1px solid $border;
+}
+
+.title {
+  margin: 0;
+
+  font-size: 18px;
+  font-weight: $font-weight-semibold;
+  color: $text;
+}
+
+.close {
+  display: inline-flex;
+  align-items: center;
+
+  padding: $spacing-4;
+
+  border: none;
+  border-radius: $radius-8;
+
+  background: none;
+
+  color: $text-subtle;
+  cursor: pointer;
+
+  &:hover { background-color: $surface-subtle; color: $text; }
+}
+
+.body {
+  flex: 1;
+
+  padding: $spacing-24;
+
+  overflow-y: auto;
+}
+
+.footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: $spacing-8;
+
+  padding: $spacing-16 $spacing-24;
+
+  border-top: 1px solid $border;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from { transform: scale(0.95); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .backdrop { animation: none; }
+  .modal { animation: none; }
+}

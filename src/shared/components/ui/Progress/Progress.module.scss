@@ -1,0 +1,58 @@
+.progress {
+  display: flex;
+  align-items: center;
+  gap: $spacing-8;
+
+  width: 100%;
+}
+
+.track {
+  flex: 1;
+
+  border-radius: $radius-full;
+
+  background-color: $border;
+
+  overflow: hidden;
+}
+
+.fill {
+  height: 100%;
+
+  border-radius: $radius-full;
+
+  background-color: $surface-brand;
+
+  transition: width 0.3s ease;
+}
+
+.sm .track { height: 4px; }
+.md .track { height: 8px; }
+.lg .track { height: 12px; }
+
+.label {
+  min-width: 36px;
+
+  font-size: 13px;
+  font-weight: $font-weight-medium;
+  text-align: right;
+  color: $text;
+}
+
+.circle {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.circleTrack { color: $border; }
+.circleFill { color: $surface-brand; transition: stroke-dashoffset 0.3s ease; }
+
+.circleLabel {
+  position: absolute;
+
+  font-size: 12px;
+  font-weight: $font-weight-semibold;
+  color: $text;
+}

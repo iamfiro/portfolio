@@ -1,0 +1,13 @@
+.label {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-4;
+
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  color: $text;
+}
+
+.required {
+  color: $text-danger;
+}

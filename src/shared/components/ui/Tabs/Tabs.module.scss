@@ -1,0 +1,40 @@
+.tabs {
+  display: flex;
+  flex-direction: column;
+}
+
+.tabList {
+  display: flex;
+  gap: $spacing-4;
+
+  border-bottom: 2px solid $border;
+}
+
+.tab {
+  padding: $spacing-12 $spacing-16;
+  margin-bottom: -2px;
+
+  border: none;
+  border-bottom: 2px solid transparent;
+
+  background: none;
+
+  font-size: 15px;
+  font-weight: $font-weight-medium;
+  color: $text-subtle;
+  cursor: pointer;
+  transition: all 0.15s ease;
+
+  &:hover { color: $text; }
+  &:focus-visible { outline: 3px solid $surface-brand; outline-offset: -2px; border-radius: $radius-4; }
+
+  &.active {
+    border-bottom-color: $surface-brand;
+
+    color: $text;
+  }
+}
+
+.panel {
+  padding-top: $spacing-16;
+}

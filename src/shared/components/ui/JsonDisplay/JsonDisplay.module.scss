@@ -1,0 +1,17 @@
+.json {
+  margin: 0;
+  padding: $spacing-16;
+
+  border-radius: $radius-12;
+
+  background-color: $surface-subtle;
+
+  overflow-x: auto;
+
+  code {
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 13px;
+    line-height: 1.6;
+    color: $text;
+  }
+}

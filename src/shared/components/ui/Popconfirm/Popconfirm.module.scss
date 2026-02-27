@@ -1,0 +1,86 @@
+.trigger {
+  display: inline-block;
+
+  cursor: pointer;
+}
+
+.popconfirm {
+  position: fixed;
+  z-index: 1000;
+
+  width: 280px;
+
+  padding: $spacing-16;
+
+  border: 1px solid $border;
+  border-radius: $radius-12;
+
+  background-color: $surface;
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  animation: fadeIn 0.15s ease;
+}
+
+.title {
+  margin: 0;
+
+  font-size: 15px;
+  font-weight: $font-weight-medium;
+  color: $text;
+}
+
+.description {
+  margin: $spacing-6 0 0;
+
+  font-size: 13px;
+  color: $text-subtle;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: $spacing-8;
+
+  margin-top: $spacing-16;
+}
+
+.cancelBtn {
+  padding: $spacing-6 $spacing-12;
+
+  border: 1px solid $border;
+  border-radius: $radius-8;
+
+  background: $surface;
+
+  font-size: 13px;
+  font-weight: $font-weight-medium;
+  color: $text;
+  cursor: pointer;
+
+  &:hover { background-color: $surface-subtle; }
+}
+
+.confirmBtn {
+  padding: $spacing-6 $spacing-12;
+
+  border: none;
+  border-radius: $radius-8;
+
+  background-color: $surface-brand;
+
+  font-size: 13px;
+  font-weight: $font-weight-medium;
+  color: $text;
+  cursor: pointer;
+
+  &:hover { background-color: $surface-brand-heavy; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .popconfirm { animation: none; }
+}

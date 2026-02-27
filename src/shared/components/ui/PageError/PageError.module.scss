@@ -1,0 +1,41 @@
+.pageError {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 400px;
+
+  padding: $spacing-48;
+
+  text-align: center;
+}
+
+.code {
+  font-size: 72px;
+  font-weight: $font-weight-bold;
+  color: $surface-brand;
+  line-height: 1;
+}
+
+.title {
+  margin: $spacing-16 0 $spacing-8;
+
+  font-size: 28px;
+  font-weight: $font-weight-semibold;
+  color: $text;
+}
+
+.description {
+  margin: 0;
+
+  max-width: 400px;
+
+  font-size: 16px;
+  line-height: 1.5;
+  color: $text-subtle;
+}
+
+.action {
+  margin-top: $spacing-24;
+}

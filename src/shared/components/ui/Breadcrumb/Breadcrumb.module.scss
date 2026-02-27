@@ -1,0 +1,45 @@
+.breadcrumb {
+  font-size: 14px;
+}
+
+.list {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+.item {
+  display: inline-flex;
+  align-items: center;
+}
+
+.separator {
+  margin: 0 $spacing-8;
+
+  color: $text-subtle;
+}
+
+.link {
+  padding: 0;
+
+  border: none;
+
+  background: none;
+
+  font-size: inherit;
+  color: $text-subtle;
+  cursor: pointer;
+  text-decoration: none;
+
+  &:hover { color: $text; }
+}
+
+.current {
+  font-weight: $font-weight-medium;
+  color: $text;
+}

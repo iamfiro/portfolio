@@ -1,0 +1,17 @@
+.heading {
+  margin: 0;
+
+  font-weight: $font-weight-bold;
+  color: $text;
+  line-height: 1.2;
+}
+
+.xs { font-size: 14px; }
+.sm { font-size: 16px; }
+.md { font-size: 20px; }
+.lg { font-size: 24px; }
+.xl { font-size: 32px; }
+
+.\32xl { font-size: 40px; }
+.\33xl { font-size: 48px; }
+.\34xl { font-size: 64px; }

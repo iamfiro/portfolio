@@ -1,0 +1,14 @@
+.blockquote {
+  margin: 0;
+  padding: $spacing-12 $spacing-20;
+
+  border-left: 4px solid $surface-brand;
+  border-radius: 0 $radius-8 $radius-8 0;
+
+  background-color: $surface-subtle;
+
+  font-size: 16px;
+  font-style: italic;
+  line-height: 1.6;
+  color: $text;
+}

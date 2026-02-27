@@ -36,3 +36,7 @@ server/dist
 # Package manager
 .yarn/
 !.yarn/releases
+
+.claude/
+
+.next/

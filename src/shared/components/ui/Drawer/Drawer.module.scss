@@ -1,0 +1,101 @@
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+
+  background-color: rgba(0, 0, 0, 0.5);
+
+  overscroll-behavior: contain;
+  animation: fadeIn 0.15s ease;
+}
+
+.drawer {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  z-index: 1001;
+
+  display: flex;
+  flex-direction: column;
+
+  max-width: 100vw;
+
+  background-color: $surface;
+
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.right {
+  right: 0;
+
+  animation: slideInRight 0.2s ease;
+}
+
+.left {
+  left: 0;
+
+  animation: slideInLeft 0.2s ease;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: $spacing-20 $spacing-24;
+
+  border-bottom: 1px solid $border;
+}
+
+.title {
+  margin: 0;
+
+  font-size: 18px;
+  font-weight: $font-weight-semibold;
+  color: $text;
+}
+
+.close {
+  display: inline-flex;
+  align-items: center;
+
+  padding: $spacing-4;
+
+  border: none;
+  border-radius: $radius-8;
+
+  background: none;
+
+  color: $text-subtle;
+  cursor: pointer;
+
+  &:hover { background-color: $surface-subtle; color: $text; }
+}
+
+.body {
+  flex: 1;
+
+  padding: $spacing-24;
+
+  overflow-y: auto;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+@keyframes slideInLeft {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .backdrop { animation: none; }
+  .drawer { animation: none; }
+}

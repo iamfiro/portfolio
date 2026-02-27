@@ -1,0 +1,85 @@
+.switch {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-10;
+
+  cursor: pointer;
+}
+
+.input {
+  position: absolute;
+
+  width: 1px;
+  height: 1px;
+
+  margin: -1px;
+  padding: 0;
+
+  border: 0;
+
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+.track {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+
+  border-radius: $radius-full;
+
+  background-color: $border;
+
+  transition: background-color 0.2s ease;
+}
+
+.thumb {
+  position: absolute;
+
+  border-radius: $radius-full;
+
+  background-color: $surface;
+
+  box-shadow: $shadow;
+  transition: transform 0.2s ease;
+}
+
+// Sizes
+.sm {
+  .track { width: 36px; height: 20px; }
+  .thumb { width: 16px; height: 16px; left: 2px; }
+}
+
+.md {
+  .track { width: 44px; height: 24px; }
+  .thumb { width: 20px; height: 20px; left: 2px; }
+}
+
+.lg {
+  .track { width: 52px; height: 28px; }
+  .thumb { width: 24px; height: 24px; left: 2px; }
+}
+
+.input:checked + .track {
+  background-color: $surface-brand;
+}
+
+.sm .input:checked + .track .thumb { transform: translateX(16px); }
+.md .input:checked + .track .thumb { transform: translateX(20px); }
+.lg .input:checked + .track .thumb { transform: translateX(24px); }
+
+.input:focus-visible + .track {
+  outline: 3px solid $surface-brand;
+  outline-offset: 2px;
+}
+
+.input:disabled + .track {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.label {
+  font-size: 15px;
+  color: $text;
+}

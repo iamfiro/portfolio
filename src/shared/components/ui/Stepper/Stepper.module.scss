@@ -1,0 +1,100 @@
+.stepper {
+  display: flex;
+}
+
+.horizontal {
+  flex-direction: row;
+  align-items: flex-start;
+
+  .step { flex: 1; flex-direction: column; align-items: center; text-align: center; }
+  .connector {
+    position: absolute;
+    top: 14px;
+    left: calc(50% + 16px);
+
+    width: calc(100% - 32px);
+    height: 2px;
+
+    background-color: $border;
+  }
+  .completed .connector { background-color: $surface-brand; }
+}
+
+.vertical {
+  flex-direction: column;
+
+  .step { flex-direction: row; gap: $spacing-12; }
+  .connector {
+    position: absolute;
+    top: 32px;
+    left: 13px;
+
+    width: 2px;
+    height: calc(100% - 28px);
+
+    background-color: $border;
+  }
+  .completed .connector { background-color: $surface-brand; }
+}
+
+.step {
+  position: relative;
+  display: flex;
+  gap: $spacing-8;
+}
+
+.indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  width: 28px;
+  height: 28px;
+
+  border: 2px solid $border;
+  border-radius: $radius-full;
+
+  font-size: 13px;
+  font-weight: $font-weight-semibold;
+  color: $text-subtle;
+}
+
+.active .indicator {
+  border-color: $surface-brand;
+
+  background-color: $surface-brand;
+
+  color: $text;
+}
+
+.completed .indicator {
+  border-color: $surface-brand;
+
+  background-color: $surface-brand;
+
+  color: $text;
+}
+
+.pending .indicator {
+  color: $text-subtle;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.label {
+  font-size: 14px;
+  font-weight: $font-weight-medium;
+  color: $text;
+}
+
+.description {
+  font-size: 12px;
+  color: $text-subtle;
+}
+
+.pending .label { color: $text-subtle; }

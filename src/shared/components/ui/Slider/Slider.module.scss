@@ -1,0 +1,56 @@
+.slider {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-12;
+}
+
+.input {
+  flex: 1;
+
+  height: 6px;
+
+  border-radius: $radius-full;
+
+  background: $border;
+
+  cursor: pointer;
+  appearance: none;
+
+  &::-webkit-slider-thumb {
+    width: 20px;
+    height: 20px;
+
+    border: 2px solid $surface-brand;
+    border-radius: $radius-full;
+
+    background: $surface;
+
+    cursor: pointer;
+    appearance: none;
+    transition: transform 0.15s ease;
+
+    &:hover { transform: scale(1.15); }
+  }
+
+  &:focus-visible {
+    outline: 3px solid $surface-brand;
+    outline-offset: 2px;
+  }
+
+  &:disabled { opacity: 0.5; cursor: not-allowed; }
+}
+
+.sm .input { height: 4px; }
+.md .input { height: 6px; }
+.lg .input { height: 8px; }
+
+.value {
+  min-width: 32px;
+
+  font-size: 14px;
+  font-weight: $font-weight-medium;
+  text-align: center;
+  color: $text;
+}
+
+.fullWidth { width: 100%; }

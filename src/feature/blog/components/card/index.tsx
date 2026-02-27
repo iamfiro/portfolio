@@ -2,7 +2,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { Clock } from "lucide-react";
 
 import { Post } from "@/feature/blog/schema";
-import { FlexAlign, HStack, Tag, Typo, VStack } from "@/shared/components/ui";
+import { Flex, Tag, Text } from "@/shared/components/ui";
 
 import { getPost } from "../../api";
 
@@ -44,25 +44,33 @@ export default function BlogCard(props: BlogCardProps) {
       onMouseEnter={handleMouseEnter}
     >
       <img src={thumbnail} alt={`${title} thumbnail`} className={s.thumbnail} />
-      <VStack gap={12}>
-        <HStack gap={6} align={FlexAlign.Center}>
-          <Typo.Caption className={s.date}>
+      <Flex direction="column" gap={12}>
+        <Flex gap={6} align="center">
+          <Text size="xs" className={s.date}>
             {date.toLocaleDateString()}
-          </Typo.Caption>
-          <Typo.Caption className={s.separator}>•</Typo.Caption>
-          <HStack gap={4} align={FlexAlign.Center}>
+          </Text>
+          <Text size="xs" className={s.separator}>
+            •
+          </Text>
+          <Flex gap={4} align="center">
             <Clock className={s.clock} />
-            <Typo.Caption className={s.time}>3분 소요</Typo.Caption>
-          </HStack>
-        </HStack>
-        <Typo.Headline className={s.name}>{title}</Typo.Headline>
-        <Typo.Subtext className={s.description}>{description}</Typo.Subtext>
-        <HStack gap={4}>
+            <Text size="xs" className={s.time}>
+              3분 소요
+            </Text>
+          </Flex>
+        </Flex>
+        <Text size="xl" weight="semibold" className={s.name}>
+          {title}
+        </Text>
+        <Text size="sm" className={s.description}>
+          {description}
+        </Text>
+        <Flex gap={4}>
           {tags?.map((tag) => (
             <Tag key={tag}>{tag}</Tag>
           ))}
-        </HStack>
-      </VStack>
+        </Flex>
+      </Flex>
     </a>
   );
 }

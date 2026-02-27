@@ -1,7 +1,5 @@
-// Padding
+// Layout
 $padding: 24px;
-
-// Max Width
 $max-width: 1200px;
 
 // Spacing Scale
@@ -33,38 +31,130 @@ $radius-32: 32px;
 $radius-64: 64px;
 $radius-full: 9999px;
 
-// Color Palette
-$color-white: #FFFFFF;
+// ============================================
+// Color System (Dark Theme)
+// Base: #0C0C0C | Brand: #BFFF00
+// ============================================
+
+// Base Palette
+$color-white: #ffffff;
 $color-black: #000000;
 
-// Text Colors
-$text: #000000;
-$text-subtle: #919191;
-$text-inverse: #FFFFFF;
-
-// Brand Text Colors
-$text-brand: #dbff11;
-$text-brand-heavy: #aade00;
-$text-brand-subtle: #EAF8FF;
-
-// Surface Colors
-$surface: #FFFFFF;
-$surface-subtle: #FAFAFA;
-$surface-inverse: #242424;
-$surface-inverse-subtle: #424242;
-$surface-white: #FFFFFF;
+// Surface Colors (Dark Theme)
+$surface: #0c0c0c;
+$surface-subtle: #141414;
+$surface-elevated: #1a1a1a;
+$surface-overlay: #242424;
+$surface-inverse: #ffffff;
+$surface-inverse-subtle: #f5f5f5;
 
 // Brand Surface Colors
-$surface-brand: #dbff11;
-$surface-brand-heavy: #aade00;
-$surface-brand-subtle: #EAF8FF;
+$surface-brand: #bfff00;
+$surface-brand-heavy: #a8e000;
+$surface-brand-subtle: rgba(191, 255, 0, 0.12);
+$surface-brand-muted: rgba(191, 255, 0, 0.06);
+
+// Text Colors
+$text: #D7D7D7;
+$text-subtle: #B8B8B8;
+$text-muted: #717171;
+$text-inverse: #0c0c0c;
+$text-white: #ffffff;
+
+// Brand Text Colors
+$text-brand: #bfff00;
+$text-brand-heavy: #d4ff4d;
+$text-brand-subtle: #8fb800;
+
+// Danger Colors (Red)
+$text-danger: #ff6b6b;
+$text-danger-heavy: #ff8a8a;
+$text-danger-subtle: #cc5555;
+$surface-danger: #ff6b6b;
+$surface-danger-subtle: rgba(255, 107, 107, 0.12);
+
+// Success Colors (Green)
+$text-success: #4ade80;
+$text-success-heavy: #6ee7a0;
+$text-success-subtle: #3cb366;
+$surface-success: #4ade80;
+$surface-success-subtle: rgba(74, 222, 128, 0.12);
+
+// Warning Colors (Amber)
+$text-warning: #fbbf24;
+$text-warning-heavy: #fcd34d;
+$text-warning-subtle: #d4a21a;
+$surface-warning: #fbbf24;
+$surface-warning-subtle: rgba(251, 191, 36, 0.12);
+
+// Info Colors (Blue)
+$text-info: #60a5fa;
+$text-info-heavy: #93c5fd;
+$text-info-subtle: #4b8bd4;
+$surface-info: #60a5fa;
+$surface-info-subtle: rgba(96, 165, 250, 0.12);
 
 // Border Colors
-$border: #eaeaea;
-$border-inverse: #393939;
-$border-subtle: #EFEFEF;
+$border: #212121;
+$border-subtle: #1f1f1f;
+$border-strong: #3a3a3a;
+$border-brand: #bfff00;
+$border-inverse: #e0e0e0;
 
 // Shadow Scale
-$shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.07);
+$shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.3);
+$shadow-md: 0px 4px 8px 0px rgba(0, 0, 0, 0.4);
+$shadow-lg: 0px 8px 16px 0px rgba(0, 0, 0, 0.5);
+$shadow-brand: 0px 0px 20px 0px rgba(191, 255, 0, 0.3);
+
+// Overlay
+$overlay: rgba(0, 0, 0, 0.6);
+$overlay-light: rgba(0, 0, 0, 0.4);
+$overlay-heavy: rgba(0, 0, 0, 0.8);
+
+// ============================================
+// Typography
+// ============================================
 
 $font-gambarino: "gambarino", sans-serif;
+
+$font-weight-normal: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+
+// Font Sizes
+$font-size-xs: 12px;
+$font-size-sm: 14px;
+$font-size-md: 16px;
+$font-size-lg: 18px;
+$font-size-xl: 20px;
+$font-size-2xl: 24px;
+$font-size-3xl: 30px;
+$font-size-4xl: 36px;
+$font-size-5xl: 48px;
+
+// Line Heights
+$line-height-tight: 1.2;
+$line-height-normal: 1.5;
+$line-height-relaxed: 1.75;
+
+// ============================================
+// Transitions
+// ============================================
+
+$transition-fast: 0.15s ease;
+$transition-normal: 0.2s ease;
+$transition-slow: 0.3s ease;
+
+// ============================================
+// Z-Index Scale
+// ============================================
+
+$z-dropdown: 100;
+$z-sticky: 200;
+$z-fixed: 300;
+$z-modal-backdrop: 400;
+$z-modal: 500;
+$z-popover: 600;
+$z-tooltip: 700;

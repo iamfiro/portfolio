@@ -1,0 +1,38 @@
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-4;
+
+  border-radius: $radius-8;
+
+  font-weight: $font-weight-medium;
+}
+
+.sm { padding: 2px $spacing-8; font-size: 12px; }
+.md { padding: $spacing-4 $spacing-10; font-size: 13px; }
+
+.filled { background-color: $surface-subtle; color: $text; }
+
+.outlined {
+  border: 1px solid $border;
+
+  background-color: transparent;
+
+  color: $text;
+}
+
+.remove {
+  display: inline-flex;
+  align-items: center;
+
+  padding: 0;
+
+  border: none;
+
+  background: none;
+
+  color: $text-subtle;
+  cursor: pointer;
+
+  &:hover { color: $text; }
+}

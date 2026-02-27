@@ -1,0 +1,43 @@
+.result {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding: $spacing-48 $spacing-24;
+
+  text-align: center;
+}
+
+.icon {
+  margin-bottom: $spacing-16;
+
+  font-size: 48px;
+}
+
+.title {
+  margin: 0 0 $spacing-8;
+
+  font-size: 24px;
+  font-weight: $font-weight-semibold;
+  color: $text;
+}
+
+.description {
+  margin: 0 0 $spacing-24;
+
+  max-width: 400px;
+
+  font-size: 15px;
+  line-height: 1.5;
+  color: $text-subtle;
+}
+
+.extra {
+  display: flex;
+  gap: $spacing-12;
+}
+
+.success .icon { color: $text-success; }
+.error .icon { color: $text-danger; }
+.info .icon { color: $text-info; }
+.warning .icon { color: $text-warning; }

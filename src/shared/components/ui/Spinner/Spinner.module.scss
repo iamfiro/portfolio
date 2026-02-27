@@ -1,0 +1,21 @@
+.spinner {
+  display: inline-block;
+
+  border: 3px solid $border;
+  border-top-color: $surface-brand;
+  border-radius: $radius-full;
+
+  animation: spin 0.6s linear infinite;
+}
+
+.sm { width: 16px; height: 16px; border-width: 2px; }
+.md { width: 24px; height: 24px; border-width: 3px; }
+.lg { width: 40px; height: 40px; border-width: 4px; }
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spinner { animation: none; }
+}

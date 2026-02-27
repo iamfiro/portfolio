@@ -1,0 +1,38 @@
+.rating {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-4;
+}
+
+.star {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  border: none;
+
+  background: none;
+
+  color: $border;
+  cursor: pointer;
+  transition: color 0.15s ease, transform 0.15s ease;
+
+  &:hover { transform: scale(1.15); }
+  &:focus-visible { outline: 3px solid $surface-brand; outline-offset: 2px; border-radius: $radius-4; }
+}
+
+.filled {
+  color: $surface-brand;
+}
+
+.readOnly .star {
+  cursor: default;
+
+  &:hover { transform: none; }
+}
+
+.sm svg { width: 18px; height: 18px; }
+.md svg { width: 24px; height: 24px; }
+.lg svg { width: 32px; height: 32px; }

@@ -1,0 +1,40 @@
+.wrapper {
+  width: 100%;
+
+  border: 1px solid $border;
+  border-radius: $radius-12;
+
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+
+  border-collapse: collapse;
+}
+
+.cell {
+  padding: $spacing-14 $spacing-16;
+
+  border-bottom: 1px solid $border;
+
+  font-size: 14px;
+  text-align: left;
+  color: $text;
+}
+
+.header {
+  font-weight: $font-weight-semibold;
+  font-size: 13px;
+  color: $text-subtle;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+
+  background-color: $surface-subtle;
+}
+
+.compact .cell { padding: $spacing-8 $spacing-12; }
+
+.striped tbody tr:nth-child(even) { background-color: $surface-subtle; }
+
+.hoverable tbody tr:hover { background-color: $surface-subtle; }

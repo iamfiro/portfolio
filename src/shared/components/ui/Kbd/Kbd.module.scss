@@ -1,0 +1,20 @@
+.kbd {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 24px;
+  height: 24px;
+
+  padding: $spacing-4 $spacing-6;
+
+  border: 1px solid $border;
+  border-bottom-width: 2px;
+  border-radius: $radius-4;
+
+  background-color: $surface-subtle;
+
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 12px;
+  color: $text;
+}

@@ -1,0 +1,28 @@
+.text {
+  margin: 0;
+
+  line-height: 1.5;
+}
+
+.size-xs { font-size: 12px; }
+.size-sm { font-size: 14px; }
+.size-md { font-size: 16px; }
+.size-lg { font-size: 18px; }
+.size-xl { font-size: 20px; }
+
+.weight-normal { font-weight: $font-weight-normal; }
+.weight-medium { font-weight: $font-weight-medium; }
+.weight-semibold { font-weight: $font-weight-semibold; }
+.weight-bold { font-weight: $font-weight-bold; }
+
+.color-default { color: $text; }
+.color-subtle { color: $text-subtle; }
+.color-inverse { color: $text-inverse; }
+.color-brand { color: $text-brand; }
+
+.truncate {
+  overflow: hidden;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

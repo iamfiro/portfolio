@@ -1,0 +1,31 @@
+.card {
+  padding: $spacing-24;
+
+  border-radius: $radius-16;
+
+  background-color: $surface;
+
+  transition: $transition-normal;
+}
+
+.elevated {
+  box-shadow: $shadow;
+}
+
+.outlined {
+  border: 2px solid $border;
+}
+
+.filled {
+  background-color: $surface-subtle;
+}
+
+.hoverable {
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-2px);
+
+    box-shadow: $shadow-md;
+  }
+}

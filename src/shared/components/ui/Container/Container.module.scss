@@ -1,0 +1,12 @@
+.container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: $padding;
+  padding-right: $padding;
+}
+
+.sm { max-width: 640px; }
+.md { max-width: 768px; }
+.lg { max-width: $max-width; }
+.xl { max-width: 1400px; }

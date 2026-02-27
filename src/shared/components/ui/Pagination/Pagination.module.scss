@@ -1,0 +1,47 @@
+.pagination {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-4;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 36px;
+  height: 36px;
+
+  padding: $spacing-6 $spacing-10;
+
+  border: 1px solid $border;
+  border-radius: $radius-8;
+
+  background-color: $surface;
+
+  font-size: 14px;
+  font-weight: $font-weight-medium;
+  color: $text;
+  cursor: pointer;
+  transition: all 0.15s ease;
+
+  &:hover { background-color: $surface-subtle; }
+  &:disabled { opacity: 0.4; cursor: not-allowed; }
+  &:focus-visible { outline: 3px solid $surface-brand; outline-offset: 2px; }
+}
+
+.active {
+  border-color: $surface-brand;
+
+  background-color: $surface-brand;
+
+  font-weight: $font-weight-semibold;
+
+  &:hover { background-color: $surface-brand-heavy; }
+}
+
+.dots {
+  padding: 0 $spacing-4;
+
+  color: $text-subtle;
+}

@@ -1,0 +1,32 @@
+.code {
+  padding: $spacing-4 $spacing-6;
+
+  border-radius: $radius-4;
+
+  background-color: $surface-subtle;
+
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 14px;
+  color: $text;
+}
+
+.block {
+  padding: $spacing-16;
+
+  border-radius: $radius-12;
+
+  background-color: $surface-subtle;
+
+  overflow-x: auto;
+
+  code {
+    padding: 0;
+
+    background-color: transparent;
+
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 14px;
+    line-height: 1.6;
+    color: $text;
+  }
+}

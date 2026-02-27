@@ -1,0 +1,26 @@
+.list {
+  display: flex;
+  flex-direction: column;
+
+  margin: 0;
+  padding-left: $spacing-24;
+
+  font-size: 16px;
+  line-height: 1.5;
+  color: $text;
+}
+
+.none {
+  padding-left: 0;
+
+  list-style: none;
+}
+
+.disc { list-style-type: disc; }
+.decimal { list-style-type: decimal; }
+
+.item {
+  &::marker {
+    color: $text-subtle;
+  }
+}

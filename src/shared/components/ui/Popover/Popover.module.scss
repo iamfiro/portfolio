@@ -1,0 +1,40 @@
+.popover {
+  display: inline-block;
+}
+
+.trigger {
+  display: inline-block;
+
+  cursor: pointer;
+}
+
+.content {
+  position: fixed;
+  z-index: 1000;
+
+  min-width: 200px;
+
+  padding: 0;
+
+  border: 1px solid $border;
+  border-radius: $radius-12;
+
+  background-color: $surface;
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  opacity: 0;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  transform: translateY(4px);
+
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .content {
+    transition: none;
+    transform: none;
+  }
+}

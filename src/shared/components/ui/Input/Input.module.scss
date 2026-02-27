@@ -1,0 +1,68 @@
+.wrapper {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-8;
+
+  border: 2px solid $border;
+  border-radius: $radius-12;
+
+  background-color: $surface;
+
+  transition: $transition-fast;
+
+  &:focus-within {
+    border-color: $surface-brand;
+  }
+}
+
+.input {
+  flex: 1;
+  width: 100%;
+
+  border: none;
+
+  background: transparent;
+
+  font-size: $font-size-md;
+  color: $text;
+  outline: none;
+
+  &::placeholder { color: $text-subtle; }
+  &:disabled { opacity: 0.5; cursor: not-allowed; }
+}
+
+.sm {
+  padding: $spacing-8 $spacing-12;
+
+  .input { font-size: $font-size-sm; }
+}
+
+.md {
+  padding: $spacing-12 $spacing-16;
+
+  .input { font-size: $font-size-md; }
+}
+
+.lg {
+  padding: $spacing-14 $spacing-20;
+
+  .input { font-size: $font-size-lg; }
+}
+
+.error {
+  border-color: $text-danger;
+
+  &:focus-within { border-color: $text-danger; }
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+.icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+
+  color: $text-subtle;
+}

@@ -1,0 +1,22 @@
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+
+  height: 100%;
+
+  padding: $spacing-16;
+
+  border-right: 1px solid $border;
+
+  background-color: $surface;
+
+  transition: width 0.2s ease;
+  overflow-y: auto;
+}
+
+.collapsed {
+  align-items: center;
+
+  padding: $spacing-16 $spacing-8;
+}

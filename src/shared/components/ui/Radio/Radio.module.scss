@@ -1,0 +1,98 @@
+.radio {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-8;
+
+  cursor: pointer;
+}
+
+.input {
+  position: absolute;
+
+  width: 1px;
+  height: 1px;
+
+  margin: -1px;
+  padding: 0;
+
+  border: 0;
+
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+.circle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+
+  border: 2px solid $border;
+  border-radius: $radius-full;
+
+  background-color: $surface;
+
+  transition: all 0.15s ease;
+
+  &::after {
+    content: '';
+    display: block;
+
+    width: 10px;
+    height: 10px;
+
+    border-radius: $radius-full;
+
+    background-color: transparent;
+
+    transition: background-color 0.15s ease;
+  }
+}
+
+.input:checked + .circle {
+  border-color: $surface-brand;
+
+  &::after { background-color: $surface-brand; }
+}
+
+.input:focus-visible + .circle {
+  outline: 3px solid $surface-brand;
+  outline-offset: 2px;
+}
+
+.input:disabled + .circle {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.label {
+  font-size: 15px;
+  color: $text;
+}
+
+.group {
+  margin: 0;
+  padding: 0;
+
+  border: none;
+}
+
+.legend {
+  margin-bottom: $spacing-8;
+
+  font-size: 14px;
+  font-weight: $font-weight-medium;
+  color: $text;
+}
+
+.items {
+  display: flex;
+  gap: $spacing-12;
+}
+
+.column { flex-direction: column; }
+.row { flex-direction: row; flex-wrap: wrap; }

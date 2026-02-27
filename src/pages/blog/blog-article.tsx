@@ -9,14 +9,12 @@ import { PostResponse } from "@/feature/blog/schema";
 import { BaseLayout } from "@/shared/components/layouts";
 import {
   Avatar,
-  FlexAlign,
+  Flex,
   Header,
-  HStack,
-  MarkdownRenderer,
-  Spacing,
+  Heading,
+  Spacer,
   Tag,
-  Typo,
-  VStack,
+  Text,
 } from "@/shared/components/ui";
 
 import "@/shared/styles/markdown.scss";
@@ -47,37 +45,35 @@ export default function BlogArticle() {
         <title>{post.data.title}</title>
       </Helmet>
       <Header />
-      <Spacing size={48} />
+      <Spacer size={48} />
       <BaseLayout className={s.container}>
-        <VStack className={s.content_container}>
-          <VStack gap={16}>
-            <Typo.Display as="h1" className={s.title}>
+        <Flex direction="column" className={s.content_container}>
+          <Flex direction="column" gap={16}>
+            <Heading as="h1" size="4xl" className={s.title}>
               {post.data.title}
-            </Typo.Display>
-            <HStack gap={8}>
-              <Typo.Body className={s.description}>
+            </Heading>
+            <Flex gap={8}>
+              <Text className={s.description}>
                 {new Date(post.data.date).toLocaleDateString()}
-              </Typo.Body>
-              <Typo.Body className={s.description}>•</Typo.Body>
-              <HStack align={FlexAlign.Center} gap={4}>
+              </Text>
+              <Text className={s.description}>•</Text>
+              <Flex align="center" gap={4}>
                 <Clock className={s.clock} />
-                <Typo.Body className={s.description}>3분 소요</Typo.Body>
-              </HStack>
-            </HStack>
-          </VStack>
+                <Text className={s.description}>3분 소요</Text>
+              </Flex>
+            </Flex>
+          </Flex>
 
           <div className={s.sub_header}>
-            <HStack align={FlexAlign.Center} gap={12}>
-              <Avatar src={"/sample_profile.jpg"} size={32} />
-              <Typo.Body>Cho Sungju</Typo.Body>
-            </HStack>
-            <HStack gap={8}>
+            <Flex align="center" gap={12}>
+              <Avatar src="/sample_profile.jpg" size="sm" />
+              <Text>Cho Sungju</Text>
+            </Flex>
+            <Flex gap={8}>
               {post.data.tags.map((tag) => (
-                <Tag size="lg" key={tag}>
-                  {tag}
-                </Tag>
+                <Tag key={tag}>{tag}</Tag>
               ))}
-            </HStack>
+            </Flex>
           </div>
 
           <img
@@ -86,11 +82,12 @@ export default function BlogArticle() {
             className={s.thumbnail}
           />
 
-          <div className={"markdown_article"}>
-            <MarkdownRenderer>{post.data.content || ""}</MarkdownRenderer>
-          </div>
+          <div
+            className="markdown_article"
+            dangerouslySetInnerHTML={{ __html: post.data.content || "" }}
+          />
           <Giscus style={{ width: "100%" }} />
-        </VStack>
+        </Flex>
       </BaseLayout>
     </>
   );

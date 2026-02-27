@@ -1,29 +1,46 @@
-import { FlexAlign, HStack, Skeleton, VStack } from "@/shared/components/ui";
+import { Flex, Skeleton } from "@/shared/components/ui";
 
 import s from "./style.module.scss";
 
 export default function BlogCardSkeleton() {
   return (
     <div className={s.card}>
-      <Skeleton.Rectangle
-        height={"190px"}
-        width={"300px"}
+      <Skeleton
+        height="190px"
+        width="300px"
+        variant="rectangular"
         className={s.thumbnail}
       />
-      <VStack gap={12}>
-        <HStack gap={6} align={FlexAlign.Center}>
+      <Flex direction="column" gap={12}>
+        <Flex gap={6} align="center">
           <Skeleton height="14px" width="80px" />
           <Skeleton height="14px" width="60px" />
-        </HStack>
-        <VStack gap={12}>
-          <Skeleton height="26px" width="220px" borderRadius="6px" />
-          <Skeleton height="26px" width="150px" borderRadius="6px" />
-          <HStack gap={4}>
-            <Skeleton height="20px" width="50px" borderRadius="6px" />
-            <Skeleton height="20px" width="50px" borderRadius="6px" />
-          </HStack>
-        </VStack>
-      </VStack>
+        </Flex>
+        <Flex direction="column" gap={12}>
+          <Skeleton
+            height="26px"
+            width="220px"
+            style={{ borderRadius: "6px" }}
+          />
+          <Skeleton
+            height="26px"
+            width="150px"
+            style={{ borderRadius: "6px" }}
+          />
+          <Flex gap={4}>
+            <Skeleton
+              height="20px"
+              width="50px"
+              style={{ borderRadius: "6px" }}
+            />
+            <Skeleton
+              height="20px"
+              width="50px"
+              style={{ borderRadius: "6px" }}
+            />
+          </Flex>
+        </Flex>
+      </Flex>
     </div>
   );
 }
