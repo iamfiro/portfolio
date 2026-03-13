@@ -1,8 +1,6 @@
 .footer {
   width: 100%;
 
-  border-top: 1px solid $border;
-
   background-color: $surface;
 }
 
@@ -14,5 +12,5 @@
   max-width: $max-width;
 
   margin: 0 auto;
-  padding: $spacing-24 $padding;
+  padding: $spacing-24 0;
 }

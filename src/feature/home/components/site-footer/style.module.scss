@@ -1,0 +1,21 @@
+.socialLinks {
+  display: flex;
+  align-items: center;
+  gap: $spacing-16;
+}
+
+.socialLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: $text-subtle;
+
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: $text;
+  }
+}

@@ -1,7 +1,7 @@
-.hero {
+.about {
   display: flex;
   flex-direction: column;
-  align-items: start;
+  align-items: flex-start;
   gap: $spacing-28;
 
   width: 100%;
@@ -10,60 +10,50 @@
   max-width: $max-width;
 
   margin: 0 auto;
-
-  padding: $spacing-64 0;
 }
 
 .title {
   font-size: $font-size-5xl;
-  font-weight: 600;
-  line-height: 1.2;
-  color: $text;
+  line-height: $line-height-tight;
 
-  b {
-    font-family: $font-gambarino;
-  }
+  font-family: $font-gambarino;
+  font-weight: inherit;
+
+  color: $text;
+}
+
+.emphasis {
+  display: inline;
+
+  font-family: $font-gambarino;
+  font-weight: inherit;
+}
+
+.descriptionGroup {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-16;
 }
 
 .description {
   font-size: $font-size-xl;
-  font-weight: 500;
-  line-height: 1.65;
+  font-weight: $font-weight-medium;
+  line-height: $line-height-relaxed;
   color: $text-muted;
+
+  b {
+    color: $text;
+
+    font-weight: inherit;
+    text-decoration: underline;
+  }
 }
 
-.me {
-  width: 42px;
+.image {
+  width: 100%;
+  height: 150px;
+  border-radius: 0 0  $radius-24 $radius-24;
 
-  aspect-ratio: 1/1;
   object-fit: cover;
-
-  border-radius: 50%;
-}
-
-.bubbleContainer {
-  display: flex;
-  flex-direction: row;
-  gap: $spacing-8;
-
-  align-items: flex-end;
-}
-
-.bubble {
-  position: relative;
-
-  max-width: 280px;
-  min-height: 44px;
-
-  padding: $spacing-12 $spacing-16;
-
-  font-weight: 500;
-
-  background-color: $surface-subtle;
-
-  border-radius: $radius-16 $radius-16 $radius-16 0;
-}
-
-.buttonContainer {
-  margin-top: $spacing-20;
+  object-position: center;
 }

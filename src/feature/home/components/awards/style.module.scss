@@ -1,0 +1,65 @@
+.awards {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: $spacing-28;
+
+  width: 100%;
+  overflow: visible;
+
+  max-width: $max-width;
+
+  margin: 0 auto;
+  
+}
+
+.title {
+  font-size: $font-size-5xl;
+  line-height: $line-height-tight;
+
+  font-family: $font-gambarino;
+  font-weight: inherit;
+
+  color: $text;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-24;
+
+  width: 100%;
+}
+
+.card {
+  width: 100%;
+
+  transition: border-color $transition-normal;
+
+  &:hover {
+    border-color: $border-strong;
+  }
+}
+
+.cardHeader {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-4;
+}
+
+.cardTitle {
+  font-weight: $font-weight-semibold;
+  line-height: $line-height-tight;
+  font-size: $font-size-xl;
+  color: $text;
+}
+
+.cardOrganization {
+  color: $text-subtle;
+  font-size: $font-size-lg;
+}
+
+.cardDescription {
+  line-height: $line-height-relaxed;
+  color: $text-muted;
+}

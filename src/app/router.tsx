@@ -1,11 +1,15 @@
 import { createBrowserRouter } from "react-router-dom";
 
-import { Blog, BlogArticle, Home } from "@/pages";
+import { Awards, Blog, BlogArticle, Home } from "@/pages";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Home />,
+  },
+  {
+    path: "/awards",
+    element: <Awards />,
   },
   {
     path: "/blog",

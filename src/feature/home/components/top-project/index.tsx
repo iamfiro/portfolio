@@ -2,7 +2,7 @@ import { useCallback, useRef } from "react";
 
 import s from "./style.module.scss";
 
-const TILT_MAX = 8;
+const TILT_MAX = 2;
 const SCALE_HOVER = 1.02;
 const GLARE_OPACITY = 0.12;
 

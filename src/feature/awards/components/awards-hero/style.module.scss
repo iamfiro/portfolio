@@ -1,0 +1,65 @@
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: $spacing-28;
+
+  width: 100%;
+  overflow: visible;
+
+  max-width: $max-width;
+
+  margin: 0 auto;
+
+  padding: $spacing-64 0;
+}
+
+.title {
+  font-size: $font-size-5xl;
+  font-weight: 600;
+  line-height: 1.2;
+  color: $text;
+
+  b {
+    font-family: $font-gambarino;
+  }
+}
+
+.description {
+  font-size: $font-size-xl;
+  font-weight: $font-weight-medium;
+  line-height: 1.65;
+  color: $text-muted;
+}
+
+.me {
+  width: 42px;
+
+  aspect-ratio: 1/1;
+  object-fit: cover;
+
+  border-radius: 50%;
+}
+
+.bubbleContainer {
+  display: flex;
+  flex-direction: row;
+  gap: $spacing-8;
+
+  align-items: flex-end;
+}
+
+.bubble {
+  position: relative;
+
+  max-width: 280px;
+  min-height: 44px;
+
+  padding: $spacing-12 $spacing-16;
+
+  font-weight: $font-weight-medium;
+
+  background-color: $surface-subtle;
+
+  border-radius: $radius-16 $radius-16 $radius-16 0;
+}

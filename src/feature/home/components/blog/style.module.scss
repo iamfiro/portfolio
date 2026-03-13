@@ -1,0 +1,101 @@
+.blog {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: $spacing-28;
+
+  width: 100%;
+  overflow: visible;
+
+  max-width: $max-width;
+
+  margin: 0 auto;
+}
+
+.title {
+  font-size: $font-size-5xl;
+  line-height: $line-height-tight;
+
+  font-family: $font-gambarino;
+  font-weight: inherit;
+
+  color: $text;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+
+  border-top: 1px solid $border;
+}
+
+.card {
+  display: block;
+
+  width: 100%;
+
+  padding: $spacing-20 0;
+
+  border-bottom: 1px solid $border;
+
+  text-decoration: none;
+  color: inherit;
+
+  transition: background-color $transition-normal;
+
+  &:hover {
+    background-color: $surface-subtlest;
+
+    .cardArrow {
+      transform: translate(2px, -2px);
+    }
+  }
+}
+
+.cardInner {
+  width: 100%;
+}
+
+.cardContent {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-4;
+
+  flex: 1;
+  min-width: 0;
+}
+
+.cardTitle {
+  font-weight: $font-weight-semibold;
+  font-size: $font-size-lg;
+  line-height: $line-height-tight;
+
+  color: $text;
+}
+
+.cardDescription {
+  color: $text-muted;
+  font-size: $font-size-sm;
+  line-height: $line-height-normal;
+}
+
+.cardMeta {
+  flex-shrink: 0;
+
+  margin-left: $spacing-16;
+}
+
+.cardDate {
+  color: $text-muted;
+  font-size: $font-size-sm;
+
+  white-space: nowrap;
+}
+
+.cardArrow {
+  color: $text-muted;
+
+  transition: transform $transition-normal;
+}

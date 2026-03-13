@@ -1,0 +1,146 @@
+.project {
+  width: 100%;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(240px, 0.9fr) minmax(0, 1.8fr);
+
+  width: 100%;
+
+  padding: $spacing-40;
+}
+
+.intro {
+  position: sticky;
+  top: $spacing-24;
+
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-20;
+
+  align-self: start;
+}
+
+.title {
+  font-size: $font-size-5xl;
+  font-family: $font-gambarino;
+  font-weight: 500;
+  line-height: $line-height-tight;
+
+  color: $text;
+
+  margin-top: $spacing-48;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: $spacing-32;
+
+  width: 100%;
+}
+
+.card {
+  --project-shadow-hover: $shadow;
+
+  position: relative;
+
+  padding: 0;
+
+  border: 0;
+
+  overflow: hidden;
+
+  box-shadow: none;
+
+  transition:
+    transform $transition-normal,
+    box-shadow $transition-normal,
+    border-color $transition-normal;
+
+  border-radius: $radius-32;
+
+  &:hover {
+    transform: translateY(-2px);
+
+    border-color: $border;
+
+    box-shadow: var(--project-shadow-hover);
+
+    .overlay {
+      opacity: 1;
+    }
+  }
+}
+
+.thumbnail {
+  width: 100%;
+  aspect-ratio: 8/11;
+
+  border-radius: $radius-16;
+}
+
+.overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  gap: $spacing-4;
+
+  padding: $spacing-32;
+  height: 72%;
+
+  background: linear-gradient(to bottom, transparent, $surface);
+
+  opacity: 0;
+  transition: opacity $transition-normal;
+
+  pointer-events: none;
+}
+
+.cardTitle {
+  font-size: $font-size-3xl;
+  font-weight: 600;
+  line-height: $line-height-normal;
+
+  color: $text-inverse;
+}
+
+.cardDescription {
+  font-size: $font-size-lg;
+  line-height: $line-height-normal;
+
+  color: $text-inverse;
+  opacity: 0.72;
+}
+
+.viewMoreButton {
+  width: fit-content;
+}
+
+@media (max-width: 1024px) {
+  .layout {
+    grid-template-columns: 1fr;
+    gap: $spacing-32;
+  }
+
+  .intro {
+    position: static;
+  }
+}
+
+@media (max-width: 768px) {
+  .layout {
+    padding: $spacing-24;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

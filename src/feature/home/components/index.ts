@@ -1,4 +1,9 @@
 export { default as About } from "./about";
+export { default as Awards } from "./awards";
+export { default as Blog } from "./blog";
 export { default as Footer } from "./footer";
 export { default as Hero } from "./hero";
+export { default as Project } from "./project";
+export { default as SiteFooter } from "./site-footer";
+export { default as TechStack } from "./tech-stack";
 export { default as TopProject } from "./top-project";

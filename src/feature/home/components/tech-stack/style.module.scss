@@ -1,0 +1,99 @@
+.techStack {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: $spacing-28;
+
+  width: 100%;
+  overflow: visible;
+
+  max-width: $max-width;
+
+  margin: 0 auto;
+}
+
+.title {
+  font-size: $font-size-5xl;
+  line-height: $line-height-tight;
+
+  font-family: $font-gambarino;
+  font-weight: inherit;
+
+  color: $text;
+}
+
+.categories {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-32;
+
+  width: 100%;
+}
+
+.category {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-16;
+
+  width: 100%;
+}
+
+.categoryLabel {
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.iconGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-12;
+}
+
+.iconWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 52px;
+  height: 52px;
+
+  padding: $spacing-10;
+
+  background-color: $surface-subtle;
+
+  border-radius: $radius-12;
+
+  cursor: pointer;
+  transition:
+    background-color $transition-normal,
+    transform $transition-normal;
+
+  &:hover {
+    background-color: $surface-elevated;
+
+    transform: translateY(-2px);
+  }
+}
+
+.icon {
+  width: 28px;
+  height: 28px;
+
+  object-fit: contain;
+}
+
+.tooltipContent {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-4;
+
+  padding: $spacing-4 0;
+}
+
+.tooltipTitle {
+  color: $text;
+}
+
+.tooltipSkill {
+  color: $text-muted;
+}
