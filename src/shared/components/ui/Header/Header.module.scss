@@ -7,24 +7,21 @@
     align-items: center;
     justify-content: space-between;
 
-    background-color: $surface;
-
     padding: 0 $padding;
+
+    position: fixed;
+    top: 0;
 }
 
 .logo {
-    height: 20px;
+    height: 23px;
 }
 
 
 .link {
     display: flex;
-    position: absolute;
     flex-direction: row;
-    gap: $spacing-20;
-
-    left: 50%;
-    transform: translateX(-50%);
+    gap: $spacing-24;
 
     padding: 0;
 
@@ -38,6 +35,8 @@
         a, span {
             text-decoration: none;
 
+            font-size: $font-size-xl;
+
             font-weight: 500;
 
             color: $text-muted;
@@ -46,6 +45,8 @@
 
     .active {
         a, span {
+            font-weight: 600;
+
             color: $text;
         }
     }

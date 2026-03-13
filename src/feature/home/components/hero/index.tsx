@@ -1,52 +1,35 @@
-import { Flex } from "@/shared/components/ui";
+import { ArrowRight } from "lucide-react";
 
-import HeroFlow from "../hero-flow";
-import {
-  IdeaCard,
-  PersonCard,
-  ProductCard,
-  StackCard,
-} from "../hero-flow/cards";
+import { Button, Flex } from "@/shared/components/ui";
 
 import s from "./style.module.scss";
 
 export default function Hero() {
   return (
     <section className={s.hero}>
-      <Flex
-        direction="column"
-        align="center"
-        justify="center"
-        gap={16}
-        className={s.content}
-      >
-        <h1 className={s.title}>just something that sounds cool</h1>
-        <p className={s.description}>
-          simply dummy text of the printing and typesetting industry
-          <br />
-          Lorem Ipsum has been the industry&apos;s standard dummy text
-        </p>
+      <div className={s.bubbleContainer}>
+        <img src="/me.png" alt="My Face" className={s.me} />
+        <div className={s.bubble}>👋 Hi! Nice to meet you</div>
+      </div>
+      <h1 className={s.title}>
+        Researching and building thoughtful services that solve everyday{" "}
+        <b>problems</b>
+      </h1>
+      <p className={s.description}>
+        Hi, I'm Sungju Cho, a Full-Stack developer studying software engineering
+        at Sunrin Internet High School in South Korea. <br /> <br />I enjoy
+        building practical services that solve real problems and turning ideas
+        into working products. Through personal projects, I explore new
+        technologies and create tools that people genuinely find useful.
+      </p>
+      <Flex gap={16} align="center" className={s.buttonContainer}>
+        <Button variant="primary" size="md" rightIcon={<ArrowRight />}>
+          Contact me
+        </Button>
+        <Button variant="secondary" size="md">
+          Book an into call
+        </Button>
       </Flex>
-
-      <div className={s.shadow} />
-
-      <HeroFlow className={s.heroFlow}>
-        <HeroFlow.Source id="person" position={{ x: -500, y: -200 }}>
-          <PersonCard />
-        </HeroFlow.Source>
-
-        <HeroFlow.Source id="idea" position={{ x: 100, y: -300 }}>
-          <IdeaCard />
-        </HeroFlow.Source>
-
-        <HeroFlow.Source id="stack" position={{ x: 400, y: -80 }}>
-          <StackCard />
-        </HeroFlow.Source>
-
-        <HeroFlow.Product id="product" position={{ x: 0, y: 120 }}>
-          <ProductCard />
-        </HeroFlow.Product>
-      </HeroFlow>
     </section>
   );
 }

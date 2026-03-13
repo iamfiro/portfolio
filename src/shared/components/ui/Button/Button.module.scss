@@ -4,14 +4,14 @@
   justify-content: center;
   gap: $spacing-8;
 
-  padding: $spacing-12 $spacing-24;
+  padding: $spacing-12 $spacing-20;
 
   border: 2px solid transparent;
   border-radius: $radius-12;
 
-  background-color: $surface-brand;
+  background-color: $surface-inverse;
 
-  font-weight: $font-weight-semibold;
+  font-weight: $font-weight-medium;
   font-size: $font-size-md;
   color: $text;
   cursor: pointer;
@@ -26,6 +26,16 @@
   color: $text-inverse;
 
   .spinner { color: $text-inverse; }
+
+  svg {
+    width: 20px;
+    height: 20px;
+    color: $text-inverse;
+  }
+
+  border: 0;
+
+  background: $surface-inverse-subtle;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -34,11 +44,19 @@
 }
 
 .secondary {
-  background-color: $surface-subtle;
+  color: $text-subtle;
 
-  outline: 1px solid $border;
+  .spinner { color: $text-inverse; }
 
-  &:hover { background-color: $surface-elevated; }
+  svg {
+    width: 20px;
+    height: 20px;
+    color: $text-subtle;
+  }
+
+  border: 0;
+
+  background: $surface-elevated;
 }
 
 .ghost {
@@ -74,9 +92,11 @@
 }
 
 .md {
-  padding: $spacing-12 $spacing-24;
+  padding: $spacing-14 $spacing-20;
 
-  font-size: $font-size-md;
+  border-radius: $radius-full;
+
+  font-size: $font-size-xl;
 }
 
 .lg {

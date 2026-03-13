@@ -1,6 +1,6 @@
 // Layout
 $padding: 24px;
-$max-width: 1200px;
+$max-width: 700px;
 
 // Spacing Scale
 $spacing-4: 4px;
@@ -12,6 +12,7 @@ $spacing-14: 14px;
 $spacing-16: 16px;
 $spacing-20: 20px;
 $spacing-24: 24px;
+$spacing-28: 28px;
 $spacing-32: 32px;
 $spacing-40: 40px;
 $spacing-48: 48px;
@@ -32,86 +33,86 @@ $radius-64: 64px;
 $radius-full: 9999px;
 
 // ============================================
-// Color System (Dark Theme)
-// Base: #0C0C0C | Brand: #BFFF00
+// Color System (Light Theme)
+// Base: #FFFFFF | Brand: #BFFF00
 // ============================================
 
 // Base Palette
 $color-white: #ffffff;
 $color-black: #000000;
 
-// Surface Colors (Dark Theme)
-$surface: #070707;
-$surface-subtlest: #0C0C0C;
-$surface-subtle: #141414;
-$surface-elevated: #1a1a1a;
-$surface-overlay: #242424;
-$surface-inverse: #ffffff;
-$surface-inverse-subtle: #f5f5f5;
+// Surface Colors (Light Theme)
+$surface: #ffffff;
+$surface-subtlest: #fafafa;
+$surface-subtle: #f5f5f5;
+$surface-elevated: #eeeeee;
+$surface-overlay: #e0e0e0;
+$surface-inverse: #0c0c0c;
+$surface-inverse-subtle: #1a1a1a;
 
 // Brand Surface Colors
 $surface-brand: #bfff00;
 $surface-brand-heavy: #a8e000;
-$surface-brand-subtle: rgba(191, 255, 0, 0.12);
-$surface-brand-muted: rgba(191, 255, 0, 0.06);
+$surface-brand-subtle: rgba(191, 255, 0, 0.15);
+$surface-brand-muted: rgba(191, 255, 0, 0.08);
 
 // Text Colors
-$text: #D7D7D7;
-$text-subtle: #B8B8B8;
-$text-muted: #717171;
-$text-inverse: #0c0c0c;
+$text: #1a1a1a;
+$text-subtle: #4a4a4a;
+$text-muted: #6f6f6f;
+$text-inverse: #ffffff;
 $text-white: #ffffff;
 
 // Brand Text Colors
-$text-brand: #bfff00;
-$text-brand-heavy: #d4ff4d;
+$text-brand: #6b8f00;
+$text-brand-heavy: #4a6600;
 $text-brand-subtle: #8fb800;
 
 // Danger Colors (Red)
-$text-danger: #ff6b6b;
-$text-danger-heavy: #ff8a8a;
-$text-danger-subtle: #cc5555;
-$surface-danger: #ff6b6b;
-$surface-danger-subtle: rgba(255, 107, 107, 0.12);
+$text-danger: #dc2626;
+$text-danger-heavy: #b91c1c;
+$text-danger-subtle: #ef4444;
+$surface-danger: #dc2626;
+$surface-danger-subtle: rgba(220, 38, 38, 0.1);
 
 // Success Colors (Green)
-$text-success: #4ade80;
-$text-success-heavy: #6ee7a0;
-$text-success-subtle: #3cb366;
-$surface-success: #4ade80;
-$surface-success-subtle: rgba(74, 222, 128, 0.12);
+$text-success: #16a34a;
+$text-success-heavy: #15803d;
+$text-success-subtle: #22c55e;
+$surface-success: #16a34a;
+$surface-success-subtle: rgba(22, 163, 74, 0.1);
 
 // Warning Colors (Amber)
-$text-warning: #fbbf24;
-$text-warning-heavy: #fcd34d;
-$text-warning-subtle: #d4a21a;
-$surface-warning: #fbbf24;
-$surface-warning-subtle: rgba(251, 191, 36, 0.12);
+$text-warning: #d97706;
+$text-warning-heavy: #b45309;
+$text-warning-subtle: #f59e0b;
+$surface-warning: #d97706;
+$surface-warning-subtle: rgba(217, 119, 6, 0.1);
 
 // Info Colors (Blue)
-$text-info: #60a5fa;
-$text-info-heavy: #93c5fd;
-$text-info-subtle: #4b8bd4;
-$surface-info: #60a5fa;
-$surface-info-subtle: rgba(96, 165, 250, 0.12);
+$text-info: #2563eb;
+$text-info-heavy: #1d4ed8;
+$text-info-subtle: #3b82f6;
+$surface-info: #2563eb;
+$surface-info-subtle: rgba(37, 99, 235, 0.1);
 
 // Border Colors
-$border: #212121;
-$border-subtle: #1f1f1f;
-$border-strong: #3a3a3a;
+$border: #e0e0e0;
+$border-subtle: #eeeeee;
+$border-strong: #c0c0c0;
 $border-brand: #bfff00;
-$border-inverse: #e0e0e0;
+$border-inverse: #212121;
 
 // Shadow Scale
-$shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.3);
-$shadow-md: 0px 4px 8px 0px rgba(0, 0, 0, 0.4);
-$shadow-lg: 0px 8px 16px 0px rgba(0, 0, 0, 0.5);
-$shadow-brand: 0px 0px 20px 0px rgba(191, 255, 0, 0.3);
+$shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.06);
+$shadow-md: 0px 4px 8px 0px rgba(0, 0, 0, 0.08);
+$shadow-lg: 0px 8px 16px 0px rgba(0, 0, 0, 0.1);
+$shadow-brand: 0px 0px 20px 0px rgba(191, 255, 0, 0.4);
 
 // Overlay
-$overlay: rgba(0, 0, 0, 0.6);
-$overlay-light: rgba(0, 0, 0, 0.4);
-$overlay-heavy: rgba(0, 0, 0, 0.8);
+$overlay: rgba(0, 0, 0, 0.4);
+$overlay-light: rgba(0, 0, 0, 0.2);
+$overlay-heavy: rgba(0, 0, 0, 0.6);
 
 // ============================================
 // Typography
@@ -129,7 +130,7 @@ $font-size-xs: 12px;
 $font-size-sm: 14px;
 $font-size-md: 16px;
 $font-size-lg: 18px;
-$font-size-xl: 20px;
+$font-size-xl: 21px;
 $font-size-2xl: 24px;
 $font-size-3xl: 30px;
 $font-size-4xl: 36px;

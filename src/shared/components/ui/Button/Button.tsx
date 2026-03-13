@@ -1,21 +1,23 @@
-import type { LayoutProps, StyleProps } from '@/shared/types/component-common'
-import { cn, buildLayoutStyle } from '../_utils'
-import styles from './Button.module.scss'
+import type { LayoutProps, StyleProps } from "@/shared/types/component-common";
+
+import { buildLayoutStyle, cn } from "../_utils";
+
+import styles from "./Button.module.scss";
 
 type ButtonProps = {
-  variant?: 'primary' | 'secondary' | 'ghost' | 'danger' | 'outline'
-  size?: 'sm' | 'md' | 'lg'
-  loading?: boolean
-  leftIcon?: React.ReactNode
-  rightIcon?: React.ReactNode
-  fullWidth?: boolean
-} & StyleProps
-  & Pick<LayoutProps, 'width' | 'maxWidth'>
-  & React.ButtonHTMLAttributes<HTMLButtonElement>
+  variant?: "primary" | "secondary" | "ghost" | "danger" | "outline";
+  size?: "sm" | "md" | "lg";
+  loading?: boolean;
+  leftIcon?: React.ReactNode;
+  rightIcon?: React.ReactNode;
+  fullWidth?: boolean;
+} & StyleProps &
+  Pick<LayoutProps, "width" | "maxWidth"> &
+  React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 function Button({
-  variant = 'primary',
-  size = 'md',
+  variant = "primary",
+  size = "md",
   loading = false,
   fullWidth = false,
   leftIcon,
@@ -47,8 +49,8 @@ function Button({
       {children}
       {rightIcon ? <span className={styles.icon}>{rightIcon}</span> : null}
     </button>
-  )
+  );
 }
 
-export { Button }
-export type { ButtonProps }
+export { Button };
+export type { ButtonProps };

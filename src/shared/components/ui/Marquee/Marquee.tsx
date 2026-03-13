@@ -1,24 +1,24 @@
-import { Children, ReactNode, useEffect, useRef, useState } from "react";
+import {
+  Children,
+  isValidElement,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
+import type { ReactNode } from "react";
 
 import s from "./Marquee.module.scss";
 
 interface MarqueeProps {
   children: ReactNode;
-  /** Scroll direction: left-to-right or right-to-left */
   direction?: "left" | "right";
-  /** Animation speed in seconds (lower is faster) */
   speed?: number;
-  /** Gap between items in px */
   gap?: number;
-  /** Width of the marquee container */
   width?: number | string;
-  /** Whether to pause animation on hover */
   pauseOnHover?: boolean;
-  /** Whether to show fading gradient at the left/right edges */
   showEdgeGradient?: boolean;
-  /** Gradient color for edge fade (default: surface color) */
   gradientColor?: string;
-  /** Optional custom className */
   className?: string;
 }
 
@@ -36,13 +36,51 @@ function Marquee({
   const firstSetRef = useRef<HTMLDivElement>(null);
   const [offset, setOffset] = useState(0);
 
-  const childArray = Children.toArray(children);
+  const childArray = useMemo(() => Children.toArray(children), [children]);
 
-  useEffect(() => {
-    if (firstSetRef.current) {
-      setOffset(firstSetRef.current.offsetWidth + gap);
+  useLayoutEffect(() => {
+    const target = firstSetRef.current;
+    if (!target) return;
+
+    const measureOffset = () => {
+      const nextOffset = target.offsetWidth + gap;
+      setOffset(nextOffset > 0 ? nextOffset : 0);
+    };
+
+    measureOffset();
+
+    const resizeObserver = new ResizeObserver(() => {
+      measureOffset();
+    });
+
+    resizeObserver.observe(target);
+
+    const mediaElements = target.querySelectorAll("img, video");
+    const onMediaLoad = () => {
+      measureOffset();
+    };
+
+    for (const media of mediaElements) {
+      media.addEventListener("load", onMediaLoad);
+      media.addEventListener("error", onMediaLoad);
     }
-  }, [children, gap]);
+
+    return () => {
+      resizeObserver.disconnect();
+      for (const media of mediaElements) {
+        media.removeEventListener("load", onMediaLoad);
+        media.removeEventListener("error", onMediaLoad);
+      }
+    };
+  }, [gap]);
+
+  const getChildKey = (child: ReactNode) => {
+    if (isValidElement(child) && child.key != null) {
+      return String(child.key);
+    }
+
+    return String(child);
+  };
 
   const marqueeClassName = [
     s.marquee,
@@ -65,6 +103,7 @@ function Marquee({
   const trackStyle = {
     "--scroll-offset": `-${offset}px`,
     animationDuration: `${speed}s`,
+    animationPlayState: offset > 0 ? "running" : "paused",
     gap: `${gap}px`,
   } as React.CSSProperties;
 
@@ -72,15 +111,15 @@ function Marquee({
     <div className={marqueeClassName} style={containerStyle}>
       <div className={trackClassName} style={trackStyle}>
         <div ref={firstSetRef} className={s.set} style={{ gap: `${gap}px` }}>
-          {childArray.map((child, index) => (
-            <div key={index} className={s.item}>
+          {childArray.map((child) => (
+            <div key={getChildKey(child)} className={s.item}>
               {child}
             </div>
           ))}
         </div>
         <div className={s.set} style={{ gap: `${gap}px` }} aria-hidden="true">
-          {childArray.map((child, index) => (
-            <div key={index} className={s.item}>
+          {childArray.map((child) => (
+            <div key={`clone-${getChildKey(child)}`} className={s.item}>
               {child}
             </div>
           ))}
