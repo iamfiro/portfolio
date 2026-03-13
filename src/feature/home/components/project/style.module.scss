@@ -140,7 +140,57 @@
     padding: $spacing-24;
   }
 
+  .title {
+    font-size: $font-size-3xl;
+
+    margin-top: $spacing-24;
+  }
+
   .grid {
     grid-template-columns: 1fr;
+  }
+
+  .overlay {
+    padding: $spacing-24;
+  }
+
+  .cardTitle {
+    font-size: $font-size-2xl;
+  }
+
+  .cardDescription {
+    font-size: $font-size-md;
+  }
+}
+
+@media (max-width: 480px) {
+  .layout {
+    padding: $spacing-16;
+  }
+
+  .title {
+    font-size: $font-size-2xl;
+
+    margin-top: $spacing-16;
+  }
+
+  .grid {
+    gap: $spacing-20;
+  }
+
+  .card {
+    border-radius: $radius-24;
+  }
+
+  .overlay {
+    padding: $spacing-20;
+  }
+
+  .cardTitle {
+    font-size: $font-size-xl;
+  }
+
+  .cardDescription {
+    font-size: $font-size-sm;
   }
 }

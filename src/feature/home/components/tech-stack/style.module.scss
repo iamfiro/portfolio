@@ -97,3 +97,52 @@
 .tooltipSkill {
   color: $text-muted;
 }
+
+@media (max-width: 768px) {
+  .techStack {
+    gap: $spacing-20;
+
+    padding-left: $padding;
+    padding-right: $padding;
+  }
+
+  .title {
+    font-size: $font-size-3xl;
+  }
+
+  .iconWrapper {
+    width: 46px;
+    height: 46px;
+  }
+
+  .icon {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .techStack {
+    gap: $spacing-16;
+  }
+
+  .title {
+    font-size: $font-size-2xl;
+  }
+
+  .categories {
+    gap: $spacing-24;
+  }
+
+  .iconWrapper {
+    width: 42px;
+    height: 42px;
+
+    padding: $spacing-8;
+  }
+
+  .icon {
+    width: 22px;
+    height: 22px;
+  }
+}

@@ -50,7 +50,6 @@
 
 .cardContent {
   width: 100%;
-
 }
 
 .cardIcon {
@@ -153,8 +152,52 @@
     padding: $spacing-10 $spacing-12;
   }
 
+  .showcaseContainer {
+    height: 400px;
+  }
+
+  .ideaImage {
+    height: 100px;
+    width: 200px;
+  }
+
+  .productImage {
+    width: 200px;
+    height: 120px;
+  }
+
   .techIcon {
     width: 20px;
     height: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .showcaseContainer {
+    height: 300px;
+  }
+
+  .nodeCard {
+    min-width: 100px;
+
+    padding: $spacing-8 $spacing-10;
+  }
+
+  .cardTitle {
+    font-size: $font-size-xs;
+  }
+
+  .ideaImage {
+    height: 80px;
+    width: 150px;
+  }
+
+  .productImage {
+    width: 150px;
+    height: 100px;
+  }
+
+  .personCardList li span {
+    font-size: $font-size-xs;
   }
 }

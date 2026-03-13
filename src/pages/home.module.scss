@@ -1,4 +1,22 @@
 .container {
-    width: 100%;
-    min-height: 100vh;
+  width: 100%;
+  min-height: 100vh;
+}
+
+@media (max-width: 768px) {
+  .container {
+    > [aria-hidden="true"] {
+      height: 48px !important;
+      min-height: 48px !important;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    > [aria-hidden="true"] {
+      height: 32px !important;
+      min-height: 32px !important;
+    }
+  }
 }

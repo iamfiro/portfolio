@@ -19,3 +19,9 @@
     color: $text;
   }
 }
+
+@media (max-width: 480px) {
+  .socialLinks {
+    gap: $spacing-12;
+  }
+}

@@ -14,3 +14,18 @@
   margin: 0 auto;
   padding: $spacing-24 0;
 }
+
+@media (max-width: 768px) {
+  .inner {
+    padding: $spacing-24 $padding;
+  }
+}
+
+@media (max-width: 480px) {
+  .inner {
+    flex-direction: column;
+    gap: $spacing-12;
+
+    padding: $spacing-20 $spacing-16;
+  }
+}

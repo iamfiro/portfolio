@@ -67,3 +67,50 @@
 .buttonContainer {
   margin-top: $spacing-20;
 }
+
+@media (max-width: 768px) {
+  .hero {
+    gap: $spacing-20;
+
+    padding: $spacing-40 $padding;
+  }
+
+  .title {
+    font-size: $font-size-3xl;
+  }
+
+  .description {
+    font-size: $font-size-lg;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    gap: $spacing-16;
+
+    padding: $spacing-32 $padding;
+  }
+
+  .title {
+    font-size: $font-size-2xl;
+  }
+
+  .description {
+    font-size: $font-size-md;
+  }
+
+  .bubble {
+    max-width: 220px;
+
+    padding: $spacing-10 $spacing-14;
+
+    font-size: $font-size-sm;
+  }
+
+  .buttonContainer {
+    flex-direction: column;
+    width: 100%;
+
+    margin-top: $spacing-12;
+  }
+}

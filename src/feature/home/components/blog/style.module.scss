@@ -99,3 +99,43 @@
 
   transition: transform $transition-normal;
 }
+
+@media (max-width: 768px) {
+  .blog {
+    gap: $spacing-20;
+
+    padding-left: $padding;
+    padding-right: $padding;
+  }
+
+  .title {
+    font-size: $font-size-3xl;
+  }
+
+  .cardTitle {
+    font-size: $font-size-md;
+  }
+}
+
+@media (max-width: 480px) {
+  .blog {
+    gap: $spacing-16;
+  }
+
+  .title {
+    font-size: $font-size-2xl;
+  }
+
+  .cardInner {
+    flex-direction: column;
+    gap: $spacing-8;
+  }
+
+  .cardMeta {
+    margin-left: 0;
+  }
+
+  .card {
+    padding: $spacing-16 0;
+  }
+}

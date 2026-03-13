@@ -10,7 +10,6 @@
   max-width: $max-width;
 
   margin: 0 auto;
-  
 }
 
 .title {
@@ -62,4 +61,47 @@
 .cardDescription {
   line-height: $line-height-relaxed;
   color: $text-muted;
+}
+
+@media (max-width: 768px) {
+  .awards {
+    gap: $spacing-20;
+
+    padding-left: $padding;
+    padding-right: $padding;
+  }
+
+  .title {
+    font-size: $font-size-3xl;
+  }
+
+  .cardTitle {
+    font-size: $font-size-lg;
+  }
+
+  .cardOrganization {
+    font-size: $font-size-md;
+  }
+}
+
+@media (max-width: 480px) {
+  .awards {
+    gap: $spacing-16;
+  }
+
+  .title {
+    font-size: $font-size-2xl;
+  }
+
+  .list {
+    gap: $spacing-16;
+  }
+
+  .cardTitle {
+    font-size: $font-size-md;
+  }
+
+  .cardOrganization {
+    font-size: $font-size-sm;
+  }
 }
