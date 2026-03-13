@@ -1,4 +1,4 @@
-import { Footer, Hero } from "@/feature/home/components";
+import { Footer, Hero, TopProject } from "@/feature/home/components";
 import { Header, Spacer } from "@/shared/components/ui";
 
 import s from "./home.module.scss";
@@ -9,6 +9,8 @@ export default function Home() {
       <Spacer size={64} />
       <Header />
       <Hero />
+      <Spacer size={24} />
+      <TopProject />
       <Footer />
     </main>
   );

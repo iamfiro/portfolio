@@ -1,0 +1,89 @@
+.topProject {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0 $spacing-48;
+}
+
+.center {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 15/9;
+
+  background: url("/images/projects/alttab/banner.png") no-repeat center center;
+  background-size: cover;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  border-radius: $radius-32;
+
+  overflow: hidden;
+
+  cursor: pointer;
+
+  transform-style: preserve-3d;
+  will-change: transform;
+  transition: transform $transition-slow;
+
+  .header {
+    width: 100%;
+
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+
+    padding: $spacing-40;
+
+    p {
+      font-size: $font-size-xl;
+      font-weight: 600;
+      color: $text-inverse;
+    }
+
+    img {
+      height: 40px;
+      object-fit: contain;
+    }
+  }
+}
+
+.glare {
+  position: absolute;
+  inset: 0;
+
+  z-index: 2;
+
+  pointer-events: none;
+
+  opacity: 0;
+  transition: opacity $transition-slow;
+
+  border-radius: inherit;
+}
+
+.content {
+  position: relative;
+  bottom: 0;
+
+  width: 100%;
+  height: 60%;
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: start;
+
+  padding: $spacing-64;
+
+  background: linear-gradient(to bottom, #3b500500, #3b5005);
+
+  p {
+    font-size: $font-size-3xl;
+    font-weight: 600;
+    color: #ffffffa2;
+    line-height: 1.7;
+  }
+}
