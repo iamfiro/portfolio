@@ -1,100 +1,108 @@
 .about {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: $spacing-28;
-
   width: 100%;
   overflow: visible;
 
-  max-width: $max-width;
+  gap: $spacing-64;
+
+  max-width: 1100px;
 
   margin: 0 auto;
+  padding-top: $spacing-100;
+
+  border-top: 1px solid $border;
 }
 
-.title {
-  font-size: $font-size-5xl;
+.split {
+  display: flex;
+  width: 100%;
+
+  gap: $spacing-48;
+}
+
+.detail {
+  display: flex;
+  width: 100%;
+
+  gap: $spacing-48;
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  width: 25%;
+
+  gap: $spacing-4;
+}
+
+.labelText {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-normal;
+  line-height: $line-height-normal;
+
+  color: $text-muted;
+}
+
+.statement {
+  flex: 1;
+
+  font-size: $font-size-4xl;
+  font-weight: $font-weight-bold;
   line-height: $line-height-tight;
 
   font-family: $font-gambarino;
-  font-weight: inherit;
 
   color: $text;
 }
 
-.emphasis {
-  display: inline;
-
-  font-family: $font-gambarino;
-  font-weight: inherit;
-}
-
-.descriptionGroup {
-  display: flex;
-  flex-direction: column;
-  gap: $spacing-16;
-}
-
 .description {
-  font-size: $font-size-xl;
-  font-weight: $font-weight-medium;
+  flex: 1;
+
+  font-size: $font-size-lg;
+  font-weight: $font-weight-normal;
   line-height: $line-height-relaxed;
+
   color: $text-muted;
-
-  b {
-    color: $text;
-
-    font-weight: inherit;
-    text-decoration: underline;
-  }
-}
-
-.image {
-  width: 100%;
-  height: 150px;
-  border-radius: 0 0 $radius-24 $radius-24;
-
-  object-fit: cover;
-  object-position: center;
 }
 
 @media (max-width: 768px) {
   .about {
-    gap: $spacing-20;
+    gap: $spacing-48;
 
+    padding-top: $spacing-48;
     padding-left: $padding;
     padding-right: $padding;
   }
 
-  .title {
-    font-size: $font-size-3xl;
+  .split {
+    flex-direction: column;
+
+    gap: $spacing-20;
   }
 
-  .description {
-    font-size: $font-size-lg;
+  .detail {
+    flex-direction: column;
+
+    gap: $spacing-20;
   }
 
-  .image {
-    height: 120px;
-
-    border-radius: 0 0 $radius-16 $radius-16;
-  }
-}
-
-@media (max-width: 480px) {
-  .about {
-    gap: $spacing-16;
+  .label {
+    width: 100%;
   }
 
-  .title {
+  .statement {
     font-size: $font-size-2xl;
   }
 
   .description {
     font-size: $font-size-md;
   }
+}
 
-  .image {
-    height: 100px;
+@media (max-width: 480px) {
+  .statement {
+    font-size: $font-size-xl;
   }
 }
