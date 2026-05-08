@@ -1,23 +1,28 @@
 .hero {
   display: flex;
-  flex-direction: column;
-  align-items: start;
+  flex-direction: row;
+  align-items: center;
   gap: $spacing-28;
 
   width: 100%;
   overflow: visible;
 
-  max-width: $max-width;
+  padding: $spacing-64 $padding;
+}
 
-  margin: 0 auto;
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: $spacing-20;
 
-  padding: $spacing-64 0;
+  max-width: 560px;
 }
 
 .title {
-  font-size: $font-size-5xl;
+  font-size: $font-size-3xl;
   font-weight: 600;
-  line-height: 1.2;
+  line-height: 1.3;
   color: $text;
 
   b {
@@ -26,9 +31,9 @@
 }
 
 .description {
-  font-size: $font-size-xl;
-  font-weight: 500;
-  line-height: 1.65;
+  font-size: $font-size-md;
+  font-weight: 400;
+  line-height: 1.6;
   color: $text-muted;
 }
 
@@ -65,22 +70,36 @@
 }
 
 .buttonContainer {
-  margin-top: $spacing-20;
+  flex: 1;
+
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 }
 
 @media (max-width: 768px) {
   .hero {
+    flex-direction: column;
+    align-items: start;
     gap: $spacing-20;
 
     padding: $spacing-40 $padding;
   }
 
+  .content {
+    gap: $spacing-20;
+  }
+
   .title {
-    font-size: $font-size-3xl;
+    font-size: $font-size-2xl;
   }
 
   .description {
-    font-size: $font-size-lg;
+    font-size: $font-size-md;
+  }
+
+  .buttonContainer {
+    justify-content: flex-start;
   }
 }
 
@@ -89,6 +108,10 @@
     gap: $spacing-16;
 
     padding: $spacing-32 $padding;
+  }
+
+  .content {
+    gap: $spacing-16;
   }
 
   .title {
@@ -110,7 +133,5 @@
   .buttonContainer {
     flex-direction: column;
     width: 100%;
-
-    margin-top: $spacing-12;
   }
 }
