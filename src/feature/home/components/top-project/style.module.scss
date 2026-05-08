@@ -38,6 +38,8 @@
 
     padding: $spacing-40;
 
+    background: linear-gradient(to bottom, $surface, transparent);
+
     p {
       font-size: $font-size-xl;
       font-weight: 600;
