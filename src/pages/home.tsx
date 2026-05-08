@@ -29,7 +29,6 @@ export default function Home() {
       <Awards />
       <Blog />
       <SiteFooter />
-      <Footer />
     </main>
   );
 }

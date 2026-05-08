@@ -104,8 +104,21 @@
   object-fit: cover;
 }
 
-.viewMoreButton {
-  width: fit-content;
+.viewMore {
+  display: flex;
+  align-items: center;
+  gap: $spacing-6;
+
+  padding: 0;
+
+  color: $text;
+
+  cursor: pointer;
+}
+
+.viewMoreText {
+  font-size: $font-size-md;
+  font-weight: 500;
 }
 
 @media (max-width: 768px) {

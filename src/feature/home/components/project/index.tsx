@@ -2,7 +2,6 @@ import { ArrowRight, BookOpen, Camera, Code, Megaphone } from "lucide-react";
 import { type ReactNode, useCallback } from "react";
 
 import {
-  Button,
   Card,
   Flex,
   Heading,
@@ -93,13 +92,10 @@ export default function Project() {
           {PROJECTS.map(renderProject)}
         </Flex>
 
-        <Button
-          variant="secondary"
-          rightIcon={<ArrowRight />}
-          className={s.viewMoreButton}
-        >
-          More Projects
-        </Button>
+        <Flex className={s.viewMore}>
+          <Text className={s.viewMoreText}>More Projects</Text>
+          <ArrowRight size={16} />
+        </Flex>
       </Stack>
     </Section>
   );
