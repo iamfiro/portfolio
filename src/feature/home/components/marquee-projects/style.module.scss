@@ -1,0 +1,184 @@
+@keyframes marquee-scroll-left {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(var(--scroll-offset));
+    }
+}
+
+.marqueeProjects {
+    position: relative;
+
+    width: 100%;
+    overflow: hidden;
+
+    padding: $spacing-48 0;
+
+    cursor: grab;
+    user-select: none;
+
+    &.dragging {
+        cursor: grabbing;
+    }
+}
+
+.dragShift {
+    transform: translateX(var(--drag-offset, 0px));
+
+    transition: transform $transition-normal;
+
+    .dragging & {
+        transition: none;
+    }
+}
+
+.track {
+    display: flex;
+
+    flex-direction: row;
+    align-items: stretch;
+
+    width: max-content;
+
+    animation: marquee-scroll-left linear infinite;
+
+    will-change: transform;
+
+    .dragging & {
+        animation-play-state: paused;
+    }
+}
+
+.set {
+    display: flex;
+
+    flex-direction: row;
+    align-items: stretch;
+    flex-shrink: 0;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+
+    gap: $spacing-16;
+
+    width: 380px;
+}
+
+.cardTitle {
+    margin: 0;
+
+    color: $text;
+
+    font-family: $font-gambarino;
+    font-size: $font-size-2xl;
+    font-weight: $font-weight-semibold;
+    line-height: $line-height-tight;
+    white-space: pre-line;
+    letter-spacing: -0.01em;
+}
+
+.cardThumbnail {
+    position: relative;
+
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+
+    background-color: $surface-subtle;
+    border-radius: $radius-16;
+}
+
+.cardImage {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    transition: transform $transition-slow;
+
+    pointer-events: none;
+}
+
+.card:hover .cardImage {
+    transform: scale(1.03);
+}
+
+.cardInfo {
+    display: flex;
+    flex-direction: column;
+
+    gap: $spacing-4;
+
+    padding-top: $spacing-4;
+}
+
+.cardName {
+    color: $text;
+
+    font-size: $font-size-md;
+    font-weight: $font-weight-semibold;
+    line-height: $line-height-tight;
+}
+
+.cardCategory {
+    color: $text-muted;
+
+    font-size: $font-size-sm;
+    line-height: $line-height-normal;
+}
+
+.cardStack {
+    padding-top: $spacing-4;
+}
+
+.stackIcon {
+    width: 20px;
+    height: 20px;
+
+    object-fit: contain;
+
+    pointer-events: none;
+}
+
+@media (max-width: 768px) {
+    .marqueeProjects {
+        padding: $spacing-32 0;
+    }
+
+    .card {
+        width: 320px;
+
+        gap: $spacing-12;
+    }
+
+    .cardTitle {
+        font-size: $font-size-xl;
+    }
+}
+
+@media (max-width: 480px) {
+    .card {
+        width: 280px;
+    }
+
+    .cardTitle {
+        font-size: $font-size-lg;
+    }
+
+    .cardName {
+        font-size: $font-size-sm;
+    }
+
+    .cardCategory {
+        font-size: $font-size-xs;
+    }
+
+    .stackIcon {
+        width: 18px;
+        height: 18px;
+    }
+}

@@ -4,6 +4,7 @@ import {
   Blog,
   Footer,
   Hero,
+  MarqueeProjects,
   Project,
   SiteFooter,
   TechStack,
@@ -19,6 +20,7 @@ export default function Home() {
       <Spacer size={64} />
       <Header />
       <Hero />
+      <MarqueeProjects />
       <Spacer size={24} />
       <TopProject />
       <About />
