@@ -1,6 +1,6 @@
-import { useCallback, useLayoutEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 
-import { Flex, Image } from "@/shared/components/ui";
+import { Image } from "@/shared/components/ui";
 
 import s from "./style.module.scss";
 
@@ -13,8 +13,8 @@ interface MarqueeProjectItem {
   stackIcons: string[];
 }
 
-const MARQUEE_GAP = 32;
-const MARQUEE_SPEED_SECONDS = 40;
+const MARQUEE_GAP = 0;
+const MARQUEE_SPEED = 0.5; // px per frame
 const DRAG_THRESHOLD_PX = 3;
 
 const MARQUEE_PROJECTS: MarqueeProjectItem[] = [
@@ -75,7 +75,10 @@ interface ProjectCardProps {
 function ProjectCard({ project }: ProjectCardProps) {
   return (
     <article className={s.card}>
-      <h3 className={s.cardTitle}>{project.title}</h3>
+      <div className={s.cardHeader}>
+        <h3 className={s.cardTitle}>{project.title}</h3>
+        <span className={s.cardCategory}>{project.category}</span>
+      </div>
 
       <div className={s.cardThumbnail}>
         <Image
@@ -85,78 +88,69 @@ function ProjectCard({ project }: ProjectCardProps) {
           draggable={false}
         />
       </div>
-
-      <div className={s.cardInfo}>
-        <span className={s.cardName}>{project.name}</span>
-        <span className={s.cardCategory}>{project.category}</span>
-      </div>
-
-      <Flex gap={6} className={s.cardStack}>
-        {project.stackIcons.map((icon) => (
-          <Image
-            key={icon}
-            src={icon}
-            alt=""
-            className={s.stackIcon}
-            draggable={false}
-          />
-        ))}
-      </Flex>
     </article>
   );
 }
 
 export default function MarqueeProjects() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const dragShiftRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
   const firstSetRef = useRef<HTMLDivElement>(null);
 
   const dragStartXRef = useRef(0);
   const isDraggingRef = useRef(false);
+  const offsetRef = useRef(0);
+  const setWidthRef = useRef(0);
+  const rafRef = useRef<number>(0);
 
   const [isDragging, setIsDragging] = useState(false);
-  const [scrollOffset, setScrollOffset] = useState(0);
 
-  const applyDragOffset = useCallback((value: number) => {
-    const el = dragShiftRef.current;
+  const applyTransform = useCallback(() => {
+    const el = trackRef.current;
     if (!el) return;
-    el.style.setProperty("--drag-offset", `${value}px`);
+    el.style.transform = `translateX(${offsetRef.current}px)`;
   }, []);
 
-  const handleMouseDown = useCallback(
-    (e: React.MouseEvent<HTMLDivElement>) => {
-      if (e.button !== 0) return;
-      dragStartXRef.current = e.clientX;
-      isDraggingRef.current = true;
-      setIsDragging(true);
-    },
-    [],
-  );
+  // 무한 루프 위치 보정
+  const wrapOffset = useCallback(() => {
+    const w = setWidthRef.current;
+    if (w <= 0) return;
+    if (offsetRef.current <= -w) {
+      offsetRef.current += w;
+    } else if (offsetRef.current > 0) {
+      offsetRef.current -= w;
+    }
+  }, []);
 
-  const handleMouseMove = useCallback(
-    (e: React.MouseEvent<HTMLDivElement>) => {
-      if (!isDraggingRef.current) return;
-      const delta = e.clientX - dragStartXRef.current;
-      if (Math.abs(delta) < DRAG_THRESHOLD_PX) return;
-      applyDragOffset(delta);
-    },
-    [applyDragOffset],
-  );
+  // 자동 스크롤 애니메이션
+  useEffect(() => {
+    let running = true;
 
-  const endDrag = useCallback(() => {
-    if (!isDraggingRef.current) return;
-    isDraggingRef.current = false;
-    setIsDragging(false);
-    applyDragOffset(0);
-  }, [applyDragOffset]);
+    const tick = () => {
+      if (!running) return;
+      if (!isDraggingRef.current) {
+        offsetRef.current -= MARQUEE_SPEED;
+        wrapOffset();
+        applyTransform();
+      }
+      rafRef.current = requestAnimationFrame(tick);
+    };
 
+    rafRef.current = requestAnimationFrame(tick);
+
+    return () => {
+      running = false;
+      cancelAnimationFrame(rafRef.current);
+    };
+  }, [applyTransform, wrapOffset]);
+
+  // set 너비 측정
   useLayoutEffect(() => {
     const target = firstSetRef.current;
     if (!target) return;
 
     const measure = () => {
-      const nextOffset = target.offsetWidth + MARQUEE_GAP;
-      setScrollOffset(nextOffset > 0 ? nextOffset : 0);
+      setWidthRef.current = target.offsetWidth + MARQUEE_GAP;
     };
 
     measure();
@@ -180,16 +174,38 @@ export default function MarqueeProjects() {
     };
   }, []);
 
+  const handleMouseDown = useCallback(
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      if (e.button !== 0) return;
+      dragStartXRef.current = e.clientX;
+      isDraggingRef.current = true;
+      setIsDragging(true);
+    },
+    [],
+  );
+
+  const handleMouseMove = useCallback(
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      if (!isDraggingRef.current) return;
+      const delta = e.clientX - dragStartXRef.current;
+      if (Math.abs(delta) < DRAG_THRESHOLD_PX) return;
+      dragStartXRef.current = e.clientX;
+      offsetRef.current += delta;
+      wrapOffset();
+      applyTransform();
+    },
+    [applyTransform, wrapOffset],
+  );
+
+  const endDrag = useCallback(() => {
+    if (!isDraggingRef.current) return;
+    isDraggingRef.current = false;
+    setIsDragging(false);
+  }, []);
+
   const containerClassName = [s.marqueeProjects, isDragging && s.dragging]
     .filter(Boolean)
     .join(" ");
-
-  const trackStyle = {
-    "--scroll-offset": `-${scrollOffset}px`,
-    animationDuration: `${MARQUEE_SPEED_SECONDS}s`,
-    animationPlayState: scrollOffset > 0 ? "running" : "paused",
-    gap: `${MARQUEE_GAP}px`,
-  } as React.CSSProperties;
 
   const setStyle = { gap: `${MARQUEE_GAP}px` };
 
@@ -204,18 +220,16 @@ export default function MarqueeProjects() {
       onDragStart={(e) => e.preventDefault()}
       aria-label="Selected projects"
     >
-      <div ref={dragShiftRef} className={s.dragShift}>
-        <div className={s.track} style={trackStyle}>
-          <div ref={firstSetRef} className={s.set} style={setStyle}>
-            {MARQUEE_PROJECTS.map((project) => (
-              <ProjectCard key={project.id} project={project} />
-            ))}
-          </div>
-          <div className={s.set} style={setStyle} aria-hidden="true">
-            {MARQUEE_PROJECTS.map((project) => (
-              <ProjectCard key={`clone-${project.id}`} project={project} />
-            ))}
-          </div>
+      <div ref={trackRef} className={s.track} style={{ gap: `${MARQUEE_GAP}px` }}>
+        <div ref={firstSetRef} className={s.set} style={setStyle}>
+          {MARQUEE_PROJECTS.map((project) => (
+            <ProjectCard key={project.id} project={project} />
+          ))}
+        </div>
+        <div className={s.set} style={setStyle} aria-hidden="true">
+          {MARQUEE_PROJECTS.map((project) => (
+            <ProjectCard key={`clone-${project.id}`} project={project} />
+          ))}
         </div>
       </div>
     </section>
