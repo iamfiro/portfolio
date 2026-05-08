@@ -2,25 +2,28 @@
   width: 100%;
 
   display: flex;
-  align-items: center;
+  align-items: start;
   justify-content: space-between;
 
-  padding: $spacing-16 $padding;
+  padding: $spacing-24 $spacing-24;
 
   position: fixed;
   top: 0;
+
+  z-index: 999;
 }
 
 .logo {
-  height: 18px;
+  height: 16px;
 }
 
 .link {
   display: flex;
-  flex-direction: row;
-  gap: $spacing-24;
+  flex-direction: column;
+  gap: $spacing-12;
 
   padding: 0;
+  margin: 0;
 
   flex-shrink: 0;
 
@@ -31,24 +34,82 @@
 
     a,
     span {
+      display: flex;
+      align-items: center;
+      gap: $spacing-8;
+
       text-decoration: none;
 
-      font-size: $font-size-xl;
+      font-size: $font-size-lg;
 
       font-weight: 500;
 
       color: $text-muted;
+
+      transition: color 0.15s ease;
+
+      &:hover {
+        color: $text-white;
+      }
     }
   }
 
   .active {
+    position: relative;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: -$spacing-16;
+      top: 50%;
+      transform: translateY(-50%);
+
+      width: 10px;
+      height: 10px;
+
+      background-color: $text;
+      border-radius: $radius-full;
+    }
+
     a,
     span {
-      font-weight: 600;
+      font-weight: 500;
 
       color: $text;
     }
   }
+}
+
+.icon {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+
+  background-color: currentColor;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+}
+
+.iconLinkedin {
+  composes: icon;
+  -webkit-mask-image: url("/icon/social/linkedin-white.svg");
+  mask-image: url("/icon/social/linkedin-white.svg");
+}
+
+.iconGithub {
+  composes: icon;
+  -webkit-mask-image: url("/icon/social/github-white.svg");
+  mask-image: url("/icon/social/github-white.svg");
+}
+
+.iconInstagram {
+  composes: icon;
+  -webkit-mask-image: url("/icon/social/instagram-white.svg");
+  mask-image: url("/icon/social/instagram-white.svg");
 }
 
 .social {
@@ -112,5 +173,44 @@
     a {
       padding: $spacing-8;
     }
+  }
+}
+
+.time {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: $spacing-4;
+
+  white-space: nowrap;
+}
+
+.timeClock {
+  font-size: $font-size-sm;
+  font-weight: 600;
+  color: $text;
+}
+
+.blink {
+  animation: blink 1s step-end infinite;
+}
+
+.timeLabel {
+  display: flex;
+  align-items: center;
+  gap: $spacing-4;
+
+  font-size: $font-size-xs;
+  font-weight: 400;
+  color: $text-subtle;
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
   }
 }

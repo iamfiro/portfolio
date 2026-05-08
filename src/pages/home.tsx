@@ -10,19 +10,19 @@ import {
   TechStack,
   TopProject,
 } from "@/feature/home/components";
-import { Header, Spacer } from "@/shared/components/ui";
+import { Header } from "@/shared/components/ui";
 
 import s from "./home.module.scss";
 
 export default function Home() {
   return (
     <main className={s.container}>
-      <Spacer size={64} />
-      <Header />
-      <Hero />
-      <MarqueeProjects />
-      <Spacer size={24} />
-      <TopProject />
+      <section className={s.viewport}>
+        <Header />
+        <div/>
+        <Hero />
+        <MarqueeProjects />
+      </section>
       <About />
       <Project />
       <TechStack />

@@ -13,20 +13,17 @@ export default function Hero() {
           <div className={s.bubble}>👋 Hi! Nice to meet you</div>
         </div>
         <h1 className={s.title}>
-          Researching and building thoughtful services that solve everyday{" "}
+          Researching and building thoughtful<br/>services that solve everyday{" "}
           <b>problems</b>
         </h1>
         <p className={s.description}>
           Full-Stack developer studying software engineering at Sunrin Internet
-          High School. I build practical services that solve real problems.
+          High School.<br/>I build practical services that solve real problems.
         </p>
       </div>
       <Flex gap={16} align="center" className={s.buttonContainer}>
         <Button variant="primary" size="md" rightIcon={<ArrowRight />}>
           Contact me
-        </Button>
-        <Button variant="secondary" size="md">
-          Book an into call
         </Button>
       </Flex>
     </section>

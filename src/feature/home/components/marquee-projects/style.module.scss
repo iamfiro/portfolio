@@ -4,6 +4,8 @@
     width: 100%;
     overflow: hidden;
 
+    padding: $spacing-24 0;
+
     cursor: grab;
     user-select: none;
 
@@ -16,7 +18,7 @@
     display: flex;
 
     flex-direction: row;
-    align-items: stretch;
+    align-items: center;
 
     width: max-content;
 
@@ -27,7 +29,7 @@
     display: flex;
 
     flex-direction: row;
-    align-items: stretch;
+    align-items: center;
     flex-shrink: 0;
 }
 
@@ -36,83 +38,29 @@
     flex-direction: column;
     flex-shrink: 0;
 
-    width: 560px;
-}
-
-.cardHeader {
-    display: flex;
-    flex-direction: column;
-
+    align-items: flex-start;
     gap: $spacing-8;
-
-    padding: 0 0 $spacing-32;
-}
-
-.cardTitle {
-    margin: 0;
-
-    color: $text;
-
-    font-size: $font-size-3xl;
-    font-weight: $font-weight-normal;
-    line-height: $line-height-tight;
-    white-space: pre-line;
-    letter-spacing: -0.01em;
 }
 
 .cardThumbnail {
-    position: relative;
-
-    width: 100%;
-    aspect-ratio: 3 / 4;
     overflow: hidden;
 
     background-color: $surface-subtle;
-    border-radius: 0;
 }
 
 .cardImage {
-    width: 100%;
     height: 100%;
+    width: auto;
 
-    object-fit: cover;
-
-    transition: transform $transition-slow;
+    object-fit: contain;
 
     pointer-events: none;
 }
 
-.card:hover .cardImage {
-    transform: scale(1.03);
-}
+.cardName {
+    white-space: nowrap;
 
-.cardCategory {
-    color: $text-muted;
+    color: $text-subtle;
 
-    font-size: $font-size-sm;
-    line-height: $line-height-normal;
-}
-
-@media (max-width: 768px) {
-    .card {
-        width: 380px;
-    }
-
-    .cardTitle {
-        font-size: $font-size-xl;
-    }
-}
-
-@media (max-width: 480px) {
-    .card {
-        width: 300px;
-    }
-
-    .cardTitle {
-        font-size: $font-size-lg;
-    }
-
-    .cardCategory {
-        font-size: $font-size-xs;
-    }
+    font-size: $font-size-2xs;
 }

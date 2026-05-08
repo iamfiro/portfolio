@@ -1,10 +1,9 @@
 import type { StyleProps } from '@/shared/types/component-common'
-import type { SpacingToken } from '@/shared/types/component-common'
 import { cn } from '../_utils'
 import styles from './Spacer.module.scss'
 
 type SpacerProps = {
-  size?: SpacingToken
+  size?: number
   axis?: 'horizontal' | 'vertical'
 } & StyleProps
 

@@ -3,6 +3,16 @@
   min-height: 100vh;
 }
 
+.viewport {
+  display: flex;
+  height: 100vh;
+
+  flex-direction: column;
+  justify-content: space-between;
+
+  padding-top: 64px;
+}
+
 @media (max-width: 768px) {
   .container {
     > [aria-hidden="true"] {
