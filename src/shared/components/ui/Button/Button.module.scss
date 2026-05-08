@@ -68,7 +68,7 @@
 .danger {
   background-color: $surface-danger;
 
-  color: $text-white;
+  color: $text-inverse;
 
   &:hover { background-color: $text-danger-subtle; }
 }

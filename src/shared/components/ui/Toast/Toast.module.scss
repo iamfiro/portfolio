@@ -26,10 +26,10 @@
   animation: slideUp 0.2s ease;
 }
 
-.info { background-color: $surface-info; color: $text-white; }
-.success { background-color: $text-success-subtle; color: $text-white; }
-.warning { background-color: $text-warning-subtle; color: $text-white; }
-.error { background-color: $text-danger-subtle; color: $text-white; }
+.info { background-color: $surface-info; color: $text-inverse; }
+.success { background-color: $text-success-subtle; color: $text-inverse; }
+.warning { background-color: $text-warning-subtle; color: $text-inverse; }
+.error { background-color: $text-danger-subtle; color: $text-inverse; }
 
 .message {
   flex: 1;

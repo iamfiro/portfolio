@@ -33,21 +33,20 @@ $radius-64: 64px;
 $radius-full: 9999px;
 
 // ============================================
-// Color System (Light Theme)
-// Base: #FFFFFF | Brand: #BFFF00
+// Color System (Dark Theme)
+// Base: #141414 | Brand: #BFFF00
 // ============================================
 
 // Base Palette
 $color-white: #ffffff;
 $color-black: #000000;
 
-// Surface Colors (Light Theme)
+// Surface Colors (Dark Theme)
 $surface: #141414;
 $surface-transparent: #14141400;
-$surface-subtlest: #fafafa;
-$surface-subtle: #f5f5f5;
-$surface-elevated: #eeeeee;
-$surface-overlay: #e0e0e0;
+$surface-subtlest: #1a1a1a;
+$surface-subtle: #1e1e1e;
+$surface-elevated: #242424;
 $surface-inverse: #0c0c0c;
 $surface-inverse-subtle: #1a1a1a;
 
@@ -55,60 +54,47 @@ $surface-inverse-subtle: #1a1a1a;
 $surface-brand: #bfff00;
 $surface-brand-heavy: #a8e000;
 $surface-brand-subtle: rgba(191, 255, 0, 0.15);
-$surface-brand-muted: rgba(191, 255, 0, 0.08);
 
 // Text Colors
 $text: #ffffff;
 $text-subtle: #717171;
 $text-muted: #6f6f6f;
 $text-inverse: #ffffff;
-$text-white: #ffffff;
 
 // Brand Text Colors
-$text-brand: #6b8f00;
-$text-brand-heavy: #4a6600;
-$text-brand-subtle: #8fb800;
+$text-brand: #bfff00;
+$text-brand-heavy: #a8e000;
 
 // Danger Colors (Red)
 $text-danger: #dc2626;
-$text-danger-heavy: #b91c1c;
 $text-danger-subtle: #ef4444;
 $surface-danger: #dc2626;
 $surface-danger-subtle: rgba(220, 38, 38, 0.1);
 
 // Success Colors (Green)
 $text-success: #16a34a;
-$text-success-heavy: #15803d;
 $text-success-subtle: #22c55e;
-$surface-success: #16a34a;
 $surface-success-subtle: rgba(22, 163, 74, 0.1);
 
 // Warning Colors (Amber)
 $text-warning: #d97706;
-$text-warning-heavy: #b45309;
 $text-warning-subtle: #f59e0b;
-$surface-warning: #d97706;
 $surface-warning-subtle: rgba(217, 119, 6, 0.1);
 
 // Info Colors (Blue)
 $text-info: #2563eb;
-$text-info-heavy: #1d4ed8;
 $text-info-subtle: #3b82f6;
 $surface-info: #2563eb;
 $surface-info-subtle: rgba(37, 99, 235, 0.1);
 
 // Border Colors
 $border: #262626;
-$border-subtle: #eeeeee;
-$border-strong: #c0c0c0;
-$border-brand: #bfff00;
-$border-inverse: #212121;
+$border-subtle: #333333;
+$border-strong: #444444;
 
 // Shadow Scale
 $shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.06);
 $shadow-md: 0px 4px 8px 0px rgba(0, 0, 0, 0.08);
-$shadow-lg: 0px 8px 16px 0px rgba(0, 0, 0, 0.1);
-$shadow-brand: 0px 0px 20px 0px rgba(191, 255, 0, 0.4);
 
 // Overlay
 $overlay: rgba(0, 0, 0, 0.4);
