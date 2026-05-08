@@ -8,7 +8,6 @@ import {
   Project,
   SiteFooter,
   TechStack,
-  TopProject,
 } from "@/feature/home/components";
 import { Header, Spacer } from "@/shared/components/ui";
 
