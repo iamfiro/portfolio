@@ -22,6 +22,11 @@ const DRAG_THRESHOLD_PX = 3;
 const INERTIA_FRICTION = 0.95; // 감속 계수 (1에 가까울수록 오래 미끄러짐)
 const INERTIA_MIN_VELOCITY = 0.5; // 이 속도 이하면 관성 종료
 
+// scaleY 애니메이션 상수
+const SCALE_Y_MIN = 0.85; // 최대 압축 시 scaleY
+const SCALE_Y_VELOCITY_MAX = 50; // 이 속도 이상이면 최대 압축
+const SCALE_Y_LERP_SPEED = 0.12; // scaleY 보간 속도 (0~1, 클수록 빠르게 반응)
+
 const MARQUEE_PROJECTS: MarqueeProjectItem[] = [
   {
     id: 1,
@@ -89,13 +94,15 @@ export default function MarqueeProjects() {
   const lastDragTimeRef = useRef(0);
   const lastDragXRef = useRef(0);
   const inertiaRafRef = useRef<number>(0);
+  const scaleYRef = useRef(1);
+  const scaleYRafRef = useRef<number>(0);
 
   const [isDragging, setIsDragging] = useState(false);
 
   const applyTransform = useCallback(() => {
     const el = trackRef.current;
     if (!el) return;
-    el.style.transform = `translateX(${offsetRef.current}px)`;
+    el.style.transform = `translateX(${offsetRef.current}px) scaleY(${scaleYRef.current})`;
   }, []);
 
   // 무한 루프 위치 보정
@@ -130,6 +137,36 @@ export default function MarqueeProjects() {
       cancelAnimationFrame(rafRef.current);
     };
   }, [applyTransform, wrapOffset]);
+
+  // scaleY 보간 애니메이션 (속도에 따라 Y축 압축)
+  useEffect(() => {
+    let running = true;
+
+    const tick = () => {
+      if (!running) return;
+
+      const speed = Math.abs(velocityRef.current);
+      const t = Math.min(speed / SCALE_Y_VELOCITY_MAX, 1);
+      const targetScaleY = 1 - t * (1 - SCALE_Y_MIN);
+
+      scaleYRef.current += (targetScaleY - scaleYRef.current) * SCALE_Y_LERP_SPEED;
+
+      // 충분히 1에 가까우면 정확히 1로 스냅
+      if (Math.abs(scaleYRef.current - 1) < 0.001) {
+        scaleYRef.current = 1;
+      }
+
+      applyTransform();
+      scaleYRafRef.current = requestAnimationFrame(tick);
+    };
+
+    scaleYRafRef.current = requestAnimationFrame(tick);
+
+    return () => {
+      running = false;
+      cancelAnimationFrame(scaleYRafRef.current);
+    };
+  }, [applyTransform]);
 
   // set 너비 측정
   useLayoutEffect(() => {
