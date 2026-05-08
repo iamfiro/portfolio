@@ -19,7 +19,7 @@ export default function Home() {
     <main className={s.container}>
       <section className={s.viewport}>
         <Header />
-        <div/>
+        <div style={{height: 50}}/>
         <Hero />
         <MarqueeProjects />
       </section>
