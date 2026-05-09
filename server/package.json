@@ -10,10 +10,16 @@
   },
   "dependencies": {
     "@hono/node-server": "^1.19.2",
+    "@prisma/adapter-better-sqlite3": "^7.8.0",
+    "@prisma/client": "^7.8.0",
+    "better-sqlite3": "^12.9.0",
+    "dotenv": "^17.4.2",
     "hono": "^4.9.7"
   },
   "devDependencies": {
+    "@types/better-sqlite3": "^7.6.13",
     "@types/node": "^20.11.17",
+    "prisma": "^7.8.0",
     "tsx": "^4.7.1",
     "typescript": "^5.8.3",
     "vercel": "^33.0.0"

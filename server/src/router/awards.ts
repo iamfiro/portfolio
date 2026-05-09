@@ -1,0 +1,90 @@
+import { Hono } from "hono";
+
+import prisma from "../utils/prisma.js";
+
+const app = new Hono();
+
+// GET /awards - 전체 목록 조회
+app.get("/", async (c) => {
+  const awards = await prisma.award.findMany({
+    orderBy: { date: "desc" },
+  });
+
+  return c.json({ ok: true, data: awards });
+});
+
+// GET /awards/:id - 단건 조회
+app.get("/:id", async (c) => {
+  const id = c.req.param("id");
+
+  const award = await prisma.award.findUnique({ where: { id } });
+
+  if (!award) {
+    return c.json({ ok: false, message: "Award not found" }, 404);
+  }
+
+  return c.json({ ok: true, data: award });
+});
+
+// POST /awards - 생성
+app.post("/", async (c) => {
+  const body = await c.req.json();
+
+  const award = await prisma.award.create({
+    data: {
+      title: body.title,
+      organization: body.organization,
+      date: new Date(body.date),
+      description: body.description ?? null,
+      imageUrl: body.imageUrl ?? null,
+    },
+  });
+
+  return c.json({ ok: true, data: award }, 201);
+});
+
+// PUT /awards/:id - 수정
+app.put("/:id", async (c) => {
+  const id = c.req.param("id");
+  const body = await c.req.json();
+
+  const existing = await prisma.award.findUnique({ where: { id } });
+
+  if (!existing) {
+    return c.json({ ok: false, message: "Award not found" }, 404);
+  }
+
+  const award = await prisma.award.update({
+    where: { id },
+    data: {
+      title: body.title ?? existing.title,
+      organization: body.organization ?? existing.organization,
+      date: body.date ? new Date(body.date) : existing.date,
+      description:
+        body.description !== undefined
+          ? body.description
+          : existing.description,
+      imageUrl:
+        body.imageUrl !== undefined ? body.imageUrl : existing.imageUrl,
+    },
+  });
+
+  return c.json({ ok: true, data: award });
+});
+
+// DELETE /awards/:id - 삭제
+app.delete("/:id", async (c) => {
+  const id = c.req.param("id");
+
+  const existing = await prisma.award.findUnique({ where: { id } });
+
+  if (!existing) {
+    return c.json({ ok: false, message: "Award not found" }, 404);
+  }
+
+  await prisma.award.delete({ where: { id } });
+
+  return c.json({ ok: true, message: "Award deleted" });
+});
+
+export default app;

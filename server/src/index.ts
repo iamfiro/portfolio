@@ -2,7 +2,9 @@ import { serve } from "@hono/node-server";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 
+import awards from "./router/awards.js";
 import posts from "./router/posts.js";
+import projects from "./router/projects.js";
 
 const app = new Hono();
 
@@ -17,6 +19,8 @@ app.use(
 );
 
 app.route("/blog", posts);
+app.route("/projects", projects);
+app.route("/awards", awards);
 
 app.get("/", (c) => {
   return c.json({
