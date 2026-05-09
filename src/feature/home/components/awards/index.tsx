@@ -53,15 +53,13 @@ const AWARDS: Award[] = [
 function AwardCard({ name, organization, year }: Omit<Award, "id">) {
   return (
     <Flex className={s.card}>
-      <Stack gap={12}>
-        <Stack gap={4} className={s.cardHeader}>
-          <Heading as="h3" size="lg" className={s.cardTitle}>
-            {name}
-          </Heading>
-          <Text size="md" color="subtle" className={s.cardOrganization}>
-            {organization} - {year}
-          </Text>
-        </Stack>
+      <Stack className={s.cardHeader}>
+        <Heading as="h3" size="lg" className={s.cardTitle}>
+          {name}
+        </Heading>
+        <Text size="md" color="subtle" className={s.cardOrganization}>
+          {organization} - {year}
+        </Text>
       </Stack>
     </Flex>
   );
@@ -86,7 +84,7 @@ export default function Awards() {
         Awards
       </Heading>
 
-      <Stack gap={24} className={s.list}>
+      <Stack className={s.list}>
         {AWARDS.map(renderAward)}
       </Stack>
     </Section>
