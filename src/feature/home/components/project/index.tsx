@@ -14,8 +14,6 @@ import {
 
 import s from "./style.module.scss";
 
-const EASE = [0.76, 0, 0.24, 1] as const;
-
 interface ProjectItem {
   id: number;
   category: string;

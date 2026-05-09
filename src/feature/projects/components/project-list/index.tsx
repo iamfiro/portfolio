@@ -8,7 +8,6 @@ import {
   Heading,
   Image,
   Stack,
-  Tag,
   Text,
 } from "@/shared/components/ui";
 
@@ -22,8 +21,6 @@ interface ProjectItem {
   description: string;
   image: string;
 }
-
-const CATEGORIES = ["ALL", "SIDE PROJECT", "CASE STUDY", "SNAPSHOT", "CAMPAIGN"] as const;
 
 const PROJECTS: ProjectItem[] = [
   {
@@ -89,7 +86,7 @@ function ProjectCard({ project, index }: { project: ProjectItem; index: number }
 }
 
 export default function ProjectList() {
-  const [selectedCategory, setSelectedCategory] = useState<string>("ALL");
+  const [selectedCategory] = useState<string>("ALL");
 
   const filteredProjects = useMemo(() => {
     if (selectedCategory === "ALL") return PROJECTS;

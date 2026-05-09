@@ -2,7 +2,6 @@ import {
   About,
   Awards,
   Blog,
-  Footer,
   Hero,
   MarqueeProjects,
   Project,

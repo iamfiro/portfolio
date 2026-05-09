@@ -93,15 +93,15 @@ function PageTransitionContent() {
       // 흰색 컬럼 즉시 리셋 (surface 뒤에 숨어있으므로 안 보임)
       whiteControls.set({ y: "100%" });
 
-      // 3단계: surface 컬럼이 순차적으로 위로 빠져나감
-      setPhase("exit");
+      // 3단계: 라우트 변경 (surface가 완전히 가리고 있으므로 안 보임)
+      performNavigate(path);
 
-      // exit 중간에 라우트 변경 (surface가 아직 가리고 있으므로 안 보임)
-      const exitMidDelay = (DURATION_S + (COLUMN_COUNT - 1) * STAGGER_S) / 2;
-      setTimeout(() => {
-        performNavigate(path);
-        setPageHidden(false);
-      }, exitMidDelay * 1000);
+      // 한 프레임 대기하여 새 페이지 렌더링 보장
+      await new Promise((resolve) => requestAnimationFrame(resolve));
+
+      // 4단계: surface 컬럼이 순차적으로 위로 빠져나감
+      setPhase("exit");
+      setPageHidden(false);
 
       await surfaceControls.start((i: number) => ({
         y: "-100%",
