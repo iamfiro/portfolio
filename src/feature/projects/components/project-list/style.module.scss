@@ -1,0 +1,124 @@
+.container {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+
+  gap: $spacing-32;
+}
+
+.filterBar {
+  display: flex;
+  align-items: center;
+  gap: $spacing-8;
+
+  flex-wrap: wrap;
+}
+
+.activeTag {
+  background-color: $surface-brand;
+  color: $color-black !important;
+}
+
+.resultCount {
+  font-size: $font-size-sm;
+
+  color: $text-subtle;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: $spacing-24;
+
+  width: 100%;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-16;
+
+  padding: 0;
+
+  background: transparent;
+  border: none;
+  border-radius: 0;
+
+  box-shadow: none;
+
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.thumbnail {
+  width: 100%;
+  aspect-ratio: 16/10;
+
+  border-radius: 0;
+
+  object-fit: cover;
+}
+
+.cardBody {
+  display: flex;
+  flex-direction: column;
+  gap: 0 !important;
+
+  padding: $spacing-16 0 0;
+}
+
+.categoryLabel {
+  display: flex;
+  align-items: center;
+  gap: $spacing-6;
+
+  color: $text-subtle;
+
+  margin-bottom: 4px;
+}
+
+.categoryText {
+  font-size: $font-size-2xs;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+
+  color: $text-subtle;
+}
+
+.cardTitle {
+  font-size: $font-size-lg;
+  font-weight: 500;
+  line-height: $line-height-normal;
+
+  color: $text;
+}
+
+.cardDescription {
+  font-size: $font-size-sm;
+  line-height: $line-height-relaxed;
+
+  color: $text-subtle;
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: $spacing-20;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    gap: $spacing-24;
+  }
+
+  .cardTitle {
+    font-size: $font-size-md;
+  }
+}

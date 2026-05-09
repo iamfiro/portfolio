@@ -1,0 +1,59 @@
+.container {
+  width: 100%;
+  min-height: 100vh;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+
+  padding: 200px $spacing-40 200px;
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-12;
+
+  width: 100%;
+
+  margin-bottom: $spacing-48;
+}
+
+.title {
+  font-size: $font-size-5xl;
+  font-family: $font-gambarino;
+  font-weight: 500;
+  line-height: $line-height-tight;
+
+  color: $text;
+}
+
+.subtitle {
+  font-size: $font-size-md;
+  line-height: $line-height-relaxed;
+
+  color: $text-subtle;
+}
+
+@media (max-width: 768px) {
+  .page {
+    padding: 0 $spacing-24;
+  }
+
+  .title {
+    font-size: $font-size-3xl;
+  }
+}
+
+@media (max-width: 480px) {
+  .page {
+    padding: 0 $spacing-16;
+  }
+
+  .title {
+    font-size: $font-size-2xl;
+  }
+}
