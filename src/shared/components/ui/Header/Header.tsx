@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useCallback, useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { Globe } from "lucide-react";
 import { motion } from "framer-motion";
 
+import { usePageTransition } from "@/shared/components/layouts/page-transition/page-transition.context";
 import s from "./Header.module.scss";
 
 const EASE = [0.76, 0, 0.24, 1] as const;
@@ -45,8 +46,17 @@ function useSeoulTime() {
 
 export default function Header() {
   const location = useLocation();
+  const { navigateTo } = usePageTransition();
   const isActive = (path: string) => location.pathname.includes(path);
   const seoulTime = useSeoulTime();
+
+  const handleNavClick = useCallback(
+    (e: React.MouseEvent<HTMLAnchorElement>, path: string) => {
+      e.preventDefault();
+      navigateTo(path);
+    },
+    [navigateTo],
+  );
 
   let itemIndex = 0;
 
@@ -65,7 +75,7 @@ export default function Header() {
 
   return (
     <header className={s.container}>
-      <Link to="/">
+      <a href="/" onClick={(e) => handleNavClick(e, "/")}>
         <motion.img
           src="/logo.svg"
           alt="logo"
@@ -74,7 +84,7 @@ export default function Header() {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, ease: EASE, delay: 0.1 }}
         />
-      </Link>
+      </a>
       <ul className={s.link}>
         {navItems.map((item) => {
           const delay = 0.15 + itemIndex * 0.08;
@@ -94,7 +104,12 @@ export default function Header() {
               {item.path === "/blog" && isActive("/blog") ? (
                 <span>{item.label}</span>
               ) : (
-                <Link to={item.path}>{item.label}</Link>
+                <a
+                  href={item.path}
+                  onClick={(e) => handleNavClick(e, item.path)}
+                >
+                  {item.label}
+                </a>
               )}
             </motion.li>
           );

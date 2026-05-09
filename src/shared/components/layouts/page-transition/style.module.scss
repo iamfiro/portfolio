@@ -1,2 +1,51 @@
 .page {
+  &.hidden {
+    visibility: hidden;
+  }
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+
+  z-index: 9999;
+
+  pointer-events: none;
+
+  &.active {
+    pointer-events: all;
+  }
+}
+
+.columnWhite {
+  position: absolute;
+  top: 0;
+  width: 20%;
+  height: 100%;
+
+  background-color: $color-white;
+
+  &:nth-child(1) { left: 0; }
+  &:nth-child(2) { left: 20%; }
+  &:nth-child(3) { left: 40%; }
+  &:nth-child(4) { left: 60%; }
+  &:nth-child(5) { left: 80%; }
+}
+
+.columnSurface {
+  position: absolute;
+  top: 0;
+  width: 20%;
+  height: 100%;
+
+  background-color: $surface-inverse;
+
+  &:nth-child(6) { left: 0; }
+  &:nth-child(7) { left: 20%; }
+  &:nth-child(8) { left: 40%; }
+  &:nth-child(9) { left: 60%; }
+  &:nth-child(10) { left: 80%; }
 }
