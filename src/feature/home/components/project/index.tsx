@@ -2,6 +2,7 @@ import { ArrowRight, BookOpen, Camera, Code, Megaphone } from "lucide-react";
 import { type ReactNode, useCallback } from "react";
 import { motion } from "framer-motion";
 
+import { usePageTransition } from "@/shared/components/layouts/page-transition/page-transition.context";
 import {
   Card,
   Flex,
@@ -88,10 +89,16 @@ function ProjectCard({ project }: { project: ProjectItem }) {
 }
 
 export default function Project() {
+  const { navigateTo } = usePageTransition();
+
   const renderProject = useCallback(
     (project: ProjectItem) => <ProjectCard key={project.id} project={project} />,
     [],
   );
+
+  const handleViewMore = useCallback(() => {
+    navigateTo("/projects");
+  }, [navigateTo]);
 
   return (
     <Section className={s.project} size="md">
@@ -100,7 +107,7 @@ export default function Project() {
           {PROJECTS.map(renderProject)}
         </Flex>
 
-        <Flex className={s.viewMore}>
+        <Flex className={s.viewMore} onClick={handleViewMore}>
           <Text className={s.viewMoreText}>More Projects</Text>
           <ArrowRight size={16} />
         </Flex>

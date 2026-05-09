@@ -4,7 +4,7 @@
 
   width: 100%;
 
-  gap: $spacing-32;
+  gap: $spacing-40;
 }
 
 .filterBar {
@@ -29,7 +29,7 @@
 .grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: $spacing-24;
+  gap: $spacing-32;
 
   width: 100%;
 }
