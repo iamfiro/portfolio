@@ -95,6 +95,7 @@ function PageTransitionContent() {
 
       // 3단계: 라우트 변경 (surface가 완전히 가리고 있으므로 안 보임)
       performNavigate(path);
+      window.scrollTo(0, 0);
 
       // 한 프레임 대기하여 새 페이지 렌더링 보장
       await new Promise((resolve) => requestAnimationFrame(resolve));
@@ -126,6 +127,7 @@ function PageTransitionContent() {
     if (isAnimatingRef.current) return;
     isAnimatingRef.current = true;
     setPhase("enter");
+    window.scrollTo(0, 0);
 
     // surface 컬럼을 즉시 화면에 표시
     surfaceControls.set({ y: "0%" });
