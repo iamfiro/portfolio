@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Globe } from "lucide-react";
 
 import s from "./Header.module.scss";
@@ -50,21 +50,21 @@ export default function Header() {
       <img src="/logo.svg" alt="logo" className={s.logo} />
       <ul className={s.link}>
         <li className={location.pathname === "/" ? s.active : ""}>
-          <a href="/">Home</a>
+          <Link to="/">Home</Link>
         </li>
         <li className={isActive("/projects") ? s.active : ""}>
-          <a href="/projects">Project</a>
+          <Link to="/projects">Project</Link>
         </li>
         <li className={isActive("/awards") ? s.active : ""}>
-          <a href="/awards">Award</a>
+          <Link to="/awards">Award</Link>
         </li>
         <li className={isActive("/blog") ? s.active : ""}>
           {isActive("/blog") ? (
             <span>Blog</span>
           ) : (
-            <a href="/blog" target="_blank">
+            <Link to="/blog">
               Blog
-            </a>
+            </Link>
           )}
         </li>
       </ul>
