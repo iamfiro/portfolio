@@ -12,7 +12,7 @@
 
   z-index: 999;
 
-  background: linear-gradient($surface, $surface-transparent);
+  mix-blend-mode: difference;
 }
 
 .logo {
@@ -52,6 +52,10 @@
 
       &:hover {
         color: $text-inverse;
+
+        span {
+          color: $text-inverse;
+        }
       }
     }
   }
@@ -94,6 +98,8 @@
   mask-repeat: no-repeat;
   -webkit-mask-position: center;
   mask-position: center;
+
+  transition: background-color 0.15s ease;
 }
 
 .iconLinkedin {

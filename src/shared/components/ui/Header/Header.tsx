@@ -69,30 +69,23 @@ export default function Header() {
         </li>
       </ul>
       <ul className={s.link}>
-        <li className={isActive("/projects") ? s.active : ""}>
-          <a href="/projects">
+        <li>
+          <a href="https://www.linkedin.com/in/sungju-cho/" target="_blank" rel="noopener noreferrer">
             <span className={s.iconLinkedin} />
             LinkedIn
           </a>
         </li>
-        <li className={isActive("/awards") ? s.active : ""}>
-          <a href="/awards">
+        <li>
+          <a href="https://github.com/iamfiro" target="_blank" rel="noopener noreferrer">
             <span className={s.iconGithub} />
             Github
           </a>
         </li>
-        <li className={isActive("/blog") ? s.active : ""}>
-          {isActive("/blog") ? (
-            <span>
-              <span className={s.iconInstagram} />
-              Email
-            </span>
-          ) : (
-            <a href="/blog" target="_blank">
-              <span className={s.iconInstagram} />
-              Blog
-            </a>
-          )}
+        <li>
+          <a href="https://www.instagram.com/chxs_u/" target="_blank" rel="noopener noreferrer">
+            <span className={s.iconInstagram} />
+            Instagram
+          </a>
         </li>
       </ul>
       <div className={s.time}>
