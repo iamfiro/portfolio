@@ -67,9 +67,9 @@ const PROJECTS: ProjectItem[] = [
 function ProjectCard({ project, index }: { project: ProjectItem; index: number }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: index * 0.15 }}
+      initial={{ opacity: 0, y: 40, filter: "blur(6px)" }}
+      animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+      transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1], delay: 0.3 + index * 0.1 }}
     >
       <Card className={s.card}>
         <Stack className={s.cardBody}>

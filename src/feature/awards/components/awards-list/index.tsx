@@ -1,4 +1,5 @@
 import { useCallback, useRef } from "react";
+import { motion } from "framer-motion";
 
 import { Flex, Heading, Stack, Text } from "@/shared/components/ui";
 
@@ -137,28 +138,31 @@ export default function AwardsList() {
   }, []);
 
   const renderAward = useCallback(
-    (award: Award) => (
-      <Flex
+    (award: Award, index: number) => (
+      <motion.div
         key={award.id}
-        className={s.card}
-        onMouseEnter={handleMouseEnter(award)}
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
+        initial={{ opacity: 0, y: 30, filter: "blur(6px)" }}
+        animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+        transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1], delay: 0.3 + index * 0.08 }}
       >
-        <Stack className={s.cardContent}>
-          <Stack className={s.cardHeader}>
-            <Heading as="h3" size="lg" className={s.cardTitle}>
-              {award.name}
-            </Heading>
-            <Text size="md" color="subtle" className={s.cardOrganization}>
-              {award.organization} · {award.year}
-            </Text>
+        <Flex
+          className={s.card}
+          onMouseEnter={handleMouseEnter(award)}
+          onMouseMove={handleMouseMove}
+          onMouseLeave={handleMouseLeave}
+        >
+          <Stack className={s.cardContent}>
+            <Stack className={s.cardHeader}>
+              <Heading as="h3" size="lg" className={s.cardTitle}>
+                {award.name}
+              </Heading>
+              <Text size="md" color="subtle" className={s.cardOrganization}>
+                {award.organization} · {award.year}
+              </Text>
+            </Stack>
           </Stack>
-          <Text size="sm" className={s.cardDescription}>
-            {award.description}
-          </Text>
-        </Stack>
-      </Flex>
+        </Flex>
+      </motion.div>
     ),
     [handleMouseEnter, handleMouseMove, handleMouseLeave],
   );
