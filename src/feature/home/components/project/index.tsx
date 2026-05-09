@@ -14,6 +14,8 @@ import {
 
 import s from "./style.module.scss";
 
+const EASE = [0.76, 0, 0.24, 1] as const;
+
 interface ProjectItem {
   id: number;
   category: string;
@@ -58,38 +60,38 @@ const PROJECTS: ProjectItem[] = [
   },
 ];
 
-function ProjectCard({ project, index }: { project: ProjectItem; index: number }) {
+function ProjectCard({ project }: { project: ProjectItem }) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: index * 0.15 }}
-    >
-      <Card key={project.id} className={s.card}>
-        <Stack className={s.cardBody}>
-          <Flex className={s.categoryLabel}>
-            {project.categoryIcon}
-            <Text className={s.categoryText}>{project.category}</Text>
-          </Flex>
-          <Heading as="h3" className={s.cardTitle}>
-            {project.title}
-          </Heading>
-          <Text className={s.cardDescription}>{project.description}</Text>
-        </Stack>
+    <Card className={s.card}>
+      <Stack className={s.cardBody}>
+        <Flex className={s.categoryLabel}>
+          {project.categoryIcon}
+          <Text className={s.categoryText}>{project.category}</Text>
+        </Flex>
+        <Heading as="h3" className={s.cardTitle}>
+          {project.title}
+        </Heading>
+        <Text className={s.cardDescription}>{project.description}</Text>
+      </Stack>
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 1.2, ease: [0.25, 0.1, 0.25, 1] }}
+      >
         <Image
           src={project.image}
           alt={project.title}
           className={s.thumbnail}
         />
-      </Card>
-    </motion.div>
+      </motion.div>
+    </Card>
   );
 }
 
 export default function Project() {
   const renderProject = useCallback(
-    (project: ProjectItem, index: number) => <ProjectCard key={project.id} project={project} index={index} />,
+    (project: ProjectItem) => <ProjectCard key={project.id} project={project} />,
     [],
   );
 
