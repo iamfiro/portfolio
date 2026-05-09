@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Globe } from "lucide-react";
+import { motion } from "framer-motion";
 
 import s from "./Header.module.scss";
+
+const EASE = [0.76, 0, 0.24, 1] as const;
 
 function useSeoulTime() {
   const format = () => {
@@ -45,50 +48,84 @@ export default function Header() {
   const isActive = (path: string) => location.pathname.includes(path);
   const seoulTime = useSeoulTime();
 
+  let itemIndex = 0;
+
+  const navItems = [
+    { path: "/", label: "Home", exact: true },
+    { path: "/projects", label: "Project" },
+    { path: "/awards", label: "Award" },
+    { path: "/blog", label: "Blog" },
+  ];
+
+  const socialItems = [
+    { href: "https://www.linkedin.com/in/sungju-cho/", icon: s.iconLinkedin, label: "LinkedIn" },
+    { href: "https://github.com/iamfiro", icon: s.iconGithub, label: "Github" },
+    { href: "https://www.instagram.com/chxs_u/", icon: s.iconInstagram, label: "Instagram" },
+  ];
+
   return (
     <header className={s.container}>
-      <img src="/logo.svg" alt="logo" className={s.logo} />
+      <Link to="/">
+        <motion.img
+          src="/logo.svg"
+          alt="logo"
+          className={s.logo}
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, ease: EASE, delay: 0.1 }}
+        />
+      </Link>
       <ul className={s.link}>
-        <li className={location.pathname === "/" ? s.active : ""}>
-          <Link to="/">Home</Link>
-        </li>
-        <li className={isActive("/projects") ? s.active : ""}>
-          <Link to="/projects">Project</Link>
-        </li>
-        <li className={isActive("/awards") ? s.active : ""}>
-          <Link to="/awards">Award</Link>
-        </li>
-        <li className={isActive("/blog") ? s.active : ""}>
-          {isActive("/blog") ? (
-            <span>Blog</span>
-          ) : (
-            <Link to="/blog">
-              Blog
-            </Link>
-          )}
-        </li>
+        {navItems.map((item) => {
+          const delay = 0.15 + itemIndex * 0.08;
+          itemIndex++;
+          const active = item.exact
+            ? location.pathname === item.path
+            : isActive(item.path);
+
+          return (
+            <motion.li
+              key={item.path}
+              className={active ? s.active : ""}
+              initial={{ opacity: 0, y: 20, filter: "blur(4px)" }}
+              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              transition={{ duration: 0.7, ease: EASE, delay }}
+            >
+              {item.path === "/blog" && isActive("/blog") ? (
+                <span>{item.label}</span>
+              ) : (
+                <Link to={item.path}>{item.label}</Link>
+              )}
+            </motion.li>
+          );
+        })}
       </ul>
       <ul className={s.link}>
-        <li>
-          <a href="https://www.linkedin.com/in/sungju-cho/" target="_blank" rel="noopener noreferrer">
-            <span className={s.iconLinkedin} />
-            LinkedIn
-          </a>
-        </li>
-        <li>
-          <a href="https://github.com/iamfiro" target="_blank" rel="noopener noreferrer">
-            <span className={s.iconGithub} />
-            Github
-          </a>
-        </li>
-        <li>
-          <a href="https://www.instagram.com/chxs_u/" target="_blank" rel="noopener noreferrer">
-            <span className={s.iconInstagram} />
-            Instagram
-          </a>
-        </li>
+        {socialItems.map((item) => {
+          const delay = 0.15 + itemIndex * 0.08;
+          itemIndex++;
+
+          return (
+            <motion.li
+              key={item.label}
+              initial={{ opacity: 0, y: 20, filter: "blur(4px)" }}
+              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              transition={{ duration: 0.7, ease: EASE, delay }}
+            >
+              <a href={item.href} target="_blank" rel="noopener noreferrer">
+                <span className={item.icon} />
+                {item.label}
+              </a>
+            </motion.li>
+          );
+        })}
       </ul>
-      <div className={s.time}>
+      <motion.div
+        className={s.time}
+        initial={{ opacity: 0, y: 20, filter: "blur(4px)" }}
+        animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+        transition={{ duration: 0.7, ease: EASE, delay: 0.15 + itemIndex * 0.08 }}
+      >
         <span className={s.timeClock}>
           {seoulTime.h}
           <span className={s.blink}>:</span>
@@ -98,7 +135,7 @@ export default function Header() {
           <Globe size={10} />
           Seoul, Korea
         </span>
-      </div>
+      </motion.div>
     </header>
   );
 }

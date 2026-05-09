@@ -1,9 +1,12 @@
 import { type ReactNode, useMemo } from "react";
 import { ArrowRight } from "lucide-react";
+import { motion } from "framer-motion";
 
-import { Button, Flex } from "@/shared/components/ui";
+import { Button } from "@/shared/components/ui";
 
 import s from "./style.module.scss";
+
+const EASE = [0.16, 1, 0.3, 1] as const;
 
 interface TitleSegment {
   text: string;
@@ -48,14 +51,18 @@ function TitleChars() {
       continue;
     }
 
+    const delay = 0.1 + charIndex * 0.02;
+
     const span = (
-      <span
+      <motion.span
         key={`char-${i}`}
         className={[s.char, bold && s.charBold].filter(Boolean).join(" ")}
-        style={{ "--char-index": charIndex } as React.CSSProperties}
+        initial={{ opacity: 0, y: 40, filter: "blur(8px)" }}
+        animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+        transition={{ duration: 0.5, ease: EASE, delay }}
       >
         {char === " " ? "\u00A0" : char}
-      </span>
+      </motion.span>
     );
 
     elements.push(span);
@@ -69,28 +76,39 @@ export default function Hero() {
   return (
     <section className={s.hero}>
       <div className={s.content}>
-        <div className={[s.bubbleContainer, s.animBubble].join(" ")}>
+        <motion.div
+          className={s.bubbleContainer}
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, ease: EASE, delay: 0 }}
+        >
           <img src="/me.png" alt="My Face" className={s.me} />
           <div className={s.bubble}>👋 Hi! Nice to meet you</div>
-        </div>
+        </motion.div>
         <h1 className={s.title}>
           <TitleChars />
         </h1>
-        <p className={[s.description, s.animDescription].join(" ")}>
+        <motion.p
+          className={s.description}
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, ease: EASE, delay: 1 }}
+        >
           Full-Stack developer studying software engineering at Sunrin Internet
           High School.
           <br />I build practical services that solve real problems.
-        </p>
+        </motion.p>
       </div>
-      <Flex
-        gap={16}
-        align="center"
-        className={[s.buttonContainer, s.animButton].join(" ")}
+      <motion.div
+        className={s.buttonContainer}
+        initial={{ opacity: 0, scale: 0.92 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5, ease: EASE, delay: 1 }}
       >
         <Button variant="primary" size="md" rightIcon={<ArrowRight />}>
           Contact me
         </Button>
-      </Flex>
+      </motion.div>
     </section>
   );
 }

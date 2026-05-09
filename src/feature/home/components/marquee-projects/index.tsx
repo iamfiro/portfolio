@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
 
 import { Image, Text } from "@/shared/components/ui";
 
@@ -17,7 +18,7 @@ interface MarqueeProjectItem {
 }
 
 const MARQUEE_GAP = 32;
-const MARQUEE_SPEED = 0.5; // px per frame
+const MARQUEE_SPEED = 1; // px per frame
 const DRAG_THRESHOLD_PX = 3;
 const INERTIA_FRICTION = 0.95; // 감속 계수 (1에 가까울수록 오래 미끄러짐)
 const INERTIA_MIN_VELOCITY = 0.5; // 이 속도 이하면 관성 종료
@@ -57,12 +58,14 @@ const MARQUEE_PROJECTS: MarqueeProjectItem[] = [
 
 interface ProjectCardProps {
   project: MarqueeProjectItem;
+  index?: number;
+  animate?: boolean;
 }
 
-function ProjectCard({ project }: ProjectCardProps) {
+function ProjectCard({ project, index = 0, animate = false }: ProjectCardProps) {
   const height = getHeight(project.id);
 
-  return (
+  const card = (
     <article className={s.card}>
       <div className={s.cardThumbnail} style={{ height: `${height}px` }}>
         <Image
@@ -77,6 +80,18 @@ function ProjectCard({ project }: ProjectCardProps) {
         [ {project.name} ]
       </Text>
     </article>
+  );
+
+  if (!animate) return card;
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 200, filter: "blur(8px)" }}
+      animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+      transition={{ duration: 2, ease: [0.16, 1, 0.3, 1], delay: 0.3 + index * 0.06 }}
+    >
+      {card}
+    </motion.div>
   );
 }
 
@@ -283,18 +298,18 @@ export default function MarqueeProjects() {
     >
       <div ref={trackRef} className={s.track} style={{ gap: `${MARQUEE_GAP}px` }}>
         <div ref={firstSetRef} className={s.set} style={setStyle}>
-          {MARQUEE_PROJECTS.map((project) => (
-            <ProjectCard key={project.id} project={project} />
+          {MARQUEE_PROJECTS.map((project, index) => (
+            <ProjectCard key={project.id} project={project} index={index} animate />
           ))}
         </div>
         <div className={s.set} style={setStyle} aria-hidden="true">
-          {MARQUEE_PROJECTS.map((project) => (
-            <ProjectCard key={`clone1-${project.id}`} project={project} />
+          {MARQUEE_PROJECTS.map((project, index) => (
+            <ProjectCard key={`clone1-${project.id}`} project={project} index={MARQUEE_PROJECTS.length + index} animate />
           ))}
         </div>
         <div className={s.set} style={setStyle} aria-hidden="true">
-          {MARQUEE_PROJECTS.map((project) => (
-            <ProjectCard key={`clone2-${project.id}`} project={project} />
+          {MARQUEE_PROJECTS.map((project, index) => (
+            <ProjectCard key={`clone2-${project.id}`} project={project} index={MARQUEE_PROJECTS.length * 2 + index} animate />
           ))}
         </div>
       </div>

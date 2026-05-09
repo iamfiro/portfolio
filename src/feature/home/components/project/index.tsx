@@ -1,5 +1,6 @@
 import { ArrowRight, BookOpen, Camera, Code, Megaphone } from "lucide-react";
 import { type ReactNode, useCallback } from "react";
+import { motion } from "framer-motion";
 
 import {
   Card,
@@ -57,31 +58,38 @@ const PROJECTS: ProjectItem[] = [
   },
 ];
 
-function ProjectCard({ project }: { project: ProjectItem }) {
+function ProjectCard({ project, index }: { project: ProjectItem; index: number }) {
   return (
-    <Card key={project.id} className={s.card}>
-      <Stack className={s.cardBody}>
-        <Flex className={s.categoryLabel}>
-          {project.categoryIcon}
-          <Text className={s.categoryText}>{project.category}</Text>
-        </Flex>
-        <Heading as="h3" className={s.cardTitle}>
-          {project.title}
-        </Heading>
-        <Text className={s.cardDescription}>{project.description}</Text>
-      </Stack>
-      <Image
-        src={project.image}
-        alt={project.title}
-        className={s.thumbnail}
-      />
-    </Card>
+    <motion.div
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: index * 0.15 }}
+    >
+      <Card key={project.id} className={s.card}>
+        <Stack className={s.cardBody}>
+          <Flex className={s.categoryLabel}>
+            {project.categoryIcon}
+            <Text className={s.categoryText}>{project.category}</Text>
+          </Flex>
+          <Heading as="h3" className={s.cardTitle}>
+            {project.title}
+          </Heading>
+          <Text className={s.cardDescription}>{project.description}</Text>
+        </Stack>
+        <Image
+          src={project.image}
+          alt={project.title}
+          className={s.thumbnail}
+        />
+      </Card>
+    </motion.div>
   );
 }
 
 export default function Project() {
   const renderProject = useCallback(
-    (project: ProjectItem) => <ProjectCard key={project.id} project={project} />,
+    (project: ProjectItem, index: number) => <ProjectCard key={project.id} project={project} index={index} />,
     [],
   );
 
