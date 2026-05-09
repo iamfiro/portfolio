@@ -25,8 +25,8 @@ export default function Home() {
       <Spacer size={100} />
       <About />
       <Project />
-      <TechStack />
       <Awards />
+      <TechStack />
       <Blog />
       <SiteFooter />
     </main>

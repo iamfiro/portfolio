@@ -23,10 +23,43 @@
 
 .list {
   display: flex;
+  position: relative;
   flex-direction: column;
   gap: 0 !important;
 
   width: 100%;
+
+  &:hover .card {
+    opacity: 0.4;
+  }
+
+  &:hover .card:hover {
+    opacity: 1;
+  }
+}
+
+.floatingImage {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 380px;
+  height: 260px;
+
+  opacity: 0;
+
+  border-radius: $radius-16;
+
+  object-fit: cover;
+
+  pointer-events: none;
+  will-change: transform;
+  z-index: $z-dropdown;
+
+  transition:
+    opacity 0.4s cubic-bezier(0.23, 1, 0.32, 1),
+    transform 0.15s ease-out;
 }
 
 .card {
@@ -40,7 +73,10 @@
 
   border-top: 1px solid $border;
 
-  transition: border-color $transition-normal;
+  transition:
+    border-color $transition-normal,
+    opacity $transition-slow;
+  cursor: none;
 
   &:last-child {
     border-bottom: 1px solid $border;
@@ -78,6 +114,12 @@
   color: $text-muted;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .floatingImage {
+    transition: none;
+  }
+}
+
 @media (max-width: 768px) {
   .awards {
     gap: $spacing-20;
@@ -88,6 +130,10 @@
 
   .title {
     font-size: $font-size-3xl;
+  }
+
+  .floatingImage {
+    display: none;
   }
 
   .cardTitle {
