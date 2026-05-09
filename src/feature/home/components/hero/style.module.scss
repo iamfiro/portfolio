@@ -1,3 +1,57 @@
+// ─── Keyframes ───────────────────────────────────────────────
+
+@keyframes charReveal {
+  from {
+    opacity: 0;
+    filter: blur(8px);
+    transform: translateY(40px);
+  }
+
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeSlideLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeScale {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+// ─── Layout ─────────────────────────────────────────────────
+
 .hero {
   display: flex;
   flex-direction: row;
@@ -17,16 +71,52 @@
   gap: $spacing-24;
 }
 
+// ─── Title & Character Animation ────────────────────────────
+
 .title {
   font-size: $font-size-5xl;
   font-weight: 600;
   line-height: 1.1;
   color: $text;
-
-  b {
-    font-family: $font-gambarino;
-  }
 }
+
+.char {
+  display: inline-block;
+
+  opacity: 0;
+
+  animation: charReveal 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: calc(200ms + var(--char-index) * 35ms);
+}
+
+.charBold {
+  font-family: $font-gambarino;
+}
+
+// ─── Element Entrance Animations ────────────────────────────
+
+.animBubble {
+  opacity: 0;
+
+  animation: fadeSlideLeft 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: 0ms;
+}
+
+.animDescription {
+  opacity: 0;
+
+  animation: fadeSlideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: 2200ms;
+}
+
+.animButton {
+  opacity: 0;
+
+  animation: fadeScale 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: 2600ms;
+}
+
+// ─── Other Elements ─────────────────────────────────────────
 
 .description {
   font-size: $font-size-lg;
@@ -76,6 +166,8 @@
   justify-content: flex-end;
   align-items: center;
 }
+
+// ─── Responsive ─────────────────────────────────────────────
 
 @media (max-width: 768px) {
   .hero {
@@ -133,5 +225,23 @@
   .buttonContainer {
     flex-direction: column;
     width: 100%;
+  }
+}
+
+// ─── Reduced Motion ─────────────────────────────────────────
+
+@media (prefers-reduced-motion: reduce) {
+  .char {
+    opacity: 1;
+
+    animation: none;
+  }
+
+  .animBubble,
+  .animDescription,
+  .animButton {
+    opacity: 1;
+
+    animation: none;
   }
 }
