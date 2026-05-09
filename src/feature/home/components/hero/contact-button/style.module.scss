@@ -1,0 +1,90 @@
+.button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-8;
+
+  padding: $spacing-14 $spacing-20;
+
+  overflow: hidden;
+
+  color: $text-inverse;
+  background: $surface-inverse-subtle;
+
+  border: none;
+  border-radius: $radius-full;
+
+  font-size: $font-size-xl;
+  font-weight: 500;
+
+  cursor: pointer;
+  will-change: transform;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background: $surface-brand-heavy;
+
+    border-radius: inherit;
+
+    transform: scaleX(0);
+    transform-origin: left;
+
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+
+    z-index: 0;
+  }
+
+  &:focus-visible {
+    outline: 3px solid $surface-brand;
+    outline-offset: 2px;
+  }
+}
+
+.hovered {
+  &::before {
+    transform: scaleX(1);
+  }
+
+  .label {
+    transform: translateX(4px);
+  }
+
+  .icon {
+    transform: translateX(4px) rotate(-45deg);
+  }
+}
+
+.label {
+  position: relative;
+  z-index: 1;
+
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.icon {
+  position: relative;
+  z-index: 1;
+
+  display: inline-flex;
+  align-items: center;
+
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+// ─── Reduced Motion ─────────────────────────────────────────
+
+@media (prefers-reduced-motion: reduce) {
+  .button {
+    &::before {
+      transition: none;
+    }
+  }
+
+  .label,
+  .icon {
+    transition: none;
+  }
+}

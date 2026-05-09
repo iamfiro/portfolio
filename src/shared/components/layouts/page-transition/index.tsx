@@ -1,8 +1,11 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useLocation, Outlet } from "react-router-dom";
-import { motion, useAnimationControls } from "framer-motion";
+import { motion, useAnimationControls, AnimatePresence } from "framer-motion";
 
-import { PageTransitionProvider, usePageTransitionInternal } from "./page-transition.context";
+import { useImagePreload } from "@/shared/hooks";
+
+import InitialLoader from "./initial-loader";
+import { PageTransitionProvider, usePageTransitionInternal, usePageTransition } from "./page-transition.context";
 import s from "./style.module.scss";
 
 const COLUMN_COUNT = 5;
@@ -17,13 +20,51 @@ function PageTransitionContent() {
   const location = useLocation();
   const { pendingPath, consumePendingPath, performNavigate, finishTransition } =
     usePageTransitionInternal();
+  const { setInitialLoadDone } = usePageTransition();
   const whiteControls = useAnimationControls();
   const surfaceControls = useAnimationControls();
   const [phase, setPhase] = useState<Phase>("idle");
-  const [pageHidden, setPageHidden] = useState(false);
+  const [pageHidden, setPageHidden] = useState(true);
   const prevPathRef = useRef(location.pathname);
   const isPopstateRef = useRef(false);
   const isAnimatingRef = useRef(false);
+  const initialLoadDoneRef = useRef(false);
+  const { progress, loaded: imagesLoaded } = useImagePreload();
+  const [showLoader, setShowLoader] = useState(true);
+
+  // 초기 로딩: 이미지 로드 완료 시 reveal 애니메이션 실행
+  useEffect(() => {
+    if (!imagesLoaded || initialLoadDoneRef.current) return;
+    initialLoadDoneRef.current = true;
+
+    // 로더 페이드아웃 후 컬럼 reveal
+    const timer = setTimeout(() => {
+      setShowLoader(false);
+      runInitialReveal();
+    }, 400);
+
+    return () => clearTimeout(timer);
+  }, [imagesLoaded]);
+
+  const runInitialReveal = useCallback(async () => {
+    isAnimatingRef.current = true;
+    setPhase("exit");
+
+    await surfaceControls.start((i: number) => ({
+      y: "-100%",
+      transition: {
+        duration: DURATION_S,
+        ease: EASE,
+        delay: i * STAGGER_S,
+      },
+    }));
+
+    setPageHidden(false);
+    setPhase("idle");
+    surfaceControls.set({ y: "100%" });
+    isAnimatingRef.current = false;
+    setInitialLoadDone(true);
+  }, [surfaceControls, setInitialLoadDone]);
 
   // popstate 감지 (브라우저 뒤로/앞으로)
   useEffect(() => {
@@ -151,12 +192,27 @@ function PageTransitionContent() {
     isAnimatingRef.current = false;
   }, [surfaceControls]);
 
-  const overlayClassName = [s.overlay, phase !== "idle" && s.active]
+  const overlayClassName = [
+    s.overlay,
+    (phase !== "idle" || !initialLoadDoneRef.current) && s.active,
+  ]
     .filter(Boolean)
     .join(" ");
 
   return (
     <>
+      <AnimatePresence>
+        {showLoader && (
+          <motion.div
+            key="initial-loader"
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+          >
+            <InitialLoader progress={progress} />
+          </motion.div>
+        )}
+      </AnimatePresence>
       <div className={overlayClassName}>
         {Array.from({ length: COLUMN_COUNT }, (_, i) => (
           <motion.div
@@ -173,7 +229,7 @@ function PageTransitionContent() {
             className={s.columnSurface}
             custom={i}
             animate={surfaceControls}
-            initial={{ y: "100%" }}
+            initial={{ y: initialLoadDoneRef.current ? "100%" : "0%" }}
           />
         ))}
       </div>

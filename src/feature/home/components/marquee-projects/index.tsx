@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 
+import { usePageTransition } from "@/shared/components/layouts/page-transition/page-transition.context";
 import { Image, Text } from "@/shared/components/ui";
 
 import s from "./style.module.scss";
@@ -60,9 +61,10 @@ interface ProjectCardProps {
   project: MarqueeProjectItem;
   index?: number;
   animate?: boolean;
+  ready?: boolean;
 }
 
-function ProjectCard({ project, index = 0, animate = false }: ProjectCardProps) {
+function ProjectCard({ project, index = 0, animate = false, ready = true }: ProjectCardProps) {
   const height = getHeight(project.id);
 
   const card = (
@@ -87,7 +89,7 @@ function ProjectCard({ project, index = 0, animate = false }: ProjectCardProps) 
   return (
     <motion.div
       initial={{ opacity: 0, y: 200, filter: "blur(8px)" }}
-      animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+      animate={ready ? { opacity: 1, y: 0, filter: "blur(0px)" } : undefined}
       transition={{ duration: 2, ease: [0.16, 1, 0.3, 1], delay: 0.3 + index * 0.06 }}
     >
       {card}
@@ -96,6 +98,7 @@ function ProjectCard({ project, index = 0, animate = false }: ProjectCardProps) 
 }
 
 export default function MarqueeProjects() {
+  const { initialLoadDone } = usePageTransition();
   const containerRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const firstSetRef = useRef<HTMLDivElement>(null);
@@ -299,7 +302,17 @@ export default function MarqueeProjects() {
       <div ref={trackRef} className={s.track} style={{ gap: `${MARQUEE_GAP}px` }}>
         <div ref={firstSetRef} className={s.set} style={setStyle}>
           {MARQUEE_PROJECTS.map((project, index) => (
-            <ProjectCard key={project.id} project={project} index={index} animate />
+            <ProjectCard key={project.id} project={project} index={index} animate ready={initialLoadDone} />
+          ))}
+        </div>
+        <div className={s.set} style={setStyle} aria-hidden="true">
+          {MARQUEE_PROJECTS.map((project, index) => (
+            <ProjectCard key={`clone1-${project.id}`} project={project} index={MARQUEE_PROJECTS.length + index} animate ready={initialLoadDone} />
+          ))}
+        </div>
+        <div className={s.set} style={setStyle} aria-hidden="true">
+          {MARQUEE_PROJECTS.map((project, index) => (
+            <ProjectCard key={`clone2-${project.id}`} project={project} index={MARQUEE_PROJECTS.length * 2 + index} animate ready={initialLoadDone} />
           ))}
         </div>
         <div className={s.set} style={setStyle} aria-hidden="true">

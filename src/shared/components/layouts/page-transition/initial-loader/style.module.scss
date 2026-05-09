@@ -1,0 +1,70 @@
+.loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  align-items: flex-end;
+
+  z-index: 10000;
+
+  background-color: $surface-inverse;
+}
+
+.progressBar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  height: 4px;
+
+  background-color: $text-danger;
+}
+
+.counter {
+  display: flex;
+
+  align-items: flex-end;
+
+  padding: $spacing-48;
+
+  color: $text;
+
+  font-size: clamp(120px, 20vw, 240px);
+  font-weight: $font-weight-bold;
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+}
+
+.digitWrapper {
+  display: inline-block;
+  position: relative;
+  width: 0.65em;
+  height: 0.85em;
+
+  overflow: hidden;
+}
+
+.digit {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+
+  display: block;
+
+  text-align: center;
+}
+
+.percent {
+  font-size: 0.3em;
+
+  align-self: flex-start;
+
+  margin-top: 0.15em;
+  margin-left: $spacing-4;
+
+  opacity: 0.7;
+}

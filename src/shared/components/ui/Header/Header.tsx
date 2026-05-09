@@ -46,7 +46,7 @@ function useSeoulTime() {
 
 export default function Header() {
   const location = useLocation();
-  const { navigateTo } = usePageTransition();
+  const { navigateTo, initialLoadDone } = usePageTransition();
   const isActive = (path: string) => location.pathname.includes(path);
   const seoulTime = useSeoulTime();
 
@@ -81,7 +81,7 @@ export default function Header() {
           alt="logo"
           className={s.logo}
           initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
+          animate={initialLoadDone ? { opacity: 1, scale: 1 } : undefined}
           transition={{ duration: 0.8, ease: EASE, delay: 0.1 }}
         />
       </a>
@@ -98,7 +98,7 @@ export default function Header() {
               key={item.path}
               className={active ? s.active : ""}
               initial={{ opacity: 0, y: 20, filter: "blur(4px)" }}
-              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              animate={initialLoadDone ? { opacity: 1, y: 0, filter: "blur(0px)" } : undefined}
               transition={{ duration: 0.7, ease: EASE, delay }}
             >
               {item.path === "/blog" && isActive("/blog") ? (
@@ -124,7 +124,7 @@ export default function Header() {
             <motion.li
               key={item.label}
               initial={{ opacity: 0, y: 20, filter: "blur(4px)" }}
-              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              animate={initialLoadDone ? { opacity: 1, y: 0, filter: "blur(0px)" } : undefined}
               transition={{ duration: 0.7, ease: EASE, delay }}
             >
               <a href={item.href} target="_blank" rel="noopener noreferrer">
@@ -138,7 +138,7 @@ export default function Header() {
       <motion.div
         className={s.time}
         initial={{ opacity: 0, y: 20, filter: "blur(4px)" }}
-        animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+        animate={initialLoadDone ? { opacity: 1, y: 0, filter: "blur(0px)" } : undefined}
         transition={{ duration: 0.7, ease: EASE, delay: 0.15 + itemIndex * 0.08 }}
       >
         <span className={s.timeClock}>
