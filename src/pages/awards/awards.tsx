@@ -18,14 +18,14 @@ export default function Awards() {
             className={s.title}
             initial={{ opacity: 0, y: 30, filter: "blur(8px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            transition={{ duration: 0.9, ease: EASE, delay: 0.1 }}
+            transition={{ duration: 0.9, ease: EASE, delay: 0.4 }}
           >
             Awards
           </motion.h1>
           <motion.div
             initial={{ opacity: 0, y: 20, filter: "blur(4px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            transition={{ duration: 0.8, ease: EASE, delay: 0.25 }}
+            transition={{ duration: 0.8, ease: EASE, delay: 0.6 }}
           >
             <Text className={s.subtitle}>
               대회와 해커톤에서 쌓아온 수상 기록들을 모아봤습니다.

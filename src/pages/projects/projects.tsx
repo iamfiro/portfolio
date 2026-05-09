@@ -18,14 +18,14 @@ export default function Projects() {
             className={s.title}
             initial={{ opacity: 0, y: 30, filter: "blur(8px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            transition={{ duration: 0.9, ease: EASE, delay: 0.1 }}
+            transition={{ duration: 0.9, ease: EASE, delay: 0.4 }}
           >
             Projects
           </motion.h1>
           <motion.div
             initial={{ opacity: 0, y: 20, filter: "blur(4px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            transition={{ duration: 0.8, ease: EASE, delay: 0.25 }}
+            transition={{ duration: 0.8, ease: EASE, delay: 0.6 }}
           >
             <Text className={s.subtitle}>
               사이드 프로젝트부터 케이스 스터디까지, 다양한 작업물을 모아봤습니다.
