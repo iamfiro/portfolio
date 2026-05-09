@@ -1,43 +1,67 @@
-.awards {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: $spacing-28;
-
-  width: 100%;
-  overflow: visible;
-
-  max-width: $max-width;
-
-  margin: 0 auto;
-}
-
-.title {
-  font-size: $font-size-5xl;
-  line-height: $line-height-tight;
-
-  font-family: $font-gambarino;
-  font-weight: inherit;
-
-  color: $text;
-}
-
 .list {
   display: flex;
+  position: relative;
   flex-direction: column;
-  gap: $spacing-24;
 
   width: 100%;
+
+  &:hover .card {
+    opacity: 0.4;
+  }
+
+  &:hover .card:hover {
+    opacity: 1;
+  }
+}
+
+.floatingImage {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 380px;
+  height: 260px;
+
+  opacity: 0;
+
+  border-radius: $radius-16;
+
+  object-fit: cover;
+
+  pointer-events: none;
+  will-change: transform;
+  z-index: $z-dropdown;
+
+  transition:
+    opacity 0.4s cubic-bezier(0.23, 1, 0.32, 1),
+    transform 0.15s ease-out;
 }
 
 .card {
+  display: flex;
+  align-items: center;
+
   width: 100%;
 
-  transition: border-color $transition-normal;
+  padding: $spacing-32 0;
 
-  &:hover {
-    border-color: $border-strong;
+  border-top: 1px solid $border;
+
+  transition:
+    border-color $transition-normal,
+    opacity $transition-slow;
+  cursor: none;
+
+  &:last-of-type {
+    border-bottom: 1px solid $border;
   }
+}
+
+.cardContent {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-8;
 }
 
 .cardHeader {
@@ -47,16 +71,57 @@
 }
 
 .cardTitle {
-  font-weight: $font-weight-semibold;
-  line-height: $line-height-normal;
+  font-weight: $font-weight-normal;
+  line-height: $line-height-tight;
+  font-size: $font-size-2xl;
+
   color: $text;
 }
 
 .cardOrganization {
   color: $text-subtle;
+  font-size: $font-size-md;
 }
 
 .cardDescription {
   line-height: $line-height-relaxed;
   color: $text-muted;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .floatingImage {
+    transition: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .floatingImage {
+    display: none;
+  }
+
+  .card {
+    padding: $spacing-24 0;
+  }
+
+  .cardTitle {
+    font-size: $font-size-xl;
+  }
+
+  .cardOrganization {
+    font-size: $font-size-sm;
+  }
+}
+
+@media (max-width: 480px) {
+  .card {
+    padding: $spacing-20 0;
+  }
+
+  .cardTitle {
+    font-size: $font-size-lg;
+  }
+
+  .cardOrganization {
+    font-size: $font-size-sm;
+  }
 }
