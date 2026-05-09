@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useLocation, Outlet } from "react-router-dom";
 import { motion, useAnimationControls, AnimatePresence } from "framer-motion";
 
+import AnalyticsProvider from "@/shared/components/analytics-provider";
 import { useImagePreload } from "@/shared/hooks";
 
 import InitialLoader from "./initial-loader";
@@ -243,7 +244,9 @@ function PageTransitionContent() {
 export default function PageTransition() {
   return (
     <PageTransitionProvider>
-      <PageTransitionContent />
+      <AnalyticsProvider>
+        <PageTransitionContent />
+      </AnalyticsProvider>
     </PageTransitionProvider>
   );
 }
