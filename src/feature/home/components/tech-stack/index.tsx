@@ -1,4 +1,5 @@
 import { useCallback } from "react";
+import { motion } from "framer-motion";
 
 import {
   Flex,
@@ -171,31 +172,46 @@ function StackIcon({ name, icon, skills }: StackItem) {
 
 export default function TechStack() {
   const renderCategory = useCallback(
-    (category: StackCategory) => (
-      <Stack gap={16} key={category.label} className={s.category}>
-        <Text
-          size="sm"
-          weight="semibold"
-          color="subtle"
-          className={s.categoryLabel}
-        >
-          {category.label}
-        </Text>
-        <Flex gap={12} wrap className={s.iconGrid}>
-          {category.items.map((item) => (
-            <StackIcon key={item.name} {...item} />
-          ))}
-        </Flex>
-      </Stack>
+    (category: StackCategory, index: number) => (
+      <motion.div
+        key={category.label}
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1], delay: index * 0.1 }}
+      >
+        <Stack gap={16} className={s.category}>
+          <Text
+            size="sm"
+            weight="semibold"
+            color="subtle"
+            className={s.categoryLabel}
+          >
+            {category.label}
+          </Text>
+          <Flex gap={12} wrap className={s.iconGrid}>
+            {category.items.map((item) => (
+              <StackIcon key={item.name} {...item} />
+            ))}
+          </Flex>
+        </Stack>
+      </motion.div>
     ),
     [],
   );
 
   return (
     <Section className={s.techStack} size="md">
-      <Heading as="h2" size="3xl" className={s.title}>
-        Stack
-      </Heading>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.5 }}
+        transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
+      >
+        <Heading as="h2" size="3xl" className={s.title}>
+          Stack
+        </Heading>
+      </motion.div>
 
       <Stack gap={24} className={s.categories}>
         {STACK_DATA.map(renderCategory)}

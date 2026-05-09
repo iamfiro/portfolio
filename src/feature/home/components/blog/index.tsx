@@ -1,4 +1,5 @@
 import { useCallback } from "react";
+import { motion } from "framer-motion";
 
 import { ArrowUpRight } from "lucide-react";
 
@@ -41,38 +42,46 @@ const BLOG_POSTS: BlogPost[] = [
   },
 ];
 
-function BlogCard({ title, description, date, url }: Omit<BlogPost, "id">) {
+function BlogCard({ title, description, date, url, index }: Omit<BlogPost, "id"> & { index: number }) {
   return (
-    <a href={url} className={s.card} target="_blank" rel="noopener noreferrer">
-      <Flex justify="space-between" align="flex-start" className={s.cardInner}>
-        <Stack gap={4} className={s.cardContent}>
-          <Heading as="h3" size="lg" className={s.cardTitle}>
-            {title}
-          </Heading>
-          <Text size="md" color="subtle" className={s.cardDescription}>
-            {description}
-          </Text>
-        </Stack>
-        <Flex align="center" gap={8} className={s.cardMeta}>
-          <Text size="sm" color="subtle" className={s.cardDate}>
-            {date}
-          </Text>
-          <ArrowUpRight size={16} className={s.cardArrow} />
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1], delay: index * 0.1 }}
+    >
+      <a href={url} className={s.card} target="_blank" rel="noopener noreferrer">
+        <Flex justify="space-between" align="flex-start" className={s.cardInner}>
+          <Stack gap={4} className={s.cardContent}>
+            <Heading as="h3" size="lg" className={s.cardTitle}>
+              {title}
+            </Heading>
+            <Text size="md" color="subtle" className={s.cardDescription}>
+              {description}
+            </Text>
+          </Stack>
+          <Flex align="center" gap={8} className={s.cardMeta}>
+            <Text size="sm" color="subtle" className={s.cardDate}>
+              {date}
+            </Text>
+            <ArrowUpRight size={16} className={s.cardArrow} />
+          </Flex>
         </Flex>
-      </Flex>
-    </a>
+      </a>
+    </motion.div>
   );
 }
 
 export default function Blog() {
   const renderPost = useCallback(
-    (post: BlogPost) => (
+    (post: BlogPost, index: number) => (
       <BlogCard
         key={post.id}
         title={post.title}
         description={post.description}
         date={post.date}
         url={post.url}
+        index={index}
       />
     ),
     [],
@@ -80,9 +89,16 @@ export default function Blog() {
 
   return (
     <Section className={s.blog}>
-      <Heading as="h2" size="3xl" className={s.title}>
-        Blog
-      </Heading>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.5 }}
+        transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
+      >
+        <Heading as="h2" size="3xl" className={s.title}>
+          Blog
+        </Heading>
+      </motion.div>
 
       <Stack gap={0} className={s.list}>
         {BLOG_POSTS.map(renderPost)}
