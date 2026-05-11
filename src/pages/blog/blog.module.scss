@@ -1,21 +1,41 @@
+.container {
+    width: 100%;
+    min-height: 100vh;
+}
+
+.page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $spacing-48;
+
+    width: 100%;
+    max-width: $max-width-lg;
+    margin: 0 auto;
+
+    padding: 200px $spacing-40 200px;
+}
+
 .title {
     font-family: $font-gambarino;
     font-weight: 400;
-    font-size: 46px;
+    font-size: 44px;
     text-align: center;
     line-height: 1.2;
-    
-    img {
-        width: 45px;
-        height: 45px;
 
-        margin-bottom: -8px;
+    color: $text;
+
+    img {
+        width: 34px;
+        height: 34px;
+
+        margin-bottom: -6px;
     }
 }
 
 .thumbnail {
     width: 100%;
-    height: 300px;
+    height: 220px;
 
     display: inline-flex;
     flex-direction: column;
@@ -35,7 +55,7 @@
     div:first-child, div:last-child {
         width: 100%;
         position: absolute;
-        
+
         display: flex;
         justify-content: space-between;
     }
@@ -50,7 +70,7 @@
     }
 
     img:not(.title > img) {
-        width: 170px;
+        width: 120px;
         aspect-ratio: 1/1;
     }
 }
@@ -125,5 +145,17 @@
 
     .no_result_description {
         color: $text-subtle;
+    }
+}
+
+@media (max-width: 768px) {
+    .page {
+        padding: 120px $spacing-24 120px;
+    }
+}
+
+@media (max-width: 480px) {
+    .page {
+        padding: 100px $spacing-16 100px;
     }
 }
