@@ -1,53 +1,141 @@
+.progress_bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: $z-fixed;
+
+    width: 100%;
+    height: 3px;
+
+    background-color: $border;
+}
+
+.progress_fill {
+    height: 100%;
+
+    background-color: $text-brand;
+
+    transition: width 0.1s linear;
+}
+
+.loading_wrapper {
+    min-height: 100vh;
+}
+
+.loading_text {
+    color: $text-subtle;
+}
+
 .container {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    gap: $spacing-32;
 
-    padding-top: $spacing-64;
+    width: min(100%, $max-width-lg);
+    padding-top: 192px;
+    padding-bottom: $spacing-100;
 }
 
-.content_container {
-    width: 800px;
-
+.article {
     display: flex;
     flex-direction: column;
     gap: $spacing-32;
+
+    width: 1000px;
+    max-width: 100%;
 }
 
-.thumbnail {
-    width: 100%;
-    height: 300px;
-    object-fit: cover;
+.back_col {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
 
-    border-radius: $radius-20;
+    padding-top: 4px;
+    padding-right: $spacing-16;
+
+    width: 60px;
+    flex-shrink: 0;
+}
+
+.back_button {
+    position: sticky;
+    top: 100px;
+}
+
+// 헤더 영역
+.hero {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-20;
+
+    padding-top: $spacing-16;
+}
+
+.tags_row {
+    flex-wrap: wrap;
 }
 
 .title {
     word-break: keep-all;
+    line-height: 1.35;
+    letter-spacing: -0.03em;
 }
 
 .description {
+    color: $text-subtle;
+
+    font-size: $font-size-lg;
+    line-height: 1.6;
     word-break: keep-all;
+}
+
+.meta {
+    flex-wrap: wrap;
+}
+
+.meta_icon {
+    width: 14px;
+    height: 14px;
+
     color: $text-subtle;
 }
 
-.clock {
-    width: 16px;
-    height: 16px;
-
+.meta_text {
     color: $text-subtle;
+
+    font-size: $font-size-sm;
 }
 
-.sub_header {
+// 작성자
+.author {
+    padding: $spacing-4 0;
+}
+
+.author_name {
+    font-size: $font-size-md;
+    font-weight: $font-weight-medium;
+}
+
+.author_role {
+    color: $text-subtle;
+
+    font-size: $font-size-sm;
+}
+
+// 썸네일
+.thumbnail {
     width: 100%;
+    height: 360px;
 
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+    object-fit: cover;
 
-    border-block: 1px solid $border-subtle;
+    border: 1px solid $border;
+    border-radius: $radius-16;
 
-    padding-block: $spacing-14;
+    box-shadow: $shadow-md;
+}
+
+// 본문
+.content {
+    padding-bottom: $spacing-16;
 }

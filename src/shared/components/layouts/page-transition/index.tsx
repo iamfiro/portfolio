@@ -1,19 +1,24 @@
+import { AnimatePresence, motion, useAnimationControls } from "framer-motion";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useLocation, Outlet } from "react-router-dom";
-import { motion, useAnimationControls, AnimatePresence } from "framer-motion";
+import { Outlet, useLocation } from "react-router-dom";
 
 import AnalyticsProvider from "@/shared/components/analytics-provider";
 import { useImagePreload } from "@/shared/hooks";
 
 import InitialLoader from "./initial-loader";
-import { PageTransitionProvider, usePageTransitionInternal, usePageTransition } from "./page-transition.context";
+import {
+  PageTransitionProvider,
+  usePageTransition,
+  usePageTransitionInternal,
+} from "./page-transition.context";
+
 import s from "./style.module.scss";
 
 const COLUMN_COUNT = 5;
-const STAGGER_S = 0.2;
-const DURATION_S = 1.5;
+const STAGGER_S = 0.1;
+const DURATION_S = 1.0;
 const EASE = [0.22, 1, 0.36, 1] as const;
-const HOLD_MS = 250;
+const HOLD_MS = 80;
 
 type Phase = "idle" | "enter" | "exit";
 
@@ -21,17 +26,26 @@ function PageTransitionContent() {
   const location = useLocation();
   const { pendingPath, consumePendingPath, performNavigate, finishTransition } =
     usePageTransitionInternal();
-  const { setInitialLoadDone } = usePageTransition();
+  const { setInitialLoadDone, setPageReady } = usePageTransition();
   const whiteControls = useAnimationControls();
   const surfaceControls = useAnimationControls();
   const [phase, setPhase] = useState<Phase>("idle");
-  const [pageHidden, setPageHidden] = useState(true);
+  // 블로그 상세 페이지 직접 접근 시 초기 로더 스킵
+  const skipInitialLoader = useRef(/^\/blog\/.+/.test(location.pathname));
+  const [pageHidden, setPageHidden] = useState(!skipInitialLoader.current);
   const prevPathRef = useRef(location.pathname);
   const isPopstateRef = useRef(false);
   const isAnimatingRef = useRef(false);
-  const initialLoadDoneRef = useRef(false);
+  const initialLoadDoneRef = useRef(skipInitialLoader.current);
   const { progress, loaded: imagesLoaded } = useImagePreload();
-  const [showLoader, setShowLoader] = useState(true);
+  const [showLoader, setShowLoader] = useState(!skipInitialLoader.current);
+
+  // 블로그 상세 페이지 직접 접근 시 즉시 pageReady 설정
+  useEffect(() => {
+    if (!skipInitialLoader.current) return;
+    setInitialLoadDone(true);
+    setPageReady(true);
+  }, [setInitialLoadDone, setPageReady]);
 
   // 초기 로딩: 이미지 로드 완료 시 reveal 애니메이션 실행
   useEffect(() => {
@@ -42,7 +56,7 @@ function PageTransitionContent() {
     const timer = setTimeout(() => {
       setShowLoader(false);
       runInitialReveal();
-    }, 400);
+    }, 100);
 
     return () => clearTimeout(timer);
   }, [imagesLoaded]);
@@ -50,6 +64,10 @@ function PageTransitionContent() {
   const runInitialReveal = useCallback(async () => {
     isAnimatingRef.current = true;
     setPhase("exit");
+
+    // 오버레이가 빠져나가기 시작할 때 페이지 콘텐츠도 동시에 애니메이션 시작
+    setPageHidden(false);
+    setPageReady(true);
 
     await surfaceControls.start((i: number) => ({
       y: "-100%",
@@ -60,12 +78,11 @@ function PageTransitionContent() {
       },
     }));
 
-    setPageHidden(false);
     setPhase("idle");
     surfaceControls.set({ y: "100%" });
     isAnimatingRef.current = false;
     setInitialLoadDone(true);
-  }, [surfaceControls, setInitialLoadDone]);
+  }, [surfaceControls, setInitialLoadDone, setPageReady]);
 
   // popstate 감지 (브라우저 뒤로/앞으로)
   useEffect(() => {
@@ -105,6 +122,7 @@ function PageTransitionContent() {
     async (path: string) => {
       isAnimatingRef.current = true;
       setPhase("enter");
+      setPageReady(false);
 
       // 1단계: 흰색 컬럼이 순차적으로 아래에서 올라옴
       whiteControls.start((i: number) => ({
@@ -142,9 +160,10 @@ function PageTransitionContent() {
       // 한 프레임 대기하여 새 페이지 렌더링 보장
       await new Promise((resolve) => requestAnimationFrame(resolve));
 
-      // 4단계: surface 컬럼이 순차적으로 위로 빠져나감
+      // 4단계: surface 컬럼이 순차적으로 위로 빠져나감 (콘텐츠 애니메이션 병렬 실행)
       setPhase("exit");
       setPageHidden(false);
+      setPageReady(true);
 
       await surfaceControls.start((i: number) => ({
         y: "-100%",
@@ -161,7 +180,13 @@ function PageTransitionContent() {
       isAnimatingRef.current = false;
       finishTransition();
     },
-    [whiteControls, surfaceControls, performNavigate, finishTransition],
+    [
+      whiteControls,
+      surfaceControls,
+      performNavigate,
+      finishTransition,
+      setPageReady,
+    ],
   );
 
   // popstate용: 이미 라우트가 변경된 상태에서 reveal 애니메이션
@@ -169,6 +194,7 @@ function PageTransitionContent() {
     if (isAnimatingRef.current) return;
     isAnimatingRef.current = true;
     setPhase("enter");
+    setPageReady(false);
     window.scrollTo(0, 0);
 
     // surface 컬럼을 즉시 화면에 표시
@@ -176,8 +202,9 @@ function PageTransitionContent() {
 
     await new Promise((resolve) => setTimeout(resolve, HOLD_MS));
 
-    // surface 컬럼이 순차적으로 위로 빠져나감
+    // surface 컬럼이 순차적으로 위로 빠져나감 (콘텐츠 애니메이션 병렬 실행)
     setPhase("exit");
+    setPageReady(true);
     await surfaceControls.start((i: number) => ({
       y: "-100%",
       transition: {
@@ -191,7 +218,7 @@ function PageTransitionContent() {
     setPhase("idle");
     surfaceControls.set({ y: "100%" });
     isAnimatingRef.current = false;
-  }, [surfaceControls]);
+  }, [surfaceControls, setPageReady]);
 
   const overlayClassName = [
     s.overlay,
@@ -234,7 +261,9 @@ function PageTransitionContent() {
           />
         ))}
       </div>
-      <div className={[s.page, pageHidden && s.hidden].filter(Boolean).join(" ")}>
+      <div
+        className={[s.page, pageHidden && s.hidden].filter(Boolean).join(" ")}
+      >
         <Outlet />
       </div>
     </>

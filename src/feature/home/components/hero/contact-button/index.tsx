@@ -1,6 +1,6 @@
-import { useCallback, useRef, useState } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import { useCallback, useRef, useState } from "react";
 
 import s from "./style.module.scss";
 
@@ -27,7 +27,7 @@ export default function ContactButton() {
       x.set(deltaX * 8);
       y.set(deltaY * 8);
     },
-    [x, y]
+    [x, y],
   );
 
   const handleMouseLeave = useCallback(() => {

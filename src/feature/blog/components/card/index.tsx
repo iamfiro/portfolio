@@ -1,4 +1,5 @@
 import { useQueryClient } from "@tanstack/react-query";
+import { motion } from "framer-motion";
 import { Clock } from "lucide-react";
 
 import { Post } from "@/feature/blog/schema";
@@ -11,7 +12,10 @@ import BlogCardSkeleton from "./skeleton";
 
 import s from "./style.module.scss";
 
+const EASE = [0.25, 0.1, 0.25, 1] as const;
+
 interface BlogCardProps extends Post {
+  index?: number;
   isLoading?: boolean;
 }
 
@@ -32,6 +36,7 @@ export default function BlogCard(props: BlogCardProps) {
     date,
     tags,
     content,
+    index = 0,
     isLoading = false,
   } = props;
 
@@ -42,12 +47,24 @@ export default function BlogCard(props: BlogCardProps) {
   }
 
   return (
-    <a
+    <motion.a
       href={`/blog/${title}`}
       className={s.card}
       onMouseEnter={handleMouseEnter}
+      initial={{ opacity: 0, y: 32 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.7, ease: EASE, delay: index * 0.1 }}
     >
-      <img src={thumbnail} alt={`${title} thumbnail`} className={s.thumbnail} />
+      <div className={s.thumbnailWrapper}>
+        <motion.img
+          src={thumbnail}
+          alt={`${title} thumbnail`}
+          className={s.thumbnail}
+          whileHover={{ scale: 1.04 }}
+          transition={{ duration: 0.4, ease: EASE }}
+        />
+      </div>
       <Flex direction="column" gap={12}>
         <Flex gap={6} align="center">
           <Text size="xs" className={s.date}>
@@ -79,6 +96,6 @@ export default function BlogCard(props: BlogCardProps) {
           ))}
         </Flex>
       </Flex>
-    </a>
+    </motion.a>
   );
 }

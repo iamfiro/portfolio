@@ -1,5 +1,5 @@
-import { type ReactNode, useMemo } from "react";
 import { motion } from "framer-motion";
+import { type ReactNode, useMemo } from "react";
 
 import { usePageTransition } from "@/shared/components/layouts/page-transition/page-transition.context";
 
@@ -39,7 +39,7 @@ function splitSegmentsToChars(segments: TitleSegment[]) {
 }
 
 function TitleChars() {
-  const { initialLoadDone } = usePageTransition();
+  const { pageReady } = usePageTransition();
   const chars = useMemo(() => splitSegmentsToChars(TITLE_SEGMENTS), []);
 
   const elements: ReactNode[] = [];
@@ -60,7 +60,9 @@ function TitleChars() {
         key={`char-${i}`}
         className={[s.char, bold && s.charBold].filter(Boolean).join(" ")}
         initial={{ opacity: 0, y: 40, filter: "blur(8px)" }}
-        animate={initialLoadDone ? { opacity: 1, y: 0, filter: "blur(0px)" } : undefined}
+        animate={
+          pageReady ? { opacity: 1, y: 0, filter: "blur(0px)" } : undefined
+        }
         transition={{ duration: 0.5, ease: EASE, delay }}
       >
         {char === " " ? "\u00A0" : char}
@@ -75,7 +77,7 @@ function TitleChars() {
 }
 
 export default function Hero() {
-  const { initialLoadDone } = usePageTransition();
+  const { pageReady } = usePageTransition();
 
   return (
     <section className={s.hero}>
@@ -83,16 +85,16 @@ export default function Hero() {
         <motion.div
           className={s.bubbleContainer}
           initial={{ opacity: 0, x: -20 }}
-          animate={initialLoadDone ? { opacity: 1, x: 0 } : undefined}
+          animate={pageReady ? { opacity: 1, x: 0 } : undefined}
           transition={{ duration: 0.6, ease: EASE, delay: 0 }}
         >
           <img
-              src="/me.png"
-              alt="My Face"
-              className={s.me}
-              fetchPriority="high"
-              decoding="async"
-            />
+            src="/me.png"
+            alt="My Face"
+            className={s.me}
+            fetchPriority="high"
+            decoding="async"
+          />
           <div className={s.bubble}>👋 Hi! Nice to meet you</div>
         </motion.div>
         <h1 className={s.title}>
@@ -101,7 +103,7 @@ export default function Hero() {
         <motion.p
           className={s.description}
           initial={{ opacity: 0, y: 16 }}
-          animate={initialLoadDone ? { opacity: 1, y: 0 } : undefined}
+          animate={pageReady ? { opacity: 1, y: 0 } : undefined}
           transition={{ duration: 1, ease: EASE, delay: 1 }}
         >
           Full-Stack developer studying software engineering at Sunrin Internet
@@ -112,7 +114,7 @@ export default function Hero() {
       <motion.div
         className={s.buttonContainer}
         initial={{ opacity: 0, scale: 0.92 }}
-        animate={initialLoadDone ? { opacity: 1, scale: 1 } : undefined}
+        animate={pageReady ? { opacity: 1, scale: 1 } : undefined}
         transition={{ duration: 0.5, ease: EASE, delay: 1 }}
       >
         <ContactButton />

@@ -1,5 +1,11 @@
-import { createContext, useContext, useCallback, useRef, useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useRef,
+  useState,
+} from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 interface PageTransitionContextValue {
   navigateTo: (path: string) => void;
@@ -9,10 +15,17 @@ interface PageTransitionContextValue {
   /** 초기 로딩(이미지 프리로드 + reveal 애니메이션)이 완료되었는지 여부 */
   initialLoadDone: boolean;
   setInitialLoadDone: (done: boolean) => void;
+  /**
+   * 페이지 콘텐츠가 진입 애니메이션을 시작해도 되는 시점.
+   * - 초기 로드: 오버레이 reveal 완료 후 true
+   * - 페이지 전환: 새 페이지 진입 시 false → 오버레이 exit 완료 후 true
+   */
+  pageReady: boolean;
+  setPageReady: (ready: boolean) => void;
 }
 
 // exit 애니메이션 총 시간 (DURATION_S + (COLUMN_COUNT - 1) * STAGGER_S + HOLD_MS/1000)
-const EXIT_DURATION = 1 + 4 * 0.2 + 0.25;
+const EXIT_DURATION = 1 + 4 * 0.1 + 0.08;
 
 const PageTransitionContext = createContext<PageTransitionContextValue>({
   navigateTo: () => {},
@@ -20,6 +33,8 @@ const PageTransitionContext = createContext<PageTransitionContextValue>({
   exitDuration: EXIT_DURATION,
   initialLoadDone: false,
   setInitialLoadDone: () => {},
+  pageReady: false,
+  setPageReady: () => {},
 });
 
 export function usePageTransition() {
@@ -54,6 +69,7 @@ export function PageTransitionProvider({ children }: Props) {
   const location = useLocation();
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [initialLoadDone, setInitialLoadDone] = useState(false);
+  const [pageReady, setPageReady] = useState(false);
   const [pendingPath, setPendingPath] = useState<string | null>(null);
   const isNavigatingRef = useRef(false);
 
@@ -88,9 +104,24 @@ export function PageTransitionProvider({ children }: Props) {
   }, []);
 
   return (
-    <PageTransitionContext.Provider value={{ navigateTo, isTransitioning, exitDuration: EXIT_DURATION, initialLoadDone, setInitialLoadDone }}>
+    <PageTransitionContext.Provider
+      value={{
+        navigateTo,
+        isTransitioning,
+        exitDuration: EXIT_DURATION,
+        initialLoadDone,
+        setInitialLoadDone,
+        pageReady,
+        setPageReady,
+      }}
+    >
       <InternalContext.Provider
-        value={{ pendingPath, consumePendingPath, performNavigate, finishTransition }}
+        value={{
+          pendingPath,
+          consumePendingPath,
+          performNavigate,
+          finishTransition,
+        }}
       >
         {children}
       </InternalContext.Provider>

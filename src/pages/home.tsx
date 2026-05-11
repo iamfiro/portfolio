@@ -17,7 +17,7 @@ export default function Home() {
     <main className={s.container}>
       <section className={s.viewport}>
         <Header />
-         <Spacer size={50} />
+        <Spacer size={50} />
         <Hero />
         <MarqueeProjects />
       </section>

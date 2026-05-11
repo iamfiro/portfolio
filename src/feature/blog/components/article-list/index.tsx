@@ -72,9 +72,10 @@ export default function BlogArticleList() {
             <BlogCardSkeleton key={index} />
           ))
         ) : sortedPosts.length > 0 ? (
-          sortedPosts.map((post) => (
+          sortedPosts.map((post, index) => (
             <BlogCard
               key={post.id}
+              index={index}
               id={post.id}
               title={post.title}
               description={post.description}
@@ -86,7 +87,9 @@ export default function BlogArticleList() {
           ))
         ) : (
           <Flex direction="column" gap={16} align="center" width="100%">
-            <Text size="xl" weight="semibold">검색 결과가 없습니다</Text>
+            <Text size="xl" weight="semibold">
+              검색 결과가 없습니다
+            </Text>
             <Text className={s.no_result_description}>
               다른 검색어나 태그를 시도해보세요
             </Text>

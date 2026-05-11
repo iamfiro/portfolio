@@ -1,0 +1,226 @@
+.markdown {
+    color: $text;
+
+    font-size: 17px;
+    line-height: 1.75;
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        color: $text;
+        font-weight: 700;
+        line-height: 1.4;
+        letter-spacing: -0.02em;
+    }
+
+    h2 {
+        font-size: 28px;
+
+        margin-top: $spacing-64;
+        margin-bottom: $spacing-24;
+        padding-bottom: $spacing-12;
+
+        border-bottom: 1px solid $border-subtle;
+
+        &:first-child {
+            margin-top: 0;
+        }
+    }
+
+    h3 {
+        font-size: 22px;
+        font-weight: 600;
+
+        margin-top: $spacing-48;
+        margin-bottom: $spacing-16;
+    }
+
+    h4 {
+        font-size: 18px;
+        font-weight: 600;
+
+        margin-top: $spacing-32;
+        margin-bottom: $spacing-12;
+    }
+
+    p {
+        color: $text;
+
+        font-size: 17px;
+        font-weight: 400;
+        line-height: 1.8;
+        letter-spacing: -0.003em;
+
+        margin: 0 0 $spacing-24 0;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    strong {
+        color: $text;
+        font-weight: 600;
+    }
+
+    em {
+        font-style: italic;
+    }
+
+    ul,
+    ol {
+        margin: 0 0 $spacing-24 0;
+        padding-left: $spacing-28;
+
+        li {
+            color: $text;
+
+            font-size: 17px;
+            line-height: 1.8;
+            letter-spacing: -0.003em;
+
+            margin-bottom: $spacing-8;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    ul {
+        list-style-type: disc;
+    }
+
+    ol {
+        list-style-type: decimal;
+
+        li::marker {
+            color: $text-brand;
+            font-weight: 600;
+        }
+    }
+
+    a {
+        color: $text-brand;
+
+        text-decoration: underline;
+        text-decoration-thickness: 1px;
+        text-underline-offset: $spacing-4;
+
+        transition: color $transition-fast;
+
+        &:hover {
+            color: $text-brand-heavy;
+        }
+    }
+
+    blockquote {
+        position: relative;
+
+        margin: 0 0 $spacing-32 0;
+        padding: $spacing-20 $spacing-24;
+
+        background-color: $surface-subtle;
+
+        border-left: 3px solid $text-brand;
+        border-radius: 0 $radius-8 $radius-8 0;
+
+        p {
+            color: $text-subtle;
+
+            font-size: 16px;
+            line-height: 1.8;
+
+            margin: 0;
+        }
+    }
+
+    hr {
+        width: 100%;
+        height: 1px;
+
+        margin: $spacing-48 0;
+
+        background-color: $border-subtle;
+        border: none;
+    }
+
+    table {
+        width: 100%;
+
+        border-collapse: collapse;
+
+        margin: 0 0 $spacing-32 0;
+
+        border: 1px solid $border;
+        border-radius: $radius-8;
+
+        overflow: hidden;
+
+        th,
+        td {
+            padding: $spacing-12 $spacing-16;
+
+            text-align: left;
+
+            border-bottom: 1px solid $border-subtle;
+        }
+
+        th {
+            color: $text;
+
+            font-size: 14px;
+            font-weight: 600;
+
+            background-color: $surface-subtle;
+        }
+
+        td {
+            color: $text;
+
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+    }
+
+    pre {
+        margin: 0 0 $spacing-32 0;
+    }
+}
+
+.inline_code {
+    color: $text-brand-heavy;
+
+    background-color: $surface-brand-subtle;
+
+    font-size: 14px;
+    font-weight: 500;
+
+    padding: 2px $spacing-8;
+
+    border: 1px solid $border;
+    border-radius: $radius-4;
+}
+
+.code_block {
+    margin: 0 0 $spacing-32 0;
+}
+
+.image {
+    width: 100%;
+    height: auto;
+
+    margin: $spacing-32 0;
+
+    border: 1px solid $border;
+    border-radius: $radius-12;
+
+    box-shadow: $shadow-md;
+}
