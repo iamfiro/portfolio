@@ -1,9 +1,25 @@
+// ============================================
+// 블로그 본문 마크다운 스타일
+// 다크 테마(#141414) 위에서 최대한 읽기 좋도록 튜닝
+// 모든 시각 값은 variables.scss 토큰 사용
+// ============================================
+
+$reading-line-height: 1.85;
+$reading-letter-spacing: -0.011em;
+$mono-stack: "SF Mono", "JetBrains Mono", Menlo, Consolas, "Liberation Mono",
+    monospace;
+
 .markdown {
     color: $text;
 
-    font-size: 17px;
-    line-height: 1.75;
+    font-size: 18px;
+    font-weight: $font-weight-normal;
+    line-height: $reading-line-height;
+    letter-spacing: $reading-letter-spacing;
+    word-break: keep-all;
+    overflow-wrap: anywhere;
 
+    // ----- 헤딩 공통 -----
     h1,
     h2,
     h3,
@@ -11,19 +27,32 @@
     h5,
     h6 {
         color: $text;
-        font-weight: 700;
-        line-height: 1.4;
-        letter-spacing: -0.02em;
+
+        font-weight: $font-weight-bold;
+        line-height: 1.35;
+        letter-spacing: -0.025em;
+        word-break: keep-all;
+
+        scroll-margin-top: 120px;
+    }
+
+    h1 {
+        margin: $spacing-64 0 $spacing-24 0;
+
+        font-size: 34px;
+
+        &:first-child {
+            margin-top: 0;
+        }
     }
 
     h2 {
-        font-size: 28px;
-
-        margin-top: $spacing-64;
-        margin-bottom: $spacing-24;
+        margin: $spacing-64 0 $spacing-20 0;
         padding-bottom: $spacing-12;
 
         border-bottom: 1px solid $border-subtle;
+
+        font-size: 30px;
 
         &:first-child {
             margin-top: 0;
@@ -31,67 +60,109 @@
     }
 
     h3 {
-        font-size: 22px;
-        font-weight: 600;
+        margin: $spacing-48 0 $spacing-16 0;
 
-        margin-top: $spacing-48;
-        margin-bottom: $spacing-16;
+        font-size: 23px;
+        font-weight: $font-weight-semibold;
     }
 
     h4 {
-        font-size: 18px;
-        font-weight: 600;
+        margin: $spacing-32 0 $spacing-12 0;
 
-        margin-top: $spacing-32;
-        margin-bottom: $spacing-12;
+        font-size: 19px;
+        font-weight: $font-weight-semibold;
     }
 
+    h5,
+    h6 {
+        margin: $spacing-24 0 $spacing-8 0;
+
+        color: $text-subtle;
+
+        font-size: 16px;
+        font-weight: $font-weight-semibold;
+        letter-spacing: 0.02em;
+        text-transform: uppercase;
+    }
+
+    // ----- 단락 -----
     p {
+        margin: 0 0 $spacing-24 0;
+
         color: $text;
 
-        font-size: 17px;
-        font-weight: 400;
-        line-height: 1.8;
-        letter-spacing: -0.003em;
-
-        margin: 0 0 $spacing-24 0;
+        font-size: 18px;
+        font-weight: $font-weight-normal;
+        line-height: $reading-line-height;
+        letter-spacing: $reading-letter-spacing;
 
         &:last-child {
             margin-bottom: 0;
         }
     }
 
+    // ----- 강조 -----
     strong {
         color: $text;
-        font-weight: 600;
+        font-weight: $font-weight-semibold;
     }
 
     em {
+        color: $text;
         font-style: italic;
     }
 
+    // ----- 리스트 -----
     ul,
     ol {
         margin: 0 0 $spacing-24 0;
-        padding-left: $spacing-28;
+        padding-left: $spacing-24;
 
         li {
+            margin-bottom: $spacing-8;
+            padding-left: $spacing-6;
+
             color: $text;
 
-            font-size: 17px;
-            line-height: 1.8;
-            letter-spacing: -0.003em;
-
-            margin-bottom: $spacing-8;
+            font-size: 18px;
+            font-weight: $font-weight-normal;
+            line-height: $reading-line-height;
+            letter-spacing: $reading-letter-spacing;
 
             &:last-child {
                 margin-bottom: 0;
+            }
+
+            > p {
+                margin: 0 0 $spacing-8 0;
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+
+            ul,
+            ol {
+                margin: $spacing-8 0 0 0;
+                padding-left: $spacing-20;
             }
         }
     }
 
     ul {
         list-style-type: disc;
+
+        li::marker {
+            color: $text-brand;
+        }
+
+        ul {
+            list-style-type: circle;
+
+            li::marker {
+                color: $text-subtle;
+            }
+        }
     }
 
     ol {
@@ -99,125 +170,214 @@
 
         li::marker {
             color: $text-brand;
-            font-weight: 600;
+            font-weight: $font-weight-semibold;
+        }
+
+        ol li::marker {
+            color: $text-subtle;
         }
     }
 
+    // ----- 링크 -----
     a {
         color: $text-brand;
 
+        font-weight: $font-weight-medium;
+
         text-decoration: underline;
         text-decoration-thickness: 1px;
-        text-underline-offset: $spacing-4;
+        text-decoration-color: $text-brand-heavy;
+        text-underline-offset: 4px;
 
-        transition: color $transition-fast;
+        transition: color $transition-fast,
+            text-decoration-thickness $transition-fast;
 
         &:hover {
             color: $text-brand-heavy;
+
+            text-decoration-thickness: 2px;
         }
     }
 
+    // ----- 인용구 -----
     blockquote {
         position: relative;
 
-        margin: 0 0 $spacing-32 0;
-        padding: $spacing-20 $spacing-24;
+        margin: $spacing-32 0;
+        padding: $spacing-20 $spacing-24 $spacing-20 $spacing-28;
 
         background-color: $surface-subtle;
 
         border-left: 3px solid $text-brand;
-        border-radius: 0 $radius-8 $radius-8 0;
+        border-radius: 0 $radius-12 $radius-12 0;
 
         p {
-            color: $text-subtle;
-
-            font-size: 16px;
-            line-height: 1.8;
-
             margin: 0;
+
+            color: $text;
+
+            font-size: 17px;
+            font-weight: $font-weight-normal;
+            line-height: 1.75;
+            letter-spacing: $reading-letter-spacing;
+
+            & + p {
+                margin-top: $spacing-12;
+            }
+        }
+
+        strong {
+            color: $text;
         }
     }
 
+    // ----- 구분선 -----
     hr {
-        width: 100%;
+        width: 64px;
         height: 1px;
 
-        margin: $spacing-48 0;
+        margin: $spacing-48 auto;
 
-        background-color: $border-subtle;
+        background-color: $border-strong;
         border: none;
     }
 
+    // ----- 테이블 -----
     table {
+        display: block;
+
         width: 100%;
-
-        border-collapse: collapse;
-
-        margin: 0 0 $spacing-32 0;
+        margin: $spacing-32 0;
 
         border: 1px solid $border;
-        border-radius: $radius-8;
+        border-collapse: separate;
+        border-spacing: 0;
+        border-radius: $radius-12;
 
-        overflow: hidden;
+        font-size: 15px;
+
+        overflow-x: auto;
 
         th,
         td {
             padding: $spacing-12 $spacing-16;
 
             text-align: left;
+            vertical-align: top;
+            line-height: 1.7;
 
             border-bottom: 1px solid $border-subtle;
         }
 
         th {
+            background-color: $surface-elevated;
+
             color: $text;
 
-            font-size: 14px;
-            font-weight: 600;
+            font-size: 13px;
+            font-weight: $font-weight-semibold;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
 
-            background-color: $surface-subtle;
+            border-bottom: 1px solid $border;
         }
 
         td {
             color: $text;
-
-            font-size: 14px;
-            line-height: 1.6;
+            font-weight: $font-weight-normal;
         }
 
-        tbody tr:last-child td {
-            border-bottom: none;
+        tbody tr {
+            transition: background-color $transition-fast;
+
+            &:hover td {
+                background-color: $surface-subtle;
+            }
+
+            &:last-child td {
+                border-bottom: none;
+            }
         }
     }
 
+    // ----- 코드 블록 래퍼 -----
     pre {
-        margin: 0 0 $spacing-32 0;
+        margin: $spacing-32 0;
+    }
+
+    // ----- 키보드 키 -----
+    kbd {
+        display: inline-block;
+
+        padding: 2px $spacing-6;
+
+        background-color: $surface-elevated;
+
+        border: 1px solid $border-strong;
+        border-bottom-width: 2px;
+        border-radius: $radius-4;
+
+        color: $text;
+
+        font-family: $mono-stack;
+        font-size: 13px;
+        line-height: 1;
+    }
+
+    // ----- 체크박스(GFM task list) -----
+    input[type="checkbox"] {
+        margin-right: $spacing-8;
+
+        accent-color: $text-brand;
     }
 }
 
+// ============================================
+// 인라인 코드
+// ============================================
 .inline_code {
-    color: $text-brand-heavy;
+    padding: 2px $spacing-6;
 
+    color: $text-brand;
     background-color: $surface-brand-subtle;
 
-    font-size: 14px;
-    font-weight: 500;
-
-    padding: 2px $spacing-8;
-
-    border: 1px solid $border;
     border-radius: $radius-4;
+
+    font-family: $mono-stack;
+    font-size: 0.88em;
+    font-weight: $font-weight-medium;
+    line-height: 1.4;
+
+    word-break: break-word;
 }
 
+// ============================================
+// 코드 블록 (react-syntax-highlighter)
+// oneDark 테마가 inline 으로 background/margin/padding/border-radius 을 주입하므로
+// 외곽 컨테이너 디자인은 !important 로 확실히 덮어쓴다.
+// ============================================
 .code_block {
-    margin: 0 0 $spacing-32 0;
+    margin: $spacing-32 0 !important;
+
+    background-color: $surface-elevated !important;
+
+    border: 1px solid $border !important;
+    border-radius: $radius-12 !important;
+
+    box-shadow: $shadow-md;
+
+    overflow: hidden;
 }
 
+// ============================================
+// 인라인 이미지
+// ============================================
 .image {
+    display: block;
+
     width: 100%;
     height: auto;
-
-    margin: $spacing-32 0;
+    margin: $spacing-32 auto;
 
     border: 1px solid $border;
     border-radius: $radius-12;

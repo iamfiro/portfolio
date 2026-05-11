@@ -36,10 +36,16 @@ export default function MarkdownContent({ content }: Props) {
                 PreTag="div"
                 className={s.code_block}
                 customStyle={{
-                  margin: 0,
-                  borderRadius: "12px",
+                  padding: "20px 24px",
+                  background: "transparent",
                   fontSize: "14px",
-                  lineHeight: 1.6,
+                  lineHeight: 1.7,
+                }}
+                codeTagProps={{
+                  style: {
+                    fontFamily:
+                      '"SF Mono", "JetBrains Mono", Menlo, Consolas, monospace',
+                  },
                 }}
               >
                 {String(children).replace(/\n$/, "")}

@@ -1,3 +1,9 @@
+// ============================================
+// 블로그 상세 페이지 레이아웃
+// 다크 테마 위에서 읽기 좋도록 컬럼 폭/타이포 튜닝
+// ============================================
+
+// 진행률 바
 .progress_bar {
     position: fixed;
     top: 0;
@@ -5,56 +11,68 @@
     z-index: $z-fixed;
 
     width: 100%;
-    height: 3px;
+    height: 2px;
 
-    background-color: $border;
+    background-color: transparent;
 }
 
 .progress_fill {
     height: 100%;
 
-    background-color: $text-brand;
+    background: linear-gradient(
+        90deg,
+        $text-brand-heavy 0%,
+        $text-brand 100%
+    );
+    box-shadow: 0 0 12px $surface-brand-subtle;
 
     transition: width 0.1s linear;
 }
 
+// 로딩 상태
 .loading_wrapper {
     min-height: 100vh;
 }
 
 .loading_text {
     color: $text-subtle;
+    font-size: $font-size-md;
 }
 
+// 페이지 컨테이너
 .container {
     display: flex;
     flex-direction: row;
     justify-content: center;
 
     width: min(100%, $max-width-lg);
-    padding-top: 192px;
+
+    padding-top: 160px;
     padding-bottom: $spacing-100;
 }
 
+// 본문 컬럼 — 읽기 좋은 폭(약 760px)으로 제한
 .article {
     display: flex;
     flex-direction: column;
     gap: $spacing-32;
 
-    width: 1000px;
+    width: 760px;
     max-width: 100%;
 }
 
+// 좌측 sticky 뒤로가기 컬럼
 .back_col {
+    flex-shrink: 0;
+
     display: flex;
     flex-direction: column;
     align-items: flex-end;
 
+    width: 60px;
+
     padding-top: 4px;
     padding-right: $spacing-16;
-
-    width: 60px;
-    flex-shrink: 0;
 }
 
 .back_button {
@@ -75,21 +93,31 @@
     flex-wrap: wrap;
 }
 
+// 제목 — Heading(size="3xl"=48px)을 살리고 트래킹/줄높이만 튜닝
 .title {
+    margin-top: $spacing-4;
+
+    line-height: 1.2;
+    letter-spacing: -0.035em;
     word-break: keep-all;
-    line-height: 1.35;
-    letter-spacing: -0.03em;
 }
 
+// 서브타이틀(description) — 본문보다 살짝 크고 부드럽게
 .description {
+    margin-top: $spacing-12;
+
     color: $text-subtle;
 
-    font-size: $font-size-lg;
+    font-size: 19px;
+    font-weight: $font-weight-normal;
     line-height: 1.6;
+    letter-spacing: -0.011em;
     word-break: keep-all;
 }
 
+// 메타 (날짜, 소요시간)
 .meta {
+    margin-top: $spacing-16;
     flex-wrap: wrap;
 }
 
@@ -104,22 +132,28 @@
     color: $text-subtle;
 
     font-size: $font-size-sm;
+    font-weight: $font-weight-normal;
+    letter-spacing: 0.005em;
 }
 
 // 작성자
 .author {
-    padding: $spacing-4 0;
+    padding: $spacing-8 0;
 }
 
 .author_name {
+    color: $text;
+
     font-size: $font-size-md;
-    font-weight: $font-weight-medium;
+    font-weight: $font-weight-semibold;
+    letter-spacing: -0.005em;
 }
 
 .author_role {
     color: $text-subtle;
 
-    font-size: $font-size-sm;
+    font-size: $font-size-xs;
+    letter-spacing: 0.01em;
 }
 
 // 썸네일
@@ -135,7 +169,7 @@
     box-shadow: $shadow-md;
 }
 
-// 본문
+// 본문 wrapper — 마크다운 컴포넌트가 내부에서 타이포 처리
 .content {
-    padding-bottom: $spacing-16;
+    padding: $spacing-8 0 $spacing-16 0;
 }
