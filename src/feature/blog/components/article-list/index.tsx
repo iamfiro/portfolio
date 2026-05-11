@@ -81,6 +81,7 @@ export default function BlogArticleList() {
               thumbnail={post.thumbnail}
               date={new Date(post.date)}
               tags={post.tags}
+              content={post.content}
             />
           ))
         ) : (

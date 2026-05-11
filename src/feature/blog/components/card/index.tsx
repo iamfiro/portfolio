@@ -6,6 +6,7 @@ import { Flex, Tag, Text } from "@/shared/components/ui";
 
 import { getPost } from "../../api";
 
+import { calculateReadingTime } from "./reading-time.util";
 import BlogCardSkeleton from "./skeleton";
 
 import s from "./style.module.scss";
@@ -30,8 +31,11 @@ export default function BlogCard(props: BlogCardProps) {
     thumbnail,
     date,
     tags,
+    content,
     isLoading = false,
   } = props;
+
+  const readingTime = content ? calculateReadingTime(content) : null;
 
   if (isLoading) {
     return <BlogCardSkeleton />;
@@ -49,15 +53,19 @@ export default function BlogCard(props: BlogCardProps) {
           <Text size="xs" className={s.date}>
             {date.toLocaleDateString()}
           </Text>
-          <Text size="xs" className={s.separator}>
-            •
-          </Text>
-          <Flex gap={4} align="center">
-            <Clock className={s.clock} />
-            <Text size="xs" className={s.time}>
-              3분 소요
-            </Text>
-          </Flex>
+          {readingTime !== null && (
+            <>
+              <Text size="xs" className={s.separator}>
+                •
+              </Text>
+              <Flex gap={4} align="center">
+                <Clock className={s.clock} />
+                <Text size="xs" className={s.time}>
+                  {readingTime}분 소요
+                </Text>
+              </Flex>
+            </>
+          )}
         </Flex>
         <Text size="xl" weight="semibold" className={s.name}>
           {title}
