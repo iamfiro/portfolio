@@ -22,7 +22,6 @@ interface Props {
  * - 유저 속성 설정 (재방문 여부, 디바이스 타입)
  */
 export default function AnalyticsProvider({ children }: Props) {
-  // GA4 초기화
   useEffect(() => {
     initializeGA();
 
@@ -41,7 +40,6 @@ export default function AnalyticsProvider({ children }: Props) {
     });
   }, []);
 
-  // 자동 트래킹 훅
   usePageView();
   useScrollDepth();
   useTimeOnPage();
