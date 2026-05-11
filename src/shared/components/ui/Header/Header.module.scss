@@ -13,10 +13,17 @@
   z-index: 999;
 
   mix-blend-mode: difference;
+
+  pointer-events: none;
+  user-select: none;
 }
 
 .logo {
   height: 16px;
+
+  pointer-events: auto;
+  -webkit-user-drag: none;
+  user-select: none;
 }
 
 .link {
@@ -28,6 +35,8 @@
   margin: 0;
 
   flex-shrink: 0;
+
+  pointer-events: auto;
 
   li {
     list-style: none;
@@ -191,6 +200,8 @@
   gap: $spacing-4;
 
   white-space: nowrap;
+
+  pointer-events: auto;
 }
 
 .timeClock {

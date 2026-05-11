@@ -4,6 +4,8 @@
   border-bottom: 1px solid $border;
 
   background-color: $surface;
+
+  pointer-events: none;
 }
 
 .sticky {
@@ -21,4 +23,6 @@
 
   margin: 0 auto;
   padding: 0 $padding;
+
+  pointer-events: auto;
 }
