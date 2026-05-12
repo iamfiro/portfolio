@@ -8,45 +8,98 @@ datasource db {
 }
 
 model Project {
-  id           String        @id @default(cuid())
+  id           String         @id @default(cuid())
+  notionId     String         @unique
   title        String
   description  String
-  techStack    String // JSON array stored as string
   thumbnailUrl String?
   githubUrl    String?
   deployUrl    String?
   startDate    DateTime
   endDate      DateTime?
-  createdAt    DateTime      @default(now())
-  updatedAt    DateTime      @updatedAt
+
+  // --- Notion Auto Fields (generated) ---
+  // (do not edit manually; managed by notion:schema-sync)
+  notion_project_수상 String? @map("notionProp_c4902d28e9")
+  notion_project_블로그 String? @map("notionProp_a1c5c9ec45")
+  // --- Notion Auto Fields End ---
+
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
   posts        PostProject[]
+  stacks       ProjectStack[]
   award        Award?
 }
 
 model Post {
-  slug     String        @id
-  title    String
-  projects PostProject[]
+  id           String        @id @default(cuid())
+  notionId     String        @unique
+  title        String
+  summary      String?
+  thumbnailUrl String?
+  date         DateTime
+  categories   String // JSON array stored as string
+  content      String?
+
+  // --- Notion Auto Fields (generated) ---
+  // (do not edit manually; managed by notion:schema-sync)
+  // --- Notion Auto Fields End ---
+
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  projects     PostProject[]
+}
+
+model Stack {
+  id        String         @id @default(cuid())
+  notionId  String         @unique
+  name      String
+  imageUrl  String?
+
+  // --- Notion Auto Fields (generated) ---
+  // (do not edit manually; managed by notion:schema-sync)
+  notion_stack_Projects String? @map("notionProp_e4b8496f87")
+  notion_stack_설명 String? @map("설명")
+  notion_stack_카테고리 String? @map("카테고리")
+  // --- Notion Auto Fields End ---
+
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+  projects  ProjectStack[]
 }
 
 model PostProject {
-  postSlug  String
+  postId    String
   projectId String
-  post      Post    @relation(fields: [postSlug], references: [slug], onDelete: Cascade)
+  post      Post    @relation(fields: [postId], references: [id], onDelete: Cascade)
   project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
 
-  @@id([postSlug, projectId])
+  @@id([postId, projectId])
+}
+
+model ProjectStack {
+  projectId String
+  stackId   String
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  stack     Stack   @relation(fields: [stackId], references: [id], onDelete: Cascade)
+
+  @@id([projectId, stackId])
 }
 
 model Award {
   id           String   @id @default(cuid())
+  notionId     String   @unique
   title        String
   organization String
   date         DateTime
-  description  String?
   imageUrl     String?
   projectId    String?  @unique
   project      Project? @relation(fields: [projectId], references: [id], onDelete: SetNull)
+
+  // --- Notion Auto Fields (generated) ---
+  // (do not edit manually; managed by notion:schema-sync)
+  // --- Notion Auto Fields End ---
+
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 }

@@ -1,53 +1,20 @@
+import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { useCallback } from "react";
 
+import { getPosts } from "@/feature/blog/api";
+import { Post, PostsResponse } from "@/feature/blog/schema";
 import { Flex, Heading, Section, Stack, Text } from "@/shared/components/ui";
 
 import s from "./style.module.scss";
 
-interface BlogPost {
-  id: number;
-  title: string;
-  description: string;
-  date: string;
-  url: string;
+function formatDate(date: Date | string): string {
+  const d = new Date(date);
+  return `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, "0")}`;
 }
 
-const BLOG_POSTS: BlogPost[] = [
-  {
-    id: 1,
-    title: "React 19의 새로운 기능 정리",
-    description:
-      "use 훅, 서버 컴포넌트 등 React 19에서 달라진 점을 살펴봅니다.",
-    date: "2025.12",
-    url: "#",
-  },
-  {
-    id: 2,
-    title: "디자인 토큰으로 일관된 UI 만들기",
-    description:
-      "SCSS 변수 기반 디자인 토큰 시스템을 구축한 경험을 공유합니다.",
-    date: "2025.10",
-    url: "#",
-  },
-  {
-    id: 3,
-    title: "TypeScript 제네릭 실전 활용법",
-    description:
-      "컴포넌트와 유틸리티 함수에서 제네릭을 효과적으로 사용하는 방법.",
-    date: "2025.08",
-    url: "#",
-  },
-];
-
-function BlogCard({
-  title,
-  description,
-  date,
-  url,
-  index,
-}: Omit<BlogPost, "id"> & { index: number }) {
+function BlogCard({ post, index }: { post: Post; index: number }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -59,12 +26,7 @@ function BlogCard({
         delay: index * 0.1,
       }}
     >
-      <a
-        href={url}
-        className={s.card}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
+      <a href={`/blog/${post.title}`} className={s.card}>
         <Flex
           justify="space-between"
           align="flex-start"
@@ -72,15 +34,15 @@ function BlogCard({
         >
           <Stack gap={4} className={s.cardContent}>
             <Heading as="h3" size="lg" className={s.cardTitle}>
-              {title}
+              {post.title}
             </Heading>
             <Text size="md" color="subtle" className={s.cardDescription}>
-              {description}
+              {post.description}
             </Text>
           </Stack>
           <Flex align="center" gap={8} className={s.cardMeta}>
             <Text size="sm" color="subtle" className={s.cardDate}>
-              {date}
+              {formatDate(post.date)}
             </Text>
             <ArrowUpRight size={16} className={s.cardArrow} />
           </Flex>
@@ -91,16 +53,16 @@ function BlogCard({
 }
 
 export default function Blog() {
+  const { data } = useQuery<PostsResponse>({
+    queryKey: ["posts"],
+    queryFn: getPosts,
+  });
+
+  const posts = (data?.data ?? []).slice(0, 3);
+
   const renderPost = useCallback(
-    (post: BlogPost, index: number) => (
-      <BlogCard
-        key={post.id}
-        title={post.title}
-        description={post.description}
-        date={post.date}
-        url={post.url}
-        index={index}
-      />
+    (post: Post, index: number) => (
+      <BlogCard key={post.id} post={post} index={index} />
     ),
     [],
   );
@@ -119,7 +81,7 @@ export default function Blog() {
       </motion.div>
 
       <Stack gap={0} className={s.list}>
-        {BLOG_POSTS.map(renderPost)}
+        {posts.map(renderPost)}
       </Stack>
     </Section>
   );

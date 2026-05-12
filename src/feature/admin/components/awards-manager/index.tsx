@@ -16,7 +16,6 @@ import {
   Select,
   Stack,
   Text,
-  Textarea,
 } from "@/shared/components/ui";
 import { ApiMessageResponse, ApiResponse } from "@/shared/types/api";
 
@@ -32,7 +31,6 @@ interface AwardFormValue {
   title: string;
   organization: string;
   date: string;
-  description: string;
   imageUrl: string;
   projectId: string;
 }
@@ -41,7 +39,6 @@ const INITIAL_FORM: AwardFormValue = {
   title: "",
   organization: "",
   date: "",
-  description: "",
   imageUrl: "",
   projectId: "",
 };
@@ -123,7 +120,6 @@ export default function AwardsManager({
       title: award.title,
       organization: award.organization,
       date: award.date.split("T")[0] ?? "",
-      description: award.description ?? "",
       imageUrl: award.imageUrl ?? "",
       projectId: award.projectId ?? "",
     });
@@ -149,7 +145,6 @@ export default function AwardsManager({
       title: formValue.title.trim(),
       organization: formValue.organization.trim(),
       date: formValue.date,
-      description: formValue.description.trim() || null,
       imageUrl: formValue.imageUrl.trim() || null,
       projectId: formValue.projectId || null,
     };
@@ -330,21 +325,6 @@ export default function AwardsManager({
                   }))
                 }
                 required
-                fullWidth
-              />
-            </FormGroup>
-
-            <FormGroup>
-              <Label htmlFor="award-description">설명</Label>
-              <Textarea
-                id="award-description"
-                value={formValue.description}
-                onChange={(event) =>
-                  setFormValue((prev) => ({
-                    ...prev,
-                    description: event.target.value,
-                  }))
-                }
                 fullWidth
               />
             </FormGroup>

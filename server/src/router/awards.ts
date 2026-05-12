@@ -1,4 +1,5 @@
 import { Hono } from "hono";
+import { randomUUID } from "node:crypto";
 
 import prisma from "../utils/prisma.js";
 
@@ -75,10 +76,10 @@ app.post("/", async (c) => {
 
   const award = await prisma.award.create({
     data: {
+      notionId: body.notionId ?? `manual-${randomUUID()}`,
       title: body.title,
       organization: body.organization,
       date: new Date(body.date),
-      description: body.description ?? null,
       imageUrl: body.imageUrl ?? null,
       projectId: body.projectId ?? null,
     },
@@ -137,10 +138,6 @@ app.put("/:id", async (c) => {
       title: body.title ?? existing.title,
       organization: body.organization ?? existing.organization,
       date: body.date ? new Date(body.date) : existing.date,
-      description:
-        body.description !== undefined
-          ? body.description
-          : existing.description,
       imageUrl: body.imageUrl !== undefined ? body.imageUrl : existing.imageUrl,
       projectId:
         body.projectId !== undefined ? body.projectId : existing.projectId,

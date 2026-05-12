@@ -1,79 +1,110 @@
-import { useCallback, useRef } from "react";
+import { useQuery } from "@tanstack/react-query";
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+} from "react";
 
+import { getAwards } from "@/feature/awards/api";
+import { Award, AwardsResponse } from "@/feature/awards/schema";
+import { usePageTransition } from "@/shared/components/layouts/page-transition/page-transition.context";
 import { Flex, Heading, Section, Stack, Text } from "@/shared/components/ui";
 
 import s from "./style.module.scss";
 
-interface Award {
-  id: number;
+interface DisplayAward {
+  id: string;
   name: string;
   organization: string;
   year: number;
-  image: string;
+  imageUrl: string | null;
 }
-
-const AWARDS: Award[] = [
-  {
-    id: 1,
-    name: "기능경기대회 모바일앱개발 부문 은상",
-    organization: "한국산업인력공단",
-    year: 2026,
-    image: "https://picsum.photos/seed/award-1/600/400",
-  },
-  {
-    id: 2,
-    name: "창의아이디어경진대회 수상",
-    organization: "선린인터넷고등학교",
-    year: 2025,
-    image: "https://picsum.photos/seed/award-2/600/400",
-  },
-  {
-    id: 3,
-    name: "선린톤 11th 은상",
-    organization: "선린인터넷고등학교",
-    year: 2025,
-    image: "https://picsum.photos/seed/award-3/600/400",
-  },
-  {
-    id: 4,
-    name: "동행 해커톤 창의재단이사장상",
-    organization: "SW마이스터고연합",
-    year: 2024,
-    image: "https://picsum.photos/seed/award-4/600/400",
-  },
-  {
-    id: 5,
-    name: "앱잼 27th 최우수상",
-    organization: "선린인터넷고등학교",
-    year: 2024,
-    image: "https://picsum.photos/seed/award-5/600/400",
-  },
-  {
-    id: 6,
-    name: "선린톤 10th 금상",
-    organization: "선린인터넷고등학교",
-    year: 2024,
-    image: "https://picsum.photos/seed/award-6/600/400",
-  },
-  {
-    id: 7,
-    name: "교내 천하제일코딩대회 은상",
-    organization: "선린인터넷고등학교",
-    year: 2024,
-    image: "https://picsum.photos/seed/award-7/600/400",
-  },
-];
 
 export default function Awards() {
   const imageRef = useRef<HTMLImageElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
   const lastX = useRef(0);
   const isVisible = useRef(false);
+  const releaseLockRef = useRef<(() => void) | null>(null);
+
+  const { acquirePreloadLock, initialLoadDone } = usePageTransition();
+
+  const { data, isLoading, error } = useQuery<AwardsResponse>({
+    queryKey: ["awards"],
+    queryFn: getAwards,
+  });
+
+  // 초기 로딩 중일 때만 프리로드 락 획득 (RAF보다 먼저 실행되는 useLayoutEffect)
+  useLayoutEffect(() => {
+    if (initialLoadDone) return;
+    releaseLockRef.current = acquirePreloadLock();
+
+    // 최대 5초 후 강제 해제 (API 실패 등 대비)
+    const timeout = setTimeout(() => {
+      releaseLockRef.current?.();
+      releaseLockRef.current = null;
+    }, 5000);
+
+    return () => {
+      clearTimeout(timeout);
+      releaseLockRef.current?.();
+      releaseLockRef.current = null;
+    };
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // awards 데이터 수신 후 imageUrl 프리로드, 완료되면 락 해제
+  useEffect(() => {
+    if (!releaseLockRef.current) return;
+    if (isLoading) return;
+
+    const urls = (data?.data ?? [])
+      .map((a: Award) => a.imageUrl)
+      .filter((url): url is string => Boolean(url));
+
+    if (urls.length === 0) {
+      releaseLockRef.current();
+      releaseLockRef.current = null;
+      return;
+    }
+
+    let done = 0;
+    const images = urls.map((url) => {
+      const img = new Image();
+      img.onload = img.onerror = () => {
+        done += 1;
+        if (done >= urls.length) {
+          releaseLockRef.current?.();
+          releaseLockRef.current = null;
+        }
+      };
+      img.src = url;
+      return img;
+    });
+
+    return () => {
+      images.forEach((img) => {
+        img.onload = null;
+        img.onerror = null;
+      });
+    };
+  }, [data, isLoading]);
+
+  const awards = useMemo<DisplayAward[]>(() => {
+    return (data?.data ?? []).map((award: Award) => ({
+      id: award.id,
+      name: award.title,
+      organization: award.organization,
+      year: new Date(award.date).getFullYear(),
+      imageUrl: award.imageUrl,
+    }));
+  }, [data]);
 
   const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     const img = imageRef.current;
     const list = listRef.current;
-    if (!img || !list) return;
+    if (!img || !list || img.dataset.enabled !== "true") return;
 
     const rect = list.getBoundingClientRect();
     const x = e.clientX - rect.left;
@@ -93,11 +124,18 @@ export default function Awards() {
   }, []);
 
   const handleMouseEnter = useCallback(
-    (award: Award) => () => {
+    (award: DisplayAward) => () => {
       const img = imageRef.current;
       if (!img) return;
 
-      img.src = award.image;
+      if (!award.imageUrl) {
+        img.dataset.enabled = "false";
+        img.style.opacity = "0";
+        return;
+      }
+
+      img.dataset.enabled = "true";
+      img.src = award.imageUrl;
       isVisible.current = false;
 
       img.style.opacity = "0";
@@ -114,6 +152,7 @@ export default function Awards() {
     if (!img) return;
 
     isVisible.current = false;
+    img.dataset.enabled = "false";
     img.style.opacity = "0";
     img.style.transform = img.style.transform.replace(
       /scale\([^)]*\)/,
@@ -122,7 +161,7 @@ export default function Awards() {
   }, []);
 
   const renderAward = useCallback(
-    (award: Award) => (
+    (award: DisplayAward) => (
       <Flex
         key={award.id}
         className={s.card}
@@ -150,7 +189,13 @@ export default function Awards() {
       </Heading>
 
       <div className={s.list} ref={listRef}>
-        {AWARDS.map(renderAward)}
+        {isLoading ? (
+          <Text color="subtle">어워드를 불러오는 중입니다.</Text>
+        ) : error ? (
+          <Text color="subtle">어워드를 불러올 수 없습니다.</Text>
+        ) : (
+          awards.map(renderAward)
+        )}
         <img
           ref={imageRef}
           className={s.floatingImage}

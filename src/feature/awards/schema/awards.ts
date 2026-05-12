@@ -5,7 +5,6 @@ export interface Award {
   title: string;
   organization: string;
   date: string;
-  description: string | null;
   imageUrl: string | null;
   projectId: string | null;
   project: {
@@ -18,7 +17,6 @@ export interface AwardMutationPayload {
   title: string;
   organization: string;
   date: string;
-  description?: string | null;
   imageUrl?: string | null;
   projectId?: string | null;
 }

@@ -26,7 +26,8 @@ function PageTransitionContent() {
   const location = useLocation();
   const { pendingPath, consumePendingPath, performNavigate, finishTransition } =
     usePageTransitionInternal();
-  const { setInitialLoadDone, setPageReady } = usePageTransition();
+  const { setInitialLoadDone, setPageReady, preloadLockCount } =
+    usePageTransition();
   const whiteControls = useAnimationControls();
   const surfaceControls = useAnimationControls();
   const [phase, setPhase] = useState<Phase>("idle");
@@ -47,19 +48,22 @@ function PageTransitionContent() {
     setPageReady(true);
   }, [setInitialLoadDone, setPageReady]);
 
-  // 초기 로딩: 이미지 로드 완료 시 reveal 애니메이션 실행
+  // 초기 로딩: 이미지 로드 완료 + 프리로드 락 해제 시 reveal 애니메이션 실행
   useEffect(() => {
-    if (!imagesLoaded || initialLoadDoneRef.current) return;
-    initialLoadDoneRef.current = true;
+    if (!imagesLoaded || preloadLockCount > 0 || initialLoadDoneRef.current)
+      return;
 
-    // 로더 페이드아웃 후 컬럼 reveal
+    // 타이머 내부에서 플래그를 세팅해야 cleanup으로 타이머가 취소되더라도
+    // initialLoadDoneRef가 true로 남지 않아 재시도가 가능해진다 (StrictMode 대응)
     const timer = setTimeout(() => {
+      if (initialLoadDoneRef.current) return;
+      initialLoadDoneRef.current = true;
       setShowLoader(false);
       runInitialReveal();
     }, 100);
 
     return () => clearTimeout(timer);
-  }, [imagesLoaded]);
+  }, [imagesLoaded, preloadLockCount]);
 
   const runInitialReveal = useCallback(async () => {
     isAnimatingRef.current = true;

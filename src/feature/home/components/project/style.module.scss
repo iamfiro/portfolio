@@ -36,6 +36,13 @@
   width: 100%;
 }
 
+.cardLink {
+  display: block;
+
+  text-decoration: none;
+  color: inherit;
+}
+
 .card {
   display: flex;
   flex-direction: column;

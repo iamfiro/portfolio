@@ -1,20 +1,22 @@
+import "./env.js";
+
 import { serve } from "@hono/node-server";
-import { config as dotenvConfig } from "dotenv";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
-import { dirname, resolve } from "node:path";
-import { fileURLToPath } from "node:url";
 
-import admin from "./router/admin.js";
-import awards from "./router/awards.js";
-import posts from "./router/posts.js";
-import projects from "./router/projects.js";
-import { syncPosts } from "./utils/syncPosts.js";
+if (process.env.NOTION_AUTO_MIGRATE === "1") {
+  const { syncNotionSchemaIfNeeded } = await import(
+    "./utils/notionSchemaSync.js"
+  );
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
+  await syncNotionSchemaIfNeeded({ applyMigration: true });
+}
 
-dotenvConfig({ path: resolve(__dirname, "../../.env") });
-dotenvConfig({ path: resolve(__dirname, "../.env") });
+const { default: admin } = await import("./router/admin.js");
+const { default: awards } = await import("./router/awards.js");
+const { default: notionSync } = await import("./router/notion-sync.js");
+const { default: posts } = await import("./router/posts.js");
+const { default: projects } = await import("./router/projects.js");
 
 const app = new Hono();
 
@@ -32,6 +34,7 @@ app.route("/blog", posts);
 app.route("/projects", projects);
 app.route("/awards", awards);
 app.route("/admin", admin);
+app.route("/notion-sync", notionSync);
 
 app.get("/", (c) => {
   return c.json({
@@ -39,8 +42,6 @@ app.get("/", (c) => {
     message: "Hello Hono! - Welcome to the my portfolio API",
   });
 });
-
-syncPosts().catch(console.error);
 
 const port = 3000;
 console.log(`Server is running on http://localhost:${port}`);

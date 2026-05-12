@@ -1,3 +1,4 @@
+import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import {
   useCallback,
@@ -7,19 +8,25 @@ import {
   useState,
 } from "react";
 
+import { getProjects } from "@/feature/projects/api";
+import { Project, ProjectsResponse } from "@/feature/projects/schema";
 import { usePageTransition } from "@/shared/components/layouts/page-transition/page-transition.context";
 import { Image, Text } from "@/shared/components/ui";
 
 import s from "./style.module.scss";
 
-// 프로젝트 ID 기반 결정적 랜덤 height 생성
-function getHeight(id: number): number {
-  const seed = ((id * 9301 + 49297) % 233280) / 233280;
+// 프로젝트 ID(string) 기반 결정적 랜덤 height 생성
+function getHeight(id: string): number {
+  let hash = 0;
+  for (let i = 0; i < id.length; i++) {
+    hash = (hash * 31 + id.charCodeAt(i)) | 0;
+  }
+  const seed = Math.abs(hash) / 2147483647;
   return 120 + seed * 160; // 120px ~ 280px 범위
 }
 
 interface MarqueeProjectItem {
-  id: number;
+  id: string;
   name: string;
   thumbnail: string;
 }
@@ -34,39 +41,6 @@ const INERTIA_MIN_VELOCITY = 0.5; // 이 속도 이하면 관성 종료
 const SCALE_Y_MIN = 0.85; // 최대 압축 시 scaleY
 const SCALE_Y_VELOCITY_MAX = 50; // 이 속도 이상이면 최대 압축
 const SCALE_Y_LERP_SPEED = 0.12; // scaleY 보간 속도 (0~1, 클수록 빠르게 반응)
-
-const MARQUEE_PROJECTS: MarqueeProjectItem[] = [
-  {
-    id: 1,
-    name: "Molio",
-    thumbnail:
-      "https://assets.awwwards.com/awards/media/cache/thumb_880_660/submissions/2026/04/69f0fb6148948136033388.jpg",
-  },
-  {
-    id: 2,
-    name: "SuperBrugsen",
-    thumbnail:
-      "https://assets.awwwards.com/awards/media/cache/thumb_880_660/submissions/2026/04/69f03e17c2e6f377520226.jpg",
-  },
-  {
-    id: 3,
-    name: "CityFlow",
-    thumbnail:
-      "https://assets.awwwards.com/awards/media/cache/thumb_880_660/submissions/2026/04/69ebceb5656ee219540044.jpg",
-  },
-  {
-    id: 4,
-    name: "EduVerse",
-    thumbnail:
-      "https://assets.awwwards.com/awards/media/cache/thumb_880_660/submissions/2026/04/69ed8a35632a5185570520.jpg",
-  },
-  {
-    id: 5,
-    name: "MediSync",
-    thumbnail:
-      "https://assets.awwwards.com/awards/media/cache/thumb_880_660/submissions/2026/04/69ed073304037316077927.png",
-  },
-];
 
 interface ProjectCardProps {
   project: MarqueeProjectItem;
@@ -117,6 +91,19 @@ function ProjectCard({
 
 export default function MarqueeProjects() {
   const { initialLoadDone } = usePageTransition();
+
+  const { data } = useQuery<ProjectsResponse>({
+    queryKey: ["projects"],
+    queryFn: getProjects,
+  });
+
+  const marqueeProjects: MarqueeProjectItem[] = (data?.data ?? [])
+    .filter((p: Project) => p.thumbnailUrl)
+    .map((p: Project) => ({
+      id: p.id,
+      name: p.title,
+      thumbnail: p.thumbnailUrl as string,
+    }));
   const containerRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const firstSetRef = useRef<HTMLDivElement>(null);
@@ -321,7 +308,7 @@ export default function MarqueeProjects() {
         style={{ gap: `${MARQUEE_GAP}px` }}
       >
         <div ref={firstSetRef} className={s.set} style={setStyle}>
-          {MARQUEE_PROJECTS.map((project, index) => (
+          {marqueeProjects.map((project, index) => (
             <ProjectCard
               key={project.id}
               project={project}
@@ -332,43 +319,43 @@ export default function MarqueeProjects() {
           ))}
         </div>
         <div className={s.set} style={setStyle} aria-hidden="true">
-          {MARQUEE_PROJECTS.map((project, index) => (
+          {marqueeProjects.map((project, index) => (
             <ProjectCard
               key={`clone1-${project.id}`}
               project={project}
-              index={MARQUEE_PROJECTS.length + index}
+              index={marqueeProjects.length + index}
               animate
               ready={initialLoadDone}
             />
           ))}
         </div>
         <div className={s.set} style={setStyle} aria-hidden="true">
-          {MARQUEE_PROJECTS.map((project, index) => (
+          {marqueeProjects.map((project, index) => (
             <ProjectCard
               key={`clone2-${project.id}`}
               project={project}
-              index={MARQUEE_PROJECTS.length * 2 + index}
+              index={marqueeProjects.length * 2 + index}
               animate
               ready={initialLoadDone}
             />
           ))}
         </div>
         <div className={s.set} style={setStyle} aria-hidden="true">
-          {MARQUEE_PROJECTS.map((project, index) => (
+          {marqueeProjects.map((project, index) => (
             <ProjectCard
               key={`clone1-${project.id}`}
               project={project}
-              index={MARQUEE_PROJECTS.length + index}
+              index={marqueeProjects.length + index}
               animate
             />
           ))}
         </div>
         <div className={s.set} style={setStyle} aria-hidden="true">
-          {MARQUEE_PROJECTS.map((project, index) => (
+          {marqueeProjects.map((project, index) => (
             <ProjectCard
               key={`clone2-${project.id}`}
               project={project}
-              index={MARQUEE_PROJECTS.length * 2 + index}
+              index={marqueeProjects.length * 2 + index}
               animate
             />
           ))}

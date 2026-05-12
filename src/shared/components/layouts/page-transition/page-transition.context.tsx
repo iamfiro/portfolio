@@ -22,6 +22,13 @@ interface PageTransitionContextValue {
    */
   pageReady: boolean;
   setPageReady: (ready: boolean) => void;
+  /**
+   * 초기 reveal을 지연시킬 락을 획득한다. 반환된 함수를 호출하면 락 해제.
+   * 이미지 프리로드 등 비동기 작업이 완료될 때까지 페이지 표시를 보류할 때 사용.
+   */
+  acquirePreloadLock: () => () => void;
+  /** 현재 보류 중인 프리로드 락 수 */
+  preloadLockCount: number;
 }
 
 // exit 애니메이션 총 시간 (DURATION_S + (COLUMN_COUNT - 1) * STAGGER_S + HOLD_MS/1000)
@@ -35,6 +42,8 @@ const PageTransitionContext = createContext<PageTransitionContextValue>({
   setInitialLoadDone: () => {},
   pageReady: false,
   setPageReady: () => {},
+  acquirePreloadLock: () => () => {},
+  preloadLockCount: 0,
 });
 
 export function usePageTransition() {
@@ -71,7 +80,18 @@ export function PageTransitionProvider({ children }: Props) {
   const [initialLoadDone, setInitialLoadDone] = useState(false);
   const [pageReady, setPageReady] = useState(false);
   const [pendingPath, setPendingPath] = useState<string | null>(null);
+  const [preloadLockCount, setPreloadLockCount] = useState(0);
   const isNavigatingRef = useRef(false);
+
+  const acquirePreloadLock = useCallback((): (() => void) => {
+    setPreloadLockCount((c) => c + 1);
+    let released = false;
+    return () => {
+      if (released) return;
+      released = true;
+      setPreloadLockCount((c) => c - 1);
+    };
+  }, []);
 
   const navigateTo = useCallback(
     (path: string) => {
@@ -113,6 +133,8 @@ export function PageTransitionProvider({ children }: Props) {
         setInitialLoadDone,
         pageReady,
         setPageReady,
+        acquirePreloadLock,
+        preloadLockCount,
       }}
     >
       <InternalContext.Provider

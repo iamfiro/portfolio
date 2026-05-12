@@ -1,80 +1,20 @@
+import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
-import { useCallback, useRef } from "react";
+import { useCallback, useMemo, useRef } from "react";
 
+import { getAwards } from "@/feature/awards/api";
+import { Award, AwardsResponse } from "@/feature/awards/schema";
 import { Flex, Heading, Stack, Text } from "@/shared/components/ui";
 
 import s from "./style.module.scss";
 
-interface Award {
-  id: number;
+interface DisplayAward {
+  id: string;
   name: string;
   organization: string;
   year: number;
-  description: string;
-  image: string;
+  imageUrl: string | null;
 }
-
-const AWARDS: Award[] = [
-  {
-    id: 1,
-    name: "기능경기대회 모바일앱개발 부문 은상",
-    organization: "한국산업인력공단",
-    year: 2026,
-    description:
-      "전국 기능경기대회 모바일앱개발 직종에서 은메달을 수상했습니다.",
-    image: "https://picsum.photos/seed/award-1/600/400",
-  },
-  {
-    id: 2,
-    name: "창의아이디어경진대회 수상",
-    organization: "선린인터넷고등학교",
-    year: 2025,
-    description:
-      "교내 창의아이디어경진대회에서 혁신적인 서비스 기획으로 수상했습니다.",
-    image: "https://picsum.photos/seed/award-2/600/400",
-  },
-  {
-    id: 3,
-    name: "선린톤 11th 은상",
-    organization: "선린인터넷고등학교",
-    year: 2025,
-    description: "24시간 해커톤에서 팀 프로젝트를 통해 은상을 수상했습니다.",
-    image: "https://picsum.photos/seed/award-3/600/400",
-  },
-  {
-    id: 4,
-    name: "동행 해커톤 창의재단이사장상",
-    organization: "SW마이스터고연합",
-    year: 2024,
-    description:
-      "SW마이스터고 연합 해커톤에서 창의재단이사장상을 수상했습니다.",
-    image: "https://picsum.photos/seed/award-4/600/400",
-  },
-  {
-    id: 5,
-    name: "앱잼 27th 최우수상",
-    organization: "선린인터넷고등학교",
-    year: 2024,
-    description: "교내 앱 개발 대회에서 최우수상을 수상했습니다.",
-    image: "https://picsum.photos/seed/award-5/600/400",
-  },
-  {
-    id: 6,
-    name: "선린톤 10th 금상",
-    organization: "선린인터넷고등학교",
-    year: 2024,
-    description: "24시간 해커톤에서 팀 프로젝트를 통해 금상을 수상했습니다.",
-    image: "https://picsum.photos/seed/award-6/600/400",
-  },
-  {
-    id: 7,
-    name: "교내 천하제일코딩대회 은상",
-    organization: "선린인터넷고등학교",
-    year: 2024,
-    description: "교내 알고리즘 대회에서 은상을 수상했습니다.",
-    image: "https://picsum.photos/seed/award-7/600/400",
-  },
-];
 
 export default function AwardsList() {
   const imageRef = useRef<HTMLImageElement>(null);
@@ -82,10 +22,25 @@ export default function AwardsList() {
   const lastX = useRef(0);
   const isVisible = useRef(false);
 
+  const { data, isLoading, error } = useQuery<AwardsResponse>({
+    queryKey: ["awards"],
+    queryFn: getAwards,
+  });
+
+  const awards = useMemo<DisplayAward[]>(() => {
+    return (data?.data ?? []).map((award: Award) => ({
+      id: award.id,
+      name: award.title,
+      organization: award.organization,
+      year: new Date(award.date).getFullYear(),
+      imageUrl: award.imageUrl,
+    }));
+  }, [data]);
+
   const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     const img = imageRef.current;
     const list = listRef.current;
-    if (!img || !list) return;
+    if (!img || !list || img.dataset.enabled !== "true") return;
 
     const rect = list.getBoundingClientRect();
     const x = e.clientX - rect.left;
@@ -104,28 +59,33 @@ export default function AwardsList() {
     img.style.transform = `translate3d(${x - 190}px, ${y - 130}px, 0) scale(1) rotate(${rotation}deg)`;
   }, []);
 
-  const handleMouseEnter = useCallback(
-    (award: Award) => () => {
-      const img = imageRef.current;
-      if (!img) return;
+  const handleMouseEnter = useCallback((award: DisplayAward) => () => {
+    const img = imageRef.current;
+    if (!img) return;
 
-      img.src = award.image;
-      isVisible.current = false;
-
+    if (!award.imageUrl) {
+      img.dataset.enabled = "false";
       img.style.opacity = "0";
-      img.style.transform = img.style.transform.replace(
-        /scale\([^)]*\)/,
-        "scale(0.85)",
-      );
-    },
-    [],
-  );
+      return;
+    }
+
+    img.dataset.enabled = "true";
+    img.src = award.imageUrl;
+    isVisible.current = false;
+
+    img.style.opacity = "0";
+    img.style.transform = img.style.transform.replace(
+      /scale\([^)]*\)/,
+      "scale(0.85)",
+    );
+  }, []);
 
   const handleMouseLeave = useCallback(() => {
     const img = imageRef.current;
     if (!img) return;
 
     isVisible.current = false;
+    img.dataset.enabled = "false";
     img.style.opacity = "0";
     img.style.transform = img.style.transform.replace(
       /scale\([^)]*\)/,
@@ -134,7 +94,7 @@ export default function AwardsList() {
   }, []);
 
   const renderAward = useCallback(
-    (award: Award, index: number) => (
+    (award: DisplayAward, index: number) => (
       <motion.div
         key={award.id}
         initial={{ opacity: 0, y: 30, filter: "blur(6px)" }}
@@ -169,7 +129,13 @@ export default function AwardsList() {
 
   return (
     <div className={s.list} ref={listRef}>
-      {AWARDS.map(renderAward)}
+      {isLoading ? (
+        <Text color="subtle">어워드를 불러오는 중입니다.</Text>
+      ) : error ? (
+        <Text color="subtle">어워드를 불러올 수 없습니다.</Text>
+      ) : (
+        awards.map(renderAward)
+      )}
       <img
         ref={imageRef}
         className={s.floatingImage}

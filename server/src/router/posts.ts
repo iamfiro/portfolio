@@ -1,6 +1,5 @@
 import { Hono } from "hono";
 
-import { getPost, getPosts } from "../utils/post.js";
 import prisma from "../utils/prisma.js";
 
 const app = new Hono();
@@ -9,38 +8,51 @@ function parseProject(project: {
   id: string;
   title: string;
   description: string;
-  techStack: string;
   thumbnailUrl: string | null;
   githubUrl: string | null;
   deployUrl: string | null;
   startDate: Date;
   endDate: Date | null;
+  stacks: Array<{ stack: { name: string } }>;
 }) {
-  return { ...project, techStack: JSON.parse(project.techStack) };
+  return {
+    id: project.id,
+    title: project.title,
+    description: project.description,
+    thumbnailUrl: project.thumbnailUrl,
+    githubUrl: project.githubUrl,
+    deployUrl: project.deployUrl,
+    startDate: project.startDate,
+    endDate: project.endDate,
+    techStack: project.stacks.map((item) => item.stack.name),
+  };
 }
 
 app.get("/posts", async (c) => {
-  const posts = getPosts();
-
-  const postRecords = await prisma.post.findMany({
+  const posts = await prisma.post.findMany({
+    orderBy: { date: "desc" },
     include: {
-      projects: { include: { project: true } },
+      projects: {
+        include: {
+          project: {
+            include: { stacks: { include: { stack: true } } },
+          },
+        },
+      },
     },
   });
 
-  const relationsMap = Object.fromEntries(
-    postRecords.map((p) => [
-      p.slug,
-      p.projects.map((r) => parseProject(r.project)),
-    ]),
-  );
-
-  const data = posts
-    .filter((post): post is NonNullable<typeof post> => post !== null)
-    .map((post) => ({
-      ...post,
-      relatedProjects: relationsMap[post.title as string] ?? [],
-    }));
+  const data = posts.map((post) => ({
+    id: post.id,
+    title: post.title,
+    description: post.summary ?? "",
+    thumbnail: post.thumbnailUrl ?? "",
+    date: post.date,
+    tags: JSON.parse(post.categories),
+    relatedProjects: post.projects.map((relation) =>
+      parseProject(relation.project),
+    ),
+  }));
 
   return c.json({ ok: true, data });
 });
@@ -48,20 +60,39 @@ app.get("/posts", async (c) => {
 app.get("/post/:title", async (c) => {
   const title = c.req.param("title");
 
-  const post = getPost(title);
-
-  const postRecord = await prisma.post.findUnique({
-    where: { slug: post.title as string },
-    include: { projects: { include: { project: true } } },
+  const post = await prisma.post.findFirst({
+    where: { title },
+    include: {
+      projects: {
+        include: {
+          project: {
+            include: { stacks: { include: { stack: true } } },
+          },
+        },
+      },
+    },
   });
 
-  const relatedProjects = (postRecord?.projects ?? []).map((r) =>
-    parseProject(r.project),
+  if (!post) {
+    return c.json({ ok: false, message: "Post not found" }, 404);
+  }
+
+  const relatedProjects = post.projects.map((relation) =>
+    parseProject(relation.project),
   );
 
   return c.json({
     ok: true,
-    data: { ...post, relatedProjects },
+    data: {
+      id: post.id,
+      title: post.title,
+      description: post.summary ?? "",
+      thumbnail: post.thumbnailUrl ?? "",
+      date: post.date,
+      tags: JSON.parse(post.categories),
+      content: post.content ?? "",
+      relatedProjects,
+    },
   });
 });
 
