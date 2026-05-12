@@ -4,7 +4,7 @@ import { ArrowRight } from "lucide-react";
 import { useCallback } from "react";
 
 import { getProjects } from "@/feature/projects/api";
-import { Project, ProjectsResponse } from "@/feature/projects/schema";
+import type { Project, ProjectsResponse } from "@/feature/projects/schema";
 import { usePageTransition } from "@/shared/components/layouts/page-transition/page-transition.context";
 import {
   Card,

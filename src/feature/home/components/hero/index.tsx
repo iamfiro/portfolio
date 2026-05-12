@@ -92,7 +92,7 @@ export default function Hero() {
             src="/me.png"
             alt="My Face"
             className={s.me}
-            fetchpriority="high"
+            fetchPriority="high"
             decoding="async"
           />
           <div className={s.bubble}>👋 Hi! Nice to meet you</div>

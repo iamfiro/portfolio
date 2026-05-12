@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import { Globe } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
@@ -10,7 +10,7 @@ import s from "./Header.module.scss";
 const EASE = [0.76, 0, 0.24, 1] as const;
 
 // nav ul 전용: header 컨테이너가 아닌 nav 블록만 움직임
-const navScrollVariants = {
+const navScrollVariants: Variants = {
   visible: {
     y: 0,
     opacity: 1,
