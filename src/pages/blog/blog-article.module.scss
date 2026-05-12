@@ -11,12 +11,13 @@
     z-index: $z-fixed;
 
     width: 100%;
-    height: 2px;
+    height: 4px;
 
     background-color: transparent;
 }
 
 .progress_fill {
+    width: 100%;
     height: 100%;
 
     background: linear-gradient(
@@ -26,7 +27,9 @@
     );
     box-shadow: 0 0 12px $surface-brand-subtle;
 
-    transition: width 0.1s linear;
+    transform: scaleX(0);
+    transform-origin: left center;
+    will-change: transform;
 }
 
 // 로딩 상태
@@ -42,42 +45,38 @@
 // 페이지 컨테이너
 .container {
     display: flex;
-    flex-direction: row;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 
     width: min(100%, $max-width-lg);
 
-    padding-top: 160px;
+    padding-top: 200px;
     padding-bottom: $spacing-100;
+}
+
+// 뒤로가기 버튼 행
+.back_col {
+    display: flex;
+    align-items: center;
+
+    width: 760px;
+    max-width: 100%;
+
+    padding-bottom: $spacing-4;
+}
+
+.back_button {
+    color: $text;
 }
 
 // 본문 컬럼 — 읽기 좋은 폭(약 760px)으로 제한
 .article {
     display: flex;
     flex-direction: column;
-    gap: $spacing-32;
+    gap: $spacing-12;
 
     width: 760px;
     max-width: 100%;
-}
-
-// 좌측 sticky 뒤로가기 컬럼
-.back_col {
-    flex-shrink: 0;
-
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-
-    width: 60px;
-
-    padding-top: 4px;
-    padding-right: $spacing-16;
-}
-
-.back_button {
-    position: sticky;
-    top: 100px;
 }
 
 // 헤더 영역
@@ -93,8 +92,8 @@
     flex-wrap: wrap;
 }
 
-// 제목 — Heading(size="3xl"=48px)을 살리고 트래킹/줄높이만 튜닝
 .title {
+    font-size: 40px;
     margin-top: $spacing-4;
 
     line-height: 1.2;
@@ -118,7 +117,6 @@
 // 메타 (날짜, 소요시간)
 .meta {
     margin-top: $spacing-16;
-    flex-wrap: wrap;
 }
 
 .meta_icon {
@@ -167,6 +165,8 @@
     border-radius: $radius-16;
 
     box-shadow: $shadow-md;
+
+    margin-top: $spacing-32;
 }
 
 // 본문 wrapper — 마크다운 컴포넌트가 내부에서 타이포 처리

@@ -24,7 +24,7 @@ export default function Giscus({ style }: GiscusProps) {
     scriptElem.setAttribute("data-reactions-enabled", "1");
     scriptElem.setAttribute("data-emit-metadata", "0");
     scriptElem.setAttribute("data-input-position", "top");
-    scriptElem.setAttribute("data-theme", "light");
+    scriptElem.setAttribute("data-theme", "dark_tritanopia");
     scriptElem.setAttribute("data-lang", "ko");
     scriptElem.setAttribute("data-loading", "lazy");
 
