@@ -69,6 +69,31 @@
     color: $text;
 }
 
+// article + TOC 2컬럼 행
+// TOC는 absolute로 플로우 밖에 배치 → article이 항상 컨테이너 중앙에 위치
+.body_layout {
+    position: relative;
+
+    display: flex;
+    justify-content: center;
+
+    width: 100%;
+}
+
+// TOC 사이드바
+// 1300px 미만: article(760) + gap(48) + toc(200) = 1008px이 1100px 컨테이너를 벗어나므로 숨김
+// 1300px 이상: 컨테이너(1100px) 중앙 기준으로 article 오른쪽에 absolute 배치
+.toc_wrapper {
+    display: none;
+
+    @media (min-width: 1300px) {
+        display: block;
+        position: absolute;
+        left: calc(50% + 380px + $spacing-48);
+        top: 0;
+    }
+}
+
 // 본문 컬럼 — 읽기 좋은 폭(약 760px)으로 제한
 .article {
     display: flex;

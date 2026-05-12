@@ -6,7 +6,7 @@ import { Helmet } from "react-helmet";
 import { useParams } from "react-router-dom";
 
 import { getPost } from "@/feature/blog/api";
-import { Giscus } from "@/feature/blog/components";
+import { Giscus, TableOfContents } from "@/feature/blog/components";
 import MarkdownContent from "@/feature/blog/components/markdown-content";
 import { PostResponse } from "@/feature/blog/schema";
 import { BaseLayout } from "@/shared/components/layouts";
@@ -47,6 +47,7 @@ function useScrollProgressRef() {
 export default function BlogArticle() {
   const { id } = useParams();
   const progressFillRef = useScrollProgressRef();
+  const contentRef = useRef<HTMLElement>(null);
 
   const titleEntrance = usePageEntrance("title");
   const metaEntrance = usePageEntrance("subtitle");
@@ -93,57 +94,70 @@ export default function BlogArticle() {
       <Header hideOnScroll logoHref="/blog" />
 
       <BaseLayout className={s.container}>
-        <article className={s.article}>
-          {/* 제목 */}
-          <motion.div {...titleEntrance}>
-            <Heading as="h1" size="3xl" className={s.title}>
-              {post.data.title}
-            </Heading>
-          </motion.div>
+        <div className={s.body_layout}>
+          <article className={s.article}>
+            {/* 제목 */}
+            <motion.div {...titleEntrance}>
+              <Heading as="h1" size="3xl" className={s.title}>
+                {post.data.title}
+              </Heading>
+            </motion.div>
 
-          {/* 설명 + 메타 */}
-          <motion.div {...metaEntrance}>
-            {post.data.description && (
-              <Text className={s.description}>{post.data.description}</Text>
+            {/* 설명 + 메타 */}
+            <motion.div {...metaEntrance}>
+              {post.data.description && (
+                <Text className={s.description}>{post.data.description}</Text>
+              )}
+              <Flex align="center" justify="space-between" className={s.meta}>
+                <Flex align="center" gap={20}>
+                  <Flex align="center" gap={6}>
+                    <Calendar className={s.meta_icon} />
+                    <Text className={s.meta_text}>{formattedDate}</Text>
+                  </Flex>
+                  <Flex align="center" gap={6}>
+                    <Clock className={s.meta_icon} />
+                    <Text className={s.meta_text}>3분 소요</Text>
+                  </Flex>
+                </Flex>
+                <Flex gap={8}>
+                  {post.data.tags.map((tag) => (
+                    <Tag key={tag}>{tag}</Tag>
+                  ))}
+                </Flex>
+              </Flex>
+            </motion.div>
+
+            {/* 썸네일 */}
+            {post.data.thumbnail && (
+              <motion.img
+                src={post.data.thumbnail}
+                alt={`${post.data.title} thumbnail`}
+                className={s.thumbnail}
+                {...thumbnailEntrance}
+              />
             )}
-            <Flex align="center" justify="space-between" className={s.meta}>
-              <Flex align="center" gap={20}>
-                <Flex align="center" gap={6}>
-                  <Calendar className={s.meta_icon} />
-                  <Text className={s.meta_text}>{formattedDate}</Text>
-                </Flex>
-                <Flex align="center" gap={6}>
-                  <Clock className={s.meta_icon} />
-                  <Text className={s.meta_text}>3분 소요</Text>
-                </Flex>
-              </Flex>
-              <Flex gap={8}>
-                {post.data.tags.map((tag) => (
-                  <Tag key={tag}>{tag}</Tag>
-                ))}
-              </Flex>
-            </Flex>
-          </motion.div>
 
-          {/* 썸네일 */}
-          {post.data.thumbnail && (
-            <motion.img
-              src={post.data.thumbnail}
-              alt={`${post.data.title} thumbnail`}
-              className={s.thumbnail}
-              {...thumbnailEntrance}
+            {/* 본문 */}
+            <motion.section
+              ref={contentRef}
+              className={s.content}
+              {...contentEntrance}
+            >
+              <MarkdownContent content={post.data.content || ""} />
+            </motion.section>
+
+            <Divider />
+
+            <Giscus style={{ width: "100%" }} />
+          </article>
+
+          <aside className={s.toc_wrapper}>
+            <TableOfContents
+              contentRef={contentRef}
+              content={post.data.content || ""}
             />
-          )}
-
-          {/* 본문 */}
-          <motion.section className={s.content} {...contentEntrance}>
-            <MarkdownContent content={post.data.content || ""} />
-          </motion.section>
-
-          <Divider />
-
-          <Giscus style={{ width: "100%" }} />
-        </article>
+          </aside>
+        </div>
       </BaseLayout>
     </>
   );
