@@ -1,2 +1,2 @@
-export { LazyLoad } from './LazyLoad'
-export type { LazyLoadProps } from './LazyLoad'
+export type { LazyLoadProps } from "./LazyLoad";
+export { LazyLoad } from "./LazyLoad";

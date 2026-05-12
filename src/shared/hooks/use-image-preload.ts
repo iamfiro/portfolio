@@ -38,7 +38,10 @@ export function useImagePreload(): ImagePreloadState {
       }
 
       let loadedCount = alreadyLoaded;
-      setState({ progress: Math.round((loadedCount / total) * 100), loaded: false });
+      setState({
+        progress: Math.round((loadedCount / total) * 100),
+        loaded: false,
+      });
 
       const pendingImages = images.filter((img) => !img.complete);
 

@@ -4,7 +4,12 @@ import { useEffect, useRef } from "react";
  * 브라우저 탭 title에 타이핑/지우기 애니메이션을 적용하는 훅
  * 페이지 포커스를 잃으면 애니메이션을 멈추고, 복귀 시 원래 title로 복구 후 재시작
  */
-export function useTypingTitle(text: string, typingSpeed = 150, deleteSpeed = 100, pauseDuration = 500) {
+export function useTypingTitle(
+  text: string,
+  typingSpeed = 150,
+  deleteSpeed = 100,
+  pauseDuration = 500,
+) {
   const frameRef = useRef<number | null>(null);
 
   useEffect(() => {

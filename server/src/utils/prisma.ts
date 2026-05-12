@@ -1,8 +1,8 @@
-import { join, dirname } from "path";
+import { PrismaBetterSqlite3 } from "@prisma/adapter-better-sqlite3";
+import { dirname, join } from "path";
 import { fileURLToPath } from "url";
 
 import { PrismaClient } from "../generated/prisma/client.js";
-import { PrismaBetterSqlite3 } from "@prisma/adapter-better-sqlite3";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 // server/src/utils/ → ../../dev.db → server/dev.db (absolute, CWD-independent)

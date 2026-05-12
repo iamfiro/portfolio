@@ -1,11 +1,13 @@
-import type { StyleProps } from '@/shared/types/component-common'
-import { cn } from '../_utils'
-import styles from './Audio.module.scss'
+import type { StyleProps } from "@/shared/types/component-common";
+
+import { cn } from "../_utils";
+
+import styles from "./Audio.module.scss";
 
 type AudioProps = {
-  src: string
-} & StyleProps
-  & Omit<React.AudioHTMLAttributes<HTMLAudioElement>, 'src'>
+  src: string;
+} & StyleProps &
+  Omit<React.AudioHTMLAttributes<HTMLAudioElement>, "src">;
 
 function Audio({ src, className, style, ...rest }: AudioProps) {
   return (
@@ -16,8 +18,8 @@ function Audio({ src, className, style, ...rest }: AudioProps) {
       controls
       {...rest}
     />
-  )
+  );
 }
 
-export { Audio }
-export type { AudioProps }
+export { Audio };
+export type { AudioProps };

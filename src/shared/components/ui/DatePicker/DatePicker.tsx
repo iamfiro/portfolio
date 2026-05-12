@@ -1,17 +1,19 @@
-import type { LayoutProps, StyleProps } from '@/shared/types/component-common'
-import { cn, buildLayoutStyle } from '../_utils'
-import styles from './DatePicker.module.scss'
+import type { LayoutProps, StyleProps } from "@/shared/types/component-common";
+
+import { buildLayoutStyle, cn } from "../_utils";
+
+import styles from "./DatePicker.module.scss";
 
 type DatePickerProps = {
-  size?: 'sm' | 'md' | 'lg'
-  error?: boolean
-  fullWidth?: boolean
-} & StyleProps
-  & Pick<LayoutProps, 'width' | 'maxWidth'>
-  & Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type' | 'size'>
+  size?: "sm" | "md" | "lg";
+  error?: boolean;
+  fullWidth?: boolean;
+} & StyleProps &
+  Pick<LayoutProps, "width" | "maxWidth"> &
+  Omit<React.InputHTMLAttributes<HTMLInputElement>, "type" | "size">;
 
 function DatePicker({
-  size = 'md',
+  size = "md",
   error = false,
   fullWidth = false,
   className,
@@ -33,8 +35,8 @@ function DatePicker({
       style={{ ...buildLayoutStyle({ width, maxWidth }), ...style }}
       {...rest}
     />
-  )
+  );
 }
 
-export { DatePicker }
-export type { DatePickerProps }
+export { DatePicker };
+export type { DatePickerProps };

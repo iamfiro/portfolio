@@ -32,5 +32,3 @@ export function useBlogFilter({ posts }: UseBlogFilterProps) {
     clearAllFilters,
   };
 }
-
-

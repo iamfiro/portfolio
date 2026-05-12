@@ -1,22 +1,24 @@
-import type { StyleProps } from '@/shared/types/component-common'
-import { cn } from '../_utils'
-import styles from './DataGrid.module.scss'
+import type { StyleProps } from "@/shared/types/component-common";
+
+import { cn } from "../_utils";
+
+import styles from "./DataGrid.module.scss";
 
 type Column<T> = {
-  key: string
-  header: string
-  width?: string | number
-  render?: (row: T) => React.ReactNode
-}
+  key: string;
+  header: string;
+  width?: string | number;
+  render?: (row: T) => React.ReactNode;
+};
 
 type DataGridProps<T> = {
-  columns: Column<T>[]
-  data: T[]
-  keyExtractor: (row: T) => string
-  striped?: boolean
-  hoverable?: boolean
-  emptyMessage?: string
-} & StyleProps
+  columns: Column<T>[];
+  data: T[];
+  keyExtractor: (row: T) => string;
+  striped?: boolean;
+  hoverable?: boolean;
+  emptyMessage?: string;
+} & StyleProps;
 
 function DataGrid<T>({
   columns,
@@ -24,17 +26,27 @@ function DataGrid<T>({
   keyExtractor,
   striped = false,
   hoverable = true,
-  emptyMessage = 'No data',
+  emptyMessage = "No data",
   className,
   style,
 }: DataGridProps<T>) {
   return (
     <div className={cn(styles.wrapper, className)} style={style}>
-      <table className={cn(styles.table, striped && styles.striped, hoverable && styles.hoverable)}>
+      <table
+        className={cn(
+          styles.table,
+          striped && styles.striped,
+          hoverable && styles.hoverable,
+        )}
+      >
         <thead>
           <tr>
             {columns.map((col) => (
-              <th key={col.key} className={styles.th} style={{ width: col.width }}>
+              <th
+                key={col.key}
+                className={styles.th}
+                style={{ width: col.width }}
+              >
                 {col.header}
               </th>
             ))}
@@ -54,7 +66,7 @@ function DataGrid<T>({
                   <td key={col.key} className={styles.td}>
                     {col.render
                       ? col.render(row)
-                      : String((row as Record<string, unknown>)[col.key] ?? '')}
+                      : String((row as Record<string, unknown>)[col.key] ?? "")}
                   </td>
                 ))}
               </tr>
@@ -63,8 +75,8 @@ function DataGrid<T>({
         </tbody>
       </table>
     </div>
-  )
+  );
 }
 
-export { DataGrid }
-export type { DataGridProps, Column }
+export { DataGrid };
+export type { Column, DataGridProps };

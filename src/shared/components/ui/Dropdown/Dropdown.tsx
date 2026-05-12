@@ -1,40 +1,43 @@
-import { useState, useRef, useEffect } from 'react'
-import type { StyleProps } from '@/shared/types/component-common'
-import { cn } from '../_utils'
-import styles from './Dropdown.module.scss'
+import { useEffect, useRef, useState } from "react";
+
+import type { StyleProps } from "@/shared/types/component-common";
+
+import { cn } from "../_utils";
+
+import styles from "./Dropdown.module.scss";
 
 type DropdownItemData = {
-  label: string
-  icon?: React.ReactNode
-  disabled?: boolean
-  onClick?: () => void
-}
+  label: string;
+  icon?: React.ReactNode;
+  disabled?: boolean;
+  onClick?: () => void;
+};
 
 type DropdownProps = {
-  trigger: React.ReactNode
-  items: DropdownItemData[]
-  align?: 'left' | 'right'
-} & StyleProps
+  trigger: React.ReactNode;
+  items: DropdownItemData[];
+  align?: "left" | "right";
+} & StyleProps;
 
 function Dropdown({
   trigger,
   items,
-  align = 'left',
+  align = "left",
   className,
   style,
 }: DropdownProps) {
-  const [open, setOpen] = useState(false)
-  const ref = useRef<HTMLDivElement>(null)
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
       if (ref.current && !ref.current.contains(e.target as Node)) {
-        setOpen(false)
+        setOpen(false);
       }
     }
-    if (open) document.addEventListener('mousedown', handleClickOutside)
-    return () => document.removeEventListener('mousedown', handleClickOutside)
-  }, [open])
+    if (open) document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [open]);
 
   return (
     <div ref={ref} className={cn(styles.dropdown, className)} style={style}>
@@ -45,12 +48,17 @@ function Dropdown({
             <li key={i} role="none">
               <button
                 className={styles.item}
-                onClick={() => { item.onClick?.(); setOpen(false) }}
+                onClick={() => {
+                  item.onClick?.();
+                  setOpen(false);
+                }}
                 disabled={item.disabled}
                 type="button"
                 role="menuitem"
               >
-                {item.icon ? <span className={styles.icon}>{item.icon}</span> : null}
+                {item.icon ? (
+                  <span className={styles.icon}>{item.icon}</span>
+                ) : null}
                 {item.label}
               </button>
             </li>
@@ -58,8 +66,8 @@ function Dropdown({
         </ul>
       ) : null}
     </div>
-  )
+  );
 }
 
-export { Dropdown }
-export type { DropdownProps, DropdownItemData }
+export { Dropdown };
+export type { DropdownItemData, DropdownProps };

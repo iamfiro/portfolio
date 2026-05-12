@@ -1,28 +1,31 @@
-import { createContext, useContext, useState } from 'react'
-import type { StyleProps } from '@/shared/types/component-common'
-import { cn } from '../_utils'
-import styles from './Tabs.module.scss'
+import { createContext, useContext, useState } from "react";
+
+import type { StyleProps } from "@/shared/types/component-common";
+
+import { cn } from "../_utils";
+
+import styles from "./Tabs.module.scss";
 
 type TabsContextValue = {
-  activeTab: string
-  setActiveTab: (id: string) => void
-}
+  activeTab: string;
+  setActiveTab: (id: string) => void;
+};
 
 const EMPTY_CONTEXT: TabsContextValue = {
-  activeTab: '',
+  activeTab: "",
   setActiveTab: () => {},
-}
+};
 
-const TabsContext = createContext<TabsContextValue>(EMPTY_CONTEXT)
+const TabsContext = createContext<TabsContextValue>(EMPTY_CONTEXT);
 
 type TabsProps = {
-  defaultTab: string
-  children?: React.ReactNode
-} & StyleProps
-  & React.HTMLAttributes<HTMLDivElement>
+  defaultTab: string;
+  children?: React.ReactNode;
+} & StyleProps &
+  React.HTMLAttributes<HTMLDivElement>;
 
 function Tabs({ defaultTab, className, style, children, ...rest }: TabsProps) {
-  const [activeTab, setActiveTab] = useState(defaultTab)
+  const [activeTab, setActiveTab] = useState(defaultTab);
 
   return (
     <TabsContext.Provider value={{ activeTab, setActiveTab }}>
@@ -30,29 +33,29 @@ function Tabs({ defaultTab, className, style, children, ...rest }: TabsProps) {
         {children}
       </div>
     </TabsContext.Provider>
-  )
+  );
 }
 
 type TabListProps = {
-  children?: React.ReactNode
-} & StyleProps
+  children?: React.ReactNode;
+} & StyleProps;
 
 function TabList({ className, style, children }: TabListProps) {
   return (
     <div className={cn(styles.tabList, className)} style={style} role="tablist">
       {children}
     </div>
-  )
+  );
 }
 
 type TabProps = {
-  id: string
-  children?: React.ReactNode
-} & StyleProps
+  id: string;
+  children?: React.ReactNode;
+} & StyleProps;
 
 function Tab({ id, className, style, children }: TabProps) {
-  const { activeTab, setActiveTab } = useContext(TabsContext)
-  const isActive = activeTab === id
+  const { activeTab, setActiveTab } = useContext(TabsContext);
+  const isActive = activeTab === id;
 
   return (
     <button
@@ -65,25 +68,25 @@ function Tab({ id, className, style, children }: TabProps) {
     >
       {children}
     </button>
-  )
+  );
 }
 
 type TabPanelProps = {
-  id: string
-  children?: React.ReactNode
-} & StyleProps
+  id: string;
+  children?: React.ReactNode;
+} & StyleProps;
 
 function TabPanel({ id, className, style, children }: TabPanelProps) {
-  const { activeTab } = useContext(TabsContext)
+  const { activeTab } = useContext(TabsContext);
 
-  if (activeTab !== id) return null
+  if (activeTab !== id) return null;
 
   return (
     <div className={cn(styles.panel, className)} style={style} role="tabpanel">
       {children}
     </div>
-  )
+  );
 }
 
-export { Tabs, TabList, Tab, TabPanel }
-export type { TabsProps, TabListProps, TabProps, TabPanelProps }
+export { Tab, TabList, TabPanel, Tabs };
+export type { TabListProps, TabPanelProps, TabProps, TabsProps };

@@ -1,12 +1,14 @@
-import type { StyleProps } from '@/shared/types/component-common'
-import { cn } from '../_utils'
-import styles from './JsonDisplay.module.scss'
+import type { StyleProps } from "@/shared/types/component-common";
+
+import { cn } from "../_utils";
+
+import styles from "./JsonDisplay.module.scss";
 
 type JsonDisplayProps = {
-  data: unknown
-  indent?: number
-} & StyleProps
-  & React.HTMLAttributes<HTMLPreElement>
+  data: unknown;
+  indent?: number;
+} & StyleProps &
+  React.HTMLAttributes<HTMLPreElement>;
 
 function JsonDisplay({
   data,
@@ -15,19 +17,19 @@ function JsonDisplay({
   style,
   ...rest
 }: JsonDisplayProps) {
-  let formatted: string
+  let formatted: string;
   try {
-    formatted = JSON.stringify(data, null, indent)
+    formatted = JSON.stringify(data, null, indent);
   } catch {
-    formatted = String(data)
+    formatted = String(data);
   }
 
   return (
     <pre className={cn(styles.json, className)} style={style} {...rest}>
       <code>{formatted}</code>
     </pre>
-  )
+  );
 }
 
-export { JsonDisplay }
-export type { JsonDisplayProps }
+export { JsonDisplay };
+export type { JsonDisplayProps };

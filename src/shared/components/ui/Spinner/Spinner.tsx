@@ -1,18 +1,15 @@
-import type { StyleProps } from '@/shared/types/component-common'
-import { cn } from '../_utils'
-import styles from './Spinner.module.scss'
+import type { StyleProps } from "@/shared/types/component-common";
+
+import { cn } from "../_utils";
+
+import styles from "./Spinner.module.scss";
 
 type SpinnerProps = {
-  size?: 'sm' | 'md' | 'lg'
-  color?: string
-} & StyleProps
+  size?: "sm" | "md" | "lg";
+  color?: string;
+} & StyleProps;
 
-function Spinner({
-  size = 'md',
-  color,
-  className,
-  style,
-}: SpinnerProps) {
+function Spinner({ size = "md", color, className, style }: SpinnerProps) {
   return (
     <span
       className={cn(styles.spinner, styles[size], className)}
@@ -20,8 +17,8 @@ function Spinner({
       role="status"
       aria-label="Loading"
     />
-  )
+  );
 }
 
-export { Spinner }
-export type { SpinnerProps }
+export { Spinner };
+export type { SpinnerProps };

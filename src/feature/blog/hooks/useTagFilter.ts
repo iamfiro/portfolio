@@ -1,4 +1,5 @@
-import { useState, useMemo } from "react";
+import { useMemo, useState } from "react";
+
 import { Post } from "@/feature/blog/schema";
 
 interface UseTagFilterProps {
@@ -23,16 +24,14 @@ export function useTagFilter({ posts }: UseTagFilterProps) {
       return posts;
     }
     return posts.filter((post) =>
-      selectedTags.every((tag) => post.tags.includes(tag))
+      selectedTags.every((tag) => post.tags.includes(tag)),
     );
   }, [posts, selectedTags]);
 
   // 태그 토글 함수
   const toggleTag = (tag: string) => {
     setSelectedTags((prev) =>
-      prev.includes(tag)
-        ? prev.filter((t) => t !== tag)
-        : [...prev, tag]
+      prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag],
     );
   };
 
@@ -59,5 +58,3 @@ export function useTagFilter({ posts }: UseTagFilterProps) {
     isTagSelected,
   };
 }
-
-

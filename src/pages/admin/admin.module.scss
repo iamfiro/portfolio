@@ -1,0 +1,15 @@
+.container {
+  min-height: 100vh;
+  padding: $spacing-24;
+  background-color: $surface;
+}
+
+.authenticated {
+  padding: 0;
+}
+
+.loginSection {
+  max-width: 520px;
+  margin: 0 auto;
+  padding-top: $spacing-100;
+}

@@ -1,23 +1,30 @@
-import type { StyleProps } from '@/shared/types/component-common'
-import { cn } from '../_utils'
-import styles from './Menu.module.scss'
+import type { StyleProps } from "@/shared/types/component-common";
+
+import { cn } from "../_utils";
+
+import styles from "./Menu.module.scss";
 
 type MenuItemData = {
-  label: string
-  icon?: React.ReactNode
-  disabled?: boolean
-  danger?: boolean
-  onClick?: () => void
-}
+  label: string;
+  icon?: React.ReactNode;
+  disabled?: boolean;
+  danger?: boolean;
+  onClick?: () => void;
+};
 
 type MenuProps = {
-  items: MenuItemData[]
-} & StyleProps
-  & React.HTMLAttributes<HTMLUListElement>
+  items: MenuItemData[];
+} & StyleProps &
+  React.HTMLAttributes<HTMLUListElement>;
 
 function Menu({ items, className, style, ...rest }: MenuProps) {
   return (
-    <ul className={cn(styles.menu, className)} style={style} role="menu" {...rest}>
+    <ul
+      className={cn(styles.menu, className)}
+      style={style}
+      role="menu"
+      {...rest}
+    >
       {items.map((item, i) => (
         <li key={i} role="none">
           <button
@@ -27,14 +34,16 @@ function Menu({ items, className, style, ...rest }: MenuProps) {
             type="button"
             role="menuitem"
           >
-            {item.icon ? <span className={styles.icon}>{item.icon}</span> : null}
+            {item.icon ? (
+              <span className={styles.icon}>{item.icon}</span>
+            ) : null}
             {item.label}
           </button>
         </li>
       ))}
     </ul>
-  )
+  );
 }
 
-export { Menu }
-export type { MenuProps, MenuItemData }
+export { Menu };
+export type { MenuItemData, MenuProps };

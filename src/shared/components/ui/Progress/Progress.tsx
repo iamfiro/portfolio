@@ -1,25 +1,27 @@
-import type { StyleProps } from '@/shared/types/component-common'
-import { cn } from '../_utils'
-import styles from './Progress.module.scss'
+import type { StyleProps } from "@/shared/types/component-common";
+
+import { cn } from "../_utils";
+
+import styles from "./Progress.module.scss";
 
 type ProgressProps = {
-  value: number
-  max?: number
-  size?: 'sm' | 'md' | 'lg'
-  showLabel?: boolean
-  color?: string
-} & StyleProps
+  value: number;
+  max?: number;
+  size?: "sm" | "md" | "lg";
+  showLabel?: boolean;
+  color?: string;
+} & StyleProps;
 
 function Progress({
   value,
   max = 100,
-  size = 'md',
+  size = "md",
   showLabel = false,
   color,
   className,
   style,
 }: ProgressProps) {
-  const percent = Math.min(100, Math.max(0, (value / max) * 100))
+  const percent = Math.min(100, Math.max(0, (value / max) * 100));
 
   return (
     <div className={cn(styles.progress, styles[size], className)} style={style}>
@@ -33,19 +35,21 @@ function Progress({
           aria-valuemax={max}
         />
       </div>
-      {showLabel ? <span className={styles.label}>{Math.round(percent)}%</span> : null}
+      {showLabel ? (
+        <span className={styles.label}>{Math.round(percent)}%</span>
+      ) : null}
     </div>
-  )
+  );
 }
 
 type ProgressCircleProps = {
-  value: number
-  max?: number
-  size?: number
-  strokeWidth?: number
-  showLabel?: boolean
-  color?: string
-} & StyleProps
+  value: number;
+  max?: number;
+  size?: number;
+  strokeWidth?: number;
+  showLabel?: boolean;
+  color?: string;
+} & StyleProps;
 
 function ProgressCircle({
   value,
@@ -57,14 +61,22 @@ function ProgressCircle({
   className,
   style,
 }: ProgressCircleProps) {
-  const percent = Math.min(100, Math.max(0, (value / max) * 100))
-  const radius = (size - strokeWidth) / 2
-  const circumference = 2 * Math.PI * radius
-  const offset = circumference - (percent / 100) * circumference
+  const percent = Math.min(100, Math.max(0, (value / max) * 100));
+  const radius = (size - strokeWidth) / 2;
+  const circumference = 2 * Math.PI * radius;
+  const offset = circumference - (percent / 100) * circumference;
 
   return (
-    <div className={cn(styles.circle, className)} style={{ width: size, height: size, ...style }}>
-      <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} aria-hidden="true">
+    <div
+      className={cn(styles.circle, className)}
+      style={{ width: size, height: size, ...style }}
+    >
+      <svg
+        width={size}
+        height={size}
+        viewBox={`0 0 ${size} ${size}`}
+        aria-hidden="true"
+      >
         <circle
           cx={size / 2}
           cy={size / 2}
@@ -92,8 +104,8 @@ function ProgressCircle({
         <span className={styles.circleLabel}>{Math.round(percent)}%</span>
       ) : null}
     </div>
-  )
+  );
 }
 
-export { Progress, ProgressCircle }
-export type { ProgressProps, ProgressCircleProps }
+export { Progress, ProgressCircle };
+export type { ProgressCircleProps, ProgressProps };

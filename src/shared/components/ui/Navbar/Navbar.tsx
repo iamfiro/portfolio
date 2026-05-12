@@ -1,12 +1,14 @@
-import type { StyleProps } from '@/shared/types/component-common'
-import { cn } from '../_utils'
-import styles from './Navbar.module.scss'
+import type { StyleProps } from "@/shared/types/component-common";
+
+import { cn } from "../_utils";
+
+import styles from "./Navbar.module.scss";
 
 type NavbarProps = {
-  sticky?: boolean
-  children?: React.ReactNode
-} & StyleProps
-  & React.HTMLAttributes<HTMLElement>
+  sticky?: boolean;
+  children?: React.ReactNode;
+} & StyleProps &
+  React.HTMLAttributes<HTMLElement>;
 
 function Navbar({
   sticky = false,
@@ -16,13 +18,15 @@ function Navbar({
   ...rest
 }: NavbarProps) {
   return (
-    <nav className={cn(styles.navbar, sticky && styles.sticky, className)} style={style} {...rest}>
-      <div className={styles.inner}>
-        {children}
-      </div>
+    <nav
+      className={cn(styles.navbar, sticky && styles.sticky, className)}
+      style={style}
+      {...rest}
+    >
+      <div className={styles.inner}>{children}</div>
     </nav>
-  )
+  );
 }
 
-export { Navbar }
-export type { NavbarProps }
+export { Navbar };
+export type { NavbarProps };

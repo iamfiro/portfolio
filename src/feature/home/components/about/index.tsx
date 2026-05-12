@@ -1,12 +1,6 @@
 import { motion } from "framer-motion";
 
-import {
-  Flex,
-  Heading,
-  Section,
-  Stack,
-  Text,
-} from "@/shared/components/ui";
+import { Flex, Heading, Section, Stack, Text } from "@/shared/components/ui";
 
 import s from "./style.module.scss";
 
@@ -71,9 +65,9 @@ export default function About() {
         >
           <Text as="p" size="lg" className={s.description}>
             UI/UX Engineering과 Design System 구축을 중심으로, Interactive Web
-            경험과 Performance Optimization에 깊은 관심을 두고 있습니다. 컴포넌트
-            설계부터 모션 디자인까지, 인터페이스의 모든 레이어를 아우르며 일관되고
-            정제된 사용자 경험을 만들어갑니다.
+            경험과 Performance Optimization에 깊은 관심을 두고 있습니다.
+            컴포넌트 설계부터 모션 디자인까지, 인터페이스의 모든 레이어를
+            아우르며 일관되고 정제된 사용자 경험을 만들어갑니다.
           </Text>
         </motion.div>
       </Flex>

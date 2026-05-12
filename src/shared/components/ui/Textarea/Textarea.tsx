@@ -1,20 +1,22 @@
-import type { LayoutProps, StyleProps } from '@/shared/types/component-common'
-import { cn, buildLayoutStyle } from '../_utils'
-import styles from './Textarea.module.scss'
+import type { LayoutProps, StyleProps } from "@/shared/types/component-common";
+
+import { buildLayoutStyle, cn } from "../_utils";
+
+import styles from "./Textarea.module.scss";
 
 type TextareaProps = {
-  size?: 'sm' | 'md' | 'lg'
-  error?: boolean
-  resize?: 'none' | 'vertical' | 'horizontal' | 'both'
-  fullWidth?: boolean
-} & StyleProps
-  & Pick<LayoutProps, 'width' | 'maxWidth'>
-  & React.TextareaHTMLAttributes<HTMLTextAreaElement>
+  size?: "sm" | "md" | "lg";
+  error?: boolean;
+  resize?: "none" | "vertical" | "horizontal" | "both";
+  fullWidth?: boolean;
+} & StyleProps &
+  Pick<LayoutProps, "width" | "maxWidth"> &
+  React.TextareaHTMLAttributes<HTMLTextAreaElement>;
 
 function Textarea({
-  size = 'md',
+  size = "md",
   error = false,
-  resize = 'vertical',
+  resize = "vertical",
   fullWidth = false,
   className,
   style,
@@ -34,8 +36,8 @@ function Textarea({
       style={{ resize, ...buildLayoutStyle({ width, maxWidth }), ...style }}
       {...rest}
     />
-  )
+  );
 }
 
-export { Textarea }
-export type { TextareaProps }
+export { Textarea };
+export type { TextareaProps };

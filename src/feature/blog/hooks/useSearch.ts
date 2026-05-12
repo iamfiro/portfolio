@@ -1,4 +1,5 @@
-import { useState, useMemo } from "react";
+import { useMemo, useState } from "react";
+
 import { Post } from "@/feature/blog/schema";
 
 interface UseSearchProps {
@@ -19,7 +20,7 @@ export function useSearch({ posts }: UseSearchProps) {
       const title = post.title.toLowerCase();
       const description = post.description.toLowerCase();
       const tags = post.tags.join(" ").toLowerCase();
-      
+
       return (
         title.includes(query) ||
         description.includes(query) ||
@@ -45,5 +46,3 @@ export function useSearch({ posts }: UseSearchProps) {
     clearQuery,
   };
 }
-
-

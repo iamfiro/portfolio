@@ -1,7 +1,6 @@
-import { useCallback } from "react";
 import { motion } from "framer-motion";
-
 import { ArrowUpRight } from "lucide-react";
+import { useCallback } from "react";
 
 import { Flex, Heading, Section, Stack, Text } from "@/shared/components/ui";
 
@@ -42,16 +41,35 @@ const BLOG_POSTS: BlogPost[] = [
   },
 ];
 
-function BlogCard({ title, description, date, url, index }: Omit<BlogPost, "id"> & { index: number }) {
+function BlogCard({
+  title,
+  description,
+  date,
+  url,
+  index,
+}: Omit<BlogPost, "id"> & { index: number }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.3 }}
-      transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1], delay: index * 0.1 }}
+      transition={{
+        duration: 0.8,
+        ease: [0.25, 0.1, 0.25, 1],
+        delay: index * 0.1,
+      }}
     >
-      <a href={url} className={s.card} target="_blank" rel="noopener noreferrer">
-        <Flex justify="space-between" align="flex-start" className={s.cardInner}>
+      <a
+        href={url}
+        className={s.card}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <Flex
+          justify="space-between"
+          align="flex-start"
+          className={s.cardInner}
+        >
           <Stack gap={4} className={s.cardContent}>
             <Heading as="h3" size="lg" className={s.cardTitle}>
               {title}

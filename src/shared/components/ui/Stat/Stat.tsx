@@ -1,15 +1,17 @@
-import type { StyleProps } from '@/shared/types/component-common'
-import { cn } from '../_utils'
-import styles from './Stat.module.scss'
+import type { StyleProps } from "@/shared/types/component-common";
+
+import { cn } from "../_utils";
+
+import styles from "./Stat.module.scss";
 
 type StatProps = {
-  label: string
-  value: string | number
-  helpText?: string
-  trend?: 'up' | 'down'
-  trendValue?: string
-} & StyleProps
-  & React.HTMLAttributes<HTMLDivElement>
+  label: string;
+  value: string | number;
+  helpText?: string;
+  trend?: "up" | "down";
+  trendValue?: string;
+} & StyleProps &
+  React.HTMLAttributes<HTMLDivElement>;
 
 function Stat({
   label,
@@ -29,15 +31,15 @@ function Stat({
         <span className={styles.help}>
           {trend ? (
             <span className={cn(styles.trend, styles[trend])}>
-              {trend === 'up' ? '↑' : '↓'} {trendValue}
+              {trend === "up" ? "↑" : "↓"} {trendValue}
             </span>
           ) : null}
           {helpText}
         </span>
       ) : null}
     </div>
-  )
+  );
 }
 
-export { Stat }
-export type { StatProps }
+export { Stat };
+export type { StatProps };

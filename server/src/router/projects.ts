@@ -1,7 +1,7 @@
 import { Hono } from "hono";
 
-import prisma from "../utils/prisma.js";
 import { getPost } from "../utils/post.js";
+import prisma from "../utils/prisma.js";
 
 const app = new Hono();
 
@@ -20,7 +20,10 @@ function parseRelatedPost(slug: string, fallbackTitle: string) {
 app.get("/", async (c) => {
   const projects = await prisma.project.findMany({
     orderBy: { startDate: "desc" },
-    include: { posts: { include: { post: true } } },
+    include: {
+      posts: { include: { post: true } },
+      award: { select: { id: true, title: true } },
+    },
   });
 
   const data = projects.map(({ posts, ...project }) => ({
@@ -41,7 +44,10 @@ app.get("/:id", async (c) => {
 
   const project = await prisma.project.findUnique({
     where: { id },
-    include: { posts: { include: { post: true } } },
+    include: {
+      posts: { include: { post: true } },
+      award: { select: { id: true, title: true } },
+    },
   });
 
   if (!project) {
@@ -78,7 +84,10 @@ app.post("/", async (c) => {
   });
 
   return c.json(
-    { ok: true, data: { ...project, techStack: JSON.parse(project.techStack) } },
+    {
+      ok: true,
+      data: { ...project, techStack: JSON.parse(project.techStack) },
+    },
     201,
   );
 });
@@ -110,9 +119,7 @@ app.put("/:id", async (c) => {
         body.githubUrl !== undefined ? body.githubUrl : existing.githubUrl,
       deployUrl:
         body.deployUrl !== undefined ? body.deployUrl : existing.deployUrl,
-      startDate: body.startDate
-        ? new Date(body.startDate)
-        : existing.startDate,
+      startDate: body.startDate ? new Date(body.startDate) : existing.startDate,
       endDate:
         body.endDate !== undefined
           ? body.endDate

@@ -1,17 +1,19 @@
-import type { LayoutProps, StyleProps } from '@/shared/types/component-common'
-import { cn, buildLayoutStyle } from '../_utils'
-import styles from './Slider.module.scss'
+import type { LayoutProps, StyleProps } from "@/shared/types/component-common";
+
+import { buildLayoutStyle, cn } from "../_utils";
+
+import styles from "./Slider.module.scss";
 
 type SliderProps = {
-  size?: 'sm' | 'md' | 'lg'
-  showValue?: boolean
-  fullWidth?: boolean
-} & StyleProps
-  & Pick<LayoutProps, 'width'>
-  & Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type' | 'size'>
+  size?: "sm" | "md" | "lg";
+  showValue?: boolean;
+  fullWidth?: boolean;
+} & StyleProps &
+  Pick<LayoutProps, "width"> &
+  Omit<React.InputHTMLAttributes<HTMLInputElement>, "type" | "size">;
 
 function Slider({
-  size = 'md',
+  size = "md",
   showValue = false,
   fullWidth = false,
   className,
@@ -22,14 +24,19 @@ function Slider({
 }: SliderProps) {
   return (
     <div
-      className={cn(styles.slider, styles[size], fullWidth && styles.fullWidth, className)}
+      className={cn(
+        styles.slider,
+        styles[size],
+        fullWidth && styles.fullWidth,
+        className,
+      )}
       style={{ ...buildLayoutStyle({ width }), ...style }}
     >
       <input type="range" className={styles.input} value={value} {...rest} />
       {showValue ? <span className={styles.value}>{value}</span> : null}
     </div>
-  )
+  );
 }
 
-export { Slider }
-export type { SliderProps }
+export { Slider };
+export type { SliderProps };

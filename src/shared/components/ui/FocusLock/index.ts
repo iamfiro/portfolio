@@ -1,2 +1,2 @@
-export { FocusLock } from './FocusLock'
-export type { FocusLockProps } from './FocusLock'
+export type { FocusLockProps } from "./FocusLock";
+export { FocusLock } from "./FocusLock";

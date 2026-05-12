@@ -30,6 +30,7 @@ Vercel 대시보드에서 다음 환경 변수를 설정하세요:
 
 - `ALLOWED_ORIGINS`: 허용할 오리진들 (쉼표로 구분)
   - 예: `https://devfiro.com,https://your-portfolio-domain.vercel.app`
+- `ADMIN_PASSWORD`: 관리자 로그인 검증 비밀번호
 - `NODE_ENV`: `production`
 
 ### 4. 로컬에서 Vercel 환경 테스트
@@ -43,6 +44,7 @@ npm run vercel-dev
 - `GET /` - API 상태 확인
 - `GET /blog/posts` - 모든 블로그 포스트 목록
 - `GET /blog/post/:title` - 특정 블로그 포스트 상세
+- `POST /admin/login` - 관리자 비밀번호 검증
 
 ## 프로젝트 구조
 

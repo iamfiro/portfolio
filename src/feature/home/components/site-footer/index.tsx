@@ -1,5 +1,6 @@
-import { Github, Linkedin, Instagram, Mail } from "lucide-react";
-import { Footer, Text, Link } from "@/shared/components/ui";
+import { Github, Instagram, Linkedin, Mail } from "lucide-react";
+
+import { Footer, Link, Text } from "@/shared/components/ui";
 import { LINK } from "@/shared/constants";
 
 import s from "./style.module.scss";

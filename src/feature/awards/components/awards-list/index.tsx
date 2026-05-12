@@ -1,5 +1,5 @@
-import { useCallback, useRef } from "react";
 import { motion } from "framer-motion";
+import { useCallback, useRef } from "react";
 
 import { Flex, Heading, Stack, Text } from "@/shared/components/ui";
 
@@ -38,8 +38,7 @@ const AWARDS: Award[] = [
     name: "선린톤 11th 은상",
     organization: "선린인터넷고등학교",
     year: 2025,
-    description:
-      "24시간 해커톤에서 팀 프로젝트를 통해 은상을 수상했습니다.",
+    description: "24시간 해커톤에서 팀 프로젝트를 통해 은상을 수상했습니다.",
     image: "https://picsum.photos/seed/award-3/600/400",
   },
   {
@@ -56,8 +55,7 @@ const AWARDS: Award[] = [
     name: "앱잼 27th 최우수상",
     organization: "선린인터넷고등학교",
     year: 2024,
-    description:
-      "교내 앱 개발 대회에서 최우수상을 수상했습니다.",
+    description: "교내 앱 개발 대회에서 최우수상을 수상했습니다.",
     image: "https://picsum.photos/seed/award-5/600/400",
   },
   {
@@ -65,8 +63,7 @@ const AWARDS: Award[] = [
     name: "선린톤 10th 금상",
     organization: "선린인터넷고등학교",
     year: 2024,
-    description:
-      "24시간 해커톤에서 팀 프로젝트를 통해 금상을 수상했습니다.",
+    description: "24시간 해커톤에서 팀 프로젝트를 통해 금상을 수상했습니다.",
     image: "https://picsum.photos/seed/award-6/600/400",
   },
   {
@@ -74,8 +71,7 @@ const AWARDS: Award[] = [
     name: "교내 천하제일코딩대회 은상",
     organization: "선린인터넷고등학교",
     year: 2024,
-    description:
-      "교내 알고리즘 대회에서 은상을 수상했습니다.",
+    description: "교내 알고리즘 대회에서 은상을 수상했습니다.",
     image: "https://picsum.photos/seed/award-7/600/400",
   },
 ];
@@ -143,7 +139,11 @@ export default function AwardsList() {
         key={award.id}
         initial={{ opacity: 0, y: 30, filter: "blur(6px)" }}
         animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-        transition={{ duration: 1.4, ease: [0.25, 0.1, 0.25, 1], delay: 0.5 + index * 0.12 }}
+        transition={{
+          duration: 1.4,
+          ease: [0.25, 0.1, 0.25, 1],
+          delay: 0.5 + index * 0.12,
+        }}
       >
         <Flex
           className={s.card}

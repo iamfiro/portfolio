@@ -1,2 +1,2 @@
-export { Accordion, AccordionItem } from './Accordion'
-export type { AccordionProps, AccordionItemProps } from './Accordion'
+export type { AccordionItemProps, AccordionProps } from "./Accordion";
+export { Accordion, AccordionItem } from "./Accordion";

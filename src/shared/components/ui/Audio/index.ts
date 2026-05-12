@@ -1,2 +1,2 @@
-export { Audio } from './Audio'
-export type { AudioProps } from './Audio'
+export type { AudioProps } from "./Audio";
+export { Audio } from "./Audio";

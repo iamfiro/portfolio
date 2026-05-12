@@ -1,17 +1,19 @@
-import type { StyleProps } from '@/shared/types/component-common'
-import { cn } from '../_utils'
-import styles from './Empty.module.scss'
+import type { StyleProps } from "@/shared/types/component-common";
+
+import { cn } from "../_utils";
+
+import styles from "./Empty.module.scss";
 
 type EmptyProps = {
-  title?: string
-  description?: string
-  icon?: React.ReactNode
-  action?: React.ReactNode
-} & StyleProps
-  & React.HTMLAttributes<HTMLDivElement>
+  title?: string;
+  description?: string;
+  icon?: React.ReactNode;
+  action?: React.ReactNode;
+} & StyleProps &
+  React.HTMLAttributes<HTMLDivElement>;
 
 function Empty({
-  title = 'No data',
+  title = "No data",
   description,
   icon,
   action,
@@ -26,8 +28,8 @@ function Empty({
       {description ? <p className={styles.description}>{description}</p> : null}
       {action ? <div className={styles.action}>{action}</div> : null}
     </div>
-  )
+  );
 }
 
-export { Empty }
-export type { EmptyProps }
+export { Empty };
+export type { EmptyProps };

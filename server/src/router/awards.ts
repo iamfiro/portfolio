@@ -8,6 +8,14 @@ const app = new Hono();
 app.get("/", async (c) => {
   const awards = await prisma.award.findMany({
     orderBy: { date: "desc" },
+    include: {
+      project: {
+        select: {
+          id: true,
+          title: true,
+        },
+      },
+    },
   });
 
   return c.json({ ok: true, data: awards });
@@ -17,7 +25,17 @@ app.get("/", async (c) => {
 app.get("/:id", async (c) => {
   const id = c.req.param("id");
 
-  const award = await prisma.award.findUnique({ where: { id } });
+  const award = await prisma.award.findUnique({
+    where: { id },
+    include: {
+      project: {
+        select: {
+          id: true,
+          title: true,
+        },
+      },
+    },
+  });
 
   if (!award) {
     return c.json({ ok: false, message: "Award not found" }, 404);
@@ -30,6 +48,28 @@ app.get("/:id", async (c) => {
 app.post("/", async (c) => {
   const body = await c.req.json();
 
+  if (body.projectId) {
+    const existingProject = await prisma.project.findUnique({
+      where: { id: body.projectId },
+    });
+
+    if (!existingProject) {
+      return c.json({ ok: false, message: "Project not found" }, 404);
+    }
+
+    const alreadyLinkedAward = await prisma.award.findFirst({
+      where: { projectId: body.projectId },
+      select: { id: true },
+    });
+
+    if (alreadyLinkedAward) {
+      return c.json(
+        { ok: false, message: "This project is already linked to another award" },
+        409,
+      );
+    }
+  }
+
   const award = await prisma.award.create({
     data: {
       title: body.title,
@@ -37,6 +77,15 @@ app.post("/", async (c) => {
       date: new Date(body.date),
       description: body.description ?? null,
       imageUrl: body.imageUrl ?? null,
+      projectId: body.projectId ?? null,
+    },
+    include: {
+      project: {
+        select: {
+          id: true,
+          title: true,
+        },
+      },
     },
   });
 
@@ -54,6 +103,28 @@ app.put("/:id", async (c) => {
     return c.json({ ok: false, message: "Award not found" }, 404);
   }
 
+  if (body.projectId) {
+    const existingProject = await prisma.project.findUnique({
+      where: { id: body.projectId },
+    });
+
+    if (!existingProject) {
+      return c.json({ ok: false, message: "Project not found" }, 404);
+    }
+
+    const alreadyLinkedAward = await prisma.award.findFirst({
+      where: { projectId: body.projectId },
+      select: { id: true },
+    });
+
+    if (alreadyLinkedAward && alreadyLinkedAward.id !== id) {
+      return c.json(
+        { ok: false, message: "This project is already linked to another award" },
+        409,
+      );
+    }
+  }
+
   const award = await prisma.award.update({
     where: { id },
     data: {
@@ -64,8 +135,16 @@ app.put("/:id", async (c) => {
         body.description !== undefined
           ? body.description
           : existing.description,
-      imageUrl:
-        body.imageUrl !== undefined ? body.imageUrl : existing.imageUrl,
+      imageUrl: body.imageUrl !== undefined ? body.imageUrl : existing.imageUrl,
+      projectId: body.projectId !== undefined ? body.projectId : existing.projectId,
+    },
+    include: {
+      project: {
+        select: {
+          id: true,
+          title: true,
+        },
+      },
     },
   });
 

@@ -1,23 +1,26 @@
-import { useEffect } from 'react'
-import { createPortal } from 'react-dom'
-import type { StyleProps } from '@/shared/types/component-common'
-import { cn } from '../_utils'
-import { FocusLock } from '../FocusLock/FocusLock.tsx'
-import styles from './Drawer.module.scss'
+import { useEffect } from "react";
+import { createPortal } from "react-dom";
+
+import type { StyleProps } from "@/shared/types/component-common";
+
+import { cn } from "../_utils";
+import { FocusLock } from "../FocusLock/FocusLock.tsx";
+
+import styles from "./Drawer.module.scss";
 
 type DrawerProps = {
-  open: boolean
-  onClose: () => void
-  side?: 'left' | 'right'
-  width?: number | string
-  title?: string
-  children?: React.ReactNode
-} & StyleProps
+  open: boolean;
+  onClose: () => void;
+  side?: "left" | "right";
+  width?: number | string;
+  title?: string;
+  children?: React.ReactNode;
+} & StyleProps;
 
 function Drawer({
   open,
   onClose,
-  side = 'right',
+  side = "right",
   width = 360,
   title,
   className,
@@ -25,21 +28,21 @@ function Drawer({
   children,
 }: DrawerProps) {
   useEffect(() => {
-    if (!open) return
-    const prev = document.body.style.overflow
-    document.body.style.overflow = 'hidden'
+    if (!open) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
 
     function handleEsc(e: KeyboardEvent) {
-      if (e.key === 'Escape') onClose()
+      if (e.key === "Escape") onClose();
     }
-    document.addEventListener('keydown', handleEsc)
+    document.addEventListener("keydown", handleEsc);
     return () => {
-      document.body.style.overflow = prev
-      document.removeEventListener('keydown', handleEsc)
-    }
-  }, [open, onClose])
+      document.body.style.overflow = prev;
+      document.removeEventListener("keydown", handleEsc);
+    };
+  }, [open, onClose]);
 
-  if (!open) return null
+  if (!open) return null;
 
   return createPortal(
     <div className={styles.backdrop} onClick={onClose}>
@@ -54,9 +57,25 @@ function Drawer({
           {title ? (
             <div className={styles.header}>
               <h2 className={styles.title}>{title}</h2>
-              <button className={styles.close} onClick={onClose} type="button" aria-label="Close">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M18 6L6 18" /><path d="M6 6l12 12" />
+              <button
+                className={styles.close}
+                onClick={onClose}
+                type="button"
+                aria-label="Close"
+              >
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M18 6L6 18" />
+                  <path d="M6 6l12 12" />
                 </svg>
               </button>
             </div>
@@ -66,8 +85,8 @@ function Drawer({
       </FocusLock>
     </div>,
     document.body,
-  )
+  );
 }
 
-export { Drawer }
-export type { DrawerProps }
+export { Drawer };
+export type { DrawerProps };

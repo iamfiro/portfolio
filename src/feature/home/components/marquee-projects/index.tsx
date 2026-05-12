@@ -1,5 +1,11 @@
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 
 import { usePageTransition } from "@/shared/components/layouts/page-transition/page-transition.context";
 import { Image, Text } from "@/shared/components/ui";
@@ -33,27 +39,32 @@ const MARQUEE_PROJECTS: MarqueeProjectItem[] = [
   {
     id: 1,
     name: "Molio",
-    thumbnail: "https://assets.awwwards.com/awards/media/cache/thumb_880_660/submissions/2026/04/69f0fb6148948136033388.jpg",
+    thumbnail:
+      "https://assets.awwwards.com/awards/media/cache/thumb_880_660/submissions/2026/04/69f0fb6148948136033388.jpg",
   },
   {
     id: 2,
     name: "SuperBrugsen",
-    thumbnail: "https://assets.awwwards.com/awards/media/cache/thumb_880_660/submissions/2026/04/69f03e17c2e6f377520226.jpg",
+    thumbnail:
+      "https://assets.awwwards.com/awards/media/cache/thumb_880_660/submissions/2026/04/69f03e17c2e6f377520226.jpg",
   },
   {
     id: 3,
     name: "CityFlow",
-    thumbnail: "https://assets.awwwards.com/awards/media/cache/thumb_880_660/submissions/2026/04/69ebceb5656ee219540044.jpg",
+    thumbnail:
+      "https://assets.awwwards.com/awards/media/cache/thumb_880_660/submissions/2026/04/69ebceb5656ee219540044.jpg",
   },
   {
     id: 4,
     name: "EduVerse",
-    thumbnail: "https://assets.awwwards.com/awards/media/cache/thumb_880_660/submissions/2026/04/69ed8a35632a5185570520.jpg",
+    thumbnail:
+      "https://assets.awwwards.com/awards/media/cache/thumb_880_660/submissions/2026/04/69ed8a35632a5185570520.jpg",
   },
   {
     id: 5,
     name: "MediSync",
-    thumbnail: "https://assets.awwwards.com/awards/media/cache/thumb_880_660/submissions/2026/04/69ed073304037316077927.png",
+    thumbnail:
+      "https://assets.awwwards.com/awards/media/cache/thumb_880_660/submissions/2026/04/69ed073304037316077927.png",
   },
 ];
 
@@ -64,7 +75,12 @@ interface ProjectCardProps {
   ready?: boolean;
 }
 
-function ProjectCard({ project, index = 0, animate = false, ready = true }: ProjectCardProps) {
+function ProjectCard({
+  project,
+  index = 0,
+  animate = false,
+  ready = true,
+}: ProjectCardProps) {
   const height = getHeight(project.id);
 
   const card = (
@@ -78,9 +94,7 @@ function ProjectCard({ project, index = 0, animate = false, ready = true }: Proj
         />
       </div>
 
-      <Text className={s.cardName}>
-        [ {project.name} ]
-      </Text>
+      <Text className={s.cardName}>[ {project.name} ]</Text>
     </article>
   );
 
@@ -90,7 +104,11 @@ function ProjectCard({ project, index = 0, animate = false, ready = true }: Proj
     <motion.div
       initial={{ opacity: 0, y: 200, filter: "blur(8px)" }}
       animate={ready ? { opacity: 1, y: 0, filter: "blur(0px)" } : undefined}
-      transition={{ duration: 2, ease: [0.16, 1, 0.3, 1], delay: 0.3 + index * 0.06 }}
+      transition={{
+        duration: 2,
+        ease: [0.16, 1, 0.3, 1],
+        delay: 0.3 + index * 0.06,
+      }}
     >
       {card}
     </motion.div>
@@ -167,7 +185,8 @@ export default function MarqueeProjects() {
       const t = Math.min(speed / SCALE_Y_VELOCITY_MAX, 1);
       const targetScaleY = 1 - t * (1 - SCALE_Y_MIN);
 
-      scaleYRef.current += (targetScaleY - scaleYRef.current) * SCALE_Y_LERP_SPEED;
+      scaleYRef.current +=
+        (targetScaleY - scaleYRef.current) * SCALE_Y_LERP_SPEED;
 
       // 충분히 1에 가까우면 정확히 1로 스냅
       if (Math.abs(scaleYRef.current - 1) < 0.001) {
@@ -238,20 +257,17 @@ export default function MarqueeProjects() {
     inertiaRafRef.current = requestAnimationFrame(animate);
   }, [applyTransform, wrapOffset]);
 
-  const handleMouseDown = useCallback(
-    (e: React.MouseEvent<HTMLDivElement>) => {
-      if (e.button !== 0) return;
-      cancelAnimationFrame(inertiaRafRef.current);
-      velocityRef.current = 0;
+  const handleMouseDown = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.button !== 0) return;
+    cancelAnimationFrame(inertiaRafRef.current);
+    velocityRef.current = 0;
 
-      dragStartXRef.current = e.clientX;
-      lastDragXRef.current = e.clientX;
-      lastDragTimeRef.current = performance.now();
-      isDraggingRef.current = true;
-      setIsDragging(true);
-    },
-    [],
-  );
+    dragStartXRef.current = e.clientX;
+    lastDragXRef.current = e.clientX;
+    lastDragTimeRef.current = performance.now();
+    isDraggingRef.current = true;
+    setIsDragging(true);
+  }, []);
 
   const handleMouseMove = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
@@ -263,7 +279,7 @@ export default function MarqueeProjects() {
       const now = performance.now();
       const dt = now - lastDragTimeRef.current;
       if (dt > 0) {
-        velocityRef.current = (e.clientX - lastDragXRef.current) / dt * 16; // 프레임당 속도로 정규화
+        velocityRef.current = ((e.clientX - lastDragXRef.current) / dt) * 16; // 프레임당 속도로 정규화
       }
       lastDragXRef.current = e.clientX;
       lastDragTimeRef.current = now;
@@ -299,30 +315,62 @@ export default function MarqueeProjects() {
       onDragStart={(e) => e.preventDefault()}
       aria-label="Selected projects"
     >
-      <div ref={trackRef} className={s.track} style={{ gap: `${MARQUEE_GAP}px` }}>
+      <div
+        ref={trackRef}
+        className={s.track}
+        style={{ gap: `${MARQUEE_GAP}px` }}
+      >
         <div ref={firstSetRef} className={s.set} style={setStyle}>
           {MARQUEE_PROJECTS.map((project, index) => (
-            <ProjectCard key={project.id} project={project} index={index} animate ready={initialLoadDone} />
+            <ProjectCard
+              key={project.id}
+              project={project}
+              index={index}
+              animate
+              ready={initialLoadDone}
+            />
           ))}
         </div>
         <div className={s.set} style={setStyle} aria-hidden="true">
           {MARQUEE_PROJECTS.map((project, index) => (
-            <ProjectCard key={`clone1-${project.id}`} project={project} index={MARQUEE_PROJECTS.length + index} animate ready={initialLoadDone} />
+            <ProjectCard
+              key={`clone1-${project.id}`}
+              project={project}
+              index={MARQUEE_PROJECTS.length + index}
+              animate
+              ready={initialLoadDone}
+            />
           ))}
         </div>
         <div className={s.set} style={setStyle} aria-hidden="true">
           {MARQUEE_PROJECTS.map((project, index) => (
-            <ProjectCard key={`clone2-${project.id}`} project={project} index={MARQUEE_PROJECTS.length * 2 + index} animate ready={initialLoadDone} />
+            <ProjectCard
+              key={`clone2-${project.id}`}
+              project={project}
+              index={MARQUEE_PROJECTS.length * 2 + index}
+              animate
+              ready={initialLoadDone}
+            />
           ))}
         </div>
         <div className={s.set} style={setStyle} aria-hidden="true">
           {MARQUEE_PROJECTS.map((project, index) => (
-            <ProjectCard key={`clone1-${project.id}`} project={project} index={MARQUEE_PROJECTS.length + index} animate />
+            <ProjectCard
+              key={`clone1-${project.id}`}
+              project={project}
+              index={MARQUEE_PROJECTS.length + index}
+              animate
+            />
           ))}
         </div>
         <div className={s.set} style={setStyle} aria-hidden="true">
           {MARQUEE_PROJECTS.map((project, index) => (
-            <ProjectCard key={`clone2-${project.id}`} project={project} index={MARQUEE_PROJECTS.length * 2 + index} animate />
+            <ProjectCard
+              key={`clone2-${project.id}`}
+              project={project}
+              index={MARQUEE_PROJECTS.length * 2 + index}
+              animate
+            />
           ))}
         </div>
       </div>

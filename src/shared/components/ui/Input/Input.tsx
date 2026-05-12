@@ -1,19 +1,21 @@
-import type { LayoutProps, StyleProps } from '@/shared/types/component-common'
-import { cn, buildLayoutStyle } from '../_utils'
-import styles from './Input.module.scss'
+import type { LayoutProps, StyleProps } from "@/shared/types/component-common";
+
+import { buildLayoutStyle, cn } from "../_utils";
+
+import styles from "./Input.module.scss";
 
 type InputProps = {
-  size?: 'sm' | 'md' | 'lg'
-  error?: boolean
-  leftIcon?: React.ReactNode
-  rightIcon?: React.ReactNode
-  fullWidth?: boolean
-} & StyleProps
-  & Pick<LayoutProps, 'width' | 'maxWidth'>
-  & Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'>
+  size?: "sm" | "md" | "lg";
+  error?: boolean;
+  leftIcon?: React.ReactNode;
+  rightIcon?: React.ReactNode;
+  fullWidth?: boolean;
+} & StyleProps &
+  Pick<LayoutProps, "width" | "maxWidth"> &
+  Omit<React.InputHTMLAttributes<HTMLInputElement>, "size">;
 
 function Input({
-  size = 'md',
+  size = "md",
   error = false,
   leftIcon,
   rightIcon,
@@ -39,8 +41,8 @@ function Input({
       <input className={styles.input} {...rest} />
       {rightIcon ? <span className={styles.icon}>{rightIcon}</span> : null}
     </div>
-  )
+  );
 }
 
-export { Input }
-export type { InputProps }
+export { Input };
+export type { InputProps };

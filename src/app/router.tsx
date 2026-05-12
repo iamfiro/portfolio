@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 
 import {
+  Admin,
   Awards,
   Blog,
   BlogArticle,
@@ -20,6 +21,7 @@ const router = createBrowserRouter([
       { path: "/blog/:id", element: <BlogArticle /> },
       { path: "/projects", element: <Projects /> },
       { path: "/projects/:id", element: <ProjectDetail /> },
+      { path: "/admin", element: <Admin /> },
     ],
   },
 ]);

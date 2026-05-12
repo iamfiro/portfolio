@@ -1,13 +1,15 @@
-import type { StyleProps } from '@/shared/types/component-common'
-import { cn } from '../_utils'
-import styles from './Sidebar.module.scss'
+import type { StyleProps } from "@/shared/types/component-common";
+
+import { cn } from "../_utils";
+
+import styles from "./Sidebar.module.scss";
 
 type SidebarProps = {
-  width?: number
-  collapsed?: boolean
-  children?: React.ReactNode
-} & StyleProps
-  & React.HTMLAttributes<HTMLElement>
+  width?: number;
+  collapsed?: boolean;
+  children?: React.ReactNode;
+} & StyleProps &
+  React.HTMLAttributes<HTMLElement>;
 
 function Sidebar({
   width = 260,
@@ -25,8 +27,8 @@ function Sidebar({
     >
       {children}
     </aside>
-  )
+  );
 }
 
-export { Sidebar }
-export type { SidebarProps }
+export { Sidebar };
+export type { SidebarProps };

@@ -1,17 +1,19 @@
-import type { StyleProps } from '@/shared/types/component-common'
-import { cn } from '../_utils'
-import styles from './Skeleton.module.scss'
+import type { StyleProps } from "@/shared/types/component-common";
+
+import { cn } from "../_utils";
+
+import styles from "./Skeleton.module.scss";
 
 type SkeletonProps = {
-  width?: string | number
-  height?: string | number
-  variant?: 'text' | 'circular' | 'rectangular'
-} & StyleProps
+  width?: string | number;
+  height?: string | number;
+  variant?: "text" | "circular" | "rectangular";
+} & StyleProps;
 
 function Skeleton({
   width,
   height,
-  variant = 'text',
+  variant = "text",
   className,
   style,
 }: SkeletonProps) {
@@ -21,8 +23,8 @@ function Skeleton({
       style={{ width, height, ...style }}
       aria-hidden="true"
     />
-  )
+  );
 }
 
-export { Skeleton }
-export type { SkeletonProps }
+export { Skeleton };
+export type { SkeletonProps };

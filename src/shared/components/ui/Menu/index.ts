@@ -1,2 +1,2 @@
-export { Menu } from './Menu'
-export type { MenuProps, MenuItemData } from './Menu'
+export type { MenuItemData, MenuProps } from "./Menu";
+export { Menu } from "./Menu";

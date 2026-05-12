@@ -1,2 +1,2 @@
-export { InfiniteScroll } from './InfiniteScroll'
-export type { InfiniteScrollProps } from './InfiniteScroll'
+export type { InfiniteScrollProps } from "./InfiniteScroll";
+export { InfiniteScroll } from "./InfiniteScroll";

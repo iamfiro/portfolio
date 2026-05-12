@@ -1,7 +1,7 @@
 import { Hono } from "hono";
 
-import prisma from "../utils/prisma.js";
 import { getPost, getPosts } from "../utils/post.js";
+import prisma from "../utils/prisma.js";
 
 const app = new Hono();
 

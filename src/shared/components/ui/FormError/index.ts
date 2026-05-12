@@ -1,2 +1,2 @@
-export { FormError } from './FormError'
-export type { FormErrorProps } from './FormError'
+export type { FormErrorProps } from "./FormError";
+export { FormError } from "./FormError";

@@ -1,2 +1,2 @@
-export { FormHint } from './FormHint'
-export type { FormHintProps } from './FormHint'
+export type { FormHintProps } from "./FormHint";
+export { FormHint } from "./FormHint";

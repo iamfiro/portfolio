@@ -1,0 +1,15 @@
+.component {
+  width: 100%;
+  max-width: 460px;
+  margin: 0 auto;
+  padding: $spacing-24;
+
+  background-color: $surface-subtle;
+  border: 1px solid $border;
+  border-radius: $radius-16;
+  box-shadow: $shadow-md;
+}
+
+.errorMessage {
+  color: $text-danger-subtle;
+}

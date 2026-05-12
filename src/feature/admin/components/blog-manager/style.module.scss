@@ -1,0 +1,14 @@
+.component {
+  width: 100%;
+}
+
+.filterRow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 180px 140px;
+}
+
+@media (max-width: 900px) {
+  .filterRow {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
