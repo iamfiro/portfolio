@@ -64,7 +64,10 @@ app.post("/", async (c) => {
 
     if (alreadyLinkedAward) {
       return c.json(
-        { ok: false, message: "This project is already linked to another award" },
+        {
+          ok: false,
+          message: "This project is already linked to another award",
+        },
         409,
       );
     }
@@ -119,7 +122,10 @@ app.put("/:id", async (c) => {
 
     if (alreadyLinkedAward && alreadyLinkedAward.id !== id) {
       return c.json(
-        { ok: false, message: "This project is already linked to another award" },
+        {
+          ok: false,
+          message: "This project is already linked to another award",
+        },
         409,
       );
     }
@@ -136,7 +142,8 @@ app.put("/:id", async (c) => {
           ? body.description
           : existing.description,
       imageUrl: body.imageUrl !== undefined ? body.imageUrl : existing.imageUrl,
-      projectId: body.projectId !== undefined ? body.projectId : existing.projectId,
+      projectId:
+        body.projectId !== undefined ? body.projectId : existing.projectId,
     },
     include: {
       project: {

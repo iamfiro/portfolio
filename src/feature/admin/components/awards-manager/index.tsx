@@ -4,6 +4,7 @@ import { FormEvent, useMemo, useState } from "react";
 
 import { createAward, deleteAward, updateAward } from "@/feature/awards/api";
 import { Award, AwardMutationPayload } from "@/feature/awards/schema";
+import { Project } from "@/feature/projects/schema";
 import {
   Button,
   DataGrid,
@@ -12,6 +13,7 @@ import {
   Input,
   Label,
   Modal,
+  Select,
   Stack,
   Text,
   Textarea,
@@ -23,6 +25,7 @@ import s from "./style.module.scss";
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
   awards: Award[];
   isLoading: boolean;
+  projects: Project[];
 }
 
 interface AwardFormValue {
@@ -31,6 +34,7 @@ interface AwardFormValue {
   date: string;
   description: string;
   imageUrl: string;
+  projectId: string;
 }
 
 const INITIAL_FORM: AwardFormValue = {
@@ -39,11 +43,13 @@ const INITIAL_FORM: AwardFormValue = {
   date: "",
   description: "",
   imageUrl: "",
+  projectId: "",
 };
 
 export default function AwardsManager({
   awards,
   isLoading,
+  projects,
   className,
   ...props
 }: Props) {
@@ -119,6 +125,7 @@ export default function AwardsManager({
       date: award.date.split("T")[0] ?? "",
       description: award.description ?? "",
       imageUrl: award.imageUrl ?? "",
+      projectId: award.projectId ?? "",
     });
     setErrorMessage("");
     setIsModalOpen(true);
@@ -144,6 +151,7 @@ export default function AwardsManager({
       date: formValue.date,
       description: formValue.description.trim() || null,
       imageUrl: formValue.imageUrl.trim() || null,
+      projectId: formValue.projectId || null,
     };
 
     if (editingAward) {
@@ -167,6 +175,14 @@ export default function AwardsManager({
         width: 220,
         render: (award: Award) => (
           <Text color="subtle">{award.organization}</Text>
+        ),
+      },
+      {
+        key: "project",
+        header: "연결 프로젝트",
+        width: 220,
+        render: (award: Award) => (
+          <Text color="subtle">{award.project?.title ?? "미연결"}</Text>
         ),
       },
       {
@@ -213,7 +229,11 @@ export default function AwardsManager({
     <Stack className={componentClassName} gap={16} {...props}>
       <Flex justify="space-between" align="center">
         <Text color="subtle">총 {awards.length}개의 어워드</Text>
-        <Button leftIcon={<Plus size={16} />} onClick={openCreateModal}>
+        <Button
+          size="sm"
+          leftIcon={<Plus size={16} />}
+          onClick={openCreateModal}
+        >
           새 어워드
         </Button>
       </Flex>
@@ -274,6 +294,28 @@ export default function AwardsManager({
             </FormGroup>
 
             <FormGroup>
+              <Label htmlFor="award-project-id">연결 프로젝트</Label>
+              <Select
+                id="award-project-id"
+                value={formValue.projectId}
+                onChange={(event) =>
+                  setFormValue((prev) => ({
+                    ...prev,
+                    projectId: event.target.value,
+                  }))
+                }
+                fullWidth
+              >
+                <option value="">연결 안 함</option>
+                {projects.map((project) => (
+                  <option key={project.id} value={project.id}>
+                    {project.title}
+                  </option>
+                ))}
+              </Select>
+            </FormGroup>
+
+            <FormGroup>
               <Label htmlFor="award-date" required>
                 수상일
               </Label>
@@ -329,10 +371,15 @@ export default function AwardsManager({
             ) : null}
 
             <Flex justify="flex-end" gap={8}>
-              <Button variant="ghost" type="button" onClick={closeModal}>
+              <Button
+                size="sm"
+                variant="ghost"
+                type="button"
+                onClick={closeModal}
+              >
                 취소
               </Button>
-              <Button type="submit" loading={isPending}>
+              <Button size="sm" type="submit" loading={isPending}>
                 저장
               </Button>
             </Flex>

@@ -45,6 +45,7 @@ npm run vercel-dev
 - `GET /blog/posts` - 모든 블로그 포스트 목록
 - `GET /blog/post/:title` - 특정 블로그 포스트 상세
 - `POST /admin/login` - 관리자 비밀번호 검증
+- `GET/POST/PUT/DELETE /awards` - 어워드 CRUD (`projectId`로 프로젝트 1:1 연결)
 
 ## 프로젝트 구조
 

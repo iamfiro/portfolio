@@ -1,23 +1,44 @@
 .component {
   width: 100%;
   min-height: 100vh;
+
+  background-color: $surface;
 }
 
 .sidebar {
   min-height: 100vh;
+  padding-top: $spacing-20;
+
+  border-right: 1px solid $border;
+
+  background-color: $surface-inverse;
 }
 
 .sidebarTitle {
-  margin-bottom: $spacing-12;
+  margin-bottom: $spacing-8;
+}
+
+.sidebarHeader {
+  padding: $spacing-12;
+
+  background-color: $surface-subtle;
+  border: 1px solid $border;
+  border-radius: $radius-12;
 }
 
 .sidebarItem {
   justify-content: flex-start;
+
+  border: 1px solid transparent;
+  border-radius: $radius-10;
+
+  color: $text-subtle;
 }
 
 .activeItem {
-  background-color: $surface-subtle;
+  background-color: $surface-elevated;
   border: 1px solid $border-subtle;
+  color: $text;
 }
 
 .content {
@@ -26,30 +47,16 @@
   padding: $spacing-24;
 }
 
-.statsGrid {
-  width: 100%;
-}
-
-.statCard {
-  padding: $spacing-16;
-  background-color: $surface-subtle;
-  border: 1px solid $border;
-}
-
 .panelCard {
-  padding: $spacing-16;
-  background-color: $surface-subtle;
-  border: 1px solid $border;
-}
-
-.overviewGrid {
-  width: 100%;
-}
-
-.overviewCard {
   padding: $spacing-16;
   background-color: $surface;
   border: 1px solid $border;
+  border-radius: $radius-16;
+  box-shadow: $shadow-md;
+}
+
+.panelHeader {
+  margin-bottom: $spacing-12;
 }
 
 @media (max-width: 1024px) {
@@ -60,12 +67,10 @@
   .sidebar {
     width: 100% !important;
     min-height: auto;
-    border-right: 0;
+    padding-top: $spacing-12;
+
     border-bottom: 1px solid $border;
+    border-right: 0;
   }
 
-  .statsGrid,
-  .overviewGrid {
-    grid-template-columns: minmax(0, 1fr) !important;
-  }
 }

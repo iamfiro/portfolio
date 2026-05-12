@@ -240,7 +240,11 @@ export default function ProjectsManager({
     <Stack className={componentClassName} gap={16} {...props}>
       <Flex justify="space-between" align="center">
         <Text color="subtle">총 {projects.length}개의 프로젝트</Text>
-        <Button leftIcon={<Plus size={16} />} onClick={openCreateModal}>
+        <Button
+          size="sm"
+          leftIcon={<Plus size={16} />}
+          onClick={openCreateModal}
+        >
           새 프로젝트
         </Button>
       </Flex>
@@ -407,10 +411,15 @@ export default function ProjectsManager({
             ) : null}
 
             <Flex justify="flex-end" gap={8}>
-              <Button variant="ghost" type="button" onClick={closeModal}>
+              <Button
+                size="sm"
+                variant="ghost"
+                type="button"
+                onClick={closeModal}
+              >
                 취소
               </Button>
-              <Button type="submit" loading={isPending}>
+              <Button size="sm" type="submit" loading={isPending}>
                 저장
               </Button>
             </Flex>

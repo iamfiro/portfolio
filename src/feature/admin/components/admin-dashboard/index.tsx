@@ -1,5 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
-import { motion } from "framer-motion";
+import {
+  Award,
+  BookOpenText,
+  FolderKanban,
+  LayoutDashboard,
+  LogOut,
+} from "lucide-react";
 import { useState } from "react";
 
 import { getAwards } from "@/feature/awards/api";
@@ -9,14 +15,13 @@ import { PostsResponse } from "@/feature/blog/schema";
 import { getProjects } from "@/feature/projects/api";
 import { ProjectsResponse } from "@/feature/projects/schema";
 import {
+  Badge,
   Button,
   Card,
   Flex,
-  Grid,
   Heading,
   Sidebar,
   Stack,
-  Stat,
   Tab,
   TabList,
   TabPanel,
@@ -77,10 +82,15 @@ export default function AdminDashboard({
   return (
     <Flex className={componentClassName} {...props}>
       <Sidebar width={220} className={s.sidebar}>
-        <Stack gap={8}>
-          <Heading as="h2" size="md" className={s.sidebarTitle}>
-            Dashboard
-          </Heading>
+        <Stack gap={12}>
+          <Stack gap={4} className={s.sidebarHeader}>
+            <Text size="sm" color="subtle">
+              Portfolio
+            </Text>
+            <Heading as="h2" size="md" className={s.sidebarTitle}>
+              Admin Panel
+            </Heading>
+          </Stack>
           {NAV_ITEMS.map((item) => {
             const itemClassName = [
               s.sidebarItem,
@@ -92,9 +102,21 @@ export default function AdminDashboard({
             return (
               <Button
                 key={item.id}
+                size="sm"
                 variant="ghost"
                 className={itemClassName}
                 onClick={() => setActiveSection(item.id)}
+                leftIcon={
+                  item.id === "overview" ? (
+                    <LayoutDashboard size={16} />
+                  ) : item.id === "blog" ? (
+                    <BookOpenText size={16} />
+                  ) : item.id === "projects" ? (
+                    <FolderKanban size={16} />
+                  ) : (
+                    <Award size={16} />
+                  )
+                }
               >
                 {item.label}
               </Button>
@@ -106,49 +128,34 @@ export default function AdminDashboard({
       <Stack className={s.content} gap={20}>
         <Flex justify="space-between" align="center">
           <Stack gap={4}>
-            <Heading as="h1" size="2xl">
+            <Heading as="h1" size="3xl">
               관리자 대시보드
             </Heading>
             <Text color="subtle">
               프로젝트/어워드 CRUD와 블로그 조회 상태를 관리합니다.
             </Text>
           </Stack>
-          <Button variant="outline" onClick={onLogout}>
+          <Button
+            size="sm"
+            variant="outline"
+            onClick={onLogout}
+            leftIcon={<LogOut size={16} />}
+          >
             로그아웃
           </Button>
         </Flex>
 
-        <Grid columns={3} gap={12} className={s.statsGrid}>
-          <motion.div
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.22 }}
-          >
-            <Card className={s.statCard}>
-              <Stat label="Projects" value={projects.length} />
-            </Card>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.22, delay: 0.05 }}
-          >
-            <Card className={s.statCard}>
-              <Stat label="Awards" value={awards.length} />
-            </Card>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.22, delay: 0.1 }}
-          >
-            <Card className={s.statCard}>
-              <Stat label="Posts" value={posts.length} />
-            </Card>
-          </motion.div>
-        </Grid>
-
         <Card className={s.panelCard}>
+          <Flex
+            justify="space-between"
+            align="center"
+            className={s.panelHeader}
+          >
+            <Heading as="h3" size="md">
+              Content Manager
+            </Heading>
+            <Badge variant="primary">shadcn-style</Badge>
+          </Flex>
           <Tabs key={activeSection} defaultTab={activeSection}>
             <TabList>
               <Tab id="overview">Overview</Tab>
@@ -160,20 +167,8 @@ export default function AdminDashboard({
             <TabPanel id="overview">
               <Stack gap={12}>
                 <Text color="subtle">
-                  Overview에서는 현재 등록된 콘텐츠 수를 빠르게 확인할 수
-                  있습니다.
+                  왼쪽 메뉴 또는 상단 탭에서 각 섹션을 선택해 관리하세요.
                 </Text>
-                <Grid columns={3} gap={12} className={s.overviewGrid}>
-                  <Card className={s.overviewCard}>
-                    <Stat label="프로젝트" value={projects.length} />
-                  </Card>
-                  <Card className={s.overviewCard}>
-                    <Stat label="어워드" value={awards.length} />
-                  </Card>
-                  <Card className={s.overviewCard}>
-                    <Stat label="블로그 포스트" value={posts.length} />
-                  </Card>
-                </Grid>
               </Stack>
             </TabPanel>
             <TabPanel id="blog">
@@ -186,7 +181,11 @@ export default function AdminDashboard({
               />
             </TabPanel>
             <TabPanel id="awards">
-              <AwardsManager isLoading={isAwardsLoading} awards={awards} />
+              <AwardsManager
+                isLoading={isAwardsLoading}
+                awards={awards}
+                projects={projects}
+              />
             </TabPanel>
           </Tabs>
         </Card>
