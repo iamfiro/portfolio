@@ -8,13 +8,14 @@ import { useParams } from "react-router-dom";
 import { getPost } from "@/feature/blog/api";
 import { Giscus, TableOfContents } from "@/feature/blog/components";
 import MarkdownContent from "@/feature/blog/components/markdown-content";
-import { PostResponse } from "@/feature/blog/schema";
+import { PostResponse, RelatedProject } from "@/feature/blog/schema";
 import { BaseLayout } from "@/shared/components/layouts";
 import {
   Divider,
   Flex,
   Header,
   Heading,
+  Image,
   Tag,
   Text,
 } from "@/shared/components/ui";
@@ -23,6 +24,28 @@ import { usePageEntrance } from "@/shared/hooks";
 import s from "./blog-article.module.scss";
 
 type Post = NonNullable<PostResponse>;
+
+function RelatedProjectCard({ project }: { project: RelatedProject }) {
+  return (
+    <a href={`/projects/${project.id}`} className={s.related_project_link}>
+      <Flex gap={16} align="center" className={s.related_project_card}>
+        {project.thumbnailUrl && (
+          <Image
+            src={project.thumbnailUrl}
+            alt={project.title}
+            className={s.related_project_thumb}
+          />
+        )}
+        <Flex direction="column" gap={4}>
+          <Text className={s.related_project_title}>{project.title}</Text>
+          <Text size="sm" className={s.related_project_desc}>
+            {project.description}
+          </Text>
+        </Flex>
+      </Flex>
+    </a>
+  );
+}
 
 // React re-render 없이 DOM 직접 조작 → 스크롤마다 layout 재계산 없음
 function useScrollProgressRef() {
@@ -149,6 +172,25 @@ export default function BlogArticle() {
             <Divider />
 
             <Giscus style={{ width: "100%" }} />
+
+            {post.data.relatedProjects &&
+              post.data.relatedProjects.length > 0 && (
+                <div className={s.related_projects_section}>
+                  <Divider />
+                  <Heading
+                    as="h2"
+                    size="xl"
+                    className={s.related_projects_heading}
+                  >
+                    관련 프로젝트
+                  </Heading>
+                  <Flex direction="column" gap={12}>
+                    {post.data.relatedProjects.map((project) => (
+                      <RelatedProjectCard key={project.id} project={project} />
+                    ))}
+                  </Flex>
+                </div>
+              )}
           </article>
 
           <aside className={s.toc_wrapper}>

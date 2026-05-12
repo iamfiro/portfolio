@@ -5,6 +5,7 @@ import { cors } from "hono/cors";
 import awards from "./router/awards.js";
 import posts from "./router/posts.js";
 import projects from "./router/projects.js";
+import { syncPosts } from "./utils/syncPosts.js";
 
 const app = new Hono();
 
@@ -28,6 +29,8 @@ app.get("/", (c) => {
     message: "Hello Hono! - Welcome to the my portfolio API",
   });
 });
+
+syncPosts().catch(console.error);
 
 const port = 3000;
 console.log(`Server is running on http://localhost:${port}`);

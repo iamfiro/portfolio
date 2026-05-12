@@ -40,3 +40,5 @@ server/dist
 .claude/
 
 .next/
+
+memory

@@ -74,9 +74,9 @@ export default function BlogArticleList() {
         ) : sortedPosts.length > 0 ? (
           sortedPosts.map((post, index) => (
             <BlogCard
-              key={post.id}
+              key={post.title}
               index={index}
-              id={post.id}
+              id={post.title}
               title={post.title}
               description={post.description}
               thumbnail={post.thumbnail}

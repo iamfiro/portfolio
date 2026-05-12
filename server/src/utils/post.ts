@@ -1,20 +1,23 @@
 import { readdirSync, readFileSync } from "fs";
+import { dirname, join } from "path";
+import { fileURLToPath } from "url";
 
 import { parseMarkdown } from "./markdown.js";
 
+const __dirname = dirname(fileURLToPath(import.meta.url));
+// server/src/utils/ → ../../posts/content/ → server/posts/content/
+const POSTS_DIR = join(__dirname, "../../posts/content/");
+
 export function getPosts() {
   try {
-    const posts = readdirSync(`${process.cwd()}/posts/content/`, "utf8");
+    const posts = readdirSync(POSTS_DIR, "utf8");
 
     const filteredPosts = posts.filter((post) => post.endsWith(".md"));
 
     const parsedPosts = filteredPosts
       .map((post) => {
         try {
-          const postContent = readFileSync(
-            `${process.cwd()}/posts/content/${post}`,
-            "utf8",
-          );
+          const postContent = readFileSync(join(POSTS_DIR, post), "utf8");
 
           const parsedPost = parseMarkdown(postContent, post);
           // content 제거하고 반환
@@ -37,7 +40,7 @@ export function getPosts() {
 
 export function getPost(title: string) {
   try {
-    const posts = readdirSync(`${process.cwd()}/posts/content/`, "utf8");
+    const posts = readdirSync(POSTS_DIR, "utf8");
     const filteredPosts = posts.filter((post) => post.endsWith(".md"));
     const post = filteredPosts.find((post) => post.includes(title));
 
@@ -45,10 +48,7 @@ export function getPost(title: string) {
       throw new Error(`Post with title "${title}" not found`);
     }
 
-    const postContent = readFileSync(
-      `${process.cwd()}/posts/content/${post}`,
-      "utf8",
-    );
+    const postContent = readFileSync(join(POSTS_DIR, post), "utf8");
 
     return parseMarkdown(postContent, post);
   } catch (error) {

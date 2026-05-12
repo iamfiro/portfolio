@@ -1,18 +1,35 @@
 import { Hono } from "hono";
 
 import prisma from "../utils/prisma.js";
+import { getPost } from "../utils/post.js";
 
 const app = new Hono();
+
+function parseRelatedPost(slug: string, fallbackTitle: string) {
+  try {
+    const postData = getPost(slug);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { content, ...meta } = postData;
+    return meta;
+  } catch {
+    return { title: fallbackTitle, slug };
+  }
+}
 
 // GET /projects - 전체 목록 조회
 app.get("/", async (c) => {
   const projects = await prisma.project.findMany({
     orderBy: { startDate: "desc" },
+    include: { posts: { include: { post: true } } },
   });
 
-  const data = projects.map((project) => ({
+  const data = projects.map(({ posts, ...project }) => ({
     ...project,
     techStack: JSON.parse(project.techStack),
+    relatedPosts: posts.map((r) => ({
+      slug: r.post.slug,
+      title: r.post.title,
+    })),
   }));
 
   return c.json({ ok: true, data });
@@ -22,15 +39,24 @@ app.get("/", async (c) => {
 app.get("/:id", async (c) => {
   const id = c.req.param("id");
 
-  const project = await prisma.project.findUnique({ where: { id } });
+  const project = await prisma.project.findUnique({
+    where: { id },
+    include: { posts: { include: { post: true } } },
+  });
 
   if (!project) {
     return c.json({ ok: false, message: "Project not found" }, 404);
   }
 
+  const { posts, ...rest } = project;
+
+  const relatedPosts = posts.map((r) =>
+    parseRelatedPost(r.post.slug, r.post.title),
+  );
+
   return c.json({
     ok: true,
-    data: { ...project, techStack: JSON.parse(project.techStack) },
+    data: { ...rest, techStack: JSON.parse(rest.techStack), relatedPosts },
   });
 });
 

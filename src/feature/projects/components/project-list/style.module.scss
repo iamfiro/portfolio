@@ -7,6 +7,22 @@
   gap: $spacing-40;
 }
 
+.loadingWrapper {
+  min-height: 200px;
+}
+
+.loadingText {
+  color: $text-subtle;
+  font-size: $font-size-md;
+}
+
+.cardLink {
+  display: block;
+
+  text-decoration: none;
+  color: inherit;
+}
+
 .filterBar {
   display: flex;
   align-items: center;

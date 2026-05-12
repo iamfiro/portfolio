@@ -198,3 +198,66 @@
 .content {
     padding: $spacing-8 0 $spacing-16 0;
 }
+
+// 관련 프로젝트 섹션
+.related_projects_section {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-24;
+}
+
+.related_projects_heading {
+    color: $text;
+
+    font-size: $font-size-xl;
+    font-weight: $font-weight-semibold;
+}
+
+.related_project_link {
+    display: block;
+
+    text-decoration: none;
+    color: inherit;
+
+    border-radius: $radius-12;
+
+    transition: opacity $transition-fast;
+
+    &:hover {
+        opacity: 0.7;
+    }
+}
+
+.related_project_card {
+    padding: $spacing-16;
+
+    background-color: $surface-subtle;
+
+    border: 1px solid $border;
+    border-radius: $radius-12;
+}
+
+.related_project_thumb {
+    width: 80px;
+    height: 54px;
+
+    flex-shrink: 0;
+
+    object-fit: cover;
+
+    border-radius: $radius-8;
+}
+
+.related_project_title {
+    font-size: $font-size-md;
+    font-weight: $font-weight-medium;
+    line-height: $line-height-normal;
+
+    color: $text;
+}
+
+.related_project_desc {
+    color: $text-subtle;
+
+    line-height: $line-height-relaxed;
+}
