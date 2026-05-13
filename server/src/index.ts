@@ -24,9 +24,17 @@ const app = new Hono();
 app.use(
   "*",
   cors({
-    origin: ["https://devfiro.com", "http://localhost:5173"],
+    origin: (origin) => {
+      const allowedOrigins = [
+        "https://devfiro.com",
+        "http://localhost:5173",
+        "http://localhost:3000",
+      ];
+      return allowedOrigins.includes(origin || "") ? origin : "https://devfiro.com";
+    },
     allowHeaders: ["Content-Type", "Authorization"],
     allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    credentials: true,
   }),
 );
 
