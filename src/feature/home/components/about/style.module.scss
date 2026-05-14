@@ -6,16 +6,18 @@
 
   gap: $spacing-64;
 
-  max-width: 1100px;
+  max-width: 1200px;
 
   margin: 0 auto;
   padding-top: $spacing-100;
+  padding-inline: $padding;
 
   border-top: 1px solid $border;
 }
 
 .split {
   display: flex;
+  flex-direction: row;
   width: 100%;
 
   gap: $spacing-48;
@@ -23,6 +25,7 @@
 
 .detail {
   display: flex;
+  flex-direction: row;
   width: 100%;
 
   gap: $spacing-48;
@@ -38,7 +41,7 @@
 }
 
 .labelText {
-  font-size: $font-size-sm;
+  font-size: $font-size-md;
   font-weight: $font-weight-normal;
   line-height: $line-height-normal;
 
@@ -49,7 +52,7 @@
   flex: 1;
 
   font-size: $font-size-4xl;
-  font-weight: $font-weight-bold;
+  font-weight: $font-weight-semibold;
   line-height: $line-height-tight;
 
   font-family: $font-gambarino;
@@ -72,37 +75,80 @@
     gap: $spacing-48;
 
     padding-top: $spacing-48;
-    padding-left: $padding;
-    padding-right: $padding;
+    padding-left: $padding-mobile;
+    padding-right: $padding-mobile;
   }
 
   .split {
-    flex-direction: column;
-
+    flex-direction: column !important;
     gap: $spacing-20;
   }
 
   .detail {
-    flex-direction: column;
-
+    flex-direction: column !important;
     gap: $spacing-20;
   }
 
   .label {
     width: 100%;
+    min-width: 0;
   }
 
   .statement {
+    flex: auto;
     font-size: $font-size-2xl;
+    font-weight: 500;
+    line-height: 1.6;
+    min-width: 0;
+    word-break: break-word;
   }
 
   .description {
-    font-size: $font-size-md;
+    flex: auto;
+    font-size: $font-size-lg;
+    line-height: 1.8;
+    min-width: 0;
+    word-break: break-word;
   }
 }
 
 @media (max-width: 480px) {
+  .about {
+    gap: $spacing-32;
+
+    padding-top: $spacing-32;
+    padding-left: $padding-mobile;
+    padding-right: $padding-mobile;
+  }
+
+  .split {
+    gap: $spacing-16;
+  }
+
+  .detail {
+    gap: $spacing-16;
+  }
+
+  .label {
+    gap: $spacing-4;
+    min-width: 0;
+  }
+
+  .labelText {
+    font-size: $font-size-sm;
+    word-break: break-word;
+  }
+
   .statement {
     font-size: $font-size-xl;
+    font-weight: 500;
+    line-height: 1.6;
+    min-width: 0;
+  }
+
+  .description {
+    font-size: $font-size-md;
+    line-height: 1.8;
+    min-width: 0;
   }
 }
