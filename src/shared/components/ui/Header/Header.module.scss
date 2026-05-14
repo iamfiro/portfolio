@@ -308,7 +308,7 @@
 
 @media (max-width: 768px) {
   .container {
-    mix-blend-mode: normal;
+    mix-blend-mode: difference;
 
     align-items: center;
   }
@@ -320,6 +320,12 @@
 
   .menuButton {
     display: flex;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    mix-blend-mode: difference;
   }
 }
 
