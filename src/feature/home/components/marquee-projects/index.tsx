@@ -13,6 +13,55 @@ import { Project, ProjectsResponse } from "@/feature/projects/schema";
 import { usePageTransition } from "@/shared/components/layouts/page-transition/page-transition.context";
 import { Image, Text } from "@/shared/components/ui";
 
+function usePreloadProjectImages(
+  data: ProjectsResponse | undefined,
+  acquirePreloadLock: () => () => void,
+  initialLoadDone: boolean,
+) {
+  const releaseRef = useRef<(() => void) | null>(null);
+
+  useEffect(() => {
+    if (initialLoadDone) return;
+    const release = acquirePreloadLock();
+    releaseRef.current = release;
+    return () => {
+      release();
+      releaseRef.current = null;
+    };
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    if (!data || !releaseRef.current) return;
+
+    const urls = (data.data ?? [])
+      .filter((p: Project) => p.thumbnailUrl)
+      .map((p: Project) => p.thumbnailUrl as string);
+
+    const release = releaseRef.current;
+    releaseRef.current = null;
+
+    if (urls.length === 0) {
+      release();
+      return;
+    }
+
+    let loaded = 0;
+    const total = urls.length;
+
+    const onDone = () => {
+      loaded++;
+      if (loaded >= total) release();
+    };
+
+    urls.forEach((url) => {
+      const img = new window.Image();
+      img.onload = onDone;
+      img.onerror = onDone;
+      img.src = url;
+    });
+  }, [data]);
+}
+
 import s from "./style.module.scss";
 
 // 프로젝트 ID(string) 기반 결정적 랜덤 height 생성
@@ -90,12 +139,14 @@ function ProjectCard({
 }
 
 export default function MarqueeProjects() {
-  const { initialLoadDone } = usePageTransition();
+  const { initialLoadDone, acquirePreloadLock } = usePageTransition();
 
   const { data } = useQuery<ProjectsResponse>({
     queryKey: ["projects"],
     queryFn: getProjects,
   });
+
+  usePreloadProjectImages(data, acquirePreloadLock, initialLoadDone);
 
   const marqueeProjects: MarqueeProjectItem[] = (data?.data ?? [])
     .filter((p: Project) => p.thumbnailUrl)

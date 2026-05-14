@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 interface ImagePreloadState {
   progress: number;
@@ -6,61 +6,79 @@ interface ImagePreloadState {
 }
 
 /**
- * 현재 페이지의 모든 img 요소 로딩 진행률을 추적하는 훅.
- * DOM이 안정화된 후 이미지를 수집하고, 진행률(0~100)과 완료 여부를 반환.
- * 이미지가 없으면 즉시 100% 반환.
+ * 페이지 내 모든 img 요소 로딩 진행률을 추적하는 훅.
+ * MutationObserver로 API 데이터로 동적 추가되는 이미지도 포함해 추적.
  */
 export function useImagePreload(): ImagePreloadState {
   const [state, setState] = useState<ImagePreloadState>({
     progress: 0,
     loaded: false,
   });
-  const checkedRef = useRef(false);
 
   useEffect(() => {
-    if (checkedRef.current) return;
+    const tracked = new Set<HTMLImageElement>();
+    const loadedSet = new Set<HTMLImageElement>();
 
-    const frameId = requestAnimationFrame(() => {
-      checkedRef.current = true;
-      const images = Array.from(document.querySelectorAll("img"));
+    const updateProgress = () => {
+      const total = tracked.size;
+      const loaded = loadedSet.size;
 
-      if (images.length === 0) {
+      if (total === 0) {
         setState({ progress: 100, loaded: true });
         return;
       }
 
-      const total = images.length;
-      const alreadyLoaded = images.filter((img) => img.complete).length;
-
-      if (alreadyLoaded === total) {
-        setState({ progress: 100, loaded: true });
-        return;
-      }
-
-      let loadedCount = alreadyLoaded;
       setState({
-        progress: Math.round((loadedCount / total) * 100),
-        loaded: false,
+        progress: Math.round((loaded / total) * 100),
+        loaded: loaded >= total,
       });
+    };
 
-      const pendingImages = images.filter((img) => !img.complete);
+    const trackImage = (img: HTMLImageElement) => {
+      if (tracked.has(img)) return;
+      tracked.add(img);
 
-      const onDone = () => {
-        loadedCount += 1;
-        const progress = Math.round((loadedCount / total) * 100);
-        setState({
-          progress,
-          loaded: loadedCount >= total,
-        });
-      };
-
-      pendingImages.forEach((img) => {
+      if (img.complete) {
+        loadedSet.add(img);
+      } else {
+        const onDone = () => {
+          loadedSet.add(img);
+          img.removeEventListener("load", onDone);
+          img.removeEventListener("error", onDone);
+          updateProgress();
+        };
         img.addEventListener("load", onDone);
         img.addEventListener("error", onDone);
-      });
+      }
+    };
+
+    document
+      .querySelectorAll("img")
+      .forEach((img) => trackImage(img as HTMLImageElement));
+    updateProgress();
+
+    // API 데이터로 동적 추가되는 이미지 감지
+    const observer = new MutationObserver((mutations) => {
+      let found = false;
+      for (const mutation of mutations) {
+        for (const node of mutation.addedNodes) {
+          if (node instanceof HTMLImageElement) {
+            trackImage(node);
+            found = true;
+          } else if (node instanceof Element) {
+            node.querySelectorAll("img").forEach((img) => {
+              trackImage(img as HTMLImageElement);
+              found = true;
+            });
+          }
+        }
+      }
+      if (found) updateProgress();
     });
 
-    return () => cancelAnimationFrame(frameId);
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    return () => observer.disconnect();
   }, []);
 
   return state;
