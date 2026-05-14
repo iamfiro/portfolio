@@ -161,6 +161,8 @@ export type { ToastItem, ToastVariant } from "./Toast/Toast";
 export { ToastProvider, useToast } from "./Toast/Toast";
 
 // Overlay
+export type { BottomSheetProps } from "./BottomSheet/BottomSheet";
+export { BottomSheet } from "./BottomSheet/BottomSheet";
 export type { DrawerProps } from "./Drawer/Drawer";
 export { Drawer } from "./Drawer/Drawer";
 export type { ModalProps } from "./Modal/Modal";

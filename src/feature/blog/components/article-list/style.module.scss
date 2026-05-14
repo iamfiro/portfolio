@@ -1,8 +1,14 @@
+.container {
+  @media (max-width: 768px) {
+    flex-direction: column !important;
+  }
+}
+
 .right {
   min-width: 320px;
 }
 
-.category_filter {
+.right .category_filter {
   margin-top: 2rem;
 }
 
@@ -20,4 +26,20 @@
 .active_tag {
   background-color: $surface-brand;
   color: $text-inverse;
+}
+
+.filter_button {
+  flex-shrink: 0;
+
+  width: 44px;
+  height: 44px;
+
+  border: 1px solid $border;
+  border-radius: $radius-10;
+
+  color: $text-subtle;
+}
+
+.bottom_sheet_label {
+  color: $text-subtle;
 }
