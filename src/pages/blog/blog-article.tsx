@@ -8,6 +8,7 @@ import { useParams } from "react-router-dom";
 import { getPost } from "@/feature/blog/api";
 import { Giscus, TableOfContents } from "@/feature/blog/components";
 import MarkdownContent from "@/feature/blog/components/markdown-content";
+import { calculateReadingTime } from "@/feature/blog/reading-time.util";
 import { PostResponse, RelatedProject } from "@/feature/blog/schema";
 import { BaseLayout } from "@/shared/components/layouts";
 import {
@@ -139,7 +140,9 @@ export default function BlogArticle() {
                   </Flex>
                   <Flex align="center" gap={6}>
                     <Clock className={s.meta_icon} />
-                    <Text className={s.meta_text}>3분 소요</Text>
+                    <Text className={s.meta_text}>
+                      {calculateReadingTime(post.data.content || "")}분 소요
+                    </Text>
                   </Flex>
                 </Flex>
                 <Flex gap={8}>

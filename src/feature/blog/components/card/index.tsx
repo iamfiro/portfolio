@@ -2,12 +2,12 @@ import { useQueryClient } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { Clock } from "lucide-react";
 
+import { calculateReadingTime } from "@/feature/blog/reading-time.util";
 import { Post } from "@/feature/blog/schema";
 import { Flex, Tag, Text } from "@/shared/components/ui";
 
 import { getPost } from "../../api";
 
-import { calculateReadingTime } from "./reading-time.util";
 import BlogCardSkeleton from "./skeleton";
 
 import s from "./style.module.scss";
