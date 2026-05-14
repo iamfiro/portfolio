@@ -52,6 +52,10 @@
 
     padding-top: 200px;
     padding-bottom: $spacing-100;
+
+    @media (max-width: 768px) {
+        padding-top: 140px;
+    }
 }
 
 // 뒤로가기 버튼 행
@@ -124,6 +128,10 @@
     line-height: 1.2;
     letter-spacing: -0.035em;
     word-break: keep-all;
+
+    @media (max-width: 768px) {
+        font-size: 32px;
+    }
 }
 
 // 서브타이틀(description) — 본문보다 살짝 크고 부드럽게
@@ -192,6 +200,10 @@
     box-shadow: $shadow-md;
 
     margin-top: $spacing-32;
+
+    @media (max-width: 768px) {
+        height: 240px;
+    }
 }
 
 // 본문 wrapper — 마크다운 컴포넌트가 내부에서 타이포 처리
