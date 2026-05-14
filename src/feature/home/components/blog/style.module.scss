@@ -104,12 +104,8 @@
   .blog {
     gap: $spacing-20;
 
-    padding-left: $padding;
-    padding-right: $padding;
-  }
-
-  .title {
-    font-size: $font-size-3xl;
+    padding-left: $padding-mobile;
+    padding-right: $padding-mobile;
   }
 
   .cardTitle {
@@ -123,7 +119,15 @@
   }
 
   .title {
-    font-size: $font-size-2xl;
+    font-size: $font-size-3xl;
+  }
+
+  .cardTitle {
+    font-size: $font-size-lg;
+  }
+
+  .cardDescription {
+    font-size: $font-size-md;
   }
 
   .cardInner {
@@ -136,6 +140,6 @@
   }
 
   .card {
-    padding: $spacing-16 0;
+    padding: $spacing-20 0;
   }
 }
