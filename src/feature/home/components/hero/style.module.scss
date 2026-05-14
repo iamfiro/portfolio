@@ -22,10 +22,18 @@
 // ─── Title & Character Animation ────────────────────────────
 
 .title {
+  display: block;
+  width: 100%;
+
   font-size: $font-size-5xl;
   font-weight: 600;
   line-height: 1.1;
   color: $text;
+
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
 }
 
 .char {
@@ -43,6 +51,9 @@
   font-weight: 400;
   line-height: 1.6;
   color: $text-muted;
+
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .me {
@@ -93,57 +104,73 @@
   .hero {
     flex-direction: column;
     align-items: start;
-    gap: $spacing-20;
+    gap: $spacing-24;
 
     padding: $spacing-40 $padding;
   }
 
   .content {
     gap: $spacing-20;
+    width: 100%;
   }
 
   .title {
-    font-size: $font-size-2xl;
+    font-size: $font-size-3xl;
+    line-height: 1.2;
   }
 
   .description {
     font-size: $font-size-md;
+    line-height: 1.5;
   }
 
   .buttonContainer {
     justify-content: flex-start;
+    width: 100%;
   }
 }
 
 @media (max-width: 480px) {
   .hero {
-    gap: $spacing-16;
+    gap: $spacing-20;
 
-    padding: $spacing-32 $padding;
+    padding: $spacing-20 $padding-mobile;
   }
 
   .content {
-    gap: $spacing-16;
+    gap: $spacing-20;
+    width: 100%;
   }
 
   .title {
-    font-size: $font-size-2xl;
+    font-size: $font-size-3xl;
+    line-height: 1.2;
+    font-weight: 600;
   }
 
   .description {
     font-size: $font-size-md;
+    line-height: 1.5;
+  }
+
+  .me {
+    width: 44px;
   }
 
   .bubble {
-    max-width: 220px;
+    max-width: 240px;
 
-    padding: $spacing-10 $spacing-14;
+    padding: $spacing-12 $spacing-16;
 
-    font-size: $font-size-sm;
+    font-size: $font-size-md;
+  }
+
+  .bubbleContainer {
+    gap: $spacing-6;
   }
 
   .buttonContainer {
-    flex-direction: column;
+    justify-content: flex-start;
     width: 100%;
   }
 }

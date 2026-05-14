@@ -34,7 +34,8 @@
     "rehype-raw": "^7.0.0",
     "remark-gfm": "^4.0.1",
     "sass": "^1.92.1",
-    "three": "^0.180.0"
+    "three": "^0.180.0",
+    "vercel": "^53.4.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.35.0",

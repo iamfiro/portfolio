@@ -16,9 +16,11 @@ interface TitleSegment {
 }
 
 const TITLE_SEGMENTS: TitleSegment[] = [
-  { text: "Researching and building thoughtful" },
+  { text: "Researching and " },
+  { text: "building thoughtful" },
   { lineBreak: true, text: "" },
-  { text: "services that solve everyday " },
+  { text: "services that solve " },
+  { text: "everyday " },
   { text: "problems", bold: true },
 ];
 

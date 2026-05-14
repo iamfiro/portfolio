@@ -18,6 +18,10 @@
   user-select: none;
 }
 
+.menuIsOpen {
+  mix-blend-mode: normal;
+}
+
 .logo {
   height: 16px;
 
@@ -157,39 +161,117 @@
   }
 }
 
-@media (max-width: 768px) {
-  .link {
-    gap: $spacing-16;
+.menuButton {
+  display: none;
 
-    li {
-      a,
-      span {
-        font-size: $font-size-lg;
-      }
+  align-items: center;
+  justify-content: center;
+
+  padding: $spacing-4;
+
+  background: none;
+  border: none;
+
+  cursor: pointer;
+
+  color: $text;
+
+  pointer-events: auto;
+
+  span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  padding: $spacing-100 $spacing-48 $spacing-64;
+
+  background-color: $surface;
+
+  z-index: 998;
+}
+
+.overlayNav {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-32;
+
+  padding: 0;
+  margin: 0;
+}
+
+.overlayNavItem {
+  position: relative;
+
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  a,
+  span {
+    display: block;
+
+    font-size: $font-size-4xl;
+    font-weight: 500;
+
+    color: $text-muted;
+
+    text-decoration: none;
+
+    transition: color $transition-fast;
+
+    &:hover {
+      color: $text;
     }
   }
 }
 
-@media (max-width: 480px) {
-  .container {
-    padding: 0 $spacing-16;
+.overlayNavActive {
+  a,
+  span {
+    color: $text;
+  }
+}
+
+.overlaySocial {
+  display: flex;
+  flex-direction: row;
+  gap: $spacing-32;
+
+  padding: 0;
+  margin: 0;
+
+  list-style: none;
+}
+
+.overlaySocialLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  opacity: 0.4;
+
+  text-decoration: none;
+
+  transition: opacity $transition-fast;
+
+  &:hover {
+    opacity: 1;
   }
 
-  .link {
-    gap: $spacing-12;
-
-    li {
-      a,
-      span {
-        font-size: $font-size-md;
-      }
-    }
-  }
-
-  .social {
-    a {
-      padding: $spacing-8;
-    }
+  span {
+    display: flex;
+    width: 24px;
+    height: 24px;
   }
 }
 
@@ -222,6 +304,23 @@
   font-size: $font-size-xs;
   font-weight: 400;
   color: $text-subtle;
+}
+
+@media (max-width: 768px) {
+  .container {
+    mix-blend-mode: normal;
+
+    align-items: center;
+  }
+
+  .link,
+  .time {
+    display: none;
+  }
+
+  .menuButton {
+    display: flex;
+  }
 }
 
 @keyframes blink {
