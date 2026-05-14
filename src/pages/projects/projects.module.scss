@@ -9,7 +9,7 @@
 
   width: 100%;
 
-  padding: 200px $spacing-40 200px;
+  padding: 250px $spacing-40 200px;
 }
 
 .hero {
@@ -23,7 +23,7 @@
 }
 
 .title {
-  font-size: $font-size-5xl;
+  font-size: 64px;
   font-family: $font-gambarino;
   font-weight: 500;
   line-height: $line-height-tight;
@@ -40,20 +40,20 @@
 
 @media (max-width: 768px) {
   .page {
-    padding: 0 $spacing-24;
+    padding: 180px $spacing-24 200px;
   }
 
   .title {
-    font-size: $font-size-3xl;
+    font-size: 48px;
   }
 }
 
 @media (max-width: 480px) {
   .page {
-    padding: 0 $spacing-16;
+    padding: 120px $spacing-16 200px;
   }
 
   .title {
-    font-size: $font-size-2xl;
+    font-size: 36px;
   }
 }
