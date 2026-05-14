@@ -47,6 +47,8 @@
   display: flex;
   flex-wrap: wrap;
   gap: $spacing-12;
+
+  justify-content: flex-start;
 }
 
 .iconWrapper {
@@ -102,12 +104,8 @@
   .techStack {
     gap: $spacing-20;
 
-    padding-left: $padding;
-    padding-right: $padding;
-  }
-
-  .title {
-    font-size: $font-size-3xl;
+    padding-left: $padding-mobile;
+    padding-right: $padding-mobile;
   }
 
   .iconWrapper {
@@ -127,18 +125,11 @@
   }
 
   .title {
-    font-size: $font-size-2xl;
+    font-size: $font-size-3xl;
   }
 
   .categories {
     gap: $spacing-24;
-  }
-
-  .iconWrapper {
-    width: 42px;
-    height: 42px;
-
-    padding: $spacing-8;
   }
 
   .icon {
