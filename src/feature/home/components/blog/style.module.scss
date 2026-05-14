@@ -36,7 +36,7 @@
 
   width: 100%;
 
-  padding: $spacing-20 0;
+  padding: 0;
 
   border-bottom: 1px solid $border;
 
@@ -104,6 +104,7 @@
   .blog {
     gap: $spacing-20;
 
+    padding-top: $spacing-12;
     padding-left: $padding-mobile;
     padding-right: $padding-mobile;
   }
@@ -137,9 +138,5 @@
 
   .cardMeta {
     margin-left: 0;
-  }
-
-  .card {
-    padding: $spacing-20 0;
   }
 }

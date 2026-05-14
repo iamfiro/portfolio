@@ -73,6 +73,22 @@
         width: 120px;
         aspect-ratio: 1/1;
     }
+
+    @media (max-width: 768px) {
+        img:not(.title > img) {
+            width: 100px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        height: 180px;
+
+        border-radius: $radius-14;
+
+        img:not(.title > img) {
+            width: 80px;
+        }
+    }
 }
 
 .thumbnail_icon_lt {
@@ -81,6 +97,16 @@
     top: -25px;
 
     transform: rotate(-30deg);
+
+    @media (max-width: 768px) {
+        left: -20px;
+        top: -15px;
+    }
+
+    @media (max-width: 480px) {
+        left: -15px;
+        top: -10px;
+    }
 }
 
 .thumbnail_icon_rt {
@@ -89,6 +115,16 @@
     top: -35px;
 
     transform: rotate(20deg);
+
+    @media (max-width: 768px) {
+        right: -25px;
+        top: -20px;
+    }
+
+    @media (max-width: 480px) {
+        right: -15px;
+        top: -10px;
+    }
 }
 
 .thumbnail_icon_rb {
@@ -97,6 +133,16 @@
     bottom: -30px;
 
     transform: rotate(-20deg);
+
+    @media (max-width: 768px) {
+        right: -20px;
+        bottom: -15px;
+    }
+
+    @media (max-width: 480px) {
+        right: -15px;
+        bottom: -10px;
+    }
 }
 
 .thumbnail_icon_lb {
@@ -105,6 +151,16 @@
     bottom: -20px;
 
     transform: rotate(40deg);
+
+    @media (max-width: 768px) {
+        left: -20px;
+        bottom: -10px;
+    }
+
+    @media (max-width: 480px) {
+        left: -15px;
+        bottom: -5px;
+    }
 }
 
 .right {
@@ -150,12 +206,30 @@
 
 @media (max-width: 768px) {
     .page {
-        padding: 120px $spacing-24 120px;
+        padding: 80px $spacing-24 120px;
+    }
+
+    .title {
+        font-size: 32px;
+
+        img {
+            width: 26px;
+            height: 26px;
+        }
     }
 }
 
 @media (max-width: 480px) {
     .page {
-        padding: 100px $spacing-16 100px;
+        padding: 80px $spacing-16 100px;
+    }
+
+    .title {
+        font-size: 24px;
+
+        img {
+            width: 20px;
+            height: 20px;
+        }
     }
 }
