@@ -6,7 +6,7 @@
     "notion:schema-sync": "tsx src/scripts/notion-schema-sync.ts",
     "build": "tsc",
     "start": "node dist/index.js",
-    "vercel-build": "tsc",
+    "vercel-build": "prisma generate && tsc",
     "vercel-dev": "vercel dev"
   },
   "dependencies": {
