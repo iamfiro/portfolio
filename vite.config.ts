@@ -11,6 +11,15 @@ export default defineConfig({
     },
   },
   assetsInclude: ["**/*.md"],
+  server: {
+    proxy: {
+      "/api": {
+        target: "https://api.devfiro.com",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ""),
+      },
+    },
+  },
   css: {
     preprocessorOptions: {
       scss: {
