@@ -51,12 +51,15 @@ app.get("/", (c) => {
   });
 });
 
-const port = 3000;
-console.log(`Server is running on http://localhost:${port}`);
+// Vercel uses the default export directly — only start the server locally
+if (!process.env.VERCEL) {
+  const port = 3000;
+  console.log(`Server is running on http://localhost:${port}`);
 
-serve({
-  fetch: app.fetch,
-  port,
-});
+  serve({
+    fetch: app.fetch,
+    port,
+  });
+}
 
 export default app;
