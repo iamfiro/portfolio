@@ -12,10 +12,12 @@
   "dependencies": {
     "@hono/node-server": "^1.19.2",
     "@notionhq/client": "^2.2.15",
+    "@prisma/adapter-pg": "^7.8.0",
     "@prisma/client": "^7.8.0",
     "dotenv": "^17.4.2",
     "hono": "^4.9.7",
-    "notion-to-md": "^3.1.1"
+    "notion-to-md": "^3.1.1",
+    "pg": "^8.20.0"
   },
   "devDependencies": {
     "@types/node": "^20.11.17",
