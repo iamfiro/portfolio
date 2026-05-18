@@ -1,0 +1,51 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-32;
+
+  width: 100%;
+  max-width: $max-width;
+}
+
+.fields {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-24;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-8;
+}
+
+.label {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  line-height: $line-height-normal;
+
+  color: $text-subtle;
+}
+
+.submitButton {
+  align-self: flex-start;
+}
+
+.success {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-12;
+
+  max-width: $max-width;
+}
+
+.successTitle {
+  color: $text;
+  font-weight: $font-weight-medium;
+}
+
+.resetButton {
+  align-self: flex-start;
+
+  margin-top: $spacing-8;
+}

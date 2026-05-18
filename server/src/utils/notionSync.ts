@@ -6,6 +6,7 @@ import { autoFields } from "../notion/autoFields.js";
 import { notion, notionToMarkdown } from "./notion.js";
 import { buildAutoFieldData } from "./notionAutoFields.js";
 import prisma from "./prisma.js";
+import { uploadImageToR2 } from "./r2.js";
 
 const BLOG_TITLE = "이름";
 const BLOG_SUMMARY = "요약";
@@ -132,14 +133,32 @@ function getFileUrl(page: PageObjectResponse, name: string) {
   return null;
 }
 
+async function getImageUrl(
+  page: PageObjectResponse,
+  propName: string,
+  category: string,
+  itemName: string,
+  label = "image",
+): Promise<string | null> {
+  const rawUrl = getFileUrl(page, propName);
+  if (!rawUrl) return null;
+
+  try {
+    return await uploadImageToR2(rawUrl, { category, name: itemName, label });
+  } catch (e) {
+    console.error(`R2 upload failed for ${category}/${itemName}:`, e);
+    return rawUrl;
+  }
+}
+
 async function syncStacks(pages: PageObjectResponse[]) {
   const stackMap = new Map<string, string>();
 
   for (const page of pages) {
     const notionId = page.id;
     const name = getTitle(page, STACK_TITLE);
-    const imageUrl = getFileUrl(page, STACK_IMAGE);
-    const auto = buildAutoFieldData(page, autoFields.stack);
+    const imageUrl = await getImageUrl(page, STACK_IMAGE, "stacks", name, "icon");
+    const auto = await buildAutoFieldData(page, autoFields.stack, { category: "stacks", name });
 
     const record = await prisma.stack.upsert({
       where: { notionId },
@@ -172,12 +191,12 @@ async function syncProjects(
     const notionId = page.id;
     const title = getTitle(page, PROJECT_TITLE);
     const description = getRichText(page, PROJECT_DESC);
-    const thumbnailUrl = getFileUrl(page, PROJECT_THUMBNAIL);
+    const thumbnailUrl = await getImageUrl(page, PROJECT_THUMBNAIL, "projects", title, "thumbnail");
     const githubUrl = getUrl(page, PROJECT_GITHUB);
     const deployUrl = getUrl(page, PROJECT_DEPLOY);
     const startDate = getDate(page, PROJECT_START) ?? new Date();
     const endDate = getDate(page, PROJECT_END);
-    const auto = buildAutoFieldData(page, autoFields.project);
+    const auto = await buildAutoFieldData(page, autoFields.project, { category: "projects", name: title });
 
     const record = await prisma.project.upsert({
       where: { notionId },
@@ -225,10 +244,10 @@ async function syncPosts(
     const notionId = page.id;
     const title = getTitle(page, BLOG_TITLE);
     const summary = getRichText(page, BLOG_SUMMARY);
-    const thumbnailUrl = getFileUrl(page, BLOG_THUMBNAIL);
+    const thumbnailUrl = await getImageUrl(page, BLOG_THUMBNAIL, "posts", title, "thumbnail");
     const date = getDate(page, BLOG_DATE) ?? new Date();
     const categories = getMultiSelect(page, BLOG_TAGS);
-    const auto = buildAutoFieldData(page, autoFields.post);
+    const auto = await buildAutoFieldData(page, autoFields.post, { category: "posts", name: title });
 
     const markdownBlocks = await notionToMarkdown.pageToMarkdown(notionId);
     const markdownString = notionToMarkdown.toMarkdownString(markdownBlocks);
@@ -280,12 +299,12 @@ async function syncAwards(
     const title = getTitle(page, AWARD_TITLE);
     const organization = getRichText(page, AWARD_ORG);
     const date = getDate(page, AWARD_DATE) ?? new Date();
-    const imageUrl = getFileUrl(page, AWARD_IMAGE);
+    const imageUrl = await getImageUrl(page, AWARD_IMAGE, "awards", title, "image");
     const projectNotionId = getRelationIds(page, AWARD_PROJECT)[0];
     const projectId = projectNotionId
       ? projectMap.get(projectNotionId) ?? null
       : null;
-    const auto = buildAutoFieldData(page, autoFields.award);
+    const auto = await buildAutoFieldData(page, autoFields.award, { category: "awards", name: title });
 
     await prisma.award.upsert({
       where: { notionId },

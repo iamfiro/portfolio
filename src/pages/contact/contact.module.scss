@@ -1,0 +1,59 @@
+.container {
+  width: 100%;
+  min-height: 100vh;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+
+  padding: 250px $spacing-40 200px;
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-12;
+
+  width: 100%;
+
+  margin-bottom: $spacing-48;
+}
+
+.title {
+  font-size: 64px;
+  font-family: $font-gambarino;
+  font-weight: 500;
+  line-height: $line-height-tight;
+
+  color: $text;
+}
+
+.subtitle {
+  font-size: $font-size-md;
+  line-height: $line-height-relaxed;
+
+  color: $text-subtle;
+}
+
+@media (max-width: 768px) {
+  .page {
+    padding: 180px $spacing-24 200px;
+  }
+
+  .title {
+    font-size: 48px;
+  }
+}
+
+@media (max-width: 480px) {
+  .page {
+    padding: 120px $spacing-16 200px;
+  }
+
+  .title {
+    font-size: 36px;
+  }
+}

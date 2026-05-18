@@ -4,6 +4,7 @@ import type {
   AutoFieldDefinition,
   AutoPrismaScalarType,
 } from "../notion/autoFields.js";
+import { uploadImagesToR2 } from "./r2.js";
 
 function getPlainTextFromRichText(
   items: Array<{ plain_text: string }> | undefined,
@@ -47,10 +48,11 @@ function coerceToPrismaType(
   }
 }
 
-export function buildAutoFieldData(
+export async function buildAutoFieldData(
   page: PageObjectResponse,
   defs: AutoFieldDefinition[],
-): Record<string, unknown> {
+  context?: { category: string; name: string },
+): Promise<Record<string, unknown>> {
   if (defs.length === 0) return {};
 
   const result: Record<string, unknown> = {};
@@ -103,23 +105,35 @@ export function buildAutoFieldData(
       case "relation":
         raw = stringify(prop.relation.map((item) => item.id));
         break;
-      case "files":
-        raw = stringify(
-          prop.files
-            .map((file) => {
-              if (file.type === "external" && "external" in file) {
-                return file.external.url;
-              }
+      case "files": {
+        const urls = prop.files
+          .map((file) => {
+            if (file.type === "external" && "external" in file) {
+              return file.external.url;
+            }
+            if (file.type === "file" && "file" in file) {
+              return file.file.url;
+            }
+            return null;
+          })
+          .filter((url): url is string => Boolean(url));
 
-              if (file.type === "file" && "file" in file) {
-                return file.file.url;
-              }
-
-              return null;
-            })
-            .filter((url): url is string => Boolean(url)),
-        );
+        if (urls.length > 0 && context) {
+          try {
+            const r2Urls = await uploadImagesToR2(urls, {
+              category: context.category,
+              name: context.name,
+              label: def.prismaFieldName,
+            });
+            raw = stringify(r2Urls);
+          } catch {
+            raw = stringify(urls);
+          }
+        } else {
+          raw = stringify(urls);
+        }
         break;
+      }
       case "people":
         raw = stringify(prop.people.map((person) => person.id));
         break;
@@ -130,8 +144,6 @@ export function buildAutoFieldData(
         raw = prop.last_edited_time ? new Date(prop.last_edited_time) : null;
         break;
       default:
-        // For unknown/unsupported property types (formula, rollup, etc.),
-        // store a JSON string to keep the backup lossless-ish.
         raw = stringify(prop);
         break;
     }

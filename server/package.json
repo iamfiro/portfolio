@@ -10,14 +10,17 @@
     "vercel-dev": "vercel dev"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.1048.0",
     "@hono/node-server": "^1.19.2",
     "@notionhq/client": "^2.2.15",
     "@prisma/adapter-pg": "^7.8.0",
     "@prisma/client": "^7.8.0",
+    "@types/sharp": "^0.31.1",
     "dotenv": "^17.4.2",
     "hono": "^4.9.7",
     "notion-to-md": "^3.1.1",
-    "pg": "^8.20.0"
+    "pg": "^8.20.0",
+    "sharp": "^0.34.5"
   },
   "devDependencies": {
     "@types/node": "^20.11.17",
