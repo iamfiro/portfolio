@@ -16,12 +16,12 @@ let isInitialized = false;
  * - 개발 환경에서는 debug 모드 활성화
  */
 export function initializeGA(): void {
-  if (isInitialized || !GA_MEASUREMENT_ID) {
-    if (!GA_MEASUREMENT_ID && import.meta.env.DEV) {
-      console.warn("[Analytics] VITE_GA_MEASUREMENT_ID가 설정되지 않았습니다.");
-    }
+  if (import.meta.env.DEV) {
+    console.log("[Analytics] dev 모드에서는 GA를 비활성화합니다.");
     return;
   }
+
+  if (isInitialized || !GA_MEASUREMENT_ID) return;
 
   ReactGA.initialize(GA_MEASUREMENT_ID, {
     gaOptions: {
