@@ -8,6 +8,7 @@ import {
 } from "react";
 
 import { getAwards } from "@/feature/awards/api";
+import { generateSrcSet } from "@/shared/utils/responsive-image.util";
 import { Award, AwardsResponse } from "@/feature/awards/schema";
 import { usePageTransition } from "@/shared/components/layouts/page-transition/page-transition.context";
 import { Flex, Heading, Section, Stack, Text } from "@/shared/components/ui";
@@ -136,6 +137,8 @@ export default function Awards() {
 
       img.dataset.enabled = "true";
       img.src = award.imageUrl;
+      img.srcset = generateSrcSet(award.imageUrl) ?? "";
+      img.sizes = "(max-width: 767px) 80vw, 320px";
       isVisible.current = false;
 
       img.style.opacity = "0";

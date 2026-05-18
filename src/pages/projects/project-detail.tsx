@@ -140,6 +140,8 @@ export default function ProjectDetail() {
                 src={project.thumbnailUrl}
                 alt={`${project.title} thumbnail`}
                 className={s.thumbnail}
+                responsive
+                sizes="(max-width: 767px) 100vw, (max-width: 1199px) 90vw, 1200px"
               />
             </motion.div>
           )}

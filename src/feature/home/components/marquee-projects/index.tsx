@@ -114,6 +114,8 @@ function ProjectCard({
           alt={project.name}
           className={s.cardImage}
           draggable={false}
+          responsive
+          sizes="(max-width: 767px) 80vw, 320px"
         />
       </div>
 

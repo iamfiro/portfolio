@@ -5,6 +5,7 @@ import { Clock } from "lucide-react";
 import { calculateReadingTime } from "@/feature/blog/reading-time.util";
 import { Post } from "@/feature/blog/schema";
 import { Flex, Tag, Text } from "@/shared/components/ui";
+import { generateSrcSet } from "@/shared/utils/responsive-image.util";
 
 import { getPost } from "../../api";
 
@@ -59,6 +60,8 @@ export default function BlogCard(props: BlogCardProps) {
       <div className={s.thumbnailWrapper}>
         <motion.img
           src={thumbnail}
+          srcSet={generateSrcSet(thumbnail) ?? undefined}
+          sizes="(max-width: 767px) 100vw, (max-width: 1199px) 40vw, 360px"
           alt={`${title} thumbnail`}
           className={s.thumbnail}
           whileHover={{ scale: 1.04 }}

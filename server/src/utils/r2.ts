@@ -1,9 +1,6 @@
 import "../env.js";
 
-import {
-  PutObjectCommand,
-  S3Client,
-} from "@aws-sdk/client-s3";
+import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import sharp from "sharp";
 
 const s3 = new S3Client({
@@ -17,6 +14,9 @@ const s3 = new S3Client({
 
 const BUCKET = process.env.R2_BUCKET_NAME!;
 const PUBLIC_URL = process.env.R2_PUBLIC_URL!;
+
+export const RESPONSIVE_WIDTHS = [640, 1024, 1440] as const;
+const ICON_WIDTH = 128;
 
 function slugify(text: string): string {
   return text
@@ -37,8 +37,37 @@ async function downloadImage(url: string): Promise<Buffer> {
   return Buffer.from(await response.arrayBuffer());
 }
 
-// 최대 1920px, WebP quality 80, SVG는 원본 유지
-async function optimizeImage(
+async function optimizeImageMultiSize(
+  buffer: Buffer,
+  contentType: string,
+): Promise<{ data: Buffer; width: number }[]> {
+  if (contentType.includes("svg")) {
+    return [
+      {
+        data: buffer,
+        width: RESPONSIVE_WIDTHS[RESPONSIVE_WIDTHS.length - 1],
+      },
+    ];
+  }
+
+  const basePipeline = sharp(buffer).rotate();
+
+  const variants = await Promise.all(
+    RESPONSIVE_WIDTHS.map(async (width) => {
+      const data = await basePipeline
+        .clone()
+        .resize({ width, withoutEnlargement: true })
+        .webp({ quality: 80 })
+        .toBuffer();
+
+      return { data, width };
+    }),
+  );
+
+  return variants.sort((a, b) => a.width - b.width);
+}
+
+async function optimizeIcon(
   buffer: Buffer,
   contentType: string,
 ): Promise<{ data: Buffer; mimeType: string; ext: string }> {
@@ -47,7 +76,8 @@ async function optimizeImage(
   }
 
   const optimized = await sharp(buffer)
-    .resize({ width: 1920, withoutEnlargement: true })
+    .rotate()
+    .resize({ width: ICON_WIDTH, withoutEnlargement: true })
     .webp({ quality: 80 })
     .toBuffer();
 
@@ -76,6 +106,7 @@ interface UploadOptions {
   category: string;
   name: string;
   label?: string;
+  variant?: "responsive" | "icon";
 }
 
 // 경로: {category}/{slug}/{label}.{ext}
@@ -83,7 +114,7 @@ export async function uploadImageToR2(
   sourceUrl: string,
   options: UploadOptions,
 ): Promise<string> {
-  const { category, name, label = "image" } = options;
+  const { category, name, label = "image", variant = "responsive" } = options;
 
   const response = await fetch(sourceUrl);
   if (!response.ok) {
@@ -92,18 +123,48 @@ export async function uploadImageToR2(
 
   const buffer = Buffer.from(await response.arrayBuffer());
   const contentType = inferContentType(sourceUrl, response.headers);
-  const { data, mimeType, ext } = await optimizeImage(buffer, contentType);
-
   const slug = slugify(name);
-  const key = `${category}/${slug}/${label}.${ext}`;
 
-  await s3.send(
-    new PutObjectCommand({
-      Bucket: BUCKET,
-      Key: key,
-      Body: data,
-      ContentType: mimeType,
-    }),
+  if (variant === "icon" || contentType.includes("svg")) {
+    const { data, mimeType, ext } = await optimizeIcon(buffer, contentType);
+    const key = `${category}/${slug}/${label}.${ext}`;
+
+    await s3.send(
+      new PutObjectCommand({
+        Bucket: BUCKET,
+        Key: key,
+        Body: data,
+        ContentType: mimeType,
+      }),
+    );
+
+    return `${PUBLIC_URL}/${key}`;
+  }
+
+  const variants = await optimizeImageMultiSize(buffer, contentType);
+  const largestVariant = variants[variants.length - 1];
+  const key = `${category}/${slug}/${label}.webp`;
+
+  await Promise.all(
+    [
+      ...variants.map(({ data, width }) => ({
+        key: `${category}/${slug}/${label}-${width}w.webp`,
+        data,
+      })),
+      {
+        key,
+        data: largestVariant.data,
+      },
+    ].map(({ key: uploadKey, data }) =>
+      s3.send(
+        new PutObjectCommand({
+          Bucket: BUCKET,
+          Key: uploadKey,
+          Body: data,
+          ContentType: "image/webp",
+        }),
+      ),
+    ),
   );
 
   return `${PUBLIC_URL}/${key}`;
@@ -116,9 +177,10 @@ export async function uploadImagesToR2(
   const results: string[] = [];
 
   for (let i = 0; i < sourceUrls.length; i++) {
-    const label = sourceUrls.length === 1
-      ? (options.label ?? "image")
-      : `${options.label ?? "image"}-${i + 1}`;
+    const label =
+      sourceUrls.length === 1
+        ? (options.label ?? "image")
+        : `${options.label ?? "image"}-${i + 1}`;
 
     const url = await uploadImageToR2(sourceUrls[i], {
       ...options,

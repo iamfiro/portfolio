@@ -5,6 +5,7 @@ import { useCallback, useMemo, useRef } from "react";
 import { getAwards } from "@/feature/awards/api";
 import { Award, AwardsResponse } from "@/feature/awards/schema";
 import { Flex, Heading, Stack, Text } from "@/shared/components/ui";
+import { generateSrcSet } from "@/shared/utils/responsive-image.util";
 
 import s from "./style.module.scss";
 
@@ -71,6 +72,8 @@ export default function AwardsList() {
 
     img.dataset.enabled = "true";
     img.src = award.imageUrl;
+    img.srcset = generateSrcSet(award.imageUrl) ?? "";
+    img.sizes = "(max-width: 767px) 80vw, 320px";
     isVisible.current = false;
 
     img.style.opacity = "0";

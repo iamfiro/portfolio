@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import type { LayoutProps, StyleProps } from "@/shared/types/component-common";
+import { generateSrcSet } from "@/shared/utils/responsive-image.util";
 
 import { buildLayoutStyle, cn } from "../_utils";
 
@@ -11,6 +12,7 @@ type ImageProps = {
   alt: string;
   fallback?: React.ReactNode;
   objectFit?: "cover" | "contain" | "fill" | "none";
+  responsive?: boolean;
   rounded?: boolean;
 } & LayoutProps &
   StyleProps &
@@ -21,6 +23,7 @@ function Image({
   alt,
   fallback,
   objectFit = "cover",
+  responsive = false,
   rounded = false,
   className,
   style,
@@ -33,6 +36,8 @@ function Image({
   ...rest
 }: ImageProps) {
   const [error, setError] = useState(false);
+  const generatedSrcSet = responsive ? generateSrcSet(src) : null;
+  const srcSet = rest.srcSet ?? generatedSrcSet ?? undefined;
 
   if (error && fallback) {
     return <>{fallback}</>;
@@ -41,6 +46,7 @@ function Image({
   return (
     <img
       src={src}
+      srcSet={srcSet}
       alt={alt}
       className={cn(styles.image, rounded && styles.rounded, className)}
       style={{

@@ -39,6 +39,8 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             src={project.thumbnailUrl}
             alt={project.title}
             className={s.thumbnail}
+            responsive
+            sizes="(max-width: 767px) 100vw, (max-width: 1199px) 50vw, 33vw"
           />
         )}
       </Card>

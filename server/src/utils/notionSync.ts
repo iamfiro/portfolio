@@ -139,12 +139,13 @@ async function getImageUrl(
   category: string,
   itemName: string,
   label = "image",
+  variant?: "responsive" | "icon",
 ): Promise<string | null> {
   const rawUrl = getFileUrl(page, propName);
   if (!rawUrl) return null;
 
   try {
-    return await uploadImageToR2(rawUrl, { category, name: itemName, label });
+    return await uploadImageToR2(rawUrl, { category, name: itemName, label, variant });
   } catch (e) {
     console.error(`R2 upload failed for ${category}/${itemName}:`, e);
     return rawUrl;
@@ -157,7 +158,7 @@ async function syncStacks(pages: PageObjectResponse[]) {
   for (const page of pages) {
     const notionId = page.id;
     const name = getTitle(page, STACK_TITLE);
-    const imageUrl = await getImageUrl(page, STACK_IMAGE, "stacks", name, "icon");
+    const imageUrl = await getImageUrl(page, STACK_IMAGE, "stacks", name, "icon", "icon");
     const auto = await buildAutoFieldData(page, autoFields.stack, { category: "stacks", name });
 
     const record = await prisma.stack.upsert({
