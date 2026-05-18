@@ -71,7 +71,7 @@ function getHeight(id: string): number {
     hash = (hash * 31 + id.charCodeAt(i)) | 0;
   }
   const seed = Math.abs(hash) / 2147483647;
-  return 120 + seed * 160; // 120px ~ 280px 범위
+  return 80 + seed * 100; // 80px ~ 180px 범위
 }
 
 interface MarqueeProjectItem {
@@ -80,7 +80,7 @@ interface MarqueeProjectItem {
   thumbnail: string;
 }
 
-const MARQUEE_GAP = 32;
+const MARQUEE_GAP = 20;
 const MARQUEE_SPEED = 1; // px per frame
 const DRAG_THRESHOLD_PX = 3;
 const INERTIA_FRICTION = 0.95; // 감속 계수 (1에 가까울수록 오래 미끄러짐)
