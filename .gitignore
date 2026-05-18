@@ -42,3 +42,4 @@ server/dist
 .next/
 
 memory
+.vercel
