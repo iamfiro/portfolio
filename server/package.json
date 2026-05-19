@@ -20,6 +20,7 @@
     "hono": "^4.9.7",
     "notion-to-md": "^3.1.1",
     "pg": "^8.20.0",
+    "pino": "^10.3.1",
     "sharp": "^0.34.5"
   },
   "devDependencies": {

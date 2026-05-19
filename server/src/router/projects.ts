@@ -1,9 +1,10 @@
 import { Hono } from "hono";
 import { randomUUID } from "node:crypto";
 
+import type { LoggerEnv } from "../middleware/logging.js";
 import prisma from "../utils/prisma.js";
 
-const app = new Hono();
+const app = new Hono<LoggerEnv>();
 
 function parseRelatedPost(post: {
   title: string;
@@ -76,6 +77,10 @@ async function replaceProjectStacks(projectId: string, names: string[]) {
 
 // GET /projects - 전체 목록 조회
 app.get("/", async (c) => {
+  const logger = c.get("logger");
+
+  logger.info({ operation: "project.list" }, "listing projects");
+
   const projects = await prisma.project.findMany({
     orderBy: { startDate: "desc" },
     include: {
@@ -98,7 +103,10 @@ app.get("/", async (c) => {
 
 // GET /projects/:id - 단건 조회
 app.get("/:id", async (c) => {
+  const logger = c.get("logger");
   const id = c.req.param("id");
+
+  logger.info({ operation: "project.get", id }, "getting project");
 
   const project = await prisma.project.findUnique({
     where: { id },
@@ -110,6 +118,8 @@ app.get("/:id", async (c) => {
   });
 
   if (!project) {
+    logger.warn({ operation: "project.get", id }, "project not found");
+
     return c.json({ ok: false, message: "Project not found" }, 404);
   }
 
@@ -131,7 +141,13 @@ app.get("/:id", async (c) => {
 
 // POST /projects - 생성
 app.post("/", async (c) => {
+  const logger = c.get("logger");
   const body = await c.req.json();
+
+  logger.info(
+    { operation: "project.create", title: body.title },
+    "creating project",
+  );
 
   const project = await prisma.project.create({
     data: {
@@ -155,6 +171,11 @@ app.post("/", async (c) => {
     ? body.techStack
     : parseTechStack(project.stacks);
 
+  logger.info(
+    { operation: "project.create", id: project.id, title: project.title },
+    "project created",
+  );
+
   return c.json(
     {
       ok: true,
@@ -169,8 +190,14 @@ app.post("/", async (c) => {
 
 // PUT /projects/:id - 수정
 app.put("/:id", async (c) => {
+  const logger = c.get("logger");
   const id = c.req.param("id");
   const body = await c.req.json();
+
+  logger.info(
+    { operation: "project.update", id, title: body.title },
+    "updating project",
+  );
 
   const existing = await prisma.project.findUnique({
     where: { id },
@@ -178,6 +205,8 @@ app.put("/:id", async (c) => {
   });
 
   if (!existing) {
+    logger.warn({ operation: "project.update", id }, "project not found");
+
     return c.json({ ok: false, message: "Project not found" }, 404);
   }
 
@@ -213,6 +242,11 @@ app.put("/:id", async (c) => {
     ? body.techStack
     : parseTechStack(project.stacks);
 
+  logger.info(
+    { operation: "project.update", id: project.id, title: project.title },
+    "project updated",
+  );
+
   return c.json({
     ok: true,
     data: { ...project, techStack: updatedTechStack },
@@ -221,15 +255,25 @@ app.put("/:id", async (c) => {
 
 // DELETE /projects/:id - 삭제
 app.delete("/:id", async (c) => {
+  const logger = c.get("logger");
   const id = c.req.param("id");
+
+  logger.info({ operation: "project.delete", id }, "deleting project");
 
   const existing = await prisma.project.findUnique({ where: { id } });
 
   if (!existing) {
+    logger.warn({ operation: "project.delete", id }, "project not found");
+
     return c.json({ ok: false, message: "Project not found" }, 404);
   }
 
   await prisma.project.delete({ where: { id } });
+
+  logger.info(
+    { operation: "project.delete", id: existing.id, title: existing.title },
+    "project deleted",
+  );
 
   return c.json({ ok: true, message: "Project deleted" });
 });

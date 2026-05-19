@@ -4,6 +4,10 @@ import { serve } from "@hono/node-server";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 
+import type { LoggerEnv } from "./middleware/logging.js";
+import logging from "./middleware/logging.js";
+import logger from "./utils/logger.js";
+
 if (process.env.NOTION_AUTO_MIGRATE === "1") {
   const { syncNotionSchemaIfNeeded } = await import(
     "./utils/notionSchemaSync.js"
@@ -18,9 +22,10 @@ const { default: notionSync } = await import("./router/notion-sync.js");
 const { default: posts } = await import("./router/posts.js");
 const { default: projects } = await import("./router/projects.js");
 
-const app = new Hono();
+const app = new Hono<LoggerEnv>();
 
-// CORS 미들웨어를 먼저 적용
+app.use("*", logging);
+
 app.use(
   "*",
   cors({
@@ -51,10 +56,9 @@ app.get("/", (c) => {
   });
 });
 
-// Vercel uses the default export directly — only start the server locally
 if (!process.env.VERCEL) {
   const port = 3000;
-  console.log(`Server is running on http://localhost:${port}`);
+  logger.info({ port }, "server started");
 
   serve({
     fetch: app.fetch,

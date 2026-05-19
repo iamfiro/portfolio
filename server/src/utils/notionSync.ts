@@ -3,10 +3,13 @@ import "../env.js";
 import type { PageObjectResponse } from "@notionhq/client/build/src/api-endpoints";
 
 import { autoFields } from "../notion/autoFields.js";
+import { createChildLogger } from "./logger.js";
 import { notion, notionToMarkdown } from "./notion.js";
 import { buildAutoFieldData } from "./notionAutoFields.js";
 import prisma from "./prisma.js";
 import { uploadImageToR2 } from "./r2.js";
+
+const logger = createChildLogger({ module: "notion-sync" });
 
 const BLOG_TITLE = "이름";
 const BLOG_SUMMARY = "요약";
@@ -48,6 +51,34 @@ interface ProjectRelationRow {
 interface PostRelationRow {
   postId: string;
   projectNotionIds: string[];
+}
+
+function getUrlDomain(url: string): string | null {
+  try {
+    return new URL(url).hostname;
+  } catch {
+    return null;
+  }
+}
+
+function slugifyLogPath(text: string): string {
+  return text
+    .replace(/[^\w\s가-힣-]/g, "")
+    .replace(/[\s_]+/g, "-")
+    .replace(/-+/g, "-")
+    .replace(/^-|-$/g, "")
+    .slice(0, 80);
+}
+
+function getR2DestinationPath(
+  category: string,
+  itemName: string,
+  label: string,
+  variant?: "responsive" | "icon",
+): string {
+  const ext = variant === "icon" ? "webp|svg" : "webp";
+
+  return `${category}/${slugifyLogPath(itemName)}/${label}.${ext}`;
 }
 
 function requireEnv(value: string | undefined, name: string) {
@@ -144,20 +175,68 @@ async function getImageUrl(
   const rawUrl = getFileUrl(page, propName);
   if (!rawUrl) return null;
 
+  const startedAt = performance.now();
+  const destinationPath = getR2DestinationPath(category, itemName, label, variant);
+
+  logger.info(
+    {
+      category,
+      itemName,
+      label,
+      variant,
+      destinationPath,
+      sourceDomain: getUrlDomain(rawUrl),
+    },
+    "Uploading Notion image to R2",
+  );
+
   try {
-    return await uploadImageToR2(rawUrl, { category, name: itemName, label, variant });
+    const uploadedUrl = await uploadImageToR2(rawUrl, { category, name: itemName, label, variant });
+
+    logger.info(
+      {
+        category,
+        itemName,
+        label,
+        variant,
+        destinationPath,
+        durationMs: Math.round(performance.now() - startedAt),
+      },
+      "Notion image uploaded to R2",
+    );
+
+    return uploadedUrl;
   } catch (e) {
-    console.error(`R2 upload failed for ${category}/${itemName}:`, e);
+    logger.warn(
+      {
+        err: e,
+        category,
+        itemName,
+        label,
+        variant,
+        destinationPath,
+        sourceDomain: getUrlDomain(rawUrl),
+        durationMs: Math.round(performance.now() - startedAt),
+      },
+      "R2 upload failed; falling back to raw Notion image URL",
+    );
+
     return rawUrl;
   }
 }
 
 async function syncStacks(pages: PageObjectResponse[]) {
+  const startedAt = performance.now();
   const stackMap = new Map<string, string>();
+
+  logger.info({ count: pages.length }, "Stack sync started");
 
   for (const page of pages) {
     const notionId = page.id;
     const name = getTitle(page, STACK_TITLE);
+
+    logger.debug({ notionId, name }, "Processing stack item");
+
     const imageUrl = await getImageUrl(page, STACK_IMAGE, "stacks", name, "icon", "icon");
     const auto = await buildAutoFieldData(page, autoFields.stack, { category: "stacks", name });
 
@@ -179,18 +258,29 @@ async function syncStacks(pages: PageObjectResponse[]) {
     stackMap.set(notionId, record.id);
   }
 
+  logger.info(
+    { count: pages.length, durationMs: Math.round(performance.now() - startedAt) },
+    "Stack sync completed",
+  );
+
   return stackMap;
 }
 
 async function syncProjects(
   pages: PageObjectResponse[],
 ): Promise<{ projectMap: Map<string, string>; relations: ProjectRelationRow[] }> {
+  const startedAt = performance.now();
   const projectMap = new Map<string, string>();
   const relations: ProjectRelationRow[] = [];
+
+  logger.info({ count: pages.length }, "Project sync started");
 
   for (const page of pages) {
     const notionId = page.id;
     const title = getTitle(page, PROJECT_TITLE);
+
+    logger.debug({ notionId, title }, "Processing project item");
+
     const description = getRichText(page, PROJECT_DESC);
     const thumbnailUrl = await getImageUrl(page, PROJECT_THUMBNAIL, "projects", title, "thumbnail");
     const githubUrl = getUrl(page, PROJECT_GITHUB);
@@ -232,18 +322,29 @@ async function syncProjects(
     });
   }
 
+  logger.info(
+    { count: pages.length, durationMs: Math.round(performance.now() - startedAt) },
+    "Project sync completed",
+  );
+
   return { projectMap, relations };
 }
 
 async function syncPosts(
   pages: PageObjectResponse[],
 ): Promise<{ postMap: Map<string, string>; relations: PostRelationRow[] }> {
+  const startedAt = performance.now();
   const postMap = new Map<string, string>();
   const relations: PostRelationRow[] = [];
+
+  logger.info({ count: pages.length }, "Post sync started");
 
   for (const page of pages) {
     const notionId = page.id;
     const title = getTitle(page, BLOG_TITLE);
+
+    logger.debug({ notionId, title }, "Processing post item");
+
     const summary = getRichText(page, BLOG_SUMMARY);
     const thumbnailUrl = await getImageUrl(page, BLOG_THUMBNAIL, "posts", title, "thumbnail");
     const date = getDate(page, BLOG_DATE) ?? new Date();
@@ -288,6 +389,11 @@ async function syncPosts(
     });
   }
 
+  logger.info(
+    { count: pages.length, durationMs: Math.round(performance.now() - startedAt) },
+    "Post sync completed",
+  );
+
   return { postMap, relations };
 }
 
@@ -295,9 +401,16 @@ async function syncAwards(
   pages: PageObjectResponse[],
   projectMap: Map<string, string>,
 ) {
+  const startedAt = performance.now();
+
+  logger.info({ count: pages.length }, "Award sync started");
+
   for (const page of pages) {
     const notionId = page.id;
     const title = getTitle(page, AWARD_TITLE);
+
+    logger.debug({ notionId, title }, "Processing award item");
+
     const organization = getRichText(page, AWARD_ORG);
     const date = getDate(page, AWARD_DATE) ?? new Date();
     const imageUrl = await getImageUrl(page, AWARD_IMAGE, "awards", title, "image");
@@ -328,6 +441,11 @@ async function syncAwards(
       },
     });
   }
+
+  logger.info(
+    { count: pages.length, durationMs: Math.round(performance.now() - startedAt) },
+    "Award sync completed",
+  );
 }
 
 async function syncProjectStacks(
@@ -383,6 +501,10 @@ async function syncPostProjects(
 }
 
 export async function syncNotionData(): Promise<SyncSummary> {
+  const startedAt = performance.now();
+
+  logger.info("Notion data sync started");
+
   requireEnv(process.env.NOTION_TOKEN, "NOTION_TOKEN");
   const blogDbId = requireEnv(
     process.env.NOTION_BLOG_DB_ID,
@@ -408,19 +530,47 @@ export async function syncNotionData(): Promise<SyncSummary> {
     queryAll(awardDbId),
   ]);
 
+  logger.info(
+    {
+      stacks: stackPages.length,
+      projects: projectPages.length,
+      posts: postPages.length,
+      awards: awardPages.length,
+    },
+    "Notion pages loaded",
+  );
+
+  logger.info({ count: stackPages.length }, "Starting stack sync phase");
+
   const stackMap = await syncStacks(stackPages);
+
+  logger.info({ count: projectPages.length }, "Starting project sync phase");
+
   const { projectMap, relations: projectRelations } =
     await syncProjects(projectPages);
+
+  logger.info({ count: postPages.length }, "Starting post sync phase");
+
   const { relations: postRelations } = await syncPosts(postPages);
 
   await syncProjectStacks(projectRelations, stackMap);
   await syncPostProjects(postRelations, projectMap);
+
+  logger.info({ count: awardPages.length }, "Starting award sync phase");
+
   await syncAwards(awardPages, projectMap);
 
-  return {
+  const summary = {
     stacks: stackPages.length,
     projects: projectPages.length,
     posts: postPages.length,
     awards: awardPages.length,
   };
+
+  logger.info(
+    { ...summary, durationMs: Math.round(performance.now() - startedAt) },
+    "Notion data sync completed",
+  );
+
+  return summary;
 }

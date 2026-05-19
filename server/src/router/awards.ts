@@ -1,12 +1,17 @@
 import { Hono } from "hono";
 import { randomUUID } from "node:crypto";
 
+import type { LoggerEnv } from "../middleware/logging.js";
 import prisma from "../utils/prisma.js";
 
-const app = new Hono();
+const app = new Hono<LoggerEnv>();
 
 // GET /awards - 전체 목록 조회
 app.get("/", async (c) => {
+  const logger = c.get("logger");
+
+  logger.info({ operation: "award.list" }, "listing awards");
+
   const awards = await prisma.award.findMany({
     orderBy: { date: "desc" },
     include: {
@@ -24,7 +29,10 @@ app.get("/", async (c) => {
 
 // GET /awards/:id - 단건 조회
 app.get("/:id", async (c) => {
+  const logger = c.get("logger");
   const id = c.req.param("id");
+
+  logger.info({ operation: "award.get", id }, "getting award");
 
   const award = await prisma.award.findUnique({
     where: { id },
@@ -39,6 +47,8 @@ app.get("/:id", async (c) => {
   });
 
   if (!award) {
+    logger.warn({ operation: "award.get", id }, "award not found");
+
     return c.json({ ok: false, message: "Award not found" }, 404);
   }
 
@@ -47,7 +57,17 @@ app.get("/:id", async (c) => {
 
 // POST /awards - 생성
 app.post("/", async (c) => {
+  const logger = c.get("logger");
   const body = await c.req.json();
+
+  logger.info(
+    {
+      operation: "award.create",
+      title: body.title,
+      projectId: body.projectId,
+    },
+    "creating award",
+  );
 
   if (body.projectId) {
     const existingProject = await prisma.project.findUnique({
@@ -55,6 +75,11 @@ app.post("/", async (c) => {
     });
 
     if (!existingProject) {
+      logger.warn(
+        { operation: "award.create", projectId: body.projectId },
+        "project not found",
+      );
+
       return c.json({ ok: false, message: "Project not found" }, 404);
     }
 
@@ -64,6 +89,11 @@ app.post("/", async (c) => {
     });
 
     if (alreadyLinkedAward) {
+      logger.warn(
+        { operation: "award.create", projectId: body.projectId },
+        "project already linked to award",
+      );
+
       return c.json(
         {
           ok: false,
@@ -93,17 +123,35 @@ app.post("/", async (c) => {
     },
   });
 
+  logger.info(
+    { operation: "award.create", id: award.id, title: award.title },
+    "award created",
+  );
+
   return c.json({ ok: true, data: award }, 201);
 });
 
 // PUT /awards/:id - 수정
 app.put("/:id", async (c) => {
+  const logger = c.get("logger");
   const id = c.req.param("id");
   const body = await c.req.json();
+
+  logger.info(
+    {
+      operation: "award.update",
+      id,
+      title: body.title,
+      projectId: body.projectId,
+    },
+    "updating award",
+  );
 
   const existing = await prisma.award.findUnique({ where: { id } });
 
   if (!existing) {
+    logger.warn({ operation: "award.update", id }, "award not found");
+
     return c.json({ ok: false, message: "Award not found" }, 404);
   }
 
@@ -113,6 +161,11 @@ app.put("/:id", async (c) => {
     });
 
     if (!existingProject) {
+      logger.warn(
+        { operation: "award.update", id, projectId: body.projectId },
+        "project not found",
+      );
+
       return c.json({ ok: false, message: "Project not found" }, 404);
     }
 
@@ -122,6 +175,11 @@ app.put("/:id", async (c) => {
     });
 
     if (alreadyLinkedAward && alreadyLinkedAward.id !== id) {
+      logger.warn(
+        { operation: "award.update", projectId: body.projectId },
+        "project already linked to award",
+      );
+
       return c.json(
         {
           ok: false,
@@ -152,20 +210,35 @@ app.put("/:id", async (c) => {
     },
   });
 
+  logger.info(
+    { operation: "award.update", id: award.id, title: award.title },
+    "award updated",
+  );
+
   return c.json({ ok: true, data: award });
 });
 
 // DELETE /awards/:id - 삭제
 app.delete("/:id", async (c) => {
+  const logger = c.get("logger");
   const id = c.req.param("id");
+
+  logger.info({ operation: "award.delete", id }, "deleting award");
 
   const existing = await prisma.award.findUnique({ where: { id } });
 
   if (!existing) {
+    logger.warn({ operation: "award.delete", id }, "award not found");
+
     return c.json({ ok: false, message: "Award not found" }, 404);
   }
 
   await prisma.award.delete({ where: { id } });
+
+  logger.info(
+    { operation: "award.delete", id: existing.id, title: existing.title },
+    "award deleted",
+  );
 
   return c.json({ ok: true, message: "Award deleted" });
 });

@@ -1,8 +1,9 @@
 import { Hono } from "hono";
 
+import type { LoggerEnv } from "../middleware/logging.js";
 import prisma from "../utils/prisma.js";
 
-const app = new Hono();
+const app = new Hono<LoggerEnv>();
 
 function parseProject(project: {
   id: string;
@@ -29,6 +30,10 @@ function parseProject(project: {
 }
 
 app.get("/posts", async (c) => {
+  const logger = c.get("logger");
+
+  logger.info({ operation: "post.list" }, "listing posts");
+
   const posts = await prisma.post.findMany({
     orderBy: { date: "desc" },
     include: {
@@ -58,7 +63,10 @@ app.get("/posts", async (c) => {
 });
 
 app.get("/post/:title", async (c) => {
+  const logger = c.get("logger");
   const title = c.req.param("title");
+
+  logger.info({ operation: "post.get", title }, "getting post");
 
   const post = await prisma.post.findFirst({
     where: { title },
@@ -74,6 +82,8 @@ app.get("/post/:title", async (c) => {
   });
 
   if (!post) {
+    logger.warn({ operation: "post.get", title }, "post not found");
+
     return c.json({ ok: false, message: "Post not found" }, 404);
   }
 
