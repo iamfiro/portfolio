@@ -7,6 +7,18 @@
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
+.relatedPosts {
+  max-height: 240px;
+  padding: $spacing-12;
+
+  background-color: $surface-subtlest;
+
+  border: 1px solid $border;
+  border-radius: $radius-8;
+
+  overflow-y: auto;
+}
+
 .errorMessage {
   color: $text-danger-subtle;
 }

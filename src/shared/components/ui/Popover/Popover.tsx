@@ -12,18 +12,9 @@ type PopoverProps = {
   children: React.ReactNode;
 } & StyleProps;
 
-function Popover({
-  placement = "bottom",
-  className,
-  style,
-  children,
-}: PopoverProps) {
+function Popover({ placement = "bottom", className, style, children }: PopoverProps) {
   return (
-    <PopoverInternalProvider
-      placement={placement}
-      className={className}
-      style={style}
-    >
+    <PopoverInternalProvider placement={placement} className={className} style={style}>
       {children}
     </PopoverInternalProvider>
   );
@@ -71,11 +62,7 @@ function PopoverInternalProvider({
 
   return (
     <PopoverContext.Provider value={{ open, setOpen, triggerRef, placement }}>
-      <div
-        ref={popoverRef}
-        className={cn(styles.popover, className)}
-        style={style}
-      >
+      <div ref={popoverRef} className={cn(styles.popover, className)} style={style}>
         {children}
       </div>
     </PopoverContext.Provider>
@@ -90,11 +77,7 @@ function PopoverTrigger({ children }: PopoverTriggerProps) {
   const { setOpen, triggerRef } = useContext(PopoverContext);
 
   return (
-    <div
-      ref={triggerRef}
-      onClick={() => setOpen(true)}
-      className={styles.trigger}
-    >
+    <div ref={triggerRef} onClick={() => setOpen(true)} className={styles.trigger}>
       {children}
     </div>
   );

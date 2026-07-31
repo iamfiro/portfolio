@@ -130,10 +130,7 @@ interface Props {
   logoHref?: string;
 }
 
-export default function Header({
-  hideOnScroll = false,
-  logoHref = "/",
-}: Props) {
+export default function Header({ hideOnScroll = false, logoHref = "/" }: Props) {
   const location = useLocation();
   const { navigateTo, pageReady } = usePageTransition();
   const isActive = (path: string) => location.pathname.includes(path);
@@ -191,7 +188,7 @@ export default function Header({
         <a href={logoHref} onClick={(e) => handleNavClick(e, logoHref)}>
           <motion.img
             src="/logo.svg"
-            alt="logo"
+            alt="Sungju Cho 홈"
             className={s.logo}
             initial={{ opacity: 0, scale: 0.8 }}
             animate={pageReady ? { opacity: 1, scale: 1 } : undefined}
@@ -217,19 +214,14 @@ export default function Header({
                 className={active ? s.active : ""}
                 initial={{ opacity: 0, y: 20, filter: "blur(4px)" }}
                 animate={
-                  pageReady
-                    ? { opacity: 1, y: 0, filter: "blur(0px)" }
-                    : undefined
+                  pageReady ? { opacity: 1, y: 0, filter: "blur(0px)" } : undefined
                 }
                 transition={{ duration: 0.7, ease: EASE, delay }}
               >
                 {item.path === "/blog" && isActive("/blog") ? (
                   <span>{item.label}</span>
                 ) : (
-                  <a
-                    href={item.path}
-                    onClick={(e) => handleNavClick(e, item.path)}
-                  >
+                  <a href={item.path} onClick={(e) => handleNavClick(e, item.path)}>
                     {item.label}
                   </a>
                 )}
@@ -252,9 +244,7 @@ export default function Header({
                 key={item.label}
                 initial={{ opacity: 0, y: 20, filter: "blur(4px)" }}
                 animate={
-                  pageReady
-                    ? { opacity: 1, y: 0, filter: "blur(0px)" }
-                    : undefined
+                  pageReady ? { opacity: 1, y: 0, filter: "blur(0px)" } : undefined
                 }
                 transition={{ duration: 0.7, ease: EASE, delay }}
               >
@@ -269,9 +259,7 @@ export default function Header({
         <motion.div
           className={s.time}
           initial={{ opacity: 0, y: 20, filter: "blur(4px)" }}
-          animate={
-            pageReady ? { opacity: 1, y: 0, filter: "blur(0px)" } : undefined
-          }
+          animate={pageReady ? { opacity: 1, y: 0, filter: "blur(0px)" } : undefined}
           transition={{
             duration: 0.7,
             ease: EASE,
@@ -346,10 +334,7 @@ export default function Header({
                     {item.path === "/blog" && isActive("/blog") ? (
                       <span>{item.label}</span>
                     ) : (
-                      <a
-                        href={item.path}
-                        onClick={(e) => handleNavClick(e, item.path)}
-                      >
+                      <a href={item.path} onClick={(e) => handleNavClick(e, item.path)}>
                         {item.label}
                       </a>
                     )}

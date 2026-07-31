@@ -1,11 +1,6 @@
-export async function deleteAward(id: string) {
-  const response = await fetch(`${import.meta.env.VITE_API_URL}/awards/${id}`, {
-    method: "DELETE",
-  });
+import { del } from "@/shared/lib/api";
+import { ApiMessageResponse } from "@/shared/types/api";
 
-  if (!response.ok) {
-    throw new Error("어워드 삭제에 실패했습니다.");
-  }
-
-  return response.json();
+export async function deleteAward(id: string): Promise<ApiMessageResponse> {
+  return del<ApiMessageResponse>(`/awards/${id}`);
 }

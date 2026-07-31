@@ -23,11 +23,7 @@ export default function TableOfContents({ contentRef, content }: Props) {
       <p className={s.title}>Table of Contents</p>
       <ul className={s.list}>
         {items.map((item) => (
-          <TocListItem
-            key={item.id}
-            item={item}
-            isActive={item.id === activeId}
-          />
+          <TocListItem key={item.id} item={item} isActive={item.id === activeId} />
         ))}
       </ul>
     </nav>

@@ -4,7 +4,14 @@ import { useCallback, useMemo, useRef } from "react";
 
 import { getAwards } from "@/feature/awards/api";
 import { Award, AwardsResponse } from "@/feature/awards/schema";
-import { Flex, Heading, Stack, Text } from "@/shared/components/ui";
+import {
+  Flex,
+  Heading,
+  Link,
+  MarkdownContent,
+  Stack,
+  Text,
+} from "@/shared/components/ui";
 import { generateSrcSet } from "@/shared/utils/responsive-image.util";
 
 import s from "./style.module.scss";
@@ -12,9 +19,11 @@ import s from "./style.module.scss";
 interface DisplayAward {
   id: string;
   name: string;
+  description: string | null;
   organization: string;
   year: number;
   imageUrl: string | null;
+  projectId: string | null;
 }
 
 export default function AwardsList() {
@@ -32,82 +41,72 @@ export default function AwardsList() {
     return (data?.data ?? []).map((award: Award) => ({
       id: award.id,
       name: award.title,
+      description: award.description,
       organization: award.organization,
       year: new Date(award.date).getFullYear(),
       imageUrl: award.imageUrl,
+      projectId: award.projectId,
     }));
   }, [data]);
 
-  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
-    const img = imageRef.current;
+  const handleMouseMove = useCallback((event: React.MouseEvent<HTMLDivElement>) => {
+    const image = imageRef.current;
     const list = listRef.current;
-    if (!img || !list || img.dataset.enabled !== "true") return;
+    if (!image || !list || image.dataset.enabled !== "true") return;
 
     const rect = list.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-
-    const deltaX = e.clientX - lastX.current;
-    lastX.current = e.clientX;
-
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
+    const deltaX = event.clientX - lastX.current;
+    lastX.current = event.clientX;
     const rotation = Math.max(-3, Math.min(3, deltaX * 0.3));
 
     if (!isVisible.current) {
       isVisible.current = true;
-      img.style.opacity = "1";
+      image.style.opacity = "1";
     }
 
-    img.style.transform = `translate3d(${x - 190}px, ${y - 130}px, 0) scale(1) rotate(${rotation}deg)`;
+    image.style.transform = `translate3d(${x - 190}px, ${y - 130}px, 0) scale(1) rotate(${rotation}deg)`;
   }, []);
 
-  const handleMouseEnter = useCallback((award: DisplayAward) => () => {
-    const img = imageRef.current;
-    if (!img) return;
+  const handleMouseEnter = useCallback(
+    (award: DisplayAward) => () => {
+      const image = imageRef.current;
+      if (!image) return;
 
-    if (!award.imageUrl) {
-      img.dataset.enabled = "false";
-      img.style.opacity = "0";
-      return;
-    }
+      if (!award.imageUrl) {
+        image.dataset.enabled = "false";
+        image.style.opacity = "0";
+        return;
+      }
 
-    img.dataset.enabled = "true";
-    img.src = award.imageUrl;
-    img.srcset = generateSrcSet(award.imageUrl) ?? "";
-    img.sizes = "(max-width: 767px) 80vw, 320px";
-    isVisible.current = false;
-
-    img.style.opacity = "0";
-    img.style.transform = img.style.transform.replace(
-      /scale\([^)]*\)/,
-      "scale(0.85)",
-    );
-  }, []);
+      image.dataset.enabled = "true";
+      image.src = award.imageUrl;
+      image.srcset = generateSrcSet(award.imageUrl) ?? "";
+      image.sizes = "(max-width: 767px) 80vw, 320px";
+      isVisible.current = false;
+      image.style.opacity = "0";
+      image.style.transform = image.style.transform.replace(
+        /scale\([^)]*\)/,
+        "scale(0.85)",
+      );
+    },
+    [],
+  );
 
   const handleMouseLeave = useCallback(() => {
-    const img = imageRef.current;
-    if (!img) return;
+    const image = imageRef.current;
+    if (!image) return;
 
     isVisible.current = false;
-    img.dataset.enabled = "false";
-    img.style.opacity = "0";
-    img.style.transform = img.style.transform.replace(
-      /scale\([^)]*\)/,
-      "scale(0.9)",
-    );
+    image.dataset.enabled = "false";
+    image.style.opacity = "0";
+    image.style.transform = image.style.transform.replace(/scale\([^)]*\)/, "scale(0.9)");
   }, []);
 
   const renderAward = useCallback(
-    (award: DisplayAward, index: number) => (
-      <motion.div
-        key={award.id}
-        initial={{ opacity: 0, y: 30, filter: "blur(6px)" }}
-        animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-        transition={{
-          duration: 1.4,
-          ease: [0.25, 0.1, 0.25, 1],
-          delay: 0.5 + index * 0.12,
-        }}
-      >
+    (award: DisplayAward, index: number) => {
+      const content = (
         <Flex
           className={s.card}
           onMouseEnter={handleMouseEnter(award)}
@@ -123,10 +122,38 @@ export default function AwardsList() {
                 {award.organization} · {award.year}
               </Text>
             </Stack>
+            {award.description ? (
+              <MarkdownContent
+                content={award.description}
+                variant="compact"
+                className={s.cardDescription}
+              />
+            ) : null}
           </Stack>
         </Flex>
-      </motion.div>
-    ),
+      );
+
+      return (
+        <motion.div
+          key={award.id}
+          initial={{ opacity: 0, y: 30, filter: "blur(6px)" }}
+          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          transition={{
+            duration: 1.4,
+            ease: [0.25, 0.1, 0.25, 1],
+            delay: 0.5 + index * 0.12,
+          }}
+        >
+          {award.projectId ? (
+            <Link href={`/projects/${award.projectId}`} className={s.cardLink}>
+              {content}
+            </Link>
+          ) : (
+            content
+          )}
+        </motion.div>
+      );
+    },
     [handleMouseEnter, handleMouseMove, handleMouseLeave],
   );
 
@@ -139,13 +166,7 @@ export default function AwardsList() {
       ) : (
         awards.map(renderAward)
       )}
-      <img
-        ref={imageRef}
-        className={s.floatingImage}
-        src=""
-        alt=""
-        aria-hidden="true"
-      />
+      <img ref={imageRef} className={s.floatingImage} src="" alt="" aria-hidden="true" />
     </div>
   );
 }

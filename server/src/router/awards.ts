@@ -1,12 +1,18 @@
 import { Hono } from "hono";
-import { randomUUID } from "node:crypto";
 
+import { requireAuth } from "../middleware/auth.js";
 import type { LoggerEnv } from "../middleware/logging.js";
 import prisma from "../utils/prisma.js";
+import { validateAwardCreate, validateAwardUpdate } from "../utils/validation.js";
 
 const app = new Hono<LoggerEnv>();
 
-// GET /awards - 전체 목록 조회
+const projectSelect = {
+  id: true,
+  title: true,
+};
+
+// GET /awards - 전체 목록 조회 (공개)
 app.get("/", async (c) => {
   const logger = c.get("logger");
 
@@ -14,20 +20,13 @@ app.get("/", async (c) => {
 
   const awards = await prisma.award.findMany({
     orderBy: { date: "desc" },
-    include: {
-      project: {
-        select: {
-          id: true,
-          title: true,
-        },
-      },
-    },
+    include: { project: { select: projectSelect } },
   });
 
   return c.json({ ok: true, data: awards });
 });
 
-// GET /awards/:id - 단건 조회
+// GET /awards/:id - 단건 조회 (공개)
 app.get("/:id", async (c) => {
   const logger = c.get("logger");
   const id = c.req.param("id");
@@ -36,14 +35,7 @@ app.get("/:id", async (c) => {
 
   const award = await prisma.award.findUnique({
     where: { id },
-    include: {
-      project: {
-        select: {
-          id: true,
-          title: true,
-        },
-      },
-    },
+    include: { project: { select: projectSelect } },
   });
 
   if (!award) {
@@ -55,72 +47,61 @@ app.get("/:id", async (c) => {
   return c.json({ ok: true, data: award });
 });
 
-// POST /awards - 생성
-app.post("/", async (c) => {
+// POST /awards - 생성 (인증 필요)
+app.post("/", requireAuth, async (c) => {
   const logger = c.get("logger");
-  const body = await c.req.json();
+
+  let body: unknown;
+  try {
+    body = await c.req.json();
+  } catch {
+    return c.json({ ok: false, message: "Invalid JSON body" }, 400);
+  }
+
+  const validation = validateAwardCreate(body);
+  if (!validation.valid) {
+    return c.json(
+      { ok: false, message: "Validation failed", errors: validation.errors },
+      400,
+    );
+  }
+
+  const data = body as Record<string, unknown>;
 
   logger.info(
     {
       operation: "award.create",
-      title: body.title,
-      projectId: body.projectId,
+      title: data.title,
+      projectId: data.projectId,
     },
     "creating award",
   );
 
-  if (body.projectId) {
+  if (data.projectId) {
     const existingProject = await prisma.project.findUnique({
-      where: { id: body.projectId },
+      where: { id: data.projectId as string },
     });
 
     if (!existingProject) {
       logger.warn(
-        { operation: "award.create", projectId: body.projectId },
+        { operation: "award.create", projectId: data.projectId },
         "project not found",
       );
 
       return c.json({ ok: false, message: "Project not found" }, 404);
     }
-
-    const alreadyLinkedAward = await prisma.award.findFirst({
-      where: { projectId: body.projectId },
-      select: { id: true },
-    });
-
-    if (alreadyLinkedAward) {
-      logger.warn(
-        { operation: "award.create", projectId: body.projectId },
-        "project already linked to award",
-      );
-
-      return c.json(
-        {
-          ok: false,
-          message: "This project is already linked to another award",
-        },
-        409,
-      );
-    }
   }
 
   const award = await prisma.award.create({
     data: {
-      notionId: body.notionId ?? `manual-${randomUUID()}`,
-      title: body.title,
-      organization: body.organization,
-      date: new Date(body.date),
-      imageUrl: body.imageUrl ?? null,
-      projectId: body.projectId ?? null,
+      title: data.title as string,
+      description: (data.description as string) ?? null,
+      organization: data.organization as string,
+      date: new Date(data.date as string),
+      imageUrl: (data.imageUrl as string) ?? null,
+      projectId: (data.projectId as string) ?? null,
     },
-    include: {
-      project: {
-        select: {
-          id: true,
-          title: true,
-        },
-      },
-    },
+    include: { project: { select: projectSelect } },
   });
 
   logger.info(
@@ -131,18 +112,34 @@ app.post("/", async (c) => {
   return c.json({ ok: true, data: award }, 201);
 });
 
-// PUT /awards/:id - 수정
-app.put("/:id", async (c) => {
+// PUT /awards/:id - 수정 (인증 필요)
+app.put("/:id", requireAuth, async (c) => {
   const logger = c.get("logger");
   const id = c.req.param("id");
-  const body = await c.req.json();
+
+  let body: unknown;
+  try {
+    body = await c.req.json();
+  } catch {
+    return c.json({ ok: false, message: "Invalid JSON body" }, 400);
+  }
+
+  const validation = validateAwardUpdate(body);
+  if (!validation.valid) {
+    return c.json(
+      { ok: false, message: "Validation failed", errors: validation.errors },
+      400,
+    );
+  }
+
+  const data = body as Record<string, unknown>;
 
   logger.info(
     {
       operation: "award.update",
       id,
-      title: body.title,
-      projectId: body.projectId,
+      title: data.title,
+      projectId: data.projectId,
     },
     "updating award",
   );
@@ -155,59 +152,41 @@ app.put("/:id", async (c) => {
     return c.json({ ok: false, message: "Award not found" }, 404);
   }
 
-  if (body.projectId) {
+  if (data.projectId) {
     const existingProject = await prisma.project.findUnique({
-      where: { id: body.projectId },
+      where: { id: data.projectId as string },
     });
 
     if (!existingProject) {
       logger.warn(
-        { operation: "award.update", id, projectId: body.projectId },
+        { operation: "award.update", id, projectId: data.projectId },
         "project not found",
       );
 
       return c.json({ ok: false, message: "Project not found" }, 404);
-    }
-
-    const alreadyLinkedAward = await prisma.award.findFirst({
-      where: { projectId: body.projectId },
-      select: { id: true },
-    });
-
-    if (alreadyLinkedAward && alreadyLinkedAward.id !== id) {
-      logger.warn(
-        { operation: "award.update", projectId: body.projectId },
-        "project already linked to award",
-      );
-
-      return c.json(
-        {
-          ok: false,
-          message: "This project is already linked to another award",
-        },
-        409,
-      );
     }
   }
 
   const award = await prisma.award.update({
     where: { id },
     data: {
-      title: body.title ?? existing.title,
-      organization: body.organization ?? existing.organization,
-      date: body.date ? new Date(body.date) : existing.date,
-      imageUrl: body.imageUrl !== undefined ? body.imageUrl : existing.imageUrl,
+      title: (data.title as string) ?? existing.title,
+      description:
+        data.description !== undefined
+          ? (data.description as string | null)
+          : existing.description,
+      organization: (data.organization as string) ?? existing.organization,
+      date: data.date ? new Date(data.date as string) : existing.date,
+      imageUrl:
+        data.imageUrl !== undefined
+          ? (data.imageUrl as string | null)
+          : existing.imageUrl,
       projectId:
-        body.projectId !== undefined ? body.projectId : existing.projectId,
+        data.projectId !== undefined
+          ? (data.projectId as string | null)
+          : existing.projectId,
     },
-    include: {
-      project: {
-        select: {
-          id: true,
-          title: true,
-        },
-      },
-    },
+    include: { project: { select: projectSelect } },
   });
 
   logger.info(
@@ -218,8 +197,8 @@ app.put("/:id", async (c) => {
   return c.json({ ok: true, data: award });
 });
 
-// DELETE /awards/:id - 삭제
-app.delete("/:id", async (c) => {
+// DELETE /awards/:id - 삭제 (인증 필요)
+app.delete("/:id", requireAuth, async (c) => {
   const logger = c.get("logger");
   const id = c.req.param("id");
 

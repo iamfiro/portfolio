@@ -1,0 +1,22 @@
+.component {
+  display: block;
+
+  color: inherit;
+
+  text-decoration: none;
+}
+
+.card {
+  padding: $spacing-16;
+
+  background-color: $surface-subtle;
+}
+
+.title {
+  color: $text;
+
+  font-size: $font-size-md;
+  font-weight: $font-weight-medium;
+  line-height: $line-height-normal;
+  word-break: keep-all;
+}

@@ -6,21 +6,23 @@ import { useCallback } from "react";
 import { getProjects } from "@/feature/projects/api";
 import type { Project, ProjectsResponse } from "@/feature/projects/schema";
 import { usePageTransition } from "@/shared/components/layouts/page-transition/page-transition.context";
-import {
-  Card,
-  Flex,
-  Heading,
-  Image,
-  Section,
-  Stack,
-  Text,
-} from "@/shared/components/ui";
+import { Card, Flex, Heading, Image, Section, Stack, Text } from "@/shared/components/ui";
 
 import s from "./style.module.scss";
 
 function ProjectCard({ project }: { project: Project }) {
+  const { navigateTo } = usePageTransition();
+
+  const handleClick = useCallback(
+    (e: React.MouseEvent<HTMLAnchorElement>) => {
+      e.preventDefault();
+      navigateTo(`/projects/${project.id}`);
+    },
+    [navigateTo, project.id],
+  );
+
   return (
-    <a href={`/projects/${project.id}`} className={s.cardLink}>
+    <a href={`/projects/${project.id}`} onClick={handleClick} className={s.cardLink}>
       <Card className={s.card}>
         <Stack className={s.cardBody}>
           <Heading as="h3" className={s.cardTitle}>

@@ -1,5 +1,6 @@
-export function getProjects() {
-  return fetch(`${import.meta.env.VITE_API_URL}/projects`).then((res) =>
-    res.json(),
-  );
+import { ProjectsResponse } from "@/feature/projects/schema";
+import { get } from "@/shared/lib/api";
+
+export function getProjects(): Promise<ProjectsResponse> {
+  return get<ProjectsResponse>("/projects");
 }

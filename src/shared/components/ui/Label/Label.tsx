@@ -10,13 +10,7 @@ type LabelProps = {
 } & StyleProps &
   React.LabelHTMLAttributes<HTMLLabelElement>;
 
-function Label({
-  required = false,
-  className,
-  style,
-  children,
-  ...rest
-}: LabelProps) {
+function Label({ required = false, className, style, children, ...rest }: LabelProps) {
   return (
     <label className={cn(styles.label, className)} style={style} {...rest}>
       {children}

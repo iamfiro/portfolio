@@ -4,11 +4,33 @@
 
 .filterRow {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 180px 140px;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.relations {
+  max-height: 240px;
+  padding: $spacing-12;
+
+  overflow-y: auto;
+
+  background-color: $surface-subtlest;
+  border: 1px solid $border;
+  border-radius: $radius-8;
+}
+
+.errorMessage {
+  color: $text-danger-subtle;
 }
 
 @media (max-width: 900px) {
-  .filterRow {
+  .filterRow,
+  .formGrid {
     grid-template-columns: minmax(0, 1fr);
   }
 }

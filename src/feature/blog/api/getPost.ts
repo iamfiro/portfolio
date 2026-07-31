@@ -1,5 +1,6 @@
-export function getPost(title: string) {
-  return fetch(`${import.meta.env.VITE_API_URL}/blog/post/${title}`).then(
-    (res) => res.json(),
-  );
+import { PostResponse } from "@/feature/blog/schema";
+import { get } from "@/shared/lib/api";
+
+export function getPost(title: string): Promise<PostResponse> {
+  return get<PostResponse>(`/blog/post/${title}`);
 }

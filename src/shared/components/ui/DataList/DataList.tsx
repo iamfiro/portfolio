@@ -22,12 +22,7 @@ type DataListItemProps = {
   children?: React.ReactNode;
 } & StyleProps;
 
-function DataListItem({
-  label,
-  className,
-  style,
-  children,
-}: DataListItemProps) {
+function DataListItem({ label, className, style, children }: DataListItemProps) {
   return (
     <div className={cn(styles.item, className)} style={style}>
       <dt className={styles.label}>{label}</dt>

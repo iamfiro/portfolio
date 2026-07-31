@@ -19,12 +19,7 @@ type MenuProps = {
 
 function Menu({ items, className, style, ...rest }: MenuProps) {
   return (
-    <ul
-      className={cn(styles.menu, className)}
-      style={style}
-      role="menu"
-      {...rest}
-    >
+    <ul className={cn(styles.menu, className)} style={style} role="menu" {...rest}>
       {items.map((item, i) => (
         <li key={i} role="none">
           <button
@@ -34,9 +29,7 @@ function Menu({ items, className, style, ...rest }: MenuProps) {
             type="button"
             role="menuitem"
           >
-            {item.icon ? (
-              <span className={styles.icon}>{item.icon}</span>
-            ) : null}
+            {item.icon ? <span className={styles.icon}>{item.icon}</span> : null}
             {item.label}
           </button>
         </li>

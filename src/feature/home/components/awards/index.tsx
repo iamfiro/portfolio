@@ -1,17 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
-import {
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useMemo,
-  useRef,
-} from "react";
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef } from "react";
 
 import { getAwards } from "@/feature/awards/api";
-import { generateSrcSet } from "@/shared/utils/responsive-image.util";
 import { Award, AwardsResponse } from "@/feature/awards/schema";
 import { usePageTransition } from "@/shared/components/layouts/page-transition/page-transition.context";
 import { Flex, Heading, Section, Stack, Text } from "@/shared/components/ui";
+import { generateSrcSet } from "@/shared/utils/responsive-image.util";
 
 import s from "./style.module.scss";
 
@@ -142,10 +136,7 @@ export default function Awards() {
       isVisible.current = false;
 
       img.style.opacity = "0";
-      img.style.transform = img.style.transform.replace(
-        /scale\([^)]*\)/,
-        "scale(0.85)",
-      );
+      img.style.transform = img.style.transform.replace(/scale\([^)]*\)/, "scale(0.85)");
     },
     [],
   );
@@ -157,10 +148,7 @@ export default function Awards() {
     isVisible.current = false;
     img.dataset.enabled = "false";
     img.style.opacity = "0";
-    img.style.transform = img.style.transform.replace(
-      /scale\([^)]*\)/,
-      "scale(0.9)",
-    );
+    img.style.transform = img.style.transform.replace(/scale\([^)]*\)/, "scale(0.9)");
   }, []);
 
   const renderAward = useCallback(

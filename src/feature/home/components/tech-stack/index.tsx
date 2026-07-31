@@ -185,12 +185,7 @@ export default function TechStack() {
         }}
       >
         <Stack gap={16} className={s.category}>
-          <Text
-            size="sm"
-            weight="semibold"
-            color="subtle"
-            className={s.categoryLabel}
-          >
+          <Text size="sm" weight="semibold" color="subtle" className={s.categoryLabel}>
             {category.label}
           </Text>
           <Flex gap={12} wrap className={s.iconGrid}>

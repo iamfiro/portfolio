@@ -30,17 +30,25 @@ function TreeItem({
   onToggle: (id: string) => void;
   onSelect?: (id: string) => void;
 }) {
-  const hasChildren = node.children && node.children.length > 0;
+  const hasChildren = Boolean(node.children?.length);
   const isExpanded = expanded.has(node.id);
 
+  const handleActivate = () => {
+    if (hasChildren) {
+      onToggle(node.id);
+      return;
+    }
+
+    onSelect?.(node.id);
+  };
+
   return (
-    <li className={styles.item}>
-      <div
-        className={styles.row}
-        onClick={() => {
-          hasChildren ? onToggle(node.id) : onSelect?.(node.id);
-        }}
-      >
+    <li
+      className={styles.item}
+      role="treeitem"
+      aria-expanded={hasChildren ? isExpanded : undefined}
+    >
+      <button className={styles.row} type="button" onClick={handleActivate}>
         {hasChildren ? (
           <svg
             className={cn(styles.chevron, isExpanded && styles.expanded)}
@@ -61,10 +69,10 @@ function TreeItem({
         )}
         {node.icon ? <span className={styles.icon}>{node.icon}</span> : null}
         <span className={styles.label}>{node.label}</span>
-      </div>
+      </button>
       {hasChildren && isExpanded ? (
-        <ul className={styles.children}>
-          {node.children!.map((child) => (
+        <ul className={styles.children} role="group">
+          {node.children?.map((child) => (
             <TreeItem
               key={child.id}
               node={child}
@@ -79,18 +87,12 @@ function TreeItem({
   );
 }
 
-function Tree({
-  nodes,
-  defaultExpanded = [],
-  onSelect,
-  className,
-  style,
-}: TreeProps) {
+function Tree({ nodes, defaultExpanded = [], onSelect, className, style }: TreeProps) {
   const [expanded, setExpanded] = useState(new Set(defaultExpanded));
 
   function handleToggle(id: string) {
-    setExpanded((prev) => {
-      const next = new Set(prev);
+    setExpanded((previous) => {
+      const next = new Set(previous);
       if (next.has(id)) next.delete(id);
       else next.add(id);
       return next;

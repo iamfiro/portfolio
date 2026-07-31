@@ -1,22 +1,23 @@
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { Calendar, Clock } from "lucide-react";
-import { useEffect, useRef } from "react";
-import { Helmet } from "react-helmet";
+import { useCallback, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 
 import { getPost } from "@/feature/blog/api";
 import { Giscus, TableOfContents } from "@/feature/blog/components";
-import MarkdownContent from "@/feature/blog/components/markdown-content";
 import { calculateReadingTime } from "@/feature/blog/reading-time.util";
 import { PostResponse, RelatedProject } from "@/feature/blog/schema";
 import { BaseLayout } from "@/shared/components/layouts";
+import { usePageTransition } from "@/shared/components/layouts/page-transition/page-transition.context";
+import SeoHead from "@/shared/components/seo-head";
 import {
   Divider,
   Flex,
   Header,
   Heading,
   Image,
+  MarkdownContent,
   Tag,
   Text,
 } from "@/shared/components/ui";
@@ -27,8 +28,22 @@ import s from "./blog-article.module.scss";
 type Post = NonNullable<PostResponse>;
 
 function RelatedProjectCard({ project }: { project: RelatedProject }) {
+  const { navigateTo } = usePageTransition();
+
+  const handleClick = useCallback(
+    (e: React.MouseEvent<HTMLAnchorElement>) => {
+      e.preventDefault();
+      navigateTo(`/projects/${project.id}`);
+    },
+    [navigateTo, project.id],
+  );
+
   return (
-    <a href={`/projects/${project.id}`} className={s.related_project_link}>
+    <a
+      href={`/projects/${project.id}`}
+      onClick={handleClick}
+      className={s.related_project_link}
+    >
       <Flex gap={16} align="center" className={s.related_project_card}>
         {project.thumbnailUrl && (
           <Image
@@ -55,8 +70,7 @@ function useScrollProgressRef() {
   useEffect(() => {
     const onScroll = () => {
       if (!fillRef.current) return;
-      const docHeight =
-        document.documentElement.scrollHeight - window.innerHeight;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
       const ratio = docHeight > 0 ? window.scrollY / docHeight : 0;
       fillRef.current.style.transform = `scaleX(${ratio})`;
     };
@@ -107,9 +121,30 @@ export default function BlogArticle() {
 
   return (
     <>
-      <Helmet>
-        <title>{post.data.title}</title>
-      </Helmet>
+      <SeoHead
+        title={post.data.title}
+        description={post.data.description || `${post.data.title} - Sungju Cho Blog`}
+        path={`/blog/${id}`}
+        ogType="article"
+        ogImage={post.data.thumbnail || undefined}
+        article={{
+          publishedTime: post.data.date,
+          tags: post.data.tags,
+        }}
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "Article",
+          headline: post.data.title,
+          description: post.data.description || "",
+          datePublished: post.data.date,
+          author: {
+            "@type": "Person",
+            name: "Sungju Cho",
+            url: "https://devfiro.com",
+          },
+          ...(post.data.thumbnail ? { image: post.data.thumbnail } : {}),
+        }}
+      />
 
       <div className={s.progress_bar}>
         <div ref={progressFillRef} className={s.progress_fill} />
@@ -164,11 +199,7 @@ export default function BlogArticle() {
             )}
 
             {/* 본문 */}
-            <motion.section
-              ref={contentRef}
-              className={s.content}
-              {...contentEntrance}
-            >
+            <motion.section ref={contentRef} className={s.content} {...contentEntrance}>
               <MarkdownContent content={post.data.content || ""} />
             </motion.section>
 
@@ -176,31 +207,23 @@ export default function BlogArticle() {
 
             <Giscus style={{ width: "100%" }} />
 
-            {post.data.relatedProjects &&
-              post.data.relatedProjects.length > 0 && (
-                <div className={s.related_projects_section}>
-                  <Divider />
-                  <Heading
-                    as="h2"
-                    size="xl"
-                    className={s.related_projects_heading}
-                  >
-                    관련 프로젝트
-                  </Heading>
-                  <Flex direction="column" gap={12}>
-                    {post.data.relatedProjects.map((project) => (
-                      <RelatedProjectCard key={project.id} project={project} />
-                    ))}
-                  </Flex>
-                </div>
-              )}
+            {post.data.relatedProjects && post.data.relatedProjects.length > 0 && (
+              <div className={s.related_projects_section}>
+                <Divider />
+                <Heading as="h2" size="xl" className={s.related_projects_heading}>
+                  관련 프로젝트
+                </Heading>
+                <Flex direction="column" gap={12}>
+                  {post.data.relatedProjects.map((project) => (
+                    <RelatedProjectCard key={project.id} project={project} />
+                  ))}
+                </Flex>
+              </div>
+            )}
           </article>
 
           <aside className={s.toc_wrapper}>
-            <TableOfContents
-              contentRef={contentRef}
-              content={post.data.content || ""}
-            />
+            <TableOfContents contentRef={contentRef} content={post.data.content || ""} />
           </aside>
         </div>
       </BaseLayout>

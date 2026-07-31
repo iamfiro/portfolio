@@ -23,13 +23,9 @@ function Stepper({
   style,
 }: StepperProps) {
   return (
-    <div
-      className={cn(styles.stepper, styles[direction], className)}
-      style={style}
-    >
+    <div className={cn(styles.stepper, styles[direction], className)} style={style}>
       {steps.map((step, i) => {
-        const status =
-          i < current ? "completed" : i === current ? "active" : "pending";
+        const status = i < current ? "completed" : i === current ? "active" : "pending";
 
         return (
           <div key={i} className={cn(styles.step, styles[status])}>

@@ -16,6 +16,7 @@ import {
   Select,
   Stack,
   Text,
+  Textarea,
 } from "@/shared/components/ui";
 import { ApiMessageResponse, ApiResponse } from "@/shared/types/api";
 
@@ -29,6 +30,7 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
 
 interface AwardFormValue {
   title: string;
+  description: string;
   organization: string;
   date: string;
   imageUrl: string;
@@ -37,6 +39,7 @@ interface AwardFormValue {
 
 const INITIAL_FORM: AwardFormValue = {
   title: "",
+  description: "",
   organization: "",
   date: "",
   imageUrl: "",
@@ -65,14 +68,11 @@ export default function AwardsManager({
     setErrorMessage("");
   };
 
-  const createMutation = useMutation<
-    ApiResponse<Award>,
-    Error,
-    AwardMutationPayload
-  >({
+  const createMutation = useMutation<ApiResponse<Award>, Error, AwardMutationPayload>({
     mutationFn: createAward,
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ["awards"] });
+      await queryClient.invalidateQueries({ queryKey: ["projects"] });
       closeModal();
     },
     onError: (error) => {
@@ -88,6 +88,7 @@ export default function AwardsManager({
     mutationFn: updateAward,
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ["awards"] });
+      await queryClient.invalidateQueries({ queryKey: ["projects"] });
       closeModal();
     },
     onError: (error) => {
@@ -99,13 +100,12 @@ export default function AwardsManager({
     mutationFn: deleteAward,
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ["awards"] });
+      await queryClient.invalidateQueries({ queryKey: ["projects"] });
     },
   });
 
   const isPending =
-    createMutation.isPending ||
-    updateMutation.isPending ||
-    deleteMutation.isPending;
+    createMutation.isPending || updateMutation.isPending || deleteMutation.isPending;
 
   const openCreateModal = () => {
     setEditingAward(null);
@@ -118,6 +118,7 @@ export default function AwardsManager({
     setEditingAward(award);
     setFormValue({
       title: award.title,
+      description: award.description ?? "",
       organization: award.organization,
       date: award.date.split("T")[0] ?? "",
       imageUrl: award.imageUrl ?? "",
@@ -143,6 +144,7 @@ export default function AwardsManager({
 
     const payload: AwardMutationPayload = {
       title: formValue.title.trim(),
+      description: formValue.description.trim() || null,
       organization: formValue.organization.trim(),
       date: formValue.date,
       imageUrl: formValue.imageUrl.trim() || null,
@@ -168,9 +170,7 @@ export default function AwardsManager({
         key: "organization",
         header: "기관",
         width: 220,
-        render: (award: Award) => (
-          <Text color="subtle">{award.organization}</Text>
-        ),
+        render: (award: Award) => <Text color="subtle">{award.organization}</Text>,
       },
       {
         key: "project",
@@ -185,9 +185,7 @@ export default function AwardsManager({
         header: "수상일",
         width: 160,
         render: (award: Award) => (
-          <Text color="subtle">
-            {new Date(award.date).toLocaleDateString("ko-KR")}
-          </Text>
+          <Text color="subtle">{new Date(award.date).toLocaleDateString("ko-KR")}</Text>
         ),
       },
       {
@@ -224,11 +222,7 @@ export default function AwardsManager({
     <Stack className={componentClassName} gap={16} {...props}>
       <Flex justify="space-between" align="center">
         <Text color="subtle">총 {awards.length}개의 어워드</Text>
-        <Button
-          size="sm"
-          leftIcon={<Plus size={16} />}
-          onClick={openCreateModal}
-        >
+        <Button size="sm" leftIcon={<Plus size={16} />} onClick={openCreateModal}>
           새 어워드
         </Button>
       </Flex>
@@ -238,9 +232,7 @@ export default function AwardsManager({
         keyExtractor={(award) => award.id}
         columns={columns}
         emptyMessage={
-          isLoading
-            ? "어워드를 불러오는 중입니다."
-            : "등록된 어워드가 없습니다."
+          isLoading ? "어워드를 불러오는 중입니다." : "등록된 어워드가 없습니다."
         }
       />
 
@@ -248,7 +240,7 @@ export default function AwardsManager({
         open={isModalOpen}
         onClose={closeModal}
         title={editingAward ? "어워드 수정" : "새 어워드 생성"}
-        size="md"
+        size="lg"
       >
         <form onSubmit={handleSubmit}>
           <Stack gap={14}>
@@ -266,6 +258,22 @@ export default function AwardsManager({
                   }))
                 }
                 required
+                fullWidth
+              />
+            </FormGroup>
+
+            <FormGroup>
+              <Label htmlFor="award-description">설명 (Markdown)</Label>
+              <Textarea
+                id="award-description"
+                value={formValue.description}
+                onChange={(event) =>
+                  setFormValue((prev) => ({
+                    ...prev,
+                    description: event.target.value,
+                  }))
+                }
+                rows={8}
                 fullWidth
               />
             </FormGroup>
@@ -351,12 +359,7 @@ export default function AwardsManager({
             ) : null}
 
             <Flex justify="flex-end" gap={8}>
-              <Button
-                size="sm"
-                variant="ghost"
-                type="button"
-                onClick={closeModal}
-              >
+              <Button size="sm" variant="ghost" type="button" onClick={closeModal}>
                 취소
               </Button>
               <Button size="sm" type="submit" loading={isPending}>

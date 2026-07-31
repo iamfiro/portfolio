@@ -27,12 +27,7 @@ function Rating({
 
   return (
     <div
-      className={cn(
-        styles.rating,
-        styles[size],
-        readOnly && styles.readOnly,
-        className,
-      )}
+      className={cn(styles.rating, styles[size], readOnly && styles.readOnly, className)}
       style={style}
       role="radiogroup"
       aria-label="Rating"

@@ -26,8 +26,7 @@ function PageTransitionContent() {
   const location = useLocation();
   const { pendingPath, consumePendingPath, performNavigate, finishTransition } =
     usePageTransitionInternal();
-  const { setInitialLoadDone, setPageReady, preloadLockCount } =
-    usePageTransition();
+  const { setInitialLoadDone, setPageReady, preloadLockCount } = usePageTransition();
   const whiteControls = useAnimationControls();
   const surfaceControls = useAnimationControls();
   const [phase, setPhase] = useState<Phase>("idle");
@@ -50,8 +49,7 @@ function PageTransitionContent() {
 
   // 초기 로딩: 이미지 로드 완료 + 프리로드 락 해제 시 reveal 애니메이션 실행
   useEffect(() => {
-    if (!imagesLoaded || preloadLockCount > 0 || initialLoadDoneRef.current)
-      return;
+    if (!imagesLoaded || preloadLockCount > 0 || initialLoadDoneRef.current) return;
 
     // 타이머 내부에서 플래그를 세팅해야 cleanup으로 타이머가 취소되더라도
     // initialLoadDoneRef가 true로 남지 않아 재시도가 가능해진다 (StrictMode 대응)
@@ -184,13 +182,7 @@ function PageTransitionContent() {
       isAnimatingRef.current = false;
       finishTransition();
     },
-    [
-      whiteControls,
-      surfaceControls,
-      performNavigate,
-      finishTransition,
-      setPageReady,
-    ],
+    [whiteControls, surfaceControls, performNavigate, finishTransition, setPageReady],
   );
 
   // popstate용: 이미 라우트가 변경된 상태에서 reveal 애니메이션
@@ -265,9 +257,7 @@ function PageTransitionContent() {
           />
         ))}
       </div>
-      <div
-        className={[s.page, pageHidden && s.hidden].filter(Boolean).join(" ")}
-      >
+      <div className={[s.page, pageHidden && s.hidden].filter(Boolean).join(" ")}>
         <Outlet />
       </div>
     </>

@@ -29,12 +29,7 @@ function Checkbox({
       style={style}
       htmlFor={checkboxId}
     >
-      <input
-        type="checkbox"
-        className={styles.input}
-        id={checkboxId}
-        {...rest}
-      />
+      <input type="checkbox" className={styles.input} id={checkboxId} {...rest} />
       <span className={styles.check}>
         <svg
           width="12"

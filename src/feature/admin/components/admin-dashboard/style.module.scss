@@ -9,9 +9,8 @@
   min-height: 100vh;
   padding-top: $spacing-20;
 
-  border-right: 1px solid $border;
-
   background-color: $surface-inverse;
+  border-right: 1px solid $border;
 }
 
 .sidebarTitle {
@@ -29,16 +28,15 @@
 .sidebarItem {
   justify-content: flex-start;
 
+  color: $text-subtle;
   border: 1px solid transparent;
   border-radius: $radius-10;
-
-  color: $text-subtle;
 }
 
 .activeItem {
-  background-color: $surface-elevated;
-  border: 1px solid $border-subtle;
   color: $text;
+  background-color: $surface-elevated;
+  border-color: $border-subtle;
 }
 
 .content {
@@ -49,14 +47,23 @@
 
 .panelCard {
   padding: $spacing-16;
+
   background-color: $surface;
   border: 1px solid $border;
   border-radius: $radius-16;
+
   box-shadow: $shadow-md;
 }
 
 .panelHeader {
-  margin-bottom: $spacing-12;
+  margin-bottom: $spacing-20;
+}
+
+.statCard {
+  padding: $spacing-16;
+
+  background-color: $surface-subtlest;
+  border: 1px solid $border;
 }
 
 @media (max-width: 1024px) {
@@ -69,8 +76,29 @@
     min-height: auto;
     padding-top: $spacing-12;
 
-    border-bottom: 1px solid $border;
     border-right: 0;
+    border-bottom: 1px solid $border;
   }
 
+  .navigation {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 700px) {
+  .content {
+    padding: $spacing-16;
+  }
+
+  .navigation,
+  .statsGrid {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .pageHeader {
+    align-items: flex-start !important;
+    flex-direction: column;
+    gap: $spacing-12;
+  }
 }

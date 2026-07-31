@@ -50,14 +50,8 @@ function Resizable({
         const dy = ev.clientY - startRef.current.y;
 
         setSize({
-          width: Math.min(
-            maxWidth,
-            Math.max(minWidth, startRef.current.w + dx),
-          ),
-          height: Math.min(
-            maxHeight,
-            Math.max(minHeight, startRef.current.h + dy),
-          ),
+          width: Math.min(maxWidth, Math.max(minWidth, startRef.current.w + dx)),
+          height: Math.min(maxHeight, Math.max(minHeight, startRef.current.h + dy)),
         });
       }
 

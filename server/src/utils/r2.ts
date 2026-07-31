@@ -1,9 +1,10 @@
-import "../env.js";
-
 import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import sharp from "sharp";
 
 import { createChildLogger } from "./logger.js";
+import { secureFetchImage, SHARP_MAX_INPUT_PIXELS } from "./secureFetch.js";
+
+import "../env.js";
 
 const logger = createChildLogger({ module: "r2" });
 
@@ -39,39 +40,59 @@ function slugify(text: string): string {
     .slice(0, 80);
 }
 
-async function downloadImage(url: string): Promise<Buffer> {
+/**
+ * 보안 강화된 이미지 다운로드 (공통 함수)
+ * secureFetch를 사용하여 HTTPS, 허용 호스트, DNS 검증, timeout, max bytes, MIME 검증 수행
+ */
+async function downloadImageSecure(
+  url: string,
+): Promise<{ buffer: Buffer; contentType: string }> {
   const startedAt = performance.now();
   const sourceDomain = getUrlDomain(url);
 
-  logger.debug({ sourceDomain }, "Downloading image");
+  logger.debug({ sourceDomain }, "Downloading image (secure)");
 
-  const response = await fetch(url);
-
-  if (!response.ok) {
-    logger.error(
-      {
-        sourceDomain,
-        status: response.status,
-        durationMs: Math.round(performance.now() - startedAt),
-      },
-      "Image download failed",
-    );
-
-    throw new Error(`Failed to download image: ${response.status} ${url}`);
-  }
-
-  const buffer = Buffer.from(await response.arrayBuffer());
+  const result = await secureFetchImage(url);
 
   logger.debug(
     {
       sourceDomain,
-      sizeBytes: buffer.length,
+      sizeBytes: result.buffer.length,
+      contentType: result.contentType,
       durationMs: Math.round(performance.now() - startedAt),
     },
-    "Image downloaded",
+    "Image downloaded (secure)",
   );
 
-  return buffer;
+  return { buffer: result.buffer, contentType: result.contentType };
+}
+
+function inferContentType(url: string, fetchedContentType?: string): string {
+  if (fetchedContentType && fetchedContentType.startsWith("image/")) {
+    return fetchedContentType;
+  }
+
+  const ext = url.split("?")[0].split(".").pop()?.toLowerCase();
+  const map: Record<string, string> = {
+    png: "image/png",
+    jpg: "image/jpeg",
+    jpeg: "image/jpeg",
+    gif: "image/gif",
+    svg: "image/svg+xml",
+    webp: "image/webp",
+    avif: "image/avif",
+  };
+
+  return map[ext ?? ""] ?? "image/png";
+}
+
+/**
+ * Sharp 파이프라인 생성 (픽셀 제한 적용)
+ */
+function createSharpPipeline(buffer: Buffer): ReturnType<typeof sharp> {
+  return sharp(buffer, {
+    limitInputPixels: SHARP_MAX_INPUT_PIXELS,
+  }).rotate();
 }
 
 async function optimizeImageMultiSize(
@@ -87,7 +108,7 @@ async function optimizeImageMultiSize(
     ];
   }
 
-  const basePipeline = sharp(buffer).rotate();
+  const basePipeline = createSharpPipeline(buffer);
 
   const variants = await Promise.all(
     RESPONSIVE_WIDTHS.map(async (width) => {
@@ -112,31 +133,12 @@ async function optimizeIcon(
     return { data: buffer, mimeType: "image/svg+xml", ext: "svg" };
   }
 
-  const optimized = await sharp(buffer)
-    .rotate()
+  const optimized = await createSharpPipeline(buffer)
     .resize({ width: ICON_WIDTH, withoutEnlargement: true })
     .webp({ quality: 80 })
     .toBuffer();
 
   return { data: optimized, mimeType: "image/webp", ext: "webp" };
-}
-
-function inferContentType(url: string, responseHeaders?: Headers): string {
-  const fromHeader = responseHeaders?.get("content-type");
-  if (fromHeader && fromHeader.startsWith("image/")) return fromHeader;
-
-  const ext = url.split("?")[0].split(".").pop()?.toLowerCase();
-  const map: Record<string, string> = {
-    png: "image/png",
-    jpg: "image/jpeg",
-    jpeg: "image/jpeg",
-    gif: "image/gif",
-    svg: "image/svg+xml",
-    webp: "image/webp",
-    avif: "image/avif",
-  };
-
-  return map[ext ?? ""] ?? "image/png";
 }
 
 interface UploadOptions {
@@ -160,26 +162,10 @@ export async function uploadImageToR2(
     "R2 image upload started",
   );
 
-  const response = await fetch(sourceUrl);
-  if (!response.ok) {
-    logger.error(
-      {
-        category,
-        name,
-        label,
-        variant,
-        sourceDomain,
-        status: response.status,
-        durationMs: Math.round(performance.now() - startedAt),
-      },
-      "R2 image download failed",
-    );
-
-    throw new Error(`Failed to download: ${response.status} ${sourceUrl}`);
-  }
-
-  const buffer = Buffer.from(await response.arrayBuffer());
-  const contentType = inferContentType(sourceUrl, response.headers);
+  // 공통 보안 다운로드 함수 사용
+  const { buffer, contentType: fetchedContentType } =
+    await downloadImageSecure(sourceUrl);
+  const contentType = inferContentType(sourceUrl, fetchedContentType);
   const slug = slugify(name);
 
   logger.info(

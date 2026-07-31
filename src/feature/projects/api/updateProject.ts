@@ -1,25 +1,14 @@
-import { ProjectMutationPayload } from "@/feature/projects/schema";
+import { ProjectMutationPayload, ProjectResponse } from "@/feature/projects/schema";
+import { put } from "@/shared/lib/api";
 
 export interface UpdateProjectPayload {
   id: string;
   payload: Partial<ProjectMutationPayload>;
 }
 
-export async function updateProject({ id, payload }: UpdateProjectPayload) {
-  const response = await fetch(
-    `${import.meta.env.VITE_API_URL}/projects/${id}`,
-    {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(payload),
-    },
-  );
-
-  if (!response.ok) {
-    throw new Error("프로젝트 수정에 실패했습니다.");
-  }
-
-  return response.json();
+export async function updateProject({
+  id,
+  payload,
+}: UpdateProjectPayload): Promise<ProjectResponse> {
+  return put<ProjectResponse>(`/projects/${id}`, payload);
 }

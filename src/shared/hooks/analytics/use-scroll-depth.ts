@@ -36,8 +36,7 @@ export function useScrollDepth(): void {
 
       ticking = true;
       requestAnimationFrame(() => {
-        const scrollHeight =
-          document.documentElement.scrollHeight - window.innerHeight;
+        const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
 
         if (scrollHeight <= 0) {
           ticking = false;
@@ -47,15 +46,11 @@ export function useScrollDepth(): void {
         const scrollPercent = Math.round((window.scrollY / scrollHeight) * 100);
 
         for (const threshold of SCROLL_THRESHOLDS) {
-          if (
-            scrollPercent >= threshold &&
-            !trackedThresholds.current.has(threshold)
-          ) {
+          if (scrollPercent >= threshold && !trackedThresholds.current.has(threshold)) {
             trackedThresholds.current.add(threshold);
 
             trackEvent(AnalyticsEvent.SCROLL_DEPTH, {
-              scroll_percentage:
-                threshold as ScrollDepthParams["scroll_percentage"],
+              scroll_percentage: threshold as ScrollDepthParams["scroll_percentage"],
               page_path: location.pathname,
               page_category: getPageCategory(location.pathname),
             });

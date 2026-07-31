@@ -1,12 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
-import {
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 
 import { getProjects } from "@/feature/projects/api";
 import { Project, ProjectsResponse } from "@/feature/projects/schema";
@@ -225,8 +219,7 @@ export default function MarqueeProjects() {
       const t = Math.min(speed / SCALE_Y_VELOCITY_MAX, 1);
       const targetScaleY = 1 - t * (1 - SCALE_Y_MIN);
 
-      scaleYRef.current +=
-        (targetScaleY - scaleYRef.current) * SCALE_Y_LERP_SPEED;
+      scaleYRef.current += (targetScaleY - scaleYRef.current) * SCALE_Y_LERP_SPEED;
 
       // 충분히 1에 가까우면 정확히 1로 스냅
       if (Math.abs(scaleYRef.current - 1) < 0.001) {
@@ -355,11 +348,7 @@ export default function MarqueeProjects() {
       onDragStart={(e) => e.preventDefault()}
       aria-label="Selected projects"
     >
-      <div
-        ref={trackRef}
-        className={s.track}
-        style={{ gap: `${MARQUEE_GAP}px` }}
-      >
+      <div ref={trackRef} className={s.track} style={{ gap: `${MARQUEE_GAP}px` }}>
         <div ref={firstSetRef} className={s.set} style={setStyle}>
           {marqueeProjects.map((project, index) => (
             <ProjectCard

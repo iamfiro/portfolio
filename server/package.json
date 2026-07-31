@@ -3,7 +3,6 @@
   "type": "module",
   "scripts": {
     "dev": "tsx watch src/index.ts",
-    "notion:schema-sync": "tsx src/scripts/notion-schema-sync.ts",
     "build": "tsc",
     "start": "node dist/index.js",
     "vercel-build": "prisma generate && tsc",
@@ -11,23 +10,20 @@
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1048.0",
-    "@hono/node-server": "^1.19.2",
-    "@notionhq/client": "^2.2.15",
-    "@prisma/adapter-pg": "^7.8.0",
-    "@prisma/client": "^7.8.0",
+    "@hono/node-server": "2.0.12",
+    "@prisma/adapter-pg": "7.9.1",
+    "@prisma/client": "7.9.1",
     "@types/sharp": "^0.31.1",
     "dotenv": "^17.4.2",
-    "hono": "^4.9.7",
-    "notion-to-md": "^3.1.1",
+    "hono": "4.12.33",
     "pg": "^8.20.0",
     "pino": "^10.3.1",
-    "sharp": "^0.34.5"
+    "sharp": "0.35.3"
   },
   "devDependencies": {
     "@types/node": "^20.11.17",
-    "prisma": "^7.8.0",
+    "prisma": "7.9.1",
     "tsx": "^4.7.1",
-    "typescript": "^5.8.3",
-    "vercel": "^33.0.0"
+    "typescript": "^5.8.3"
   }
 }

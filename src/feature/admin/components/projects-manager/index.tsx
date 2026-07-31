@@ -1,15 +1,15 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Pencil, Plus, Trash2 } from "lucide-react";
 import { FormEvent, useMemo, useState } from "react";
 
-import {
-  createProject,
-  deleteProject,
-  updateProject,
-} from "@/feature/projects/api";
+import { getPosts } from "@/feature/blog/api";
+import { PostsResponse } from "@/feature/blog/schema";
+import { createProject, deleteProject, updateProject } from "@/feature/projects/api";
 import { Project, ProjectMutationPayload } from "@/feature/projects/schema";
 import {
   Button,
+  Checkbox,
+  CheckboxGroup,
   DataGrid,
   Flex,
   FormGroup,
@@ -32,23 +32,27 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
 interface ProjectFormValue {
   title: string;
   description: string;
+  content: string;
   techStack: string;
   thumbnailUrl: string;
   githubUrl: string;
   deployUrl: string;
   startDate: string;
   endDate: string;
+  relatedPostIds: string[];
 }
 
 const INITIAL_FORM: ProjectFormValue = {
   title: "",
   description: "",
+  content: "",
   techStack: "",
   thumbnailUrl: "",
   githubUrl: "",
   deployUrl: "",
   startDate: "",
   endDate: "",
+  relatedPostIds: [],
 };
 
 export default function ProjectsManager({
@@ -63,6 +67,12 @@ export default function ProjectsManager({
   const [editingProject, setEditingProject] = useState<Project | null>(null);
   const [errorMessage, setErrorMessage] = useState("");
 
+  const { data: postsResponse, isLoading: isPostsLoading } = useQuery<PostsResponse>({
+    queryKey: ["posts"],
+    queryFn: getPosts,
+  });
+
+  const posts = postsResponse?.data ?? [];
   const componentClassName = [s.component, className].filter(Boolean).join(" ");
 
   const closeModal = () => {
@@ -72,20 +82,18 @@ export default function ProjectsManager({
     setErrorMessage("");
   };
 
-  const createMutation = useMutation<
-    ApiResponse<Project>,
-    Error,
-    ProjectMutationPayload
-  >({
-    mutationFn: createProject,
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ["projects"] });
-      closeModal();
+  const createMutation = useMutation<ApiResponse<Project>, Error, ProjectMutationPayload>(
+    {
+      mutationFn: createProject,
+      onSuccess: async () => {
+        await queryClient.invalidateQueries({ queryKey: ["projects"] });
+        closeModal();
+      },
+      onError: (error) => {
+        setErrorMessage(error.message);
+      },
     },
-    onError: (error) => {
-      setErrorMessage(error.message);
-    },
-  });
+  );
 
   const updateMutation = useMutation<
     ApiResponse<Project>,
@@ -110,9 +118,7 @@ export default function ProjectsManager({
   });
 
   const isPending =
-    createMutation.isPending ||
-    updateMutation.isPending ||
-    deleteMutation.isPending;
+    createMutation.isPending || updateMutation.isPending || deleteMutation.isPending;
 
   const openCreateModal = () => {
     setEditingProject(null);
@@ -127,12 +133,14 @@ export default function ProjectsManager({
     setFormValue({
       title: project.title,
       description: project.description,
+      content: project.content ?? "",
       techStack: project.techStack.join(", "),
       thumbnailUrl: project.thumbnailUrl ?? "",
       githubUrl: project.githubUrl ?? "",
       deployUrl: project.deployUrl ?? "",
       startDate: project.startDate.split("T")[0] ?? "",
       endDate: project.endDate ? project.endDate.split("T")[0] : "",
+      relatedPostIds: project.relatedPosts?.map((post) => post.id) ?? [],
     });
     setIsModalOpen(true);
   };
@@ -147,6 +155,15 @@ export default function ProjectsManager({
     deleteMutation.mutate(id);
   };
 
+  const handleRelatedPostChange = (postId: string, checked: boolean) => {
+    setFormValue((prev) => ({
+      ...prev,
+      relatedPostIds: checked
+        ? [...prev.relatedPostIds, postId]
+        : prev.relatedPostIds.filter((id) => id !== postId),
+    }));
+  };
+
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setErrorMessage("");
@@ -154,6 +171,7 @@ export default function ProjectsManager({
     const payload: ProjectMutationPayload = {
       title: formValue.title.trim(),
       description: formValue.description.trim(),
+      content: formValue.content.trim() || null,
       techStack: formValue.techStack
         .split(",")
         .map((tech) => tech.trim())
@@ -163,6 +181,7 @@ export default function ProjectsManager({
       deployUrl: formValue.deployUrl.trim() || null,
       startDate: formValue.startDate,
       endDate: formValue.endDate.trim() || null,
+      relatedPostIds: formValue.relatedPostIds,
     };
 
     if (editingProject) {
@@ -178,18 +197,14 @@ export default function ProjectsManager({
       {
         key: "title",
         header: "프로젝트명",
-        render: (project: Project) => (
-          <Text weight="medium">{project.title}</Text>
-        ),
+        render: (project: Project) => <Text weight="medium">{project.title}</Text>,
       },
       {
         key: "period",
         header: "기간",
         width: 220,
         render: (project: Project) => {
-          const startDate = new Date(project.startDate).toLocaleDateString(
-            "ko-KR",
-          );
+          const startDate = new Date(project.startDate).toLocaleDateString("ko-KR");
           const endDate = project.endDate
             ? new Date(project.endDate).toLocaleDateString("ko-KR")
             : "진행중";
@@ -200,6 +215,16 @@ export default function ProjectsManager({
             </Text>
           );
         },
+      },
+      {
+        key: "relations",
+        header: "연관 콘텐츠",
+        render: (project: Project) => (
+          <Text color="subtle">
+            블로그 {project.relatedPosts?.length ?? 0} · 수상{" "}
+            {project.awards?.length ?? 0}
+          </Text>
+        ),
       },
       {
         key: "techStack",
@@ -240,11 +265,7 @@ export default function ProjectsManager({
     <Stack className={componentClassName} gap={16} {...props}>
       <Flex justify="space-between" align="center">
         <Text color="subtle">총 {projects.length}개의 프로젝트</Text>
-        <Button
-          size="sm"
-          leftIcon={<Plus size={16} />}
-          onClick={openCreateModal}
-        >
+        <Button size="sm" leftIcon={<Plus size={16} />} onClick={openCreateModal}>
           새 프로젝트
         </Button>
       </Flex>
@@ -254,9 +275,7 @@ export default function ProjectsManager({
         keyExtractor={(project) => project.id}
         columns={columns}
         emptyMessage={
-          isLoading
-            ? "프로젝트를 불러오는 중입니다."
-            : "등록된 프로젝트가 없습니다."
+          isLoading ? "프로젝트를 불러오는 중입니다." : "등록된 프로젝트가 없습니다."
         }
       />
 
@@ -288,7 +307,7 @@ export default function ProjectsManager({
 
             <FormGroup>
               <Label htmlFor="project-description" required>
-                설명
+                요약 설명 (Markdown)
               </Label>
               <Textarea
                 id="project-description"
@@ -300,6 +319,22 @@ export default function ProjectsManager({
                   }))
                 }
                 required
+                fullWidth
+              />
+            </FormGroup>
+
+            <FormGroup>
+              <Label htmlFor="project-content">상세 설명 (Markdown)</Label>
+              <Textarea
+                id="project-content"
+                value={formValue.content}
+                onChange={(event) =>
+                  setFormValue((prev) => ({
+                    ...prev,
+                    content: event.target.value,
+                  }))
+                }
+                rows={12}
                 fullWidth
               />
             </FormGroup>
@@ -404,6 +439,32 @@ export default function ProjectsManager({
               </FormGroup>
             </Stack>
 
+            <FormGroup>
+              <Label>연관 블로그</Label>
+              {isPostsLoading ? (
+                <Text size="sm" color="subtle">
+                  블로그를 불러오는 중입니다.
+                </Text>
+              ) : posts.length > 0 ? (
+                <CheckboxGroup className={s.relatedPosts}>
+                  {posts.map((post) => (
+                    <Checkbox
+                      key={post.id}
+                      label={post.title}
+                      checked={formValue.relatedPostIds.includes(post.id)}
+                      onChange={(event) =>
+                        handleRelatedPostChange(post.id, event.target.checked)
+                      }
+                    />
+                  ))}
+                </CheckboxGroup>
+              ) : (
+                <Text size="sm" color="subtle">
+                  연결할 블로그가 없습니다.
+                </Text>
+              )}
+            </FormGroup>
+
             {errorMessage ? (
               <Text size="sm" className={s.errorMessage}>
                 {errorMessage}
@@ -411,12 +472,7 @@ export default function ProjectsManager({
             ) : null}
 
             <Flex justify="flex-end" gap={8}>
-              <Button
-                size="sm"
-                variant="ghost"
-                type="button"
-                onClick={closeModal}
-              >
+              <Button size="sm" variant="ghost" type="button" onClick={closeModal}>
                 취소
               </Button>
               <Button size="sm" type="submit" loading={isPending}>

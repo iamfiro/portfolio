@@ -3,6 +3,7 @@ import { ApiResponse } from "@/shared/types/api";
 export interface Award {
   id: string;
   title: string;
+  description: string | null;
   organization: string;
   date: string;
   imageUrl: string | null;
@@ -15,6 +16,7 @@ export interface Award {
 
 export interface AwardMutationPayload {
   title: string;
+  description?: string | null;
   organization: string;
   date: string;
   imageUrl?: string | null;

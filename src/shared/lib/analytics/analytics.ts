@@ -1,10 +1,6 @@
 import ReactGA from "react-ga4";
 
-import {
-  AnalyticsEvent,
-  type AnalyticsEventMap,
-  PageCategory,
-} from "./analytics.type";
+import { AnalyticsEvent, type AnalyticsEventMap, PageCategory } from "./analytics.type";
 
 const GA_MEASUREMENT_ID = import.meta.env.VITE_GA_MEASUREMENT_ID;
 
@@ -60,11 +56,7 @@ export function trackEvent<E extends AnalyticsEvent>(
 /**
  * 페이지뷰 전송 (SPA 라우트 변경 시)
  */
-export function trackPageView(
-  path: string,
-  title: string,
-  category: PageCategory,
-): void {
+export function trackPageView(path: string, title: string, category: PageCategory): void {
   if (!isInitialized) return;
 
   trackEvent(AnalyticsEvent.PAGE_VIEW, {

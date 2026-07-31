@@ -21,11 +21,7 @@ export function useSearch({ posts }: UseSearchProps) {
       const description = post.description.toLowerCase();
       const tags = post.tags.join(" ").toLowerCase();
 
-      return (
-        title.includes(query) ||
-        description.includes(query) ||
-        tags.includes(query)
-      );
+      return title.includes(query) || description.includes(query) || tags.includes(query);
     });
   }, [posts, searchQuery]);
 

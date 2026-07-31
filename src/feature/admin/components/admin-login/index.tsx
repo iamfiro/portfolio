@@ -44,7 +44,7 @@ export default function AdminLogin({
               Admin Dashboard
             </Heading>
             <Text color="subtle">
-              블로그/프로젝트/어워드 데이터를 관리하는 관리자 페이지입니다.
+              포스트/프로젝트/기술 스택/어워드 데이터를 관리하는 페이지입니다.
             </Text>
           </Stack>
 

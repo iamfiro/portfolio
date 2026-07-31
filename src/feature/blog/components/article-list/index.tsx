@@ -36,14 +36,8 @@ export default function BlogArticleList() {
     queryFn: getPosts,
   });
 
-  const {
-    allTags,
-    finalFilteredPosts,
-    searchQuery,
-    toggleTag,
-    isTagSelected,
-    setQuery,
-  } = useBlogFilter({ posts: posts?.data || [] });
+  const { allTags, finalFilteredPosts, searchQuery, toggleTag, isTagSelected, setQuery } =
+    useBlogFilter({ posts: posts?.data || [] });
 
   // 정렬된 포스트 목록
   const sortedPosts = useMemo(() => {
@@ -112,9 +106,7 @@ export default function BlogArticleList() {
         </Flex>
 
         {isLoading ? (
-          Array.from({ length: 3 }, (_, index) => (
-            <BlogCardSkeleton key={index} />
-          ))
+          Array.from({ length: 3 }, (_, index) => <BlogCardSkeleton key={index} />)
         ) : sortedPosts.length > 0 ? (
           sortedPosts.map((post, index) => (
             <BlogCard
@@ -124,7 +116,7 @@ export default function BlogArticleList() {
               title={post.title}
               description={post.description}
               thumbnail={post.thumbnail}
-              date={new Date(post.date)}
+              date={post.date}
               tags={post.tags}
               content={post.content}
             />
@@ -143,11 +135,7 @@ export default function BlogArticleList() {
 
       {!isMobile && (
         <div className={s.right}>
-          <Select
-            fullWidth
-            value={sortBy}
-            onChange={(e) => setSortBy(e.target.value)}
-          >
+          <Select fullWidth value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
             <option value="latest">최신순</option>
             <option value="oldest">오래된순</option>
           </Select>
@@ -155,20 +143,13 @@ export default function BlogArticleList() {
         </div>
       )}
 
-      <BottomSheet
-        open={isMobile && filterOpen}
-        onClose={() => setFilterOpen(false)}
-      >
+      <BottomSheet open={isMobile && filterOpen} onClose={() => setFilterOpen(false)}>
         <Flex direction="column" gap={20}>
           <Flex direction="column" gap={8}>
             <Text size="sm" weight="semibold" className={s.bottom_sheet_label}>
               정렬
             </Text>
-            <Select
-              fullWidth
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value)}
-            >
+            <Select fullWidth value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
               <option value="latest">최신순</option>
               <option value="oldest">오래된순</option>
             </Select>

@@ -1,35 +1,45 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 
-import { loginAdmin } from "@/feature/admin/api";
+import { checkSession, loginAdmin, logoutAdmin } from "@/feature/admin/api";
 import { AdminDashboard, AdminLogin } from "@/feature/admin/components";
 import { Stack } from "@/shared/components/ui";
-import { ApiMessageResponse } from "@/shared/types/api";
+import { ApiError } from "@/shared/lib/api";
+import { AdminSessionResponse, ApiMessageResponse } from "@/shared/types/api";
 
 import s from "./admin.module.scss";
 
-const ADMIN_SESSION_KEY = "portfolio-admin-session";
-
-function getStoredAuthState() {
-  return localStorage.getItem(ADMIN_SESSION_KEY) === "authenticated";
-}
-
 export default function Admin() {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() =>
-    getStoredAuthState(),
-  );
+  const queryClient = useQueryClient();
   const [errorMessage, setErrorMessage] = useState("");
 
-  const loginMutation = useMutation<ApiMessageResponse, Error, string>({
+  // 서버 세션 확인 — 쿠키 기반 인증
+  const { data: sessionData, isLoading: isSessionLoading } = useQuery<
+    AdminSessionResponse,
+    ApiError
+  >({
+    queryKey: ["admin", "session"],
+    queryFn: checkSession,
+    retry: false,
+  });
+
+  const isAuthenticated = sessionData?.authenticated === true;
+
+  const loginMutation = useMutation<ApiMessageResponse, ApiError, string>({
     mutationFn: (password) => loginAdmin({ password }),
     onSuccess: () => {
-      // 세션 유지 자체는 클라이언트(localStorage)에 있으므로 민감 인증 용도는 아닙니다.
-      localStorage.setItem(ADMIN_SESSION_KEY, "authenticated");
       setErrorMessage("");
-      setIsAuthenticated(true);
+      queryClient.invalidateQueries({ queryKey: ["admin", "session"] });
     },
     onError: (error) => {
       setErrorMessage(error.message);
+    },
+  });
+
+  const logoutMutation = useMutation<ApiMessageResponse, ApiError>({
+    mutationFn: logoutAdmin,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["admin", "session"] });
     },
   });
 
@@ -38,16 +48,20 @@ export default function Admin() {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem(ADMIN_SESSION_KEY);
-    setIsAuthenticated(false);
+    logoutMutation.mutate();
   };
 
-  const containerClassName = [
-    s.container,
-    isAuthenticated ? s.authenticated : "",
-  ]
+  const containerClassName = [s.container, isAuthenticated ? s.authenticated : ""]
     .filter(Boolean)
     .join(" ");
+
+  if (isSessionLoading) {
+    return (
+      <main className={s.container}>
+        <Stack className={s.loginSection} />
+      </main>
+    );
+  }
 
   return (
     <main className={containerClassName}>

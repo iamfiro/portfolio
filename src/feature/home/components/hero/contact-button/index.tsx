@@ -40,9 +40,7 @@ export default function ContactButton() {
     setIsHovered(true);
   }, []);
 
-  const buttonClassName = [s.button, isHovered && s.hovered]
-    .filter(Boolean)
-    .join(" ");
+  const buttonClassName = [s.button, isHovered && s.hovered].filter(Boolean).join(" ");
 
   return (
     <motion.button

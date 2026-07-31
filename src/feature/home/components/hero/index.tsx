@@ -62,9 +62,7 @@ function TitleChars() {
         key={`char-${i}`}
         className={[s.char, bold && s.charBold].filter(Boolean).join(" ")}
         initial={{ opacity: 0, y: 40, filter: "blur(8px)" }}
-        animate={
-          pageReady ? { opacity: 1, y: 0, filter: "blur(0px)" } : undefined
-        }
+        animate={pageReady ? { opacity: 1, y: 0, filter: "blur(0px)" } : undefined}
         transition={{ duration: 0.5, ease: EASE, delay }}
       >
         {char === " " ? "\u00A0" : char}
@@ -108,8 +106,8 @@ export default function Hero() {
           animate={pageReady ? { opacity: 1, y: 0 } : undefined}
           transition={{ duration: 1, ease: EASE, delay: 1 }}
         >
-          Full-Stack developer studying software engineering at Sunrin Internet
-          High School.
+          Full-Stack developer studying software engineering at Sunrin Internet High
+          School.
           <br />I build practical services that solve real problems.
         </motion.p>
       </div>

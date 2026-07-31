@@ -22,10 +22,7 @@ function AccordionItem({
   const [open, setOpen] = useState(defaultOpen);
 
   return (
-    <div
-      className={cn(styles.item, open && styles.open, className)}
-      style={style}
-    >
+    <div className={cn(styles.item, open && styles.open, className)} style={style}>
       <button
         className={styles.trigger}
         onClick={() => setOpen((p) => !p)}
