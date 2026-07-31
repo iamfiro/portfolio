@@ -23,7 +23,7 @@ const queryClient = new QueryClient({
 
 function App() {
   return (
-    <MotionConfig reducedMotion="user">
+    <MotionConfig reducedMotion="never">
       <QueryClientProvider client={queryClient}>
         <RouterProvider router={router} />
         <SpeedInsights />

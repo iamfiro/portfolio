@@ -2,35 +2,72 @@
   width: 100%;
   min-height: 100vh;
 
-  background-color: $surface;
+  background-color: $surface-inverse;
 }
 
 .sidebar {
-  min-height: 100vh;
-  padding-top: $spacing-20;
+  position: sticky;
+  top: 0;
+  z-index: $z-sticky;
 
-  background-color: $surface-inverse;
+  height: 100vh;
+  min-height: 100vh;
+  padding: $spacing-16;
+
+  background-color: $surface;
   border-right: 1px solid $border;
 }
 
-.sidebarTitle {
-  margin-bottom: $spacing-8;
+.sidebarInner {
+  min-height: calc(100vh - #{$spacing-32});
 }
 
-.sidebarHeader {
-  padding: $spacing-12;
+.brand {
+  padding: $spacing-4;
+}
 
-  background-color: $surface-subtle;
-  border: 1px solid $border;
-  border-radius: $radius-12;
+.brandMark {
+  flex-shrink: 0;
+
+  width: $spacing-40;
+  height: $spacing-40;
+
+  color: $text;
+  background-color: $surface-elevated;
+  border: 1px solid $border-subtle;
+  border-radius: $radius-10;
+}
+
+.sidebarTitle {
+  margin: 0;
+}
+
+.navigationGroup {
+  flex: 1;
+}
+
+.navLabel {
+  padding: 0 $spacing-10;
+
+  text-transform: uppercase;
 }
 
 .sidebarItem {
   justify-content: flex-start;
 
+  width: 100%;
+  min-height: $spacing-40;
+  padding: $spacing-8 $spacing-10;
+
   color: $text-subtle;
+  background-color: transparent;
   border: 1px solid transparent;
-  border-radius: $radius-10;
+  border-radius: $radius-8;
+}
+
+.sidebarItem:hover {
+  color: $text;
+  background-color: $surface-subtle;
 }
 
 .activeItem {
@@ -39,31 +76,144 @@
   border-color: $border-subtle;
 }
 
-.content {
-  flex: 1;
-  min-width: 0;
-  padding: $spacing-24;
-}
-
-.panelCard {
-  padding: $spacing-16;
-
-  background-color: $surface;
-  border: 1px solid $border;
-  border-radius: $radius-16;
-
-  box-shadow: $shadow-md;
-}
-
-.panelHeader {
-  margin-bottom: $spacing-20;
-}
-
-.statCard {
-  padding: $spacing-16;
+.sessionCard {
+  padding: $spacing-12;
 
   background-color: $surface-subtlest;
   border: 1px solid $border;
+  border-radius: $radius-10;
+  box-shadow: none;
+}
+
+.sessionIcon {
+  flex-shrink: 0;
+
+  width: $spacing-32;
+  height: $spacing-32;
+
+  color: $text-success-subtle;
+  background-color: $surface-success-subtle;
+  border-radius: $radius-8;
+}
+
+.content {
+  flex: 1;
+  min-width: 0;
+  min-height: 100vh;
+}
+
+.topBar {
+  position: sticky;
+  top: 0;
+  z-index: $z-sticky;
+
+  padding: $spacing-16 $spacing-24;
+
+  background-color: $surface;
+  border-bottom: 1px solid $border;
+}
+
+.breadcrumb {
+  text-transform: uppercase;
+}
+
+.pageTitle {
+  margin: 0;
+}
+
+.logoutButton {
+  border-width: 1px;
+  border-radius: $radius-8;
+}
+
+.pageBody {
+  width: 100%;
+  padding: $spacing-32;
+}
+
+.overviewHero {
+  padding: $spacing-28;
+
+  background-color: $surface;
+  border: 1px solid $border;
+  border-radius: $radius-12;
+  box-shadow: none;
+}
+
+.heroDescription {
+  max-width: $max-width;
+}
+
+.totalCount {
+  min-width: $spacing-100;
+  padding-left: $spacing-32;
+
+  border-left: 1px solid $border;
+}
+
+.statCard {
+  padding: $spacing-20;
+
+  background-color: $surface;
+  border: 1px solid $border;
+  border-radius: $radius-12;
+
+  box-shadow: none;
+  transition: border-color $transition-fast, background-color $transition-fast;
+}
+
+.statCard:hover {
+  background-color: $surface-subtlest;
+  border-color: $border-subtle;
+}
+
+.statIcon {
+  width: $spacing-40;
+  height: $spacing-40;
+
+  color: $text-subtle;
+  background-color: $surface-subtle;
+  border: 1px solid $border;
+  border-radius: $radius-8;
+}
+
+.statLink {
+  padding: $spacing-6 $spacing-8;
+
+  color: $text-subtle;
+  border-radius: $radius-8;
+}
+
+.statValue {
+  color: $text;
+}
+
+.panelCard {
+  padding: 0;
+
+  overflow: hidden;
+
+  background-color: $surface;
+  border: 1px solid $border;
+  border-radius: $radius-12;
+
+  box-shadow: none;
+}
+
+.panelHeader {
+  padding: $spacing-20 $spacing-24;
+
+  border-bottom: 1px solid $border;
+}
+
+.panelBody {
+  padding: $spacing-24;
+}
+
+@media (max-width: 1200px) {
+  .statsGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
 }
 
 @media (max-width: 1024px) {
@@ -72,31 +222,93 @@
   }
 
   .sidebar {
+    position: sticky;
+
     width: 100% !important;
+    height: auto;
     min-height: auto;
-    padding-top: $spacing-12;
+    padding: $spacing-12 $spacing-16;
 
     border-right: 0;
     border-bottom: 1px solid $border;
   }
 
+  .sidebarInner {
+    min-height: auto;
+  }
+
+  .brandMark {
+    width: $spacing-32;
+    height: $spacing-32;
+  }
+
+  .navigationGroup {
+    width: 100%;
+
+    overflow-x: auto;
+  }
+
+  .navLabel,
+  .sessionCard {
+    display: none;
+  }
+
   .navigation {
-    display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+    flex-direction: row !important;
+
+    width: max-content;
+  }
+
+  .sidebarItem {
+    flex-shrink: 0;
+
+    width: auto;
+  }
+
+  .topBar {
+    position: static;
   }
 }
 
 @media (max-width: 700px) {
-  .content {
+  .topBar {
+    padding: $spacing-14 $spacing-16;
+  }
+
+  .topBarActions > span {
+    display: none;
+  }
+
+  .pageBody {
     padding: $spacing-16;
   }
 
-  .navigation,
+  .heroContent {
+    align-items: flex-start !important;
+    flex-direction: column;
+    gap: $spacing-24;
+  }
+
+  .totalCount {
+    width: 100%;
+    padding-top: $spacing-16;
+    padding-left: 0;
+
+    border-top: 1px solid $border;
+    border-left: 0;
+  }
+
   .statsGrid {
     grid-template-columns: minmax(0, 1fr) !important;
   }
 
-  .pageHeader {
+  .overviewHero,
+  .panelHeader,
+  .panelBody {
+    padding: $spacing-16;
+  }
+
+  .panelHeader {
     align-items: flex-start !important;
     flex-direction: column;
     gap: $spacing-12;

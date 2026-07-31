@@ -1,11 +1,14 @@
 .component {
   width: 100%;
+  min-width: 0;
 }
 
 .filterRow {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
+
+  padding-bottom: $spacing-4;
 }
 
 .formGrid {
@@ -25,12 +28,20 @@
 }
 
 .errorMessage {
+  padding: $spacing-10 $spacing-12;
+
   color: $text-danger-subtle;
+  background-color: $surface-danger-subtle;
+  border-radius: $radius-8;
 }
 
 @media (max-width: 900px) {
   .filterRow,
   .formGrid {
     grid-template-columns: minmax(0, 1fr);
+  }
+
+  .filterRow > button {
+    width: 100%;
   }
 }

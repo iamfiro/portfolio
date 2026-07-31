@@ -1,5 +1,11 @@
 .component {
   width: 100%;
+  min-width: 0;
+}
+
+.toolbar {
+  flex-wrap: wrap !important;
+  gap: $spacing-12;
 }
 
 .formGrid {
@@ -11,20 +17,34 @@
   max-height: 240px;
   padding: $spacing-12;
 
-  background-color: $surface-subtlest;
+  overflow-y: auto;
 
+  background-color: $surface-subtlest;
   border: 1px solid $border;
   border-radius: $radius-8;
-
-  overflow-y: auto;
 }
 
 .errorMessage {
+  padding: $spacing-10 $spacing-12;
+
   color: $text-danger-subtle;
+  background-color: $surface-danger-subtle;
+  border-radius: $radius-8;
 }
 
 @media (max-width: 900px) {
   .formGrid {
     grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 700px) {
+  .toolbar {
+    align-items: flex-start !important;
+    flex-direction: column;
+  }
+
+  .toolbar > button {
+    width: 100%;
   }
 }

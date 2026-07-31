@@ -2,14 +2,36 @@
   width: 100%;
   max-width: 460px;
   margin: 0 auto;
-  padding: $spacing-24;
+  padding: $spacing-28;
 
-  background-color: $surface-subtle;
+  background-color: $surface;
   border: 1px solid $border;
-  border-radius: $radius-16;
+  border-radius: $radius-12;
+
   box-shadow: $shadow-md;
 }
 
+.loginIcon {
+  width: $spacing-40;
+  height: $spacing-40;
+
+  color: $text;
+  background-color: $surface-elevated;
+  border: 1px solid $border-subtle;
+  border-radius: $radius-10;
+}
+
 .errorMessage {
+  padding: $spacing-10 $spacing-12;
+
   color: $text-danger-subtle;
+  background-color: $surface-danger-subtle;
+  border: 1px solid $text-danger;
+  border-radius: $radius-8;
+}
+
+@media (max-width: 700px) {
+  .component {
+    padding: $spacing-20;
+  }
 }

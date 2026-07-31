@@ -30,22 +30,13 @@ function PageTransitionContent() {
   const whiteControls = useAnimationControls();
   const surfaceControls = useAnimationControls();
   const [phase, setPhase] = useState<Phase>("idle");
-  // 블로그 상세 페이지 직접 접근 시 초기 로더 스킵
-  const skipInitialLoader = useRef(/^\/blog\/.+/.test(location.pathname));
-  const [pageHidden, setPageHidden] = useState(!skipInitialLoader.current);
+  const [pageHidden, setPageHidden] = useState(true);
   const prevPathRef = useRef(location.pathname);
   const isPopstateRef = useRef(false);
   const isAnimatingRef = useRef(false);
-  const initialLoadDoneRef = useRef(skipInitialLoader.current);
+  const initialLoadDoneRef = useRef(false);
   const { progress, loaded: imagesLoaded } = useImagePreload();
-  const [showLoader, setShowLoader] = useState(!skipInitialLoader.current);
-
-  // 블로그 상세 페이지 직접 접근 시 즉시 pageReady 설정
-  useEffect(() => {
-    if (!skipInitialLoader.current) return;
-    setInitialLoadDone(true);
-    setPageReady(true);
-  }, [setInitialLoadDone, setPageReady]);
+  const [showLoader, setShowLoader] = useState(true);
 
   // 초기 로딩: 이미지 로드 완료 + 프리로드 락 해제 시 reveal 애니메이션 실행
   useEffect(() => {

@@ -7,8 +7,13 @@ import { Project, ProjectsResponse } from "@/feature/projects/schema";
 import { usePageTransition } from "@/shared/components/layouts/page-transition/page-transition.context";
 import { Image, Text } from "@/shared/components/ui";
 
+import s from "./style.module.scss";
+
+const PROJECT_PRELOAD_TIMEOUT_MS = 5000;
+
 function usePreloadProjectImages(
   data: ProjectsResponse | undefined,
+  settled: boolean,
   acquirePreloadLock: () => () => void,
   initialLoadDone: boolean,
 ) {
@@ -18,16 +23,22 @@ function usePreloadProjectImages(
     if (initialLoadDone) return;
     const release = acquirePreloadLock();
     releaseRef.current = release;
+    const timeout = window.setTimeout(() => {
+      releaseRef.current?.();
+      releaseRef.current = null;
+    }, PROJECT_PRELOAD_TIMEOUT_MS);
+
     return () => {
+      window.clearTimeout(timeout);
       release();
       releaseRef.current = null;
     };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    if (!data || !releaseRef.current) return;
+    if (!settled || !releaseRef.current) return;
 
-    const urls = (data.data ?? [])
+    const urls = (data?.data ?? [])
       .filter((p: Project) => p.thumbnailUrl)
       .map((p: Project) => p.thumbnailUrl as string);
 
@@ -53,10 +64,8 @@ function usePreloadProjectImages(
       img.onerror = onDone;
       img.src = url;
     });
-  }, [data]);
+  }, [data, settled]);
 }
-
-import s from "./style.module.scss";
 
 // 프로젝트 ID(string) 기반 결정적 랜덤 height 생성
 function getHeight(id: string): number {
@@ -137,12 +146,12 @@ function ProjectCard({
 export default function MarqueeProjects() {
   const { initialLoadDone, acquirePreloadLock } = usePageTransition();
 
-  const { data } = useQuery<ProjectsResponse>({
+  const { data, isFetched } = useQuery<ProjectsResponse>({
     queryKey: ["projects"],
     queryFn: getProjects,
   });
 
-  usePreloadProjectImages(data, acquirePreloadLock, initialLoadDone);
+  usePreloadProjectImages(data, isFetched, acquirePreloadLock, initialLoadDone);
 
   const marqueeProjects: MarqueeProjectItem[] = (data?.data ?? [])
     .filter((p: Project) => p.thumbnailUrl)

@@ -1,8 +1,11 @@
+import { LockKeyhole, ShieldCheck } from "lucide-react";
 import { FormEvent, useState } from "react";
 
 import {
+  Badge,
   Button,
   Card,
+  Flex,
   FormGroup,
   Heading,
   Input,
@@ -38,26 +41,36 @@ export default function AdminLogin({
   return (
     <Card className={componentClassName} {...props}>
       <form onSubmit={handleSubmit}>
-        <Stack gap={20}>
+        <Stack gap={24}>
+          <Flex justify="space-between" align="center">
+            <Flex className={s.loginIcon} align="center" justify="center">
+              <LockKeyhole size={20} />
+            </Flex>
+            <Badge variant="success" size="sm" dot>
+              Secure access
+            </Badge>
+          </Flex>
+
           <Stack gap={8}>
             <Heading as="h1" size="2xl">
-              Admin Dashboard
+              관리자 로그인
             </Heading>
             <Text color="subtle">
-              포스트/프로젝트/기술 스택/어워드 데이터를 관리하는 페이지입니다.
+              포트폴리오 콘텐츠와 연결 관계를 안전하게 관리합니다.
             </Text>
           </Stack>
 
           <FormGroup>
             <Label htmlFor="admin-password" required>
-              비밀번호
+              관리자 비밀번호
             </Label>
             <Input
               id="admin-password"
               type="password"
               value={password}
               onChange={(event) => setPassword(event.target.value)}
-              placeholder="관리자 비밀번호를 입력하세요"
+              placeholder="비밀번호를 입력하세요"
+              autoComplete="current-password"
               fullWidth
               required
               disabled={disabled}
@@ -65,14 +78,23 @@ export default function AdminLogin({
           </FormGroup>
 
           {errorMessage ? (
-            <Text size="sm" className={s.errorMessage}>
+            <Text size="sm" className={s.errorMessage} role="alert">
               {errorMessage}
             </Text>
           ) : null}
 
-          <Button type="submit" fullWidth disabled={disabled}>
-            로그인
+          <Button
+            type="submit"
+            fullWidth
+            disabled={disabled}
+            leftIcon={<ShieldCheck size={16} />}
+          >
+            {disabled ? "확인 중" : "대시보드 열기"}
           </Button>
+
+          <Text size="xs" color="subtle" align="center">
+            인증 세션은 보안 쿠키로 보호됩니다.
+          </Text>
         </Stack>
       </form>
     </Card>

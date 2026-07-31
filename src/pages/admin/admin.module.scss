@@ -1,7 +1,8 @@
 .container {
   min-height: 100vh;
   padding: $spacing-24;
-  background-color: $surface;
+
+  background-color: $surface-inverse;
 }
 
 .authenticated {
@@ -9,7 +10,20 @@
 }
 
 .loginSection {
+  justify-content: center;
+  align-items: center;
+
+  min-height: calc(100vh - #{$spacing-48});
   max-width: 520px;
   margin: 0 auto;
-  padding-top: $spacing-100;
+}
+
+@media (max-width: 700px) {
+  .container {
+    padding: $spacing-16;
+  }
+
+  .loginSection {
+    min-height: calc(100vh - #{$spacing-32});
+  }
 }

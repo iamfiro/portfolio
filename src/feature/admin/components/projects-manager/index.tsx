@@ -263,7 +263,7 @@ export default function ProjectsManager({
 
   return (
     <Stack className={componentClassName} gap={16} {...props}>
-      <Flex justify="space-between" align="center">
+      <Flex justify="space-between" align="center" className={s.toolbar}>
         <Text color="subtle">총 {projects.length}개의 프로젝트</Text>
         <Button size="sm" leftIcon={<Plus size={16} />} onClick={openCreateModal}>
           새 프로젝트

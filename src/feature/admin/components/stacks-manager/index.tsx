@@ -139,7 +139,7 @@ export default function StacksManager({ isLoading, stacks, className, ...props }
 
   return (
     <Stack className={componentClassName} gap={16} {...props}>
-      <Flex justify="space-between" align="center">
+      <Flex justify="space-between" align="center" className={s.toolbar}>
         <Text color="subtle">총 {stacks.length}개의 기술 스택</Text>
         <Button size="sm" leftIcon={<Plus size={16} />} onClick={openCreateModal}>
           새 기술 스택
