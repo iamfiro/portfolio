@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Github, Instagram, Linkedin, Mail } from "lucide-react";
+import { Github, Linkedin, Mail } from "lucide-react";
 
 import { useHomeSectionAnimation } from "@/feature/home/hooks";
 import { Footer, Link, Text } from "@/shared/components/ui";
@@ -15,7 +15,6 @@ import s from "./style.module.scss";
 const SOCIAL_LINKS = [
   { href: LINK.github, icon: Github, label: "GitHub" },
   { href: LINK.linkedin, icon: Linkedin, label: "LinkedIn" },
-  { href: LINK.instagram, icon: Instagram, label: "Instagram" },
   { href: `mailto:${LINK.email}`, icon: Mail, label: "Email" },
 ] as const;
 
