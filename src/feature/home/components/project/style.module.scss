@@ -14,7 +14,7 @@
 .projectCard {
   display: flex;
   flex-direction: column;
-  gap: $spacing-16;
+  gap: $spacing-12;
 
   overflow: hidden;
 
@@ -56,13 +56,11 @@
 .appIcon {
   flex-shrink: 0;
 
-  width: $spacing-48;
-  height: $spacing-48;
+  width: 38px;
+  height: 38px;
 
   object-fit: cover;
-
-  border: 1px solid $border;
-  border-radius: $radius-16;
+  border-radius: $radius-12;
 }
 
 .projectCopy {

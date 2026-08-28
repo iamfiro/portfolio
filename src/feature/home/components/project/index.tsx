@@ -85,10 +85,10 @@ function ProjectCard({ project }: ProjectCardProps) {
               />
             )}
             <Stack className={s.projectCopy} gap={0}>
-              <Heading as="h3" size="sm" className={s.projectName}>
+              <Heading as="h3" size="xs" className={s.projectName}>
                 {project.title}
               </Heading>
-              <Text size="sm" color="subtle" className={s.projectDescription}>
+              <Text size="xs" color="subtle" className={s.projectDescription}>
                 {project.description}
               </Text>
             </Stack>
