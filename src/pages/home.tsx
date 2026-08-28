@@ -1,5 +1,6 @@
 import {
   About,
+  Activity,
   Awards,
   Blog,
   Hero,
@@ -22,9 +23,10 @@ export default function Home() {
           <Hero />
           <Project />
         </section>
+        <Awards />
+        <Activity />
         <Spacer size={100} />
         <About />
-        <Awards />
         <TechStack />
         <Blog />
         <SiteFooter />

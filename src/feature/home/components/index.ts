@@ -1,4 +1,5 @@
 export { default as About } from "./about";
+export { default as Activity } from "./activity";
 export { default as Awards } from "./awards";
 export { default as Blog } from "./blog";
 export { default as Footer } from "./footer";

@@ -1,0 +1,109 @@
+.activity {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: $spacing-20;
+
+  width: 100%;
+  overflow: visible;
+}
+
+.title {
+  font-family: $font-pretendard;
+  font-size: $font-size-xl;
+  font-weight: $font-weight-semibold;
+  line-height: $line-height-tight;
+  color: $text;
+}
+
+.list {
+  width: 100%;
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  gap: $spacing-12;
+
+  width: 100%;
+  padding: $spacing-8;
+
+  border-radius: $radius-12;
+  background-color: $surface;
+}
+
+.icon {
+  flex-shrink: 0;
+
+  width: $spacing-48;
+  height: $spacing-48;
+  padding: $spacing-12;
+
+  color: $text;
+  background-color: $surface-subtle;
+  border-radius: $radius-8;
+}
+
+.content {
+  flex: 1;
+  min-width: 0;
+}
+
+.cardTitle {
+  overflow: hidden;
+
+  font-family: $font-pretendard;
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  line-height: $line-height-tight;
+  color: $text;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.description {
+  overflow: hidden;
+
+  font-size: $font-size-sm;
+  line-height: $line-height-normal;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.date {
+  flex-shrink: 0;
+
+  padding: $spacing-4 $spacing-8;
+
+  border-radius: $radius-full;
+  background-color: $surface-subtle;
+
+  font-size: $font-size-xs;
+  line-height: $line-height-tight;
+  white-space: nowrap;
+}
+
+@media (max-width: 480px) {
+  .activity {
+    gap: $spacing-16;
+  }
+
+  .card {
+    align-items: flex-start;
+    gap: $spacing-8;
+  }
+
+  .icon {
+    width: $spacing-40;
+    height: $spacing-40;
+    padding: $spacing-10;
+  }
+
+  .content {
+    padding-top: $spacing-4;
+  }
+
+  .date {
+    margin-top: $spacing-4;
+  }
+}

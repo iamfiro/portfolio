@@ -16,12 +16,11 @@
 
 .viewport {
   display: flex;
-  height: 100vh;
+  min-height: 100vh;
 
   flex-direction: column;
-  justify-content: space-between;
 
-  padding-top: 64px;
+  padding-top: $spacing-64;
 }
 
 @media (max-width: 768px) {

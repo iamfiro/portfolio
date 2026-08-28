@@ -4,23 +4,18 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: $spacing-28;
+  gap: $spacing-20;
 
   width: 100%;
   overflow: visible;
-
-  padding-top: $spacing-64;
-  padding-bottom: $spacing-64;
-  padding-left: $spacing-40;
-  padding-right: $spacing-40;
 }
 
 .title {
-  font-size: $font-size-5xl;
+  font-size: $font-size-xl;
   line-height: $line-height-tight;
 
-  font-family: $font-gambarino;
-  font-weight: 400;
+  font-family: $font-pretendard;
+  font-weight: $font-weight-semibold;
 
   color: $text;
 }
@@ -29,7 +24,7 @@
   display: flex;
   position: relative;
   flex-direction: column;
-  gap: 0 !important;
+  gap: $spacing-8 !important;
 
   width: 100%;
 
@@ -42,30 +37,6 @@
   }
 }
 
-.floatingImage {
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 0;
-
-  width: 380px;
-  height: 260px;
-
-  opacity: 0;
-
-  border-radius: $radius-16;
-
-  object-fit: cover;
-
-  pointer-events: none;
-  will-change: transform;
-  z-index: $z-dropdown;
-
-  transition:
-    opacity 0.7s cubic-bezier(0.23, 1, 0.32, 1),
-    transform 0.3s ease-out;
-}
-
 // ─── Card ───────────────────────────────────────────────────
 
 .card {
@@ -73,118 +44,75 @@
   align-items: center;
 
   width: 100%;
-  height: 130px;
-  padding: $spacing-24 0;
+  padding: $spacing-8 0;
 
-  border-top: 1px solid $border;
-
-  transition:
-    border-color 0.4s ease,
-    opacity 0.5s ease;
-  cursor: none;
-
-  &:last-child {
-    border-bottom: 1px solid $border;
-  }
+  transition: opacity $transition-slow;
 }
 
-
-.shape {
-  width: 32px;
-  height: 32px;
-
-  flex-shrink: 0;
-}
-
-.cardHeader {
-  display: flex;
-  flex-direction: column;
-  gap: $spacing-6 !important;
+.cardText {
+  width: 100%;
 }
 
 .cardTitle {
-  font-weight: $font-weight-normal;
+  display: inline;
+
+  font-family: $font-pretendard;
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
   line-height: $line-height-tight;
-  font-size: $font-size-2xl;
   color: $text;
 }
 
 .cardOrganization {
+  display: inline;
+
+  margin-left: $spacing-8;
+
   color: $text-subtle;
   font-size: $font-size-md;
-}
-
-.cardDescription {
-  line-height: $line-height-relaxed;
-  color: $text-muted;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .floatingImage {
-    transition: none;
-  }
 }
 
 // ─── Responsive ─────────────────────────────────────────────
 
 @media (max-width: 768px) {
   .awards {
-    gap: $spacing-20;
-
-    padding: $spacing-40 $padding-mobile;
-  }
-
-
-  .floatingImage {
-    display: none;
+    gap: $spacing-16;
   }
 
   .card {
-    height: auto;
-    padding: $spacing-24 0;
-  }
-
-  .cardHeader {
-    gap: $spacing-4 !important;
+    padding: $spacing-8 0;
   }
 
   .cardTitle {
-    font-size: $font-size-xl;
+    font-size: $font-size-md;
     line-height: $line-height-tight;
   }
 
   .cardOrganization {
-    font-size: $font-size-lg;
+    font-size: $font-size-md;
   }
 }
 
 @media (max-width: 480px) {
   .awards {
     gap: $spacing-16;
-
-    padding: $spacing-20 $padding-mobile;
   }
 
   .title {
-    font-size: $font-size-3xl;
+    font-size: $font-size-xl;
     line-height: $line-height-tight;
   }
 
   .list {
-    gap: 0;
+    gap: $spacing-8 !important;
   }
 
   .card {
-    height: auto;
-    padding: $spacing-24 0;
-  }
-
-  .cardHeader {
-    gap: $spacing-4 !important;
+    padding: $spacing-8 0;
   }
 
   .cardTitle {
-    font-size: $font-size-lg;
+    font-size: $font-size-md;
     line-height: $line-height-tight;
   }
 

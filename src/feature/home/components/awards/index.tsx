@@ -8,10 +8,15 @@ import {
 } from "react";
 
 import { getAwards } from "@/feature/awards/data";
-import { Award, AwardsResponse } from "@/feature/awards/schema";
+import type { Award, AwardsResponse } from "@/feature/awards/schema";
 import { usePageTransition } from "@/shared/components/layouts/page-transition/page-transition.context";
-import { Flex, Heading, Section, Stack, Text } from "@/shared/components/ui";
-import { generateSrcSet } from "@/shared/utils/responsive-image.util";
+import {
+  Heading,
+  HoverPreview,
+  HoverPreviewTrigger,
+  Section,
+  Text,
+} from "@/shared/components/ui";
 
 import s from "./style.module.scss";
 
@@ -24,10 +29,6 @@ interface DisplayAward {
 }
 
 export default function Awards() {
-  const imageRef = useRef<HTMLImageElement>(null);
-  const listRef = useRef<HTMLDivElement>(null);
-  const lastX = useRef(0);
-  const isVisible = useRef(false);
   const releaseLockRef = useRef<(() => void) | null>(null);
 
   const { acquirePreloadLock, initialLoadDone } = usePageTransition();
@@ -102,111 +103,50 @@ export default function Awards() {
     }));
   }, [data]);
 
-  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
-    const img = imageRef.current;
-    const list = listRef.current;
-    if (!img || !list || img.dataset.enabled !== "true") return;
-
-    const rect = list.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-
-    const deltaX = e.clientX - lastX.current;
-    lastX.current = e.clientX;
-
-    const rotation = Math.max(-3, Math.min(3, deltaX * 0.3));
-
-    if (!isVisible.current) {
-      isVisible.current = true;
-      img.style.opacity = "1";
-    }
-
-    img.style.transform = `translate3d(${x - 190}px, ${y - 130}px, 0) scale(1) rotate(${rotation}deg)`;
-  }, []);
-
-  const handleMouseEnter = useCallback(
-    (award: DisplayAward) => () => {
-      const img = imageRef.current;
-      if (!img) return;
-
-      if (!award.imageUrl) {
-        img.dataset.enabled = "false";
-        img.style.opacity = "0";
-        return;
-      }
-
-      img.dataset.enabled = "true";
-      img.src = award.imageUrl;
-      img.srcset = generateSrcSet(award.imageUrl) ?? "";
-      img.sizes = "(max-width: 767px) 80vw, 320px";
-      isVisible.current = false;
-
-      img.style.opacity = "0";
-      img.style.transform = img.style.transform.replace(
-        /scale\([^)]*\)/,
-        "scale(0.85)",
-      );
-    },
+  const renderAward = useCallback(
+    (award: DisplayAward) => (
+      <HoverPreviewTrigger
+        key={award.id}
+        className={s.card}
+        preview={{
+          title: award.name,
+          subtext: `${award.organization} · ${award.year}`,
+          imageUrl: award.imageUrl,
+        }}
+      >
+        <Text as="p" className={s.cardText}>
+          <Text as="span" className={s.cardTitle}>
+            {award.name}
+          </Text>
+          <Text
+            as="span"
+            size="md"
+            color="subtle"
+            className={s.cardOrganization}
+          >
+            {award.organization} - {award.year}
+          </Text>
+        </Text>
+      </HoverPreviewTrigger>
+    ),
     [],
   );
 
-  const handleMouseLeave = useCallback(() => {
-    const img = imageRef.current;
-    if (!img) return;
-
-    isVisible.current = false;
-    img.dataset.enabled = "false";
-    img.style.opacity = "0";
-    img.style.transform = img.style.transform.replace(
-      /scale\([^)]*\)/,
-      "scale(0.9)",
-    );
-  }, []);
-
-  const renderAward = useCallback(
-    (award: DisplayAward) => (
-      <Flex
-        key={award.id}
-        className={s.card}
-        onMouseEnter={handleMouseEnter(award)}
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
-      >
-        <Stack className={s.cardHeader}>
-          <Heading as="h3" size="lg" className={s.cardTitle}>
-            {award.name}
-          </Heading>
-          <Text size="md" color="subtle" className={s.cardOrganization}>
-            {award.organization} - {award.year}
-          </Text>
-        </Stack>
-      </Flex>
-    ),
-    [handleMouseEnter, handleMouseMove, handleMouseLeave],
-  );
-
   return (
-    <Section className={s.awards}>
-      <Heading as="h2" size="3xl" className={s.title}>
-        Awards
+    <Section className={s.awards} size="sm">
+      <Heading as="h2" size="lg" className={s.title}>
+        수상 실적
       </Heading>
 
-      <div className={s.list} ref={listRef}>
+      <HoverPreview className={s.list}>
         {isLoading ? (
-          <Text color="subtle">어워드를 불러오는 중입니다.</Text>
+          <Text color="subtle">수상 실적을 불러오는 중입니다.</Text>
         ) : error ? (
-          <Text color="subtle">어워드를 불러올 수 없습니다.</Text>
+          <Text color="subtle">수상 실적을 불러올 수 없습니다.</Text>
         ) : (
           awards.map(renderAward)
         )}
-        <img
-          ref={imageRef}
-          className={s.floatingImage}
-          src=""
-          alt=""
-          aria-hidden="true"
-        />
-      </div>
+      </HoverPreview>
     </Section>
   );
 }

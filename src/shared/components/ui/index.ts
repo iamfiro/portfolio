@@ -165,6 +165,12 @@ export type { BottomSheetProps } from "./BottomSheet/BottomSheet";
 export { BottomSheet } from "./BottomSheet/BottomSheet";
 export type { DrawerProps } from "./Drawer/Drawer";
 export { Drawer } from "./Drawer/Drawer";
+export type {
+  HoverPreviewData,
+  HoverPreviewProps,
+  HoverPreviewTriggerProps,
+} from "./HoverPreview/HoverPreview";
+export { HoverPreview, HoverPreviewTrigger } from "./HoverPreview/HoverPreview";
 export type { ModalProps } from "./Modal/Modal";
 export { Modal } from "./Modal/Modal";
 export type { BackdropProps, OverlayProps } from "./Overlay/Overlay";
