@@ -4,11 +4,12 @@ import { useCallback } from "react";
 import {
   Flex,
   Heading,
+  HoverCard,
+  HoverCardTrigger,
   Image,
   Section,
   Stack,
   Text,
-  Tooltip,
 } from "@/shared/components/ui";
 
 import s from "./style.module.scss";
@@ -17,6 +18,8 @@ interface StackItem {
   name: string;
   icon: string;
   skills: string[];
+  /** 흰색 단색 로고라 밝은 배경에서 반전이 필요한 아이콘 */
+  invert?: boolean;
 }
 
 interface StackCategory {
@@ -26,7 +29,7 @@ interface StackCategory {
 
 const STACK_DATA: StackCategory[] = [
   {
-    label: "FrontEnd",
+    label: "프론트엔드",
     items: [
       {
         name: "TypeScript",
@@ -71,7 +74,7 @@ const STACK_DATA: StackCategory[] = [
     ],
   },
   {
-    label: "Backend",
+    label: "백엔드",
     items: [
       {
         name: "NestJS",
@@ -81,11 +84,13 @@ const STACK_DATA: StackCategory[] = [
       {
         name: "Express",
         icon: "/icon/stack/express.svg",
+        invert: true,
         skills: ["REST API 서버 구축", "미들웨어 체인 설계"],
       },
       {
         name: "Prisma",
         icon: "/icon/stack/prisma.svg",
+        invert: true,
         skills: ["타입 안전한 DB 쿼리", "마이그레이션·스키마 관리"],
       },
       {
@@ -101,12 +106,13 @@ const STACK_DATA: StackCategory[] = [
       {
         name: "Socket.io",
         icon: "/icon/stack/socketdotio.svg",
+        invert: true,
         skills: ["실시간 양방향 통신", "채팅·알림 시스템 구축"],
       },
     ],
   },
   {
-    label: "Application",
+    label: "애플리케이션",
     items: [
       {
         name: "Kotlin",
@@ -121,6 +127,7 @@ const STACK_DATA: StackCategory[] = [
       {
         name: "Expo",
         icon: "/icon/stack/expo.svg",
+        invert: true,
         skills: ["React Native 크로스플랫폼 앱", "OTA 업데이트·네이티브 모듈"],
       },
       {
@@ -131,7 +138,7 @@ const STACK_DATA: StackCategory[] = [
     ],
   },
   {
-    label: "ETC",
+    label: "기타",
     items: [
       {
         name: "GitHub Actions",
@@ -141,32 +148,24 @@ const STACK_DATA: StackCategory[] = [
       {
         name: "Notion",
         icon: "/icon/stack/notion.svg",
+        invert: true,
         skills: ["프로젝트 문서화·관리", "팀 협업 워크스페이스 운영"],
       },
     ],
   },
 ];
 
-function StackIcon({ name, icon, skills }: StackItem) {
-  const tooltipContent = (
-    <Stack gap={4} className={s.tooltipContent}>
-      <Text as="span" size="md" weight="semibold" className={s.tooltipTitle}>
-        {name}
-      </Text>
-      {skills.map((skill) => (
-        <Text as="span" size="sm" key={skill} className={s.tooltipSkill}>
-          {skill}
-        </Text>
-      ))}
-    </Stack>
-  );
+function StackIcon({ name, icon, skills, invert }: StackItem) {
+  const iconClassName = [s.icon, invert && s.iconInverted]
+    .filter(Boolean)
+    .join(" ");
 
   return (
-    <Tooltip content={tooltipContent} placement="top" delay={100}>
+    <HoverCardTrigger card={{ title: name, items: skills }}>
       <Flex align="center" justify="center" className={s.iconWrapper}>
-        <Image src={icon} alt={name} className={s.icon} />
+        <Image src={icon} alt={name} className={iconClassName} />
       </Flex>
-    </Tooltip>
+    </HoverCardTrigger>
   );
 }
 
@@ -175,25 +174,20 @@ export default function TechStack() {
     (category: StackCategory, index: number) => (
       <motion.div
         key={category.label}
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 12 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.3 }}
         transition={{
-          duration: 0.8,
+          duration: 0.6,
           ease: [0.25, 0.1, 0.25, 1],
-          delay: index * 0.1,
+          delay: index * 0.08,
         }}
       >
-        <Stack gap={16} className={s.category}>
-          <Text
-            size="sm"
-            weight="semibold"
-            color="subtle"
-            className={s.categoryLabel}
-          >
+        <Stack gap={12} className={s.category}>
+          <Text size="sm" color="subtle" className={s.categoryLabel}>
             {category.label}
           </Text>
-          <Flex gap={12} wrap className={s.iconGrid}>
+          <Flex gap={8} wrap className={s.iconGrid}>
             {category.items.map((item) => (
               <StackIcon key={item.name} {...item} />
             ))}
@@ -205,21 +199,14 @@ export default function TechStack() {
   );
 
   return (
-    <Section className={s.techStack} size="md">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.5 }}
-        transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
-      >
-        <Heading as="h2" size="3xl" className={s.title}>
-          Stack
-        </Heading>
-      </motion.div>
+    <Section className={s.techStack} size="sm">
+      <Heading as="h2" size="lg" className={s.title}>
+        기술 스택
+      </Heading>
 
-      <Stack gap={24} className={s.categories}>
+      <HoverCard className={s.categories}>
         {STACK_DATA.map(renderCategory)}
-      </Stack>
+      </HoverCard>
     </Section>
   );
 }

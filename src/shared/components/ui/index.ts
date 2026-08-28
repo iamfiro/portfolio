@@ -166,6 +166,12 @@ export { BottomSheet } from "./BottomSheet/BottomSheet";
 export type { DrawerProps } from "./Drawer/Drawer";
 export { Drawer } from "./Drawer/Drawer";
 export type {
+  HoverCardData,
+  HoverCardProps,
+  HoverCardTriggerProps,
+} from "./HoverCard/HoverCard";
+export { HoverCard, HoverCardTrigger } from "./HoverCard/HoverCard";
+export type {
   HoverPreviewData,
   HoverPreviewProps,
   HoverPreviewTriggerProps,

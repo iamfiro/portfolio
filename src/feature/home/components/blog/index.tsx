@@ -1,5 +1,4 @@
 import { useQuery } from "@tanstack/react-query";
-import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { useCallback } from "react";
 
@@ -14,41 +13,31 @@ function formatDate(date: Date | string): string {
   return `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, "0")}`;
 }
 
-function BlogCard({ post, index }: { post: Post; index: number }) {
+function BlogCard({ post }: { post: Post }) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.3 }}
-      transition={{
-        duration: 0.8,
-        ease: [0.25, 0.1, 0.25, 1],
-        delay: index * 0.1,
-      }}
-    >
-      <a href={`/blog/${post.id}`} className={s.card}>
-        <Flex
-          justify="space-between"
-          align="flex-start"
-          className={s.cardInner}
-        >
-          <Stack gap={4} className={s.cardContent}>
-            <Heading as="h3" size="lg" className={s.cardTitle}>
+    <a href={`/blog/${post.id}`} className={s.card}>
+      <Flex align="baseline" gap={12} className={s.item}>
+        <Text as="p" className={s.content}>
+          <Text as="span" className={s.titleRow}>
+            <Text as="span" className={s.cardTitle}>
               {post.title}
-            </Heading>
-            <Text size="md" color="subtle" className={s.cardDescription}>
-              {post.description}
             </Text>
-          </Stack>
-          <Flex align="center" gap={8} className={s.cardMeta}>
-            <Text size="sm" color="subtle" className={s.cardDate}>
-              {formatDate(post.date)}
-            </Text>
-            <ArrowUpRight size={16} className={s.cardArrow} />
-          </Flex>
-        </Flex>
-      </a>
-    </motion.div>
+            <ArrowUpRight
+              size={16}
+              strokeWidth={1.8}
+              className={s.arrow}
+              aria-hidden="true"
+            />
+          </Text>
+          <Text as="span" size="sm" color="subtle" className={s.description}>
+            {post.description}
+          </Text>
+        </Text>
+        <Text size="sm" color="subtle" className={s.date}>
+          {formatDate(post.date)}
+        </Text>
+      </Flex>
+    </a>
   );
 }
 
@@ -61,26 +50,17 @@ export default function Blog() {
   const posts = (data?.data ?? []).slice(0, 3);
 
   const renderPost = useCallback(
-    (post: Post, index: number) => (
-      <BlogCard key={post.id} post={post} index={index} />
-    ),
+    (post: Post) => <BlogCard key={post.id} post={post} />,
     [],
   );
 
   return (
-    <Section className={s.blog}>
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.5 }}
-        transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
-      >
-        <Heading as="h2" size="3xl" className={s.title}>
-          Blog
-        </Heading>
-      </motion.div>
+    <Section className={s.blog} size="sm">
+      <Heading as="h2" size="lg" className={s.title}>
+        블로그
+      </Heading>
 
-      <Stack gap={0} className={s.list}>
+      <Stack className={s.list} gap={20}>
         {posts.map(renderPost)}
       </Stack>
     </Section>

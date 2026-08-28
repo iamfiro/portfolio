@@ -1,5 +1,6 @@
 import type { Award } from "@/feature/awards/schema";
 import type { Post, RelatedProject } from "@/feature/blog/schema";
+import type { Activity } from "@/feature/home/components/activity/activity.type";
 import type { Project, RelatedPost } from "@/feature/projects/schema";
 import {
   asArray,
@@ -8,8 +9,22 @@ import {
 } from "@/shared/utils/frontmatter.util";
 
 import { rawAwards } from "./raw/awards.raw";
+import { rawActivities } from "./raw/activities.raw";
 import { rawPosts } from "./raw/posts.raw";
 import { rawProjects } from "./raw/projects.raw";
+
+function parseActivityIcon(value: string): Activity["icon"] {
+  return value === "newspaper" ? "newspaper" : "users-round";
+}
+
+const activities: Activity[] = rawActivities.map((entry) => ({
+  id: entry.id,
+  title: asString(entry.fields.title),
+  description: asString(entry.fields.description),
+  date: asString(entry.fields.date),
+  icon: parseActivityIcon(asString(entry.fields.icon)),
+  href: asNullableString(entry.fields.href),
+}));
 
 const baseProjects: Project[] = rawProjects.map((entry) => ({
   id: entry.id,
@@ -109,3 +124,4 @@ const projects: Project[] = baseProjects.map((project) => {
 export const contentProjects = projects;
 export const contentPosts = posts;
 export const contentAwards = awards;
+export const contentActivities = activities;

@@ -1,5 +1,4 @@
 import {
-  About,
   Activity,
   Awards,
   Blog,
@@ -25,8 +24,6 @@ export default function Home() {
         </section>
         <Awards />
         <Activity />
-        <Spacer size={100} />
-        <About />
         <TechStack />
         <Blog />
         <SiteFooter />

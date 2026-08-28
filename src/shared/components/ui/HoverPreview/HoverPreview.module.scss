@@ -102,10 +102,15 @@
   font-weight: $font-weight-medium;
   line-height: $line-height-tight;
   color: $text-muted;
+  text-decoration: none;
 
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+
+  &:hover {
+    text-decoration: none;
+  }
 }
 
 // 이미지가 없을 때는 텍스트만 있는 컴팩트한 카드로 보인다

@@ -1,0 +1,48 @@
+.container {
+  width: 100%;
+}
+
+.grid {
+  width: 100%;
+
+  gap: $spacing-32;
+}
+
+.trigger {
+  width: 100%;
+}
+
+.projectLink {
+  display: block;
+
+  width: 100%;
+
+  color: inherit;
+  text-decoration: none;
+}
+
+.icon {
+  display: block;
+
+  width: 100%;
+  aspect-ratio: 1;
+
+  object-fit: contain;
+
+  border-radius: $radius-24;
+
+  transition:
+    filter $transition-normal,
+    opacity $transition-normal,
+    transform $transition-spring;
+}
+
+.projectLink:hover .icon {
+  transform: scale(1.04);
+}
+
+.grid:has(.trigger:hover) .trigger:not(:hover) .icon {
+  filter: grayscale(1);
+  opacity: 0.4;
+  transform: scale(0.9);
+}

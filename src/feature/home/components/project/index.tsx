@@ -14,6 +14,8 @@ import {
   Text,
 } from "@/shared/components/ui";
 
+import ProjectList from "../project-list";
+
 import s from "./style.module.scss";
 
 const STACK_ICON_PATHS: Record<string, string> = {
@@ -121,10 +123,14 @@ export default function Project() {
   const featuredProject = (data?.data ?? []).find(
     (project) => project.id === "pockettime",
   );
+  const otherProjects = (data?.data ?? []).filter(
+    (project) => project.id !== featuredProject?.id,
+  );
 
   return (
     <Section className={s.projectSection} size="md">
       {featuredProject && <ProjectCard project={featuredProject} />}
+      {otherProjects.length > 0 && <ProjectList projects={otherProjects} />}
     </Section>
   );
 }

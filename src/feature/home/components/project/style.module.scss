@@ -1,4 +1,8 @@
 .projectSection {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-24;
+
   width: 100%;
 }
 

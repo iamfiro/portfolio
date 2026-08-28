@@ -1,64 +1,81 @@
 import { Newspaper, UsersRound } from "lucide-react";
 
 import {
-  Card,
+  Flex,
   Heading,
+  HoverPreview,
+  HoverPreviewTrigger,
+  Link,
   Section,
   Stack,
   Text,
 } from "@/shared/components/ui";
+import { contentActivities } from "@/shared/content/content";
 
-import type { Activity } from "./activity.type";
+import type { Activity, ActivityIconName } from "./activity.type";
 
 import s from "./style.module.scss";
 
-const ACTIVITIES: Activity[] = [
-  {
-    id: "student-council",
-    icon: UsersRound,
-    title: "학생회",
-    description:
-      "학교 구성원들과 소통하며 다양한 행사를 기획하고 운영했습니다.",
-    date: "2024 — 2025",
-  },
-  {
-    id: "developer-interview",
-    icon: Newspaper,
-    title: "개발자 인터뷰",
-    description: "개발과 서비스 제작에 대한 경험을 기사 인터뷰로 공유했습니다.",
-    date: "2025",
-  },
-];
+const ACTIVITY_ICONS: Record<ActivityIconName, typeof UsersRound> = {
+  "users-round": UsersRound,
+  newspaper: Newspaper,
+};
 
 interface ActivityCardProps {
   activity: Activity;
 }
 
 function ActivityCard({ activity }: ActivityCardProps) {
-  const ActivityIcon = activity.icon;
-
-  return (
-    <Card variant="elevated" className={s.card} p={0}>
-      <Stack className={s.content} gap={4}>
-        <Text as="p" className={s.cardTitle}>
+  const ActivityIcon = ACTIVITY_ICONS[activity.icon];
+  const itemContent = (
+    <>
+      <Text as="p" className={s.content}>
+        <Text as="span" className={s.titleRow}>
           <ActivityIcon
-            size={18}
+            size={16}
             strokeWidth={1.8}
             className={s.icon}
             aria-hidden="true"
           />
-          <Text as="span" className={s.titleText}>
+          <Text as="span" className={s.cardTitle}>
             {activity.title}
           </Text>
         </Text>
-        <Text size="md" color="subtle" className={s.description}>
+        <Text as="span" size="sm" color="subtle" className={s.description}>
           {activity.description}
         </Text>
-      </Stack>
+      </Text>
       <Text size="sm" color="subtle" className={s.date}>
         {activity.date}
       </Text>
-    </Card>
+    </>
+  );
+
+  if (activity.href) {
+    return (
+      <HoverPreviewTrigger
+        className={s.trigger}
+        preview={{
+          title: activity.title,
+          subtext: activity.href,
+          subtextHref: activity.href,
+        }}
+      >
+        <Link
+          href={activity.href}
+          external
+          className={[s.item, s.linkedItem].filter(Boolean).join(" ")}
+        >
+          {itemContent}
+        </Link>
+      </HoverPreviewTrigger>
+    );
+  }
+
+  return (
+    <Flex className={s.item} align="baseline" gap={12}>
+      {itemContent}
+    </Flex>
   );
 }
 
@@ -68,11 +85,13 @@ export default function Activity() {
       <Heading as="h2" size="lg" className={s.title}>
         활동
       </Heading>
-      <Stack className={s.list} gap={8}>
-        {ACTIVITIES.map((activity) => (
-          <ActivityCard key={activity.id} activity={activity} />
-        ))}
-      </Stack>
+      <HoverPreview className={s.list}>
+        <Stack gap={20}>
+          {contentActivities.map((activity) => (
+            <ActivityCard key={activity.id} activity={activity} />
+          ))}
+        </Stack>
+      </HoverPreview>
     </Section>
   );
 }

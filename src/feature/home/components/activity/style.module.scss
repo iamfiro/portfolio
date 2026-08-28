@@ -20,62 +20,68 @@
   width: 100%;
 }
 
-.card {
+.trigger {
+  width: 100%;
+}
+
+.item {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   gap: $spacing-12;
 
   width: 100%;
-  padding: $spacing-8;
+}
 
-  border-radius: $radius-12;
-  background-color: $surface;
+.linkedItem {
+  color: inherit;
+  text-decoration: none;
+
+  &:hover .cardTitle {
+    text-decoration: underline;
+  }
 }
 
 .content {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-4;
+
   flex: 1;
   min-width: 0;
 }
 
-.cardTitle {
+.titleRow {
   display: flex;
   align-items: center;
-  gap: $spacing-8;
+  gap: $spacing-6;
+}
 
-  overflow: hidden;
+.cardTitle {
+  display: inline;
+  flex-shrink: 0;
 
   font-family: $font-pretendard;
   font-size: $font-size-md;
   font-weight: $font-weight-semibold;
   line-height: $line-height-tight;
   color: $text;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 .icon {
   flex-shrink: 0;
 
-  width: $spacing-20;
-  height: $spacing-20;
+  width: $spacing-16;
+  height: $spacing-16;
 
   color: $text;
 }
 
-.titleText {
-  overflow: hidden;
-
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
 .description {
-  overflow: hidden;
+  min-width: 0;
 
   font-size: $font-size-sm;
   line-height: $line-height-normal;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  color: $text-subtle;
 }
 
 .date {
@@ -94,15 +100,6 @@
 @media (max-width: 480px) {
   .activity {
     gap: $spacing-16;
-  }
-
-  .card {
-    align-items: flex-start;
-    gap: $spacing-8;
-  }
-
-  .content {
-    padding-top: $spacing-4;
   }
 
   .date {

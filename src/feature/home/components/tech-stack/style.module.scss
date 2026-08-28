@@ -1,31 +1,27 @@
+// ─── Layout ─────────────────────────────────────────────────
+
 .techStack {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: $spacing-28;
+  gap: $spacing-20;
 
   width: 100%;
   overflow: visible;
-
-  max-width: $max-width;
-
-  margin: 0 auto;
 }
 
 .title {
-  font-size: $font-size-5xl;
+  font-family: $font-pretendard;
+  font-size: $font-size-xl;
+  font-weight: $font-weight-semibold;
   line-height: $line-height-tight;
-
-  font-family: $font-gambarino;
-  font-weight: inherit;
-
   color: $text;
 }
 
 .categories {
   display: flex;
   flex-direction: column;
-  gap: $spacing-32;
+  gap: $spacing-24;
 
   width: 100%;
 }
@@ -33,20 +29,24 @@
 .category {
   display: flex;
   flex-direction: column;
-  gap: $spacing-16;
+  gap: $spacing-12;
 
   width: 100%;
 }
 
 .categoryLabel {
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-normal;
+  line-height: $line-height-tight;
+  color: $text-muted;
 }
+
+// ─── Icon ───────────────────────────────────────────────────
 
 .iconGrid {
   display: flex;
   flex-wrap: wrap;
-  gap: $spacing-12;
+  gap: $spacing-8;
 
   justify-content: flex-start;
 }
@@ -56,80 +56,46 @@
   align-items: center;
   justify-content: center;
 
-  width: 52px;
-  height: 52px;
+  width: 44px;
+  height: 44px;
 
   padding: $spacing-10;
 
-  background-color: $surface-inverse-subtle;
+  background-color: $surface-subtle;
 
   border-radius: $radius-12;
 
   cursor: pointer;
-  transition:
-    background-color $transition-normal,
-    transform $transition-normal;
-
-  &:hover {
-    background-color: $surface-elevated;
-
-    transform: translateY(-2px);
-  }
 }
 
 .icon {
-  width: 28px;
-  height: 28px;
+  width: 24px;
+  height: 24px;
 
   object-fit: contain;
 }
 
-.tooltipContent {
-  display: flex;
-  flex-direction: column;
-  gap: $spacing-4;
-
-  padding: $spacing-4 0;
+// 흰색 단색 로고는 반전시켜야 밝은 배경에서 보인다
+.iconInverted {
+  filter: invert(1);
 }
 
-.tooltipTitle {
-  color: $text;
-}
-
-.tooltipSkill {
-  color: $text-muted;
-}
-
-@media (max-width: 768px) {
-  .techStack {
-    gap: $spacing-20;
-
-    padding-left: $padding-mobile;
-    padding-right: $padding-mobile;
-  }
-
-  .iconWrapper {
-    width: 46px;
-    height: 46px;
-  }
-
-  .icon {
-    width: 24px;
-    height: 24px;
-  }
-}
+// ─── Responsive ─────────────────────────────────────────────
 
 @media (max-width: 480px) {
   .techStack {
     gap: $spacing-16;
   }
 
-  .title {
-    font-size: $font-size-3xl;
+  .categories {
+    gap: $spacing-20;
   }
 
-  .categories {
-    gap: $spacing-24;
+  .iconWrapper {
+    width: 40px;
+    height: 40px;
+
+    padding: $spacing-8;
   }
 
   .icon {

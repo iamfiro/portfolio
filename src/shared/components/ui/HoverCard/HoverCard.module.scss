@@ -1,0 +1,72 @@
+.root {
+  position: relative;
+
+  width: 100%;
+}
+
+.trigger {
+  display: inline-flex;
+}
+
+// ─── Card ───────────────────────────────────────────────────
+
+.card {
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  flex-direction: column;
+  gap: $spacing-4;
+
+  max-width: calc(100% - #{$spacing-16});
+  padding: $spacing-10 $spacing-12;
+
+  background-color: $surface-elevated;
+  border-radius: $radius-12;
+
+  box-shadow: $shadow-lg;
+
+  opacity: 0;
+  pointer-events: none;
+  white-space: nowrap;
+  will-change: transform, opacity;
+  z-index: $z-dropdown;
+
+  // 커서 위쪽으로 offset 만큼 띄워서 커서를 가리지 않게 한다
+  translate: -50% calc(-100% - var(--hover-card-offset, #{$spacing-20}));
+
+  transition:
+    opacity $transition-normal,
+    transform $transition-spring;
+}
+
+.title {
+  font-family: $font-pretendard;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  line-height: $line-height-tight;
+  letter-spacing: -0.01em;
+  color: $text;
+}
+
+.item {
+  font-family: $font-pretendard;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-normal;
+  line-height: $line-height-normal;
+  color: $text-muted;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    transition: opacity $transition-fast;
+  }
+}
+
+// ─── Responsive ─────────────────────────────────────────────
+
+@media (hover: none), (max-width: 768px) {
+  .card {
+    display: none;
+  }
+}

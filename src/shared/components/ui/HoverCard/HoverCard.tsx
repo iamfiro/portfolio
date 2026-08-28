@@ -9,11 +9,9 @@ import {
 import type { StyleProps } from "@/shared/types/component-common";
 
 import { cn, NOOP } from "../_utils";
-import { Image } from "../Image/Image";
-import { Link } from "../Link/Link";
 import { Text } from "../Text/Text";
 
-import styles from "./HoverPreview.module.scss";
+import styles from "./HoverCard.module.scss";
 
 const EDGE_PADDING = 8;
 const MAX_ROTATION = 3;
@@ -22,27 +20,25 @@ const ENTER_LIFT = 10;
 const ENTER_SCALE = 0.92;
 const EXIT_SCALE = 0.96;
 
-type HoverPreviewData = {
+type HoverCardData = {
   title: string;
-  subtext?: string;
-  subtextHref?: string | null;
-  imageUrl?: string | null;
+  /** 제목 아래에 한 줄씩 나열되는 설명 */
+  items?: string[];
 };
 
-type HoverPreviewContextValue = {
-  show: (data: HoverPreviewData) => void;
+type HoverCardContextValue = {
+  show: (data: HoverCardData) => void;
   move: (event: React.MouseEvent) => void;
   hide: () => void;
 };
 
-const EMPTY_CONTEXT: HoverPreviewContextValue = {
+const EMPTY_CONTEXT: HoverCardContextValue = {
   show: NOOP,
   move: NOOP,
   hide: NOOP,
 };
 
-const HoverPreviewContext =
-  createContext<HoverPreviewContextValue>(EMPTY_CONTEXT);
+const HoverCardContext = createContext<HoverCardContextValue>(EMPTY_CONTEXT);
 
 function clamp(value: number, min: number, max: number): number {
   return Math.max(min, Math.min(max, value));
@@ -57,42 +53,42 @@ function buildTransform(
   return `translate3d(${x}px, ${y}px, 0) rotate(${rotation}deg) scale(${scale})`;
 }
 
-type HoverPreviewProps = {
-  /** 커서와 프리뷰 카드 사이의 세로 간격 (px) */
+type HoverCardProps = {
+  /** 커서와 카드 사이의 세로 간격 (px) */
   offset?: number;
   children?: React.ReactNode;
 } & StyleProps &
   React.HTMLAttributes<HTMLDivElement>;
 
-function HoverPreview({
-  offset = 24,
+function HoverCard({
+  offset = 20,
   className,
   style,
   children,
   onMouseLeave,
   ...rest
-}: HoverPreviewProps) {
+}: HoverCardProps) {
   const rootRef = useRef<HTMLDivElement>(null);
-  const previewRef = useRef<HTMLDivElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
   const lastClientX = useRef(0);
   const lastPoint = useRef({ x: 0, y: 0 });
   const isVisible = useRef(false);
 
-  const [data, setData] = useState<HoverPreviewData | null>(null);
+  const [data, setData] = useState<HoverCardData | null>(null);
 
-  const show = useCallback((next: HoverPreviewData) => {
+  const show = useCallback((next: HoverCardData) => {
     isVisible.current = false;
-    if (previewRef.current) previewRef.current.style.opacity = "0";
+    if (cardRef.current) cardRef.current.style.opacity = "0";
     setData(next);
   }, []);
 
   const move = useCallback((event: React.MouseEvent) => {
     const root = rootRef.current;
-    const preview = previewRef.current;
-    if (!root || !preview) return;
+    const card = cardRef.current;
+    if (!root || !card) return;
 
     const rect = root.getBoundingClientRect();
-    const half = preview.offsetWidth / 2;
+    const half = card.offsetWidth / 2;
     const minX = half + EDGE_PADDING;
     const maxX = Math.max(minX, rect.width - half - EDGE_PADDING);
 
@@ -112,30 +108,25 @@ function HoverPreview({
     // 처음 나타날 때는 이전 위치에서 미끄러지지 않도록,
     // 트랜지션 없이 살짝 작고 아래쪽인 상태를 잡아둔 뒤 제자리로 떠오르게 한다
     if (!isVisible.current) {
-      preview.style.transition = "none";
-      preview.style.transform = buildTransform(
-        x,
-        y + ENTER_LIFT,
-        0,
-        ENTER_SCALE,
-      );
-      void preview.offsetWidth;
-      preview.style.transition = "";
+      card.style.transition = "none";
+      card.style.transform = buildTransform(x, y + ENTER_LIFT, 0, ENTER_SCALE);
+      void card.offsetWidth;
+      card.style.transition = "";
 
       isVisible.current = true;
-      preview.style.opacity = "1";
+      card.style.opacity = "1";
     }
 
-    preview.style.transform = buildTransform(x, y, rotation, 1);
+    card.style.transform = buildTransform(x, y, rotation, 1);
   }, []);
 
   const hide = useCallback(() => {
-    const preview = previewRef.current;
-    if (!preview) return;
+    const card = cardRef.current;
+    if (!card) return;
 
     isVisible.current = false;
-    preview.style.opacity = "0";
-    preview.style.transform = buildTransform(
+    card.style.opacity = "0";
+    card.style.transform = buildTransform(
       lastPoint.current.x,
       lastPoint.current.y + ENTER_LIFT,
       0,
@@ -144,13 +135,13 @@ function HoverPreview({
   }, []);
 
   return (
-    <HoverPreviewContext.Provider value={{ show, move, hide }}>
+    <HoverCardContext.Provider value={{ show, move, hide }}>
       <div
         ref={rootRef}
         className={cn(styles.root, className)}
         style={
           {
-            "--hover-preview-offset": `${offset}px`,
+            "--hover-card-offset": `${offset}px`,
             ...style,
           } as React.CSSProperties
         }
@@ -162,58 +153,29 @@ function HoverPreview({
       >
         {children}
 
-        <div
-          ref={previewRef}
-          className={cn(styles.preview, !data?.imageUrl && styles.textOnly)}
-          aria-hidden="true"
-        >
-          {data?.imageUrl ? (
-            <div className={styles.imageFrame}>
-              <Image
-                src={data.imageUrl}
-                alt=""
-                responsive
-                sizes="300px"
-                className={styles.image}
-              />
-            </div>
-          ) : null}
-
-          <div className={styles.meta}>
-            <Text as="span" className={styles.title}>
-              {data?.title ?? ""}
+        <div ref={cardRef} className={styles.card} aria-hidden="true">
+          <Text as="span" className={styles.title}>
+            {data?.title ?? ""}
+          </Text>
+          {data?.items?.map((item) => (
+            <Text as="span" key={item} className={styles.item}>
+              {item}
             </Text>
-            {data?.subtext ? (
-              data.subtextHref ? (
-                <Link
-                  href={data.subtextHref}
-                  external
-                  variant="subtle"
-                  className={styles.subtext}
-                >
-                  {data.subtext}
-                </Link>
-              ) : (
-                <Text as="span" className={styles.subtext}>
-                  {data.subtext}
-                </Text>
-              )
-            ) : null}
-          </div>
+          ))}
         </div>
       </div>
-    </HoverPreviewContext.Provider>
+    </HoverCardContext.Provider>
   );
 }
 
-type HoverPreviewTriggerProps = {
-  preview: HoverPreviewData;
+type HoverCardTriggerProps = {
+  card: HoverCardData;
   children?: React.ReactNode;
 } & StyleProps &
   React.HTMLAttributes<HTMLDivElement>;
 
-function HoverPreviewTrigger({
-  preview,
+function HoverCardTrigger({
+  card,
   className,
   style,
   children,
@@ -221,15 +183,15 @@ function HoverPreviewTrigger({
   onMouseMove,
   onMouseLeave,
   ...rest
-}: HoverPreviewTriggerProps) {
-  const { show, move, hide } = useContext(HoverPreviewContext);
+}: HoverCardTriggerProps) {
+  const { show, move, hide } = useContext(HoverCardContext);
 
   return (
     <div
       className={cn(styles.trigger, className)}
       style={style}
       onMouseEnter={(event) => {
-        show(preview);
+        show(card);
         onMouseEnter?.(event);
       }}
       onMouseMove={(event) => {
@@ -247,5 +209,5 @@ function HoverPreviewTrigger({
   );
 }
 
-export { HoverPreview, HoverPreviewTrigger };
-export type { HoverPreviewData, HoverPreviewProps, HoverPreviewTriggerProps };
+export { HoverCard, HoverCardTrigger };
+export type { HoverCardData, HoverCardProps, HoverCardTriggerProps };

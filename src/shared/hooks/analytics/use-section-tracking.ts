@@ -10,7 +10,6 @@ import { AnalyticsEvent, trackEvent } from "@/shared/lib/analytics";
  *
  * 사용법:
  * <section data-section="hero" data-section-index="0">...</section>
- * <section data-section="about" data-section-index="1">...</section>
  */
 export function useSectionTracking(): void {
   const trackedSections = useRef(new Set<string>());
