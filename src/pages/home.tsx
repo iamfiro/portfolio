@@ -3,7 +3,6 @@ import {
   Awards,
   Blog,
   Hero,
-  MarqueeProjects,
   Project,
   SiteFooter,
   TechStack,
@@ -22,7 +21,6 @@ export default function Home() {
           <Spacer size={50} />
           <Hero />
           <Project />
-          <MarqueeProjects />
         </section>
         <Spacer size={100} />
         <About />
