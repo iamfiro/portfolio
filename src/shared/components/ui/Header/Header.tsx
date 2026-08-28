@@ -90,10 +90,7 @@ interface Props {
   logoHref?: string;
 }
 
-export default function Header({
-  hideOnScroll = false,
-  logoHref = "/",
-}: Props) {
+export default function Header({ hideOnScroll = false, logoHref = "/" }: Props) {
   const location = useLocation();
   const { navigateTo } = usePageTransition();
   const isActive = (path: string) => location.pathname.includes(path);
@@ -215,10 +212,7 @@ export default function Header({
                     {item.path === "/blog" && isActive("/blog") ? (
                       <span>{item.label}</span>
                     ) : (
-                      <a
-                        href={item.path}
-                        onClick={(e) => handleNavClick(e, item.path)}
-                      >
+                      <a href={item.path} onClick={(e) => handleNavClick(e, item.path)}>
                         {item.label}
                       </a>
                     )}

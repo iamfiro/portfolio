@@ -32,12 +32,7 @@ function CopyButton({
 
   return (
     <button
-      className={cn(
-        styles.copyButton,
-        styles[size],
-        copied && styles.copied,
-        className,
-      )}
+      className={cn(styles.copyButton, styles[size], copied && styles.copied, className)}
       style={style}
       onClick={handleCopy}
       type="button"

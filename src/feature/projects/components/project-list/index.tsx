@@ -8,6 +8,7 @@ import {
   Flex,
   Heading,
   Image,
+  MarkdownContent,
   Stack,
   Text,
 } from "@/shared/components/ui";
@@ -32,9 +33,13 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           <Heading as="h3" className={s.cardTitle}>
             {project.title}
           </Heading>
-          <Text className={s.cardDescription}>{project.description}</Text>
+          <MarkdownContent
+            content={project.description}
+            variant="compact"
+            className={s.cardDescription}
+          />
         </Stack>
-        {project.thumbnailUrl && (
+        {project.thumbnailUrl ? (
           <Image
             src={project.thumbnailUrl}
             alt={project.title}
@@ -42,7 +47,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             responsive
             sizes="(max-width: 767px) 100vw, (max-width: 1199px) 50vw, 33vw"
           />
-        )}
+        ) : null}
       </Card>
     </motion.a>
   );

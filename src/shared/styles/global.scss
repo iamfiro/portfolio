@@ -27,18 +27,41 @@ h1, h2, a, span, button {
     letter-spacing: -0.02em;
 }
 
-// 스크롤바 숨기기
-::-webkit-scrollbar {
-    display: none;
-}
-
-* {
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
-}
-
 a {
     text-decoration: none;
+}
+
+// Skip link (접근성)
+.skip-link {
+    position: absolute;
+    top: -100%;
+    left: $spacing-16;
+    z-index: 10000;
+
+    padding: $spacing-8 $spacing-16;
+
+    background-color: $surface-elevated;
+    color: $text;
+    border: 1px solid $border;
+    border-radius: $radius-8;
+
+    font-size: $font-size-sm;
+
+    &:focus {
+        top: $spacing-16;
+    }
+}
+
+// reduced-motion: 전환 및 핵심 애니메이션 최소화
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
 }
 
 @font-face {

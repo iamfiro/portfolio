@@ -56,8 +56,8 @@ export default function TopProject() {
         <div className={s.content}>
           <div className={s.contentInner}>
             <p>
-              One hotkey instantly disguises your screen with a convincing fake
-              overlay <br /> like Windows Update or a dashboard. <br />
+              One hotkey instantly disguises your screen with a convincing fake overlay{" "}
+              <br /> like Windows Update or a dashboard. <br />
               All audio is muted, so it looks like you're doing something else.
             </p>
           </div>

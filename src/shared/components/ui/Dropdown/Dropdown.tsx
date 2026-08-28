@@ -19,13 +19,7 @@ type DropdownProps = {
   align?: "left" | "right";
 } & StyleProps;
 
-function Dropdown({
-  trigger,
-  items,
-  align = "left",
-  className,
-  style,
-}: DropdownProps) {
+function Dropdown({ trigger, items, align = "left", className, style }: DropdownProps) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -56,9 +50,7 @@ function Dropdown({
                 type="button"
                 role="menuitem"
               >
-                {item.icon ? (
-                  <span className={styles.icon}>{item.icon}</span>
-                ) : null}
+                {item.icon ? <span className={styles.icon}>{item.icon}</span> : null}
                 {item.label}
               </button>
             </li>

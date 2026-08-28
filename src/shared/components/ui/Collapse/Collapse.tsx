@@ -13,9 +13,7 @@ type CollapseProps = {
 
 function Collapse({ open, className, style, children }: CollapseProps) {
   const ref = useRef<HTMLDivElement>(null);
-  const [height, setHeight] = useState<number | undefined>(
-    open ? undefined : 0,
-  );
+  const [height, setHeight] = useState<number | undefined>(open ? undefined : 0);
 
   useEffect(() => {
     if (!ref.current) return;

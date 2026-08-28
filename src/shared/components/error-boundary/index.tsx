@@ -49,7 +49,8 @@ export default class ErrorBoundary extends Component<Props, State> {
           <Flex direction="column" gap={16} align="center">
             <img
               src="/icon/error.png"
-              alt="error image"
+              alt=""
+              aria-hidden="true"
               width={100}
               height={100}
             />
@@ -57,8 +58,7 @@ export default class ErrorBoundary extends Component<Props, State> {
               ⚠️ 오류가 발생했습니다
             </Heading>
             <Text>
-              페이지를 불러오는 중 문제가 발생했습니다. 잠시 후 다시
-              시도해주세요.
+              페이지를 불러오는 중 문제가 발생했습니다. 잠시 후 다시 시도해주세요.
             </Text>
             {this.state.error && (
               <details style={{ marginTop: "1rem" }}>

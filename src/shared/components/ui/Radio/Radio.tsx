@@ -16,11 +16,7 @@ function Radio({ label, className, style, id, ...rest }: RadioProps) {
   const radioId = id ?? autoId;
 
   return (
-    <label
-      className={cn(styles.radio, className)}
-      style={style}
-      htmlFor={radioId}
-    >
+    <label className={cn(styles.radio, className)} style={style} htmlFor={radioId}>
       <input type="radio" className={styles.input} id={radioId} {...rest} />
       <span className={styles.circle} />
       {label ? <span className={styles.label}>{label}</span> : null}

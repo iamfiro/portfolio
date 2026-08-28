@@ -54,14 +54,12 @@ export function useClickTracking(): void {
       trackEvent(AnalyticsEvent.CTA_CLICK, {
         element_text: elementText,
         element_location: elementLocation,
-        destination_url:
-          trackElement.getAttribute("href") || params.url || undefined,
+        destination_url: trackElement.getAttribute("href") || params.url || undefined,
         ...params,
       });
     };
 
     document.addEventListener("click", handleClick, { capture: true });
-    return () =>
-      document.removeEventListener("click", handleClick, { capture: true });
+    return () => document.removeEventListener("click", handleClick, { capture: true });
   }, []);
 }

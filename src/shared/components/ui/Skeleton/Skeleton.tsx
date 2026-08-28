@@ -10,13 +10,7 @@ type SkeletonProps = {
   variant?: "text" | "circular" | "rectangular";
 } & StyleProps;
 
-function Skeleton({
-  width,
-  height,
-  variant = "text",
-  className,
-  style,
-}: SkeletonProps) {
+function Skeleton({ width, height, variant = "text", className, style }: SkeletonProps) {
   return (
     <span
       className={cn(styles.skeleton, styles[variant], className)}

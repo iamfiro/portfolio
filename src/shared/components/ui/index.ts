@@ -33,6 +33,7 @@ export type { LabelProps } from "./Label/Label";
 export { Label } from "./Label/Label";
 export type { LinkProps } from "./Link/Link";
 export { Link } from "./Link/Link";
+export { default as MarkdownContent } from "./markdown-content";
 export type { TextProps } from "./Text/Text";
 export { Text } from "./Text/Text";
 
@@ -117,10 +118,7 @@ export { Video } from "./Video/Video";
 // Navigation
 export type { BreadcrumbItem, BreadcrumbProps } from "./Breadcrumb/Breadcrumb";
 export { Breadcrumb } from "./Breadcrumb/Breadcrumb";
-export type {
-  ContextMenuItem,
-  ContextMenuProps,
-} from "./ContextMenu/ContextMenu";
+export type { ContextMenuItem, ContextMenuProps } from "./ContextMenu/ContextMenu";
 export { ContextMenu } from "./ContextMenu/ContextMenu";
 export type { DropdownItemData, DropdownProps } from "./Dropdown/Dropdown";
 export { Dropdown } from "./Dropdown/Dropdown";
@@ -134,12 +132,7 @@ export type { SidebarProps } from "./Sidebar/Sidebar";
 export { Sidebar } from "./Sidebar/Sidebar";
 export type { StepperItem, StepperProps } from "./Stepper/Stepper";
 export { Stepper } from "./Stepper/Stepper";
-export type {
-  TabListProps,
-  TabPanelProps,
-  TabProps,
-  TabsProps,
-} from "./Tabs/Tabs";
+export type { TabListProps, TabPanelProps, TabProps, TabsProps } from "./Tabs/Tabs";
 export { Tab, TabList, TabPanel, Tabs } from "./Tabs/Tabs";
 
 // Disclosure

@@ -11,11 +11,7 @@ type BlockquoteProps = {
 
 function Blockquote({ className, style, children, ...rest }: BlockquoteProps) {
   return (
-    <blockquote
-      className={cn(styles.blockquote, className)}
-      style={style}
-      {...rest}
-    >
+    <blockquote className={cn(styles.blockquote, className)} style={style} {...rest}>
       {children}
     </blockquote>
   );

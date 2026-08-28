@@ -12,14 +12,7 @@ type SwitchProps = {
 } & StyleProps &
   Omit<React.InputHTMLAttributes<HTMLInputElement>, "type" | "size">;
 
-function Switch({
-  label,
-  size = "md",
-  className,
-  style,
-  id,
-  ...rest
-}: SwitchProps) {
+function Switch({ label, size = "md", className, style, id, ...rest }: SwitchProps) {
   const autoId = useId();
   const switchId = id ?? autoId;
 

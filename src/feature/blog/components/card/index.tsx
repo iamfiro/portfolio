@@ -72,7 +72,7 @@ export default function BlogCard(props: BlogCardProps) {
       <Flex direction="column" gap={12}>
         <Flex gap={6} align="center">
           <Text size="xs" className={s.date}>
-            {date.toLocaleDateString()}
+            {new Date(date).toLocaleDateString()}
           </Text>
           {readingTime !== null && (
             <>

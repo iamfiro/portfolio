@@ -17,10 +17,22 @@ export interface Post {
   title: string;
   description: string;
   thumbnail: string;
-  date: Date;
+  date: string;
   tags: string[];
   content?: string;
   relatedProjects?: RelatedProject[];
+  createdAt?: string;
+  updatedAt?: string;
+}
+
+export interface PostMutationPayload {
+  title: string;
+  summary?: string | null;
+  thumbnailUrl?: string | null;
+  date: string;
+  categories: string[];
+  content?: string | null;
+  projectIds?: string[];
 }
 
 export type Posts = Post[];

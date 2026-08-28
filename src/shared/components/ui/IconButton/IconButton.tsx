@@ -22,12 +22,7 @@ function IconButton({
 }: IconButtonProps) {
   return (
     <button
-      className={cn(
-        styles.iconButton,
-        styles[variant],
-        styles[size],
-        className,
-      )}
+      className={cn(styles.iconButton, styles[variant], styles[size], className)}
       style={style}
       {...rest}
     >

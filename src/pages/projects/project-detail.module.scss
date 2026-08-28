@@ -4,6 +4,7 @@
 
 .loadingText {
   color: $text-subtle;
+
   font-size: $font-size-md;
 }
 
@@ -14,7 +15,7 @@
 
   width: min(100%, $max-width-lg);
 
-  padding-top: 200px;
+  padding-top: $spacing-100;
   padding-bottom: $spacing-100;
 }
 
@@ -23,38 +24,35 @@
   flex-direction: column;
   gap: $spacing-24;
 
-  width: 760px;
+  width: $max-width;
   max-width: 100%;
 }
 
 .title {
-  font-size: 40px;
-
-  line-height: 1.2;
-  letter-spacing: -0.035em;
+  font-size: $font-size-4xl;
+  line-height: $line-height-tight;
   word-break: keep-all;
 }
 
-.metaSection {
+.metaSection,
+.section {
   display: flex;
   flex-direction: column;
+  gap: $spacing-24;
+}
+
+.metaSection {
   gap: $spacing-16;
 }
 
 .description {
   color: $text-subtle;
 
-  font-size: 19px;
-  font-weight: $font-weight-normal;
-  line-height: 1.6;
-  letter-spacing: -0.011em;
-  word-break: keep-all;
+  font-size: $font-size-lg;
+  line-height: $line-height-relaxed;
 }
 
-.techStack {
-  flex-wrap: wrap;
-}
-
+.techStack,
 .links {
   flex-wrap: wrap;
 }
@@ -83,73 +81,43 @@
 
 .thumbnail {
   width: 100%;
-  height: 400px;
-
-  object-fit: cover;
+  height: auto;
+  aspect-ratio: 16 / 10;
 
   border: 1px solid $border;
   border-radius: $radius-16;
 
+  object-fit: cover;
+
   box-shadow: $shadow-md;
 }
 
-.relatedSection {
-  display: flex;
-  flex-direction: column;
-  gap: $spacing-24;
+.section {
+  padding-top: $spacing-16;
 }
 
-.relatedHeading {
+.sectionHeading {
   color: $text;
 
   font-size: $font-size-xl;
   font-weight: $font-weight-semibold;
 }
 
-.relatedPostLink {
-  display: block;
-
-  text-decoration: none;
-  color: inherit;
-
-  border-radius: $radius-12;
-
-  transition: opacity $transition-fast;
-
-  &:hover {
-    opacity: 0.7;
-  }
-}
-
-.relatedPostItem {
-  padding: $spacing-16;
-
-  background-color: $surface-subtle;
-
-  border: 1px solid $border;
-  border-radius: $radius-12;
-}
-
-.relatedPostTitle {
-  font-size: $font-size-md;
-  font-weight: $font-weight-medium;
-  line-height: $line-height-normal;
-
-  color: $text;
-
-  word-break: keep-all;
-}
-
-.relatedPostDate {
-  color: $text-subtle;
-}
-
 @media (max-width: 768px) {
   .container {
-    padding-top: 120px;
+    padding-top: $spacing-100;
+  }
+
+  .article {
+    width: 100%;
   }
 
   .title {
     font-size: $font-size-3xl;
+  }
+
+  .thumbnail {
+    height: auto;
+    aspect-ratio: 16 / 10;
   }
 }

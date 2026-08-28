@@ -5,6 +5,7 @@ import { useCallback } from "react";
 
 import { getPosts } from "@/feature/blog/data";
 import { Post, PostsResponse } from "@/feature/blog/schema";
+import { usePageTransition } from "@/shared/components/layouts/page-transition/page-transition.context";
 import { Flex, Heading, Section, Stack, Text } from "@/shared/components/ui";
 
 import s from "./style.module.scss";
@@ -15,6 +16,16 @@ function formatDate(date: Date | string): string {
 }
 
 function BlogCard({ post, index }: { post: Post; index: number }) {
+  const { navigateTo } = usePageTransition();
+
+  const handleClick = useCallback(
+    (e: React.MouseEvent<HTMLAnchorElement>) => {
+      e.preventDefault();
+      navigateTo(`/blog/${post.title}`);
+    },
+    [navigateTo, post.title],
+  );
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -61,9 +72,7 @@ export default function Blog() {
   const posts = (data?.data ?? []).slice(0, 3);
 
   const renderPost = useCallback(
-    (post: Post, index: number) => (
-      <BlogCard key={post.id} post={post} index={index} />
-    ),
+    (post: Post, index: number) => <BlogCard key={post.id} post={post} index={index} />,
     [],
   );
 

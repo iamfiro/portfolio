@@ -13,12 +13,7 @@ function FormError({ className, style, children, ...rest }: FormErrorProps) {
   if (!children) return null;
 
   return (
-    <p
-      className={cn(styles.error, className)}
-      style={style}
-      role="alert"
-      {...rest}
-    >
+    <p className={cn(styles.error, className)} style={style} role="alert" {...rest}>
       {children}
     </p>
   );

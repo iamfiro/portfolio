@@ -10,13 +10,7 @@ type JsonDisplayProps = {
 } & StyleProps &
   React.HTMLAttributes<HTMLPreElement>;
 
-function JsonDisplay({
-  data,
-  indent = 2,
-  className,
-  style,
-  ...rest
-}: JsonDisplayProps) {
+function JsonDisplay({ data, indent = 2, className, style, ...rest }: JsonDisplayProps) {
   let formatted: string;
   try {
     formatted = JSON.stringify(data, null, indent);

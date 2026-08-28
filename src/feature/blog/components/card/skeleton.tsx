@@ -17,27 +17,11 @@ export default function BlogCardSkeleton() {
           <Skeleton height="14px" width="60px" />
         </Flex>
         <Flex direction="column" gap={12}>
-          <Skeleton
-            height="26px"
-            width="220px"
-            style={{ borderRadius: "6px" }}
-          />
-          <Skeleton
-            height="26px"
-            width="150px"
-            style={{ borderRadius: "6px" }}
-          />
+          <Skeleton height="26px" width="220px" style={{ borderRadius: "6px" }} />
+          <Skeleton height="26px" width="150px" style={{ borderRadius: "6px" }} />
           <Flex gap={4}>
-            <Skeleton
-              height="20px"
-              width="50px"
-              style={{ borderRadius: "6px" }}
-            />
-            <Skeleton
-              height="20px"
-              width="50px"
-              style={{ borderRadius: "6px" }}
-            />
+            <Skeleton height="20px" width="50px" style={{ borderRadius: "6px" }} />
+            <Skeleton height="20px" width="50px" style={{ borderRadius: "6px" }} />
           </Flex>
         </Flex>
       </Flex>

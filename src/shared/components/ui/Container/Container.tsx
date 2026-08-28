@@ -10,13 +10,7 @@ type ContainerProps = {
 } & StyleProps &
   React.HTMLAttributes<HTMLDivElement>;
 
-function Container({
-  size = "lg",
-  className,
-  style,
-  children,
-  ...rest
-}: ContainerProps) {
+function Container({ size = "lg", className, style, children, ...rest }: ContainerProps) {
   return (
     <div
       className={cn(styles.container, styles[size], className)}

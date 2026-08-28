@@ -2,12 +2,7 @@ import { Component, PersonStanding } from "lucide-react";
 import type { ReactElement, ReactNode } from "react";
 import { cloneElement, useCallback, useMemo, useRef, useState } from "react";
 import type { Edge, Node, NodeProps } from "reactflow";
-import ReactFlow, {
-  Handle,
-  Position,
-  useEdgesState,
-  useNodesState,
-} from "reactflow";
+import ReactFlow, { Handle, Position, useEdgesState, useNodesState } from "reactflow";
 
 import { Card, Flex, Image, Marquee } from "@/shared/components/ui";
 
@@ -21,10 +16,7 @@ interface FlowCardProps {
 
 function FlowCard({ icon, title, children }: FlowCardProps) {
   const clonedIcon = useMemo(
-    () =>
-      icon
-        ? cloneElement(icon as ReactElement, { className: s.cardIcon })
-        : null,
+    () => (icon ? cloneElement(icon as ReactElement, { className: s.cardIcon }) : null),
     [icon],
   );
   const hasHeader = icon || title;
@@ -95,12 +87,7 @@ function StackCard() {
         showEdgeGradient={true}
       >
         {stackIcons.map((icon) => (
-          <Image
-            key={icon.alt}
-            src={icon.src}
-            alt={icon.alt}
-            className={s.stackIcon}
-          />
+          <Image key={icon.alt} src={icon.src} alt={icon.alt} className={s.stackIcon} />
         ))}
       </Marquee>
     </FlowCard>
@@ -190,9 +177,7 @@ const proOptions = { hideAttribution: true };
 
 export default function Showcase() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [nodeExtent, setNodeExtent] = useState<
-    [[number, number], [number, number]]
-  >([
+  const [nodeExtent, setNodeExtent] = useState<[[number, number], [number, number]]>([
     [Number.NEGATIVE_INFINITY, Number.NEGATIVE_INFINITY],
     [Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY],
   ]);
