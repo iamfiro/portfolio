@@ -14,22 +14,14 @@
   }
 }
 
-.cardLink {
-  display: block;
-
-  color: inherit;
-
-  text-decoration: none;
-}
-
 .floatingImage {
   display: block;
   position: absolute;
   top: 0;
   left: 0;
 
-  width: calc(($spacing-100 * 3) + $spacing-20);
-  height: calc(($spacing-100 * 2) + $spacing-20);
+  width: 380px;
+  height: 260px;
 
   opacity: 0;
 
@@ -42,8 +34,8 @@
   z-index: $z-dropdown;
 
   transition:
-    opacity $transition-slow,
-    transform $transition-slow;
+    opacity 0.7s cubic-bezier(0.23, 1, 0.32, 1),
+    transform 0.3s ease-out;
 }
 
 .card {
@@ -56,50 +48,44 @@
 
   border-top: 1px solid $border;
 
-  cursor: none;
   transition:
-    border-color $transition-normal,
-    opacity $transition-slow;
+    border-color 0.4s ease,
+    opacity 0.5s ease;
+  cursor: none;
 
   &:last-of-type {
     border-bottom: 1px solid $border;
   }
 }
 
-.cardContent,
+.cardContent {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-8;
+}
+
 .cardHeader {
   display: flex;
   flex-direction: column;
-}
-
-.cardContent {
-  gap: $spacing-12;
-}
-
-.cardHeader {
   gap: $spacing-4;
 }
 
 .cardTitle {
-  color: $text;
-
-  font-size: $font-size-2xl;
   font-weight: $font-weight-normal;
   line-height: $line-height-tight;
+  font-size: $font-size-2xl;
+
+  color: $text;
 }
 
 .cardOrganization {
   color: $text-subtle;
-
   font-size: $font-size-md;
 }
 
 .cardDescription {
-  max-width: $max-width;
-
-  color: $text-muted;
-
   line-height: $line-height-relaxed;
+  color: $text-muted;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -115,8 +101,6 @@
 
   .card {
     padding: $spacing-24 0;
-
-    cursor: pointer;
   }
 
   .cardTitle {
@@ -135,5 +119,9 @@
 
   .cardTitle {
     font-size: $font-size-lg;
+  }
+
+  .cardOrganization {
+    font-size: $font-size-sm;
   }
 }

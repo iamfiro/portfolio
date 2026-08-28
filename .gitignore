@@ -15,16 +15,9 @@ dist
 dist-ssr
 server/dist
 
-# Generated (Prisma, etc.)
-server/src/generated
-
-# Test & coverage
-coverage
-
 # Environment variables
 .env
 .env.production
-.env.sample
 *.local
 
 # Editor directories and files

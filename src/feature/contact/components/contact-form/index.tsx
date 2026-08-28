@@ -2,8 +2,7 @@ import { motion } from "framer-motion";
 import { Send } from "lucide-react";
 import { type FormEvent, useCallback, useState } from "react";
 
-import { Button, Input, Label, Stack, Text, Textarea } from "@/shared/components/ui";
-import { LINK } from "@/shared/constants";
+import { Button, Input, Stack, Text, Textarea } from "@/shared/components/ui";
 
 import s from "./style.module.scss";
 
@@ -11,47 +10,52 @@ export default function ContactForm() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
-  const [isMailAppOpened, setIsMailAppOpened] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleSubmit = useCallback(
-    (event: FormEvent) => {
-      event.preventDefault();
+    async (e: FormEvent) => {
+      e.preventDefault();
 
       if (!name.trim() || !email.trim() || !message.trim()) return;
 
-      const subject = encodeURIComponent(`[Portfolio] ${name.trim()}님의 문의`);
-      const body = encodeURIComponent(
-        `이름: ${name.trim()}\n회신 이메일: ${email.trim()}\n\n${message.trim()}`,
-      );
+      setIsSubmitting(true);
 
-      window.location.href = `mailto:${LINK.email}?subject=${subject}&body=${body}`;
-      setIsMailAppOpened(true);
+      try {
+        // TODO: API 연동
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        setIsSubmitted(true);
+        setName("");
+        setEmail("");
+        setMessage("");
+      } finally {
+        setIsSubmitting(false);
+      }
     },
-    [email, message, name],
+    [name, email, message],
   );
 
-  if (isMailAppOpened) {
+  if (isSubmitted) {
     return (
       <motion.div
         className={s.success}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
-        aria-live="polite"
       >
         <Text size="lg" className={s.successTitle}>
-          메일 앱을 열었습니다
+          메시지가 전송되었습니다
         </Text>
         <Text size="md" color="subtle">
-          메일 앱에서 내용을 확인한 뒤 전송을 완료해주세요.
+          빠른 시일 내에 답변드리겠습니다.
         </Text>
         <Button
           variant="ghost"
           size="md"
           className={s.resetButton}
-          onClick={() => setIsMailAppOpened(false)}
+          onClick={() => setIsSubmitted(false)}
         >
-          내용 수정하기
+          새 메시지 작성
         </Button>
       </motion.div>
     );
@@ -67,42 +71,40 @@ export default function ContactForm() {
     >
       <Stack className={s.fields}>
         <div className={s.field}>
-          <Label className={s.label} htmlFor="contact-name">
+          <label className={s.label} htmlFor="contact-name">
             이름
-          </Label>
+          </label>
           <Input
             id="contact-name"
             size="lg"
             fullWidth
-            autoComplete="name"
             placeholder="홍길동"
             value={name}
-            onChange={(event) => setName(event.target.value)}
+            onChange={(e) => setName(e.target.value)}
             required
           />
         </div>
 
         <div className={s.field}>
-          <Label className={s.label} htmlFor="contact-email">
+          <label className={s.label} htmlFor="contact-email">
             이메일
-          </Label>
+          </label>
           <Input
             id="contact-email"
             type="email"
             size="lg"
             fullWidth
-            autoComplete="email"
             placeholder="hello@example.com"
             value={email}
-            onChange={(event) => setEmail(event.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
             required
           />
         </div>
 
         <div className={s.field}>
-          <Label className={s.label} htmlFor="contact-message">
+          <label className={s.label} htmlFor="contact-message">
             메시지
-          </Label>
+          </label>
           <Textarea
             id="contact-message"
             size="lg"
@@ -111,7 +113,7 @@ export default function ContactForm() {
             placeholder="전하고 싶은 이야기를 자유롭게 작성해주세요."
             rows={6}
             value={message}
-            onChange={(event) => setMessage(event.target.value)}
+            onChange={(e) => setMessage(e.target.value)}
             required
           />
         </div>
@@ -121,10 +123,11 @@ export default function ContactForm() {
         type="submit"
         variant="primary"
         size="lg"
-        rightIcon={<Send size={16} aria-hidden="true" />}
+        loading={isSubmitting}
+        rightIcon={<Send size={16} />}
         className={s.submitButton}
       >
-        메일 앱 열기
+        메시지 보내기
       </Button>
     </motion.form>
   );

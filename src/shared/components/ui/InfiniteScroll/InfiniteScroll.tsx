@@ -40,7 +40,9 @@ function InfiniteScroll({
         <div ref={sentinelRef}>
           {loading
             ? (loader ?? (
-                <div style={{ textAlign: "center", padding: 16 }}>Loading...</div>
+                <div style={{ textAlign: "center", padding: 16 }}>
+                  Loading...
+                </div>
               ))
             : null}
         </div>

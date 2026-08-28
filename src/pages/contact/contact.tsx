@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 
 import { ContactForm } from "@/feature/contact/components";
-import SeoHead from "@/shared/components/seo-head";
 import { Header, Spacer, Text } from "@/shared/components/ui";
 import { usePageEntrance } from "@/shared/hooks";
 
@@ -12,29 +11,22 @@ export default function Contact() {
   const subtitleEntrance = usePageEntrance("subtitle");
 
   return (
-    <>
-      <SeoHead
-        title="Contact"
-        description="궁금한 점이나 제안이 있으시면 편하게 연락해주세요."
-        path="/contact"
-      />
-      <main id="main-content" className={s.container}>
-        <Header />
-        <Spacer size={48} />
-        <section className={s.page}>
-          <div className={s.hero}>
-            <motion.h1 className={s.title} {...titleEntrance}>
-              Contact
-            </motion.h1>
-            <motion.div {...subtitleEntrance}>
-              <Text className={s.subtitle}>
-                궁금한 점이나 제안이 있으시면 편하게 연락해주세요.
-              </Text>
-            </motion.div>
-          </div>
-          <ContactForm />
-        </section>
-      </main>
-    </>
+    <main className={s.container}>
+      <Header />
+      <Spacer size={48} />
+      <section className={s.page}>
+        <div className={s.hero}>
+          <motion.h1 className={s.title} {...titleEntrance}>
+            Contact
+          </motion.h1>
+          <motion.div {...subtitleEntrance}>
+            <Text className={s.subtitle}>
+              궁금한 점이나 제안이 있으시면 편하게 연락해주세요.
+            </Text>
+          </motion.div>
+        </div>
+        <ContactForm />
+      </section>
+    </main>
   );
 }

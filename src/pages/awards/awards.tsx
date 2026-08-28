@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 
 import { AwardsList } from "@/feature/awards/components";
-import SeoHead from "@/shared/components/seo-head";
 import { Header, Spacer, Text } from "@/shared/components/ui";
 import { usePageEntrance } from "@/shared/hooks";
 
@@ -12,29 +11,22 @@ export default function Awards() {
   const subtitleEntrance = usePageEntrance("subtitle");
 
   return (
-    <>
-      <SeoHead
-        title="Awards"
-        description="대회와 해커톤에서 쌓아온 수상 기록들을 모아봤습니다."
-        path="/awards"
-      />
-      <main id="main-content" className={s.container}>
-        <Header />
-        <Spacer size={48} />
-        <section className={s.page}>
-          <div className={s.hero}>
-            <motion.h1 className={s.title} {...titleEntrance}>
-              Awards
-            </motion.h1>
-            <motion.div {...subtitleEntrance}>
-              <Text className={s.subtitle}>
-                대회와 해커톤에서 쌓아온 수상 기록들을 모아봤습니다.
-              </Text>
-            </motion.div>
-          </div>
-          <AwardsList />
-        </section>
-      </main>
-    </>
+    <main className={s.container}>
+      <Header />
+      <Spacer size={48} />
+      <section className={s.page}>
+        <div className={s.hero}>
+          <motion.h1 className={s.title} {...titleEntrance}>
+            Awards
+          </motion.h1>
+          <motion.div {...subtitleEntrance}>
+            <Text className={s.subtitle}>
+              대회와 해커톤에서 쌓아온 수상 기록들을 모아봤습니다.
+            </Text>
+          </motion.div>
+        </div>
+        <AwardsList />
+      </section>
+    </main>
   );
 }

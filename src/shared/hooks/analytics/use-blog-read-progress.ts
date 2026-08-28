@@ -54,14 +54,22 @@ export function useBlogReadProgress(
         const scrollPosition = window.scrollY + window.innerHeight;
         const progress = Math.min(
           100,
-          Math.max(0, Math.round(((scrollPosition - contentTop) / contentHeight) * 100)),
+          Math.max(
+            0,
+            Math.round(((scrollPosition - contentTop) / contentHeight) * 100),
+          ),
         );
 
         for (const threshold of THRESHOLDS) {
-          if (progress >= threshold && !trackedProgress.current.has(threshold)) {
+          if (
+            progress >= threshold &&
+            !trackedProgress.current.has(threshold)
+          ) {
             trackedProgress.current.add(threshold);
 
-            const timeSpent = Math.round((Date.now() - startTimeRef.current) / 1000);
+            const timeSpent = Math.round(
+              (Date.now() - startTimeRef.current) / 1000,
+            );
 
             trackEvent(AnalyticsEvent.BLOG_READ_PROGRESS, {
               article_id: articleId,

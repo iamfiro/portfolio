@@ -5,8 +5,6 @@ interface ImagePreloadState {
   loaded: boolean;
 }
 
-const PRELOAD_TIMEOUT_MS = 8000;
-
 /**
  * 페이지 내 모든 img 요소 로딩 진행률을 추적하는 훅.
  * MutationObserver로 API 데이터로 동적 추가되는 이미지도 포함해 추적.
@@ -20,15 +18,8 @@ export function useImagePreload(): ImagePreloadState {
   useEffect(() => {
     const tracked = new Set<HTMLImageElement>();
     const loadedSet = new Set<HTMLImageElement>();
-    let didTimeout = false;
-
-    const timeout = window.setTimeout(() => {
-      didTimeout = true;
-      setState({ progress: 100, loaded: true });
-    }, PRELOAD_TIMEOUT_MS);
 
     const updateProgress = () => {
-      if (didTimeout) return;
       const total = tracked.size;
       const loaded = loadedSet.size;
 
@@ -87,10 +78,7 @@ export function useImagePreload(): ImagePreloadState {
 
     observer.observe(document.body, { childList: true, subtree: true });
 
-    return () => {
-      window.clearTimeout(timeout);
-      observer.disconnect();
-    };
+    return () => observer.disconnect();
   }, []);
 
   return state;

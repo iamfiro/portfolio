@@ -42,7 +42,11 @@ function DataGrid<T>({
         <thead>
           <tr>
             {columns.map((col) => (
-              <th key={col.key} className={styles.th} style={{ width: col.width }}>
+              <th
+                key={col.key}
+                className={styles.th}
+                style={{ width: col.width }}
+              >
                 {col.header}
               </th>
             ))}

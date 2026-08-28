@@ -44,7 +44,11 @@ function Backdrop({ visible, onClick, className, style }: BackdropProps) {
   if (!visible) return null;
 
   return createPortal(
-    <div className={cn(styles.backdrop, className)} style={style} onClick={onClick} />,
+    <div
+      className={cn(styles.backdrop, className)}
+      style={style}
+      onClick={onClick}
+    />,
     document.body,
   );
 }

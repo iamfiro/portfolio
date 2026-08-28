@@ -39,7 +39,10 @@ function ToastProvider({ children }: ToastProviderProps) {
   const [toasts, setToasts] = useState<ToastItem[]>([]);
 
   const toast = useCallback(
-    (message: string, options?: { variant?: ToastVariant; duration?: number }) => {
+    (
+      message: string,
+      options?: { variant?: ToastVariant; duration?: number },
+    ) => {
       const id = Math.random().toString(36).slice(2);
       const variant = options?.variant ?? "info";
       const duration = options?.duration ?? 3000;

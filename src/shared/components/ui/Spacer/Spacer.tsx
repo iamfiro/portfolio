@@ -9,7 +9,12 @@ type SpacerProps = {
   axis?: "horizontal" | "vertical";
 } & StyleProps;
 
-function Spacer({ size = 16, axis = "vertical", className, style }: SpacerProps) {
+function Spacer({
+  size = 16,
+  axis = "vertical",
+  className,
+  style,
+}: SpacerProps) {
   const width = axis === "horizontal" ? size : undefined;
   const height = axis === "vertical" ? size : undefined;
 

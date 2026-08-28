@@ -1,19 +1,20 @@
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 
 import { getProjects } from "@/feature/projects/data";
 import { Project, ProjectsResponse } from "@/feature/projects/schema";
 import { usePageTransition } from "@/shared/components/layouts/page-transition/page-transition.context";
 import { Image, Text } from "@/shared/components/ui";
 
-import s from "./style.module.scss";
-
-const PROJECT_PRELOAD_TIMEOUT_MS = 5000;
-
 function usePreloadProjectImages(
   data: ProjectsResponse | undefined,
-  settled: boolean,
   acquirePreloadLock: () => () => void,
   initialLoadDone: boolean,
 ) {
@@ -23,22 +24,16 @@ function usePreloadProjectImages(
     if (initialLoadDone) return;
     const release = acquirePreloadLock();
     releaseRef.current = release;
-    const timeout = window.setTimeout(() => {
-      releaseRef.current?.();
-      releaseRef.current = null;
-    }, PROJECT_PRELOAD_TIMEOUT_MS);
-
     return () => {
-      window.clearTimeout(timeout);
       release();
       releaseRef.current = null;
     };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    if (!settled || !releaseRef.current) return;
+    if (!data || !releaseRef.current) return;
 
-    const urls = (data?.data ?? [])
+    const urls = (data.data ?? [])
       .filter((p: Project) => p.thumbnailUrl)
       .map((p: Project) => p.thumbnailUrl as string);
 
@@ -64,8 +59,10 @@ function usePreloadProjectImages(
       img.onerror = onDone;
       img.src = url;
     });
-  }, [data, settled]);
+  }, [data]);
 }
+
+import s from "./style.module.scss";
 
 // 프로젝트 ID(string) 기반 결정적 랜덤 height 생성
 function getHeight(id: string): number {
@@ -146,12 +143,12 @@ function ProjectCard({
 export default function MarqueeProjects() {
   const { initialLoadDone, acquirePreloadLock } = usePageTransition();
 
-  const { data, isFetched } = useQuery<ProjectsResponse>({
+  const { data } = useQuery<ProjectsResponse>({
     queryKey: ["projects"],
     queryFn: getProjects,
   });
 
-  usePreloadProjectImages(data, isFetched, acquirePreloadLock, initialLoadDone);
+  usePreloadProjectImages(data, acquirePreloadLock, initialLoadDone);
 
   const marqueeProjects: MarqueeProjectItem[] = (data?.data ?? [])
     .filter((p: Project) => p.thumbnailUrl)
@@ -228,7 +225,8 @@ export default function MarqueeProjects() {
       const t = Math.min(speed / SCALE_Y_VELOCITY_MAX, 1);
       const targetScaleY = 1 - t * (1 - SCALE_Y_MIN);
 
-      scaleYRef.current += (targetScaleY - scaleYRef.current) * SCALE_Y_LERP_SPEED;
+      scaleYRef.current +=
+        (targetScaleY - scaleYRef.current) * SCALE_Y_LERP_SPEED;
 
       // 충분히 1에 가까우면 정확히 1로 스냅
       if (Math.abs(scaleYRef.current - 1) < 0.001) {
@@ -357,7 +355,11 @@ export default function MarqueeProjects() {
       onDragStart={(e) => e.preventDefault()}
       aria-label="Selected projects"
     >
-      <div ref={trackRef} className={s.track} style={{ gap: `${MARQUEE_GAP}px` }}>
+      <div
+        ref={trackRef}
+        className={s.track}
+        style={{ gap: `${MARQUEE_GAP}px` }}
+      >
         <div ref={firstSetRef} className={s.set} style={setStyle}>
           {marqueeProjects.map((project, index) => (
             <ProjectCard

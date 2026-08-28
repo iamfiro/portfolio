@@ -43,7 +43,11 @@ function Breadcrumb({
                 {item.label}
               </a>
             ) : item.onClick ? (
-              <button className={styles.link} onClick={item.onClick} type="button">
+              <button
+                className={styles.link}
+                onClick={item.onClick}
+                type="button"
+              >
                 {item.label}
               </button>
             ) : (

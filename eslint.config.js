@@ -10,28 +10,13 @@ import * as tseslint from "typescript-eslint";
 export default [
   {
     ignores: [
-      "node_modules/**",
-      "dist/**",
-      "build/**",
-      ".next/**",
-      "coverage/**",
-      "server/dist/**",
-      "server/src/generated/**",
-      "server/prisma.config.ts",
-      "next-env.d.ts",
-      "tests/**",
-      "*.config.js",
+      "node_modules",
+      "dist",
+      "build",
+      ".next",
+      "coverage",
+      "commitlint.config.js",
     ],
-  },
-  {
-    files: ["scripts/**/*.mjs"],
-    languageOptions: {
-      globals: {
-        ...globals.node,
-        AbortSignal: "readonly",
-        fetch: "readonly",
-      },
-    },
   },
   js.configs.recommended,
   ...tseslint.configs.recommended,

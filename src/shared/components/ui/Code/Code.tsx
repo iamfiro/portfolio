@@ -10,7 +10,13 @@ type CodeProps = {
 } & StyleProps &
   React.HTMLAttributes<HTMLElement>;
 
-function Code({ block = false, className, style, children, ...rest }: CodeProps) {
+function Code({
+  block = false,
+  className,
+  style,
+  children,
+  ...rest
+}: CodeProps) {
   if (block) {
     return (
       <pre className={cn(styles.block, className)} style={style} {...rest}>

@@ -14,7 +14,9 @@ function Figure({ caption, className, style, children, ...rest }: FigureProps) {
   return (
     <figure className={cn(styles.figure, className)} style={style} {...rest}>
       {children}
-      {caption ? <figcaption className={styles.caption}>{caption}</figcaption> : null}
+      {caption ? (
+        <figcaption className={styles.caption}>{caption}</figcaption>
+      ) : null}
     </figure>
   );
 }

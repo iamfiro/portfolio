@@ -21,7 +21,9 @@ type ContextMenuProps = {
 } & StyleProps;
 
 function ContextMenu({ items, className, style, children }: ContextMenuProps) {
-  const [position, setPosition] = useState<{ x: number; y: number } | null>(null);
+  const [position, setPosition] = useState<{ x: number; y: number } | null>(
+    null,
+  );
 
   const handleContextMenu = useCallback((e: React.MouseEvent) => {
     e.preventDefault();
@@ -63,7 +65,9 @@ function ContextMenu({ items, className, style, children }: ContextMenuProps) {
                     type="button"
                     role="menuitem"
                   >
-                    {item.icon ? <span className={styles.icon}>{item.icon}</span> : null}
+                    {item.icon ? (
+                      <span className={styles.icon}>{item.icon}</span>
+                    ) : null}
                     {item.label}
                   </button>
                 </li>

@@ -10,7 +10,9 @@ export function slugify(text: string): string {
 }
 
 export function collectHeadings(container: HTMLElement): TocItem[] {
-  const elements = Array.from(container.querySelectorAll<HTMLElement>("h1, h2, h3"));
+  const elements = Array.from(
+    container.querySelectorAll<HTMLElement>("h1, h2, h3"),
+  );
   const slugCount = new Map<string, number>();
   const items: TocItem[] = [];
 

@@ -58,7 +58,11 @@ function Popconfirm({
 
   return (
     <>
-      <div ref={triggerRef} className={styles.trigger} onClick={() => setOpen(true)}>
+      <div
+        ref={triggerRef}
+        className={styles.trigger}
+        onClick={() => setOpen(true)}
+      >
         {children}
       </div>
       {open
@@ -69,7 +73,9 @@ function Popconfirm({
               style={{ ...getPosition(), ...style }}
             >
               <p className={styles.title}>{title}</p>
-              {description ? <p className={styles.description}>{description}</p> : null}
+              {description ? (
+                <p className={styles.description}>{description}</p>
+              ) : null}
               <div className={styles.actions}>
                 <button
                   className={styles.cancelBtn}

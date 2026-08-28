@@ -18,7 +18,10 @@ function ColorPicker({
   ...rest
 }: ColorPickerProps) {
   return (
-    <label className={cn(styles.colorPicker, styles[size], className)} style={style}>
+    <label
+      className={cn(styles.colorPicker, styles[size], className)}
+      style={style}
+    >
       <input type="color" className={styles.input} {...rest} />
       {label ? <span className={styles.label}>{label}</span> : null}
     </label>

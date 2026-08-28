@@ -6,7 +6,11 @@ type LazyLoadProps = {
   children: React.ReactNode;
 };
 
-function LazyLoad({ placeholder, rootMargin = "200px", children }: LazyLoadProps) {
+function LazyLoad({
+  placeholder,
+  rootMargin = "200px",
+  children,
+}: LazyLoadProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
 

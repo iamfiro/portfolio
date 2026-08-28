@@ -29,7 +29,9 @@ function Timeline({ items, className, style }: TimelineProps) {
             {item.description ? (
               <p className={styles.description}>{item.description}</p>
             ) : null}
-            {item.time ? <span className={styles.time}>{item.time}</span> : null}
+            {item.time ? (
+              <span className={styles.time}>{item.time}</span>
+            ) : null}
           </div>
         </div>
       ))}

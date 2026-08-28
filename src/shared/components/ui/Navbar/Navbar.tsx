@@ -10,7 +10,13 @@ type NavbarProps = {
 } & StyleProps &
   React.HTMLAttributes<HTMLElement>;
 
-function Navbar({ sticky = false, className, style, children, ...rest }: NavbarProps) {
+function Navbar({
+  sticky = false,
+  className,
+  style,
+  children,
+  ...rest
+}: NavbarProps) {
   return (
     <nav
       className={cn(styles.navbar, sticky && styles.sticky, className)}

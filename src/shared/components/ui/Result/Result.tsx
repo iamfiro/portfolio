@@ -24,7 +24,11 @@ function Result({
   ...rest
 }: ResultProps) {
   return (
-    <div className={cn(styles.result, styles[status], className)} style={style} {...rest}>
+    <div
+      className={cn(styles.result, styles[status], className)}
+      style={style}
+      {...rest}
+    >
       {icon ? <div className={styles.icon}>{icon}</div> : null}
       <h3 className={styles.title}>{title}</h3>
       {description ? <p className={styles.description}>{description}</p> : null}

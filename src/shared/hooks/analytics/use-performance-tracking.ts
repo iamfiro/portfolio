@@ -43,7 +43,9 @@ export function usePerformanceTracking(): void {
         if (navigation) {
           trackEvent(AnalyticsEvent.PAGE_LOAD_TIME, {
             metric_name: "page_load",
-            metric_value: Math.round(navigation.loadEventEnd - navigation.startTime),
+            metric_value: Math.round(
+              navigation.loadEventEnd - navigation.startTime,
+            ),
             page_path: window.location.pathname,
           });
         }

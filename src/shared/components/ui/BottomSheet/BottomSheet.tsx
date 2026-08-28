@@ -16,7 +16,13 @@ interface BottomSheetProps {
   className?: string;
 }
 
-function BottomSheet({ open, onClose, title, children, className }: BottomSheetProps) {
+function BottomSheet({
+  open,
+  onClose,
+  title,
+  children,
+  className,
+}: BottomSheetProps) {
   const [isVisible, setIsVisible] = useState(open);
   const [isClosing, setIsClosing] = useState(false);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);

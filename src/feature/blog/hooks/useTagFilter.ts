@@ -23,7 +23,9 @@ export function useTagFilter({ posts }: UseTagFilterProps) {
     if (selectedTags.length === 0) {
       return posts;
     }
-    return posts.filter((post) => selectedTags.every((tag) => post.tags.includes(tag)));
+    return posts.filter((post) =>
+      selectedTags.every((tag) => post.tags.includes(tag)),
+    );
   }, [posts, selectedTags]);
 
   // 태그 토글 함수

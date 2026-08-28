@@ -33,13 +33,16 @@ export function useOutboundLinkTracking(): void {
     };
 
     document.addEventListener("click", handleClick, { capture: true });
-    return () => document.removeEventListener("click", handleClick, { capture: true });
+    return () =>
+      document.removeEventListener("click", handleClick, { capture: true });
   }, []);
 }
 
 function getElementLocation(element: HTMLElement): string {
   // 가장 가까운 section, header, footer, nav, main 찾기
-  const landmark = element.closest("header, footer, nav, main, section, [data-section]");
+  const landmark = element.closest(
+    "header, footer, nav, main, section, [data-section]",
+  );
 
   if (landmark) {
     if (landmark instanceof HTMLElement && landmark.dataset.section) {

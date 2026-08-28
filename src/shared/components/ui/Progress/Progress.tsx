@@ -35,7 +35,9 @@ function Progress({
           aria-valuemax={max}
         />
       </div>
-      {showLabel ? <span className={styles.label}>{Math.round(percent)}%</span> : null}
+      {showLabel ? (
+        <span className={styles.label}>{Math.round(percent)}%</span>
+      ) : null}
     </div>
   );
 }
@@ -69,7 +71,12 @@ function ProgressCircle({
       className={cn(styles.circle, className)}
       style={{ width: size, height: size, ...style }}
     >
-      <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} aria-hidden="true">
+      <svg
+        width={size}
+        height={size}
+        viewBox={`0 0 ${size} ${size}`}
+        aria-hidden="true"
+      >
         <circle
           cx={size / 2}
           cy={size / 2}

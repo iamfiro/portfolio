@@ -23,11 +23,23 @@ function getInitials(name: string): string {
     .toUpperCase();
 }
 
-function Avatar({ src, alt, name, size = "md", className, style, ...rest }: AvatarProps) {
+function Avatar({
+  src,
+  alt,
+  name,
+  size = "md",
+  className,
+  style,
+  ...rest
+}: AvatarProps) {
   const [imgError, setImgError] = useState(false);
 
   return (
-    <div className={cn(styles.avatar, styles[size], className)} style={style} {...rest}>
+    <div
+      className={cn(styles.avatar, styles[size], className)}
+      style={style}
+      {...rest}
+    >
       {src && !imgError ? (
         <img
           src={src}

@@ -21,50 +21,32 @@
   align-items: center;
   gap: $spacing-6;
 
-  width: 100%;
   padding: $spacing-4 $spacing-8;
 
-  color: $text;
-  background-color: $surface-transparent;
-  border: 0;
   border-radius: $radius-8;
 
-  font-size: $font-size-sm;
-  text-align: left;
+  font-size: 14px;
   cursor: pointer;
 
-  &:hover {
-    background-color: $surface-subtle;
-  }
-
-  &:focus-visible {
-    outline: 2px solid $surface-brand;
-    outline-offset: 2px;
-  }
+  &:hover { background-color: $surface-subtle; }
 }
 
 .chevron {
   flex-shrink: 0;
 
   color: $text-subtle;
-  transition: transform $transition-fast;
+  transition: transform 0.15s ease;
 }
 
-.expanded {
-  transform: rotate(90deg);
-}
+.expanded { transform: rotate(90deg); }
 
-.spacer {
-  flex-shrink: 0;
-
-  width: 14px;
-}
+.spacer { width: 14px; flex-shrink: 0; }
 
 .icon {
   display: inline-flex;
   flex-shrink: 0;
 
-  font-size: $font-size-md;
+  font-size: 16px;
 }
 
 .label {
