@@ -39,16 +39,18 @@ function ActivityCard({ activity }: ActivityCardProps) {
 
   return (
     <Card variant="elevated" className={s.card} p={0}>
-      <ActivityIcon
-        size={20}
-        strokeWidth={1.8}
-        className={s.icon}
-        aria-hidden="true"
-      />
       <Stack className={s.content} gap={4}>
-        <Heading as="h3" size="lg" className={s.cardTitle}>
-          {activity.title}
-        </Heading>
+        <Text as="p" className={s.cardTitle}>
+          <ActivityIcon
+            size={18}
+            strokeWidth={1.8}
+            className={s.icon}
+            aria-hidden="true"
+          />
+          <Text as="span" className={s.titleText}>
+            {activity.title}
+          </Text>
+        </Text>
         <Text size="md" color="subtle" className={s.description}>
           {activity.description}
         </Text>

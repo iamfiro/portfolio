@@ -24,10 +24,13 @@
   opacity: 0;
 
   background-color: $surface-elevated;
-  border: 1px solid $border-subtle;
   border-radius: $radius-16;
 
-  box-shadow: $shadow-lg;
+  // 테두리 대신 inset ring 으로 경계를 그려 레이아웃에 영향 없이 선명하게 만든다
+  box-shadow:
+    $shadow-lg,
+    $shadow-inset-ring,
+    $shadow-inset-highlight;
   pointer-events: none;
   will-change: transform, opacity;
   z-index: $z-dropdown;
@@ -49,6 +52,20 @@
 
   background-color: $surface-subtle;
   border-radius: $radius-12;
+
+  // inset shadow 는 자식 이미지 아래에 깔리므로 오버레이로 덮어준다
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    border-radius: inherit;
+
+    box-shadow:
+      $shadow-inset-ring,
+      $shadow-inset-soft;
+    pointer-events: none;
+  }
 }
 
 .image {

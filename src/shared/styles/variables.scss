@@ -102,6 +102,11 @@ $shadow-lg:
   0px 1px 2px 0px rgba(0, 0, 0, 0.04),
   0px 12px 32px -8px rgba(0, 0, 0, 0.16);
 
+// Inner Shadows
+$shadow-inset-ring: inset 0px 0px 0px 1px rgba(0, 0, 0, 0.06);
+$shadow-inset-highlight: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.9);
+$shadow-inset-soft: inset 0px -20px 32px -20px rgba(0, 0, 0, 0.22);
+
 // Overlay
 $overlay: rgba(0, 0, 0, 0.4);
 $overlay-light: rgba(0, 0, 0, 0.2);
