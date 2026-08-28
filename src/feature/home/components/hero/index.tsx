@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { useMemo } from "react";
 
+import { useHomeSectionAnimation } from "@/feature/home/hooks";
 import { usePageTransition } from "@/shared/components/layouts/page-transition/page-transition.context";
 import { Flex, Heading, Image, Link, Text } from "@/shared/components/ui";
 import { LINK } from "@/shared/constants";
@@ -11,28 +12,26 @@ import s from "./style.module.scss";
 const EASE = [0.16, 1, 0.3, 1] as const;
 
 const ENTRANCE = {
-  duration: 0.65,
+  duration: 0.46,
   ease: EASE,
 } as const;
 
 const HIDDEN = {
   opacity: 0,
-  y: 18,
-  filter: "blur(8px)",
+  y: 12,
 } as const;
 
 const VISIBLE = {
   opacity: 1,
   y: 0,
-  filter: "blur(0px)",
 } as const;
 
 const STEP_DELAY = {
   profile: 0,
-  titleSecondary: 0.18,
-  titlePrimary: 0.5,
-  description: 1.08,
-  contactLinks: 1.52,
+  titleSecondary: 0.08,
+  titlePrimary: 0.22,
+  description: 0.4,
+  contactLinks: 0.58,
 } as const;
 
 const CONTACT_LINKS = [
@@ -45,23 +44,23 @@ interface TitleLineProps {
   text: string;
   tone: "primary" | "secondary";
   delay: number;
+  isVisible: boolean;
 }
 
-function TitleLine({ text, tone, delay }: TitleLineProps) {
-  const { pageReady } = usePageTransition();
+function TitleLine({ text, tone, delay, isVisible }: TitleLineProps) {
   const chars = useMemo(() => Array.from(text), [text]);
 
   return (
     <span className={[s.titleLine, s[tone]].filter(Boolean).join(" ")}>
       {chars.map((char, index) => {
-        const charDelay = delay + index * 0.018;
+        const charDelay = delay + index * 0.012;
 
         return (
           <motion.span
             key={`char-${index}`}
             className={s.char}
             initial={HIDDEN}
-            animate={pageReady ? VISIBLE : undefined}
+            animate={isVisible ? VISIBLE : HIDDEN}
             transition={{ ...ENTRANCE, delay: charDelay }}
           >
             {char === " " ? "\u00A0" : char}
@@ -74,15 +73,20 @@ function TitleLine({ text, tone, delay }: TitleLineProps) {
 
 export default function Hero() {
   const { pageReady } = usePageTransition();
+  const { complete, isVisible, ref } = useHomeSectionAnimation({
+    enabled: pageReady,
+    id: "hero",
+    order: 0,
+  });
 
   const entrance = (delay: number) => ({
     initial: HIDDEN,
-    animate: pageReady ? VISIBLE : undefined,
+    animate: isVisible ? VISIBLE : HIDDEN,
     transition: { ...ENTRANCE, delay },
   });
 
   return (
-    <section className={s.hero}>
+    <motion.section ref={ref} className={s.hero}>
       <div className={s.content}>
         <motion.div className={s.profile} {...entrance(STEP_DELAY.profile)}>
           <Image
@@ -99,11 +103,13 @@ export default function Hero() {
               text="불편함을 기회로 바꾸는"
               tone="secondary"
               delay={STEP_DELAY.titleSecondary}
+              isVisible={isVisible}
             />
             <TitleLine
               text="서비스를 만들고 경험을 설계합니다"
               tone="primary"
               delay={STEP_DELAY.titlePrimary}
+              isVisible={isVisible}
             />
           </Heading>
         </motion.div>
@@ -118,7 +124,10 @@ export default function Hero() {
             필요로 하는 서비스를 만들고 있습니다.
           </Text>
         </motion.div>
-        <motion.div {...entrance(STEP_DELAY.contactLinks)}>
+        <motion.div
+          {...entrance(STEP_DELAY.contactLinks)}
+          onAnimationComplete={complete}
+        >
           <Flex className={s.contactLinks} align="center" gap={16}>
             {CONTACT_LINKS.map(({ href, label, external }) => (
               <Link
@@ -135,6 +144,6 @@ export default function Hero() {
           </Flex>
         </motion.div>
       </div>
-    </section>
+    </motion.section>
   );
 }

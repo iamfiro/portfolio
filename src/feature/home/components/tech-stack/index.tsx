@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
-import { useCallback } from "react";
 
+import { useHomeSectionAnimation } from "@/feature/home/hooks";
 import {
   Flex,
   Heading,
@@ -11,6 +11,11 @@ import {
   Stack,
   Text,
 } from "@/shared/components/ui";
+import {
+  getHomeAnimationTransition,
+  HOME_ANIMATION_HIDDEN,
+  HOME_ANIMATION_VISIBLE,
+} from "@/feature/home/utils/home-animation.util";
 
 import s from "./style.module.scss";
 
@@ -46,52 +51,16 @@ const STACK_DATA: StackCategory[] = [
         icon: "/icon/stack/nextjs.svg",
         skills: ["SSR/SSG 기반 웹 앱 구축", "App Router·서버 컴포넌트 활용"],
       },
-      {
-        name: "Sass",
-        icon: "/icon/stack/sass.svg",
-        skills: ["디자인 토큰 시스템 구축", "SCSS Modules 기반 스타일링"],
-      },
-      {
-        name: "Storybook",
-        icon: "/icon/stack/storybook.svg",
-        skills: ["컴포넌트 문서화·시각적 테스트", "디자인 시스템 개발"],
-      },
-      {
-        name: "Cypress",
-        icon: "/icon/stack/cypress.svg",
-        skills: ["E2E 테스트 자동화", "CI 파이프라인 통합 테스트"],
-      },
-      {
-        name: "Jest",
-        icon: "/icon/stack/jest.svg",
-        skills: ["유닛·통합 테스트 작성", "모킹·스냅샷 테스트"],
-      },
-      {
-        name: "ESLint",
-        icon: "/icon/stack/eslint.svg",
-        skills: ["커스텀 린트 규칙 설정", "코드 품질 자동화"],
-      },
     ],
   },
   {
     label: "백엔드",
     items: [
       {
-        name: "NestJS",
-        icon: "/icon/stack/nestjs.svg",
-        skills: ["모듈 기반 API 서버 설계", "DI·가드·인터셉터 활용"],
-      },
-      {
         name: "Express",
         icon: "/icon/stack/express.svg",
         invert: true,
         skills: ["REST API 서버 구축", "미들웨어 체인 설계"],
-      },
-      {
-        name: "Prisma",
-        icon: "/icon/stack/prisma.svg",
-        invert: true,
-        skills: ["타입 안전한 DB 쿼리", "마이그레이션·스키마 관리"],
       },
       {
         name: "MySQL",
@@ -155,58 +124,108 @@ const STACK_DATA: StackCategory[] = [
   },
 ];
 
-function StackIcon({ name, icon, skills, invert }: StackItem) {
+const STACK_ITEM_COUNT = STACK_DATA.reduce(
+  (count, category) => count + category.items.length,
+  0,
+);
+
+interface StackIconProps extends StackItem {
+  index: number;
+  isVisible: boolean;
+  onAnimationComplete?: () => void;
+}
+
+function StackIcon({
+  icon,
+  index,
+  invert,
+  isVisible,
+  name,
+  onAnimationComplete,
+  skills,
+}: StackIconProps) {
   const iconClassName = [s.icon, invert && s.iconInverted]
     .filter(Boolean)
     .join(" ");
 
   return (
-    <HoverCardTrigger card={{ title: name, items: skills }}>
-      <Flex align="center" justify="center" className={s.iconWrapper}>
-        <Image src={icon} alt={name} className={iconClassName} />
-      </Flex>
-    </HoverCardTrigger>
+    <motion.div
+      initial={HOME_ANIMATION_HIDDEN}
+      animate={isVisible ? HOME_ANIMATION_VISIBLE : HOME_ANIMATION_HIDDEN}
+      transition={getHomeAnimationTransition(index + 1)}
+      onAnimationComplete={onAnimationComplete}
+    >
+      <HoverCardTrigger card={{ title: name, items: skills }}>
+        <Flex align="center" justify="center" className={s.iconWrapper}>
+          <Image src={icon} alt={name} className={iconClassName} />
+        </Flex>
+      </HoverCardTrigger>
+    </motion.div>
   );
 }
 
 export default function TechStack() {
-  const renderCategory = useCallback(
-    (category: StackCategory, index: number) => (
+  const { complete, isVisible, ref } = useHomeSectionAnimation({
+    id: "tech-stack",
+    order: 4,
+  });
+
+  const renderCategory = (category: StackCategory, categoryIndex: number) => {
+    const itemOffset = STACK_DATA.slice(0, categoryIndex).reduce(
+      (count, previousCategory) => count + previousCategory.items.length,
+      0,
+    );
+
+    return (
       <motion.div
         key={category.label}
-        initial={{ opacity: 0, y: 12 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.3 }}
-        transition={{
-          duration: 0.6,
-          ease: [0.25, 0.1, 0.25, 1],
-          delay: index * 0.08,
-        }}
+        initial={HOME_ANIMATION_HIDDEN}
+        animate={isVisible ? HOME_ANIMATION_VISIBLE : HOME_ANIMATION_HIDDEN}
+        transition={getHomeAnimationTransition(itemOffset)}
       >
         <Stack gap={12} className={s.category}>
           <Text size="sm" color="subtle" className={s.categoryLabel}>
             {category.label}
           </Text>
           <Flex gap={8} wrap className={s.iconGrid}>
-            {category.items.map((item) => (
-              <StackIcon key={item.name} {...item} />
-            ))}
+            {category.items.map((item, itemIndex) => {
+              const index = itemOffset + itemIndex;
+
+              return (
+                <StackIcon
+                  key={item.name}
+                  {...item}
+                  index={index}
+                  isVisible={isVisible}
+                  onAnimationComplete={
+                    index === STACK_ITEM_COUNT - 1 ? complete : undefined
+                  }
+                />
+              );
+            })}
           </Flex>
         </Stack>
       </motion.div>
-    ),
-    [],
-  );
+    );
+  };
 
   return (
-    <Section className={s.techStack} size="sm">
-      <Heading as="h2" size="lg" className={s.title}>
-        기술 스택
-      </Heading>
+    <motion.div ref={ref}>
+      <Section className={s.techStack} size="sm">
+        <motion.div
+          initial={HOME_ANIMATION_HIDDEN}
+          animate={isVisible ? HOME_ANIMATION_VISIBLE : HOME_ANIMATION_HIDDEN}
+          transition={getHomeAnimationTransition()}
+        >
+          <Heading as="h2" size="lg" className={s.title}>
+            기술 스택
+          </Heading>
+        </motion.div>
 
-      <HoverCard className={s.categories}>
-        {STACK_DATA.map(renderCategory)}
-      </HoverCard>
-    </Section>
+        <HoverCard className={s.categories}>
+          {STACK_DATA.map(renderCategory)}
+        </HoverCard>
+      </Section>
+    </motion.div>
   );
 }

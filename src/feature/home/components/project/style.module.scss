@@ -6,6 +6,10 @@
   width: 100%;
 }
 
+.entrance {
+  will-change: opacity, transform;
+}
+
 .projectLink {
   display: block;
 
@@ -114,7 +118,7 @@
 
   .projectDetails {
     gap: $spacing-12;
-    padding-inline: $spacing-8;
+    padding-inline: $spacing-12;
   }
 
   .appIcon {
@@ -124,6 +128,12 @@
 
   .projectDescription {
     max-width: $max-width;
+
+    font-size: $font-size-sm;
+  }
+
+  .projectName {
+    font-size: $font-size-md;
   }
 
   .stackIcon {

@@ -16,6 +16,21 @@
   user-select: none;
 }
 
+.gradient {
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: $spacing-100;
+
+  background: linear-gradient(to bottom, $surface, $surface-transparent);
+
+  z-index: $z-fixed;
+
+  pointer-events: none;
+}
+
 .menuIsOpen {
   .menuButton {
     color: $text;
@@ -162,7 +177,18 @@
 }
 
 @media (max-width: 768px) {
-  .container { align-items: center; }
+  .container {
+    align-items: center;
+
+    padding: $spacing-16 $padding-mobile;
+
+    background-color: $surface-transparent;
+    border-bottom: none;
+  }
+
+  .overlay {
+    padding: $spacing-100 $padding-mobile $spacing-64;
+  }
 
   .navigation {
     display: none;

@@ -1,5 +1,12 @@
+import { motion, type MotionProps } from "framer-motion";
 import { Newspaper, UsersRound } from "lucide-react";
 
+import { useHomeSectionAnimation } from "@/feature/home/hooks";
+import {
+  getHomeAnimationTransition,
+  HOME_ANIMATION_HIDDEN,
+  HOME_ANIMATION_VISIBLE,
+} from "@/feature/home/utils/home-animation.util";
 import {
   Flex,
   Heading,
@@ -23,6 +30,11 @@ const ACTIVITY_ICONS: Record<ActivityIconName, typeof UsersRound> = {
 
 interface ActivityCardProps {
   activity: Activity;
+}
+
+interface ActivityProps {
+  titleMotionProps?: MotionProps;
+  variant?: "home" | "page";
 }
 
 function ActivityCard({ activity }: ActivityCardProps) {
@@ -79,12 +91,16 @@ function ActivityCard({ activity }: ActivityCardProps) {
   );
 }
 
-export default function Activity() {
+function PageActivity({
+  titleMotionProps,
+}: Pick<ActivityProps, "titleMotionProps">) {
   return (
     <Section className={s.activity} size="sm">
-      <Heading as="h2" size="lg" className={s.title}>
-        활동
-      </Heading>
+      <motion.div {...titleMotionProps}>
+        <Heading as="h2" size="lg" className={s.title}>
+          활동
+        </Heading>
+      </motion.div>
       <HoverPreview className={s.list}>
         <Stack gap={20}>
           {contentActivities.map((activity) => (
@@ -94,4 +110,57 @@ export default function Activity() {
       </HoverPreview>
     </Section>
   );
+}
+
+function HomeActivity() {
+  const { complete, isVisible, ref } = useHomeSectionAnimation({
+    id: "activity",
+    order: 3,
+  });
+
+  return (
+    <motion.div ref={ref}>
+      <Section className={s.activity} size="sm">
+        <motion.div
+          initial={HOME_ANIMATION_HIDDEN}
+          animate={isVisible ? HOME_ANIMATION_VISIBLE : HOME_ANIMATION_HIDDEN}
+          transition={getHomeAnimationTransition()}
+        >
+          <Heading as="h2" size="lg" className={s.title}>
+            활동
+          </Heading>
+        </motion.div>
+        <HoverPreview className={s.list}>
+          <Stack gap={20}>
+            {contentActivities.map((activity, index) => (
+              <motion.div
+                key={activity.id}
+                initial={HOME_ANIMATION_HIDDEN}
+                animate={
+                  isVisible ? HOME_ANIMATION_VISIBLE : HOME_ANIMATION_HIDDEN
+                }
+                transition={getHomeAnimationTransition(index + 1)}
+                onAnimationComplete={
+                  index === contentActivities.length - 1 ? complete : undefined
+                }
+              >
+                <ActivityCard activity={activity} />
+              </motion.div>
+            ))}
+          </Stack>
+        </HoverPreview>
+      </Section>
+    </motion.div>
+  );
+}
+
+export default function Activity({
+  titleMotionProps,
+  variant = "home",
+}: ActivityProps) {
+  if (variant === "page") {
+    return <PageActivity titleMotionProps={titleMotionProps} />;
+  }
+
+  return <HomeActivity />;
 }

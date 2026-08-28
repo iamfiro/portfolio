@@ -7,6 +7,7 @@ import {
   SiteFooter,
   TechStack,
 } from "@/feature/home/components";
+import HomeAnimationProvider from "@/feature/home/components/home-animation-provider";
 import { BaseLayout } from "@/shared/components/layouts";
 import { Header, Spacer } from "@/shared/components/ui";
 
@@ -17,16 +18,18 @@ export default function Home() {
     <main className={s.container}>
       <Header />
       <BaseLayout className={s.content}>
-        <section className={s.viewport}>
-          <Spacer size={50} />
-          <Hero />
-          <Project />
-        </section>
-        <Awards />
-        <Activity />
-        <TechStack />
-        <Blog />
-        <SiteFooter />
+        <HomeAnimationProvider>
+          <section className={s.viewport}>
+            <Spacer size={50} />
+            <Hero />
+            <Project />
+          </section>
+          <Awards />
+          <Activity />
+          <TechStack />
+          <Blog />
+          <SiteFooter />
+        </HomeAnimationProvider>
       </BaseLayout>
     </main>
   );

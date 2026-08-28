@@ -13,7 +13,7 @@
     max-width: $max-width-lg;
     margin: 0 auto;
 
-    padding: 200px $spacing-40 200px;
+    padding: $spacing-100 $spacing-40 $spacing-100;
 }
 
 .title {
@@ -206,7 +206,7 @@
 
 @media (max-width: 768px) {
     .page {
-        padding: 80px $spacing-24 120px;
+        padding: $spacing-64 $spacing-24 $spacing-100;
     }
 
     .title {
@@ -221,7 +221,7 @@
 
 @media (max-width: 480px) {
     .page {
-        padding: 80px $spacing-16 100px;
+        padding: $spacing-64 $spacing-16 $spacing-100;
     }
 
     .title {

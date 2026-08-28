@@ -34,6 +34,11 @@
   color: $text-subtle;
 }
 
+.search_bar,
+.sort_select {
+  border-width: 1px;
+}
+
 .bottom_sheet_label {
   color: $text-subtle;
 }

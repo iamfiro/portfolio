@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import { motion } from "framer-motion";
 import {
   useCallback,
   useEffect,
@@ -8,6 +9,7 @@ import {
 } from "react";
 
 import { getAwards } from "@/feature/awards/data";
+import { useHomeSectionAnimation } from "@/feature/home/hooks";
 import type { Award, AwardsResponse } from "@/feature/awards/schema";
 import { usePageTransition } from "@/shared/components/layouts/page-transition/page-transition.context";
 import {
@@ -17,6 +19,11 @@ import {
   Section,
   Text,
 } from "@/shared/components/ui";
+import {
+  getHomeAnimationTransition,
+  HOME_ANIMATION_HIDDEN,
+  HOME_ANIMATION_VISIBLE,
+} from "@/feature/home/utils/home-animation.util";
 
 import s from "./style.module.scss";
 
@@ -30,6 +37,10 @@ interface DisplayAward {
 
 export default function Awards() {
   const releaseLockRef = useRef<(() => void) | null>(null);
+  const { complete, isVisible, ref } = useHomeSectionAnimation({
+    id: "awards",
+    order: 2,
+  });
 
   const { acquirePreloadLock, initialLoadDone } = usePageTransition();
 
@@ -103,50 +114,73 @@ export default function Awards() {
     }));
   }, [data]);
 
+  useEffect(() => {
+    if (!isVisible || isLoading || awards.length > 0) return;
+
+    complete();
+  }, [awards.length, complete, isLoading, isVisible]);
+
   const renderAward = useCallback(
-    (award: DisplayAward) => (
-      <HoverPreviewTrigger
+    (award: DisplayAward, index: number) => (
+      <motion.div
         key={award.id}
-        className={s.card}
-        preview={{
-          title: award.name,
-          subtext: `${award.organization} · ${award.year}`,
-          imageUrl: award.imageUrl,
-        }}
+        initial={HOME_ANIMATION_HIDDEN}
+        animate={isVisible ? HOME_ANIMATION_VISIBLE : HOME_ANIMATION_HIDDEN}
+        transition={getHomeAnimationTransition(index + 1)}
+        onAnimationComplete={
+          index === awards.length - 1 ? complete : undefined
+        }
       >
-        <Text as="p" className={s.cardText}>
-          <Text as="span" className={s.cardTitle}>
-            {award.name}
+        <HoverPreviewTrigger
+          className={s.card}
+          preview={{
+            title: award.name,
+            subtext: `${award.organization} · ${award.year}`,
+            imageUrl: award.imageUrl,
+          }}
+        >
+          <Text as="p" className={s.cardText}>
+            <Text as="span" className={s.cardTitle}>
+              {award.name}
+            </Text>
+            <Text
+              as="span"
+              size="md"
+              color="subtle"
+              className={s.cardOrganization}
+            >
+              {award.organization} - {award.year}
+            </Text>
           </Text>
-          <Text
-            as="span"
-            size="md"
-            color="subtle"
-            className={s.cardOrganization}
-          >
-            {award.organization} - {award.year}
-          </Text>
-        </Text>
-      </HoverPreviewTrigger>
+        </HoverPreviewTrigger>
+      </motion.div>
     ),
-    [],
+    [awards.length, complete, isVisible],
   );
 
   return (
-    <Section className={s.awards} size="sm">
-      <Heading as="h2" size="lg" className={s.title}>
-        수상 실적
-      </Heading>
+    <motion.div ref={ref}>
+      <Section className={s.awards} size="sm">
+        <motion.div
+          initial={HOME_ANIMATION_HIDDEN}
+          animate={isVisible ? HOME_ANIMATION_VISIBLE : HOME_ANIMATION_HIDDEN}
+          transition={getHomeAnimationTransition()}
+        >
+          <Heading as="h2" size="lg" className={s.title}>
+            수상 실적
+          </Heading>
+        </motion.div>
 
-      <HoverPreview className={s.list}>
-        {isLoading ? (
-          <Text color="subtle">수상 실적을 불러오는 중입니다.</Text>
-        ) : error ? (
-          <Text color="subtle">수상 실적을 불러올 수 없습니다.</Text>
-        ) : (
-          awards.map(renderAward)
-        )}
-      </HoverPreview>
-    </Section>
+        <HoverPreview className={s.list}>
+          {isLoading ? (
+            <Text color="subtle">수상 실적을 불러오는 중입니다.</Text>
+          ) : error ? (
+            <Text color="subtle">수상 실적을 불러올 수 없습니다.</Text>
+          ) : (
+            awards.map(renderAward)
+          )}
+        </HoverPreview>
+      </Section>
+    </motion.div>
   );
 }

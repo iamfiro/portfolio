@@ -1,7 +1,7 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 
 import {
-  Awards,
+  Activities,
   Blog,
   BlogArticle,
   Contact,
@@ -16,7 +16,8 @@ const router = createBrowserRouter([
     element: <PageTransition />,
     children: [
       { path: "/", element: <Home /> },
-      { path: "/awards", element: <Awards /> },
+      { path: "/activities", element: <Activities /> },
+      { path: "/awards", element: <Navigate to="/activities" replace /> },
       { path: "/blog", element: <Blog /> },
       { path: "/blog/:id", element: <BlogArticle /> },
       { path: "/projects", element: <Projects /> },

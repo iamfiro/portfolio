@@ -9,6 +9,7 @@ import {
 import type { StyleProps } from "@/shared/types/component-common";
 
 import { cn, NOOP } from "../_utils";
+import { Image } from "../Image/Image";
 import { Text } from "../Text/Text";
 
 import styles from "./HoverCard.module.scss";
@@ -24,6 +25,7 @@ type HoverCardData = {
   title: string;
   /** 제목 아래에 한 줄씩 나열되는 설명 */
   items?: string[];
+  imageUrl?: string | null;
 };
 
 type HoverCardContextValue = {
@@ -153,15 +155,34 @@ function HoverCard({
       >
         {children}
 
-        <div ref={cardRef} className={styles.card} aria-hidden="true">
-          <Text as="span" className={styles.title}>
-            {data?.title ?? ""}
-          </Text>
-          {data?.items?.map((item) => (
-            <Text as="span" key={item} className={styles.item}>
-              {item}
+        <div
+          ref={cardRef}
+          className={cn(styles.card, data?.imageUrl && styles.withImage)}
+          aria-hidden="true"
+        >
+          {data?.imageUrl ? (
+            <div className={styles.imageFrame}>
+              <Image
+                src={data.imageUrl}
+                alt=""
+                responsive
+                sizes="300px"
+                className={styles.image}
+              />
+            </div>
+          ) : null}
+          <div
+            className={cn(styles.content, data?.imageUrl && styles.meta)}
+          >
+            <Text as="span" className={styles.title}>
+              {data?.title ?? ""}
             </Text>
-          ))}
+            {data?.items?.map((item) => (
+              <Text as="span" key={item} className={styles.item}>
+                {item}
+              </Text>
+            ))}
+          </div>
         </div>
       </div>
     </HoverCardContext.Provider>

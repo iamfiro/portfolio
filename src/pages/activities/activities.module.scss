@@ -1,0 +1,71 @@
+.container {
+  width: 100%;
+  min-height: 100vh;
+}
+
+.page {
+  width: 100%;
+
+  padding: calc($spacing-100 + $spacing-100 + $spacing-48) $spacing-40
+    calc($spacing-100 + $spacing-100);
+}
+
+.hero {
+  width: 100%;
+
+  margin-bottom: $spacing-48;
+}
+
+.title {
+  font-family: $font-gambarino;
+  font-size: $font-size-5xl;
+  font-weight: $font-weight-medium;
+  line-height: $line-height-tight;
+
+  color: $text;
+}
+
+.subtitle {
+  font-size: $font-size-md;
+  line-height: $line-height-relaxed;
+
+  color: $text-subtle;
+}
+
+.content {
+  width: 100%;
+}
+
+.awardsSection {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.sectionTitle {
+  margin-bottom: $spacing-20;
+
+  font-family: $font-pretendard;
+  font-size: $font-size-xl;
+  font-weight: $font-weight-semibold;
+  line-height: $line-height-tight;
+
+  color: $text;
+}
+
+@media (max-width: 768px) {
+  .page {
+    padding: calc($spacing-100 + $spacing-64 + $spacing-16) $spacing-24
+      calc($spacing-100 + $spacing-100);
+  }
+}
+
+@media (max-width: 480px) {
+  .page {
+    padding: calc($spacing-100 + $spacing-20) $spacing-16
+      calc($spacing-100 + $spacing-100);
+  }
+
+  .title {
+    font-size: $font-size-4xl;
+  }
+}

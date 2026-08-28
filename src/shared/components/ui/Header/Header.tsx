@@ -124,7 +124,7 @@ export default function Header({
   const navItems = [
     { path: "/", label: "홈", exact: true },
     { path: "/projects", label: "프로젝트" },
-    { path: "/awards", label: "수상실적" },
+    { path: "/activities", label: "활동" },
     { path: "/blog", label: "블로그" },
   ];
 
@@ -187,6 +187,8 @@ export default function Header({
           </AnimatePresence>
         </button>
       </header>
+
+      <div className={s.gradient} aria-hidden="true" />
 
       <AnimatePresence>
         {menuOpen && (

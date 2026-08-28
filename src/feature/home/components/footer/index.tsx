@@ -79,7 +79,6 @@ function IdeaCard() {
 
 const stackIcons = [
   { src: "/icon/stack/typescript.svg", alt: "TypeScript" },
-  { src: "/icon/stack/storybook.svg", alt: "Storybook" },
   { src: "/icon/stack/redis.svg", alt: "Redis" },
 ];
 

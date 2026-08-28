@@ -2,6 +2,10 @@
   width: 100%;
 }
 
+.entrance {
+  will-change: opacity, transform;
+}
+
 .grid {
   width: 100%;
 
@@ -9,11 +13,18 @@
 }
 
 .trigger {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  align-items: center;
+
   width: 100%;
 }
 
 .projectLink {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   width: 100%;
 
@@ -24,12 +35,17 @@
 .icon {
   display: block;
 
-  width: 100%;
-  aspect-ratio: 1;
+  width: $spacing-64;
+  height: $spacing-64;
+  aspect-ratio: 1 / 1;
+  max-width: none;
 
-  object-fit: contain;
+  object-fit: cover;
 
   border-radius: $radius-24;
+  border: 1px solid var(--icon-edge-border, $border-subtle);
+  box-shadow: inset 0 0 $spacing-4
+    var(--icon-edge-inner-shadow, $surface-transparent);
 
   transition:
     filter $transition-normal,
@@ -38,11 +54,55 @@
 }
 
 .projectLink:hover .icon {
-  transform: scale(1.04);
+  transform: translateY(-$spacing-4) scale(1.04);
+}
+
+.name {
+  position: absolute;
+  top: calc(100% + #{$spacing-4});
+  left: 50%;
+
+  max-width: 100%;
+
+  overflow: hidden;
+
+  color: $text-muted;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  pointer-events: none;
+
+  opacity: 1;
+  transform: translate(-50%, 0);
+  transition:
+    opacity $transition-normal,
+    transform $transition-spring;
+}
+
+.trigger:hover .name {
+  opacity: 0;
+  transform: translate(-50%, -$spacing-4);
 }
 
 .grid:has(.trigger:hover) .trigger:not(:hover) .icon {
   filter: grayscale(1);
   opacity: 0.4;
   transform: scale(0.9);
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: $spacing-24;
+  }
+}
+
+@media (max-width: 480px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: $spacing-24;
+  }
+
+  .name {
+    max-width: calc(100% - #{$spacing-16});
+  }
 }

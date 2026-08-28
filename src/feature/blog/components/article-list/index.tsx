@@ -144,6 +144,7 @@ export default function BlogArticleList() {
       {!isMobile && (
         <div className={s.right}>
           <Select
+            className={s.sort_select}
             fullWidth
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value)}
@@ -165,6 +166,7 @@ export default function BlogArticleList() {
               정렬
             </Text>
             <Select
+              className={s.sort_select}
               fullWidth
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}

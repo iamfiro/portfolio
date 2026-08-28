@@ -58,7 +58,7 @@
 
 .cardTitle {
   display: inline;
-  flex-shrink: 0;
+  min-width: 0;
 
   font-family: $font-pretendard;
   font-size: $font-size-md;

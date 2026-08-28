@@ -96,7 +96,9 @@ export function setUserProperties(
 export function getPageCategory(pathname: string): PageCategory {
   if (pathname === "/") return PageCategory.HOME;
   if (pathname === "/projects") return PageCategory.PROJECTS;
-  if (pathname === "/awards") return PageCategory.AWARDS;
+  if (pathname === "/activities" || pathname === "/awards") {
+    return PageCategory.AWARDS;
+  }
   if (pathname.startsWith("/blog/")) return PageCategory.BLOG_ARTICLE;
   if (pathname === "/blog") return PageCategory.BLOG;
   return PageCategory.HOME;

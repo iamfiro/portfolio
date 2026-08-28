@@ -110,7 +110,14 @@
   }
 
   .card {
-    padding: $spacing-8 0;
+    align-items: flex-start;
+    padding: $spacing-10 0;
+  }
+
+  .cardText {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-4;
   }
 
   .cardTitle {
@@ -119,6 +126,9 @@
   }
 
   .cardOrganization {
-    font-size: $font-size-md;
+    margin-left: 0;
+
+    font-size: $font-size-sm;
+    line-height: $line-height-normal;
   }
 }
