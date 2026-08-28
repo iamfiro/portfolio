@@ -1,126 +1,140 @@
 import { motion } from "framer-motion";
-import { type ReactNode, useMemo } from "react";
+import { ArrowUpRight } from "lucide-react";
+import { useMemo } from "react";
 
 import { usePageTransition } from "@/shared/components/layouts/page-transition/page-transition.context";
-
-import ContactButton from "./contact-button";
+import { Flex, Heading, Image, Link, Text } from "@/shared/components/ui";
+import { LINK } from "@/shared/constants";
 
 import s from "./style.module.scss";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
-interface TitleSegment {
+const ENTRANCE = {
+  duration: 0.65,
+  ease: EASE,
+} as const;
+
+const HIDDEN = {
+  opacity: 0,
+  y: 18,
+  filter: "blur(8px)",
+} as const;
+
+const VISIBLE = {
+  opacity: 1,
+  y: 0,
+  filter: "blur(0px)",
+} as const;
+
+const STEP_DELAY = {
+  profile: 0,
+  titleSecondary: 0.18,
+  titlePrimary: 0.5,
+  description: 1.08,
+  contactLinks: 1.52,
+} as const;
+
+const CONTACT_LINKS = [
+  { href: `mailto:${LINK.email}`, label: "Email", external: false },
+  { href: LINK.linkedin, label: "LinkedIn", external: true },
+  { href: LINK.github, label: "Github", external: true },
+] as const;
+
+interface TitleLineProps {
   text: string;
-  bold?: boolean;
-  lineBreak?: boolean;
+  tone: "primary" | "secondary";
+  delay: number;
 }
 
-const TITLE_SEGMENTS: TitleSegment[] = [
-  { text: "Researching and " },
-  { text: "building thoughtful" },
-  { lineBreak: true, text: "" },
-  { text: "services that solve " },
-  { text: "everyday " },
-  { text: "problems", bold: true },
-];
-
-function splitSegmentsToChars(segments: TitleSegment[]) {
-  const chars: { char: string; bold: boolean; isBreak: boolean }[] = [];
-
-  for (const segment of segments) {
-    if (segment.lineBreak) {
-      chars.push({ char: "\n", bold: false, isBreak: true });
-      continue;
-    }
-    for (const char of segment.text) {
-      chars.push({ char, bold: !!segment.bold, isBreak: false });
-    }
-  }
-
-  return chars;
-}
-
-function TitleChars() {
+function TitleLine({ text, tone, delay }: TitleLineProps) {
   const { pageReady } = usePageTransition();
-  const chars = useMemo(() => splitSegmentsToChars(TITLE_SEGMENTS), []);
+  const chars = useMemo(() => Array.from(text), [text]);
 
-  const elements: ReactNode[] = [];
-  let charIndex = 0;
+  return (
+    <span className={[s.titleLine, s[tone]].filter(Boolean).join(" ")}>
+      {chars.map((char, index) => {
+        const charDelay = delay + index * 0.018;
 
-  for (let i = 0; i < chars.length; i++) {
-    const { char, bold, isBreak } = chars[i];
-
-    if (isBreak) {
-      elements.push(<br key={`br-${i}`} />);
-      continue;
-    }
-
-    const delay = 0.1 + charIndex * 0.02;
-
-    const span = (
-      <motion.span
-        key={`char-${i}`}
-        className={[s.char, bold && s.charBold].filter(Boolean).join(" ")}
-        initial={{ opacity: 0, y: 40, filter: "blur(8px)" }}
-        animate={
-          pageReady ? { opacity: 1, y: 0, filter: "blur(0px)" } : undefined
-        }
-        transition={{ duration: 0.5, ease: EASE, delay }}
-      >
-        {char === " " ? "\u00A0" : char}
-      </motion.span>
-    );
-
-    elements.push(span);
-    charIndex++;
-  }
-
-  return <>{elements}</>;
+        return (
+          <motion.span
+            key={`char-${index}`}
+            className={s.char}
+            initial={HIDDEN}
+            animate={pageReady ? VISIBLE : undefined}
+            transition={{ ...ENTRANCE, delay: charDelay }}
+          >
+            {char === " " ? "\u00A0" : char}
+          </motion.span>
+        );
+      })}
+    </span>
+  );
 }
 
 export default function Hero() {
   const { pageReady } = usePageTransition();
 
+  const entrance = (delay: number) => ({
+    initial: HIDDEN,
+    animate: pageReady ? VISIBLE : undefined,
+    transition: { ...ENTRANCE, delay },
+  });
+
   return (
     <section className={s.hero}>
       <div className={s.content}>
-        <motion.div
-          className={s.bubbleContainer}
-          initial={{ opacity: 0, x: -20 }}
-          animate={pageReady ? { opacity: 1, x: 0 } : undefined}
-          transition={{ duration: 0.6, ease: EASE, delay: 0 }}
-        >
-          <img
+        <motion.div className={s.profile} {...entrance(STEP_DELAY.profile)}>
+          <Image
             src="/me.png"
             alt="My Face"
             className={s.me}
-            {...{ fetchpriority: "high" }}
+            fetchPriority="high"
             decoding="async"
           />
-          <div className={s.bubble}>👋 Hi! Nice to meet you</div>
         </motion.div>
-        <h1 className={s.title}>
-          <TitleChars />
-        </h1>
-        <motion.p
+        <motion.div {...entrance(STEP_DELAY.titleSecondary)}>
+          <Heading as="h1" size="lg" className={s.title}>
+            <TitleLine
+              text="불편함을 기회로 바꾸는"
+              tone="secondary"
+              delay={STEP_DELAY.titleSecondary}
+            />
+            <TitleLine
+              text="서비스를 만들고 경험을 설계합니다"
+              tone="primary"
+              delay={STEP_DELAY.titlePrimary}
+            />
+          </Heading>
+        </motion.div>
+        <motion.div
           className={s.description}
-          initial={{ opacity: 0, y: 16 }}
-          animate={pageReady ? { opacity: 1, y: 0 } : undefined}
-          transition={{ duration: 1, ease: EASE, delay: 1 }}
+          {...entrance(STEP_DELAY.description)}
         >
-          Full-Stack developer studying software engineering at Sunrin Internet
-          High School.
-          <br />I build practical services that solve real problems.
-        </motion.p>
+          <Text as="p">
+            소프트웨어를 바탕으로 일상의 문제를 해결하는 풀스택 개발자입니다.
+            <br />
+            새로운 기술을 배우는 것을 두려워하지 않으며, 사람들이 좋아하고
+            필요로 하는 서비스를 만들고 있습니다.
+          </Text>
+        </motion.div>
+        <motion.div {...entrance(STEP_DELAY.contactLinks)}>
+          <Flex className={s.contactLinks} align="center" gap={16}>
+            {CONTACT_LINKS.map(({ href, label, external }) => (
+              <Link
+                key={label}
+                href={href}
+                external={external}
+                variant="subtle"
+                className={s.contactLink}
+              >
+                {label}
+                <ArrowUpRight size={12} aria-hidden="true" />
+              </Link>
+            ))}
+          </Flex>
+        </motion.div>
       </div>
-      <motion.div
-        className={s.buttonContainer}
-        initial={{ opacity: 0, scale: 0.92 }}
-        animate={pageReady ? { opacity: 1, scale: 1 } : undefined}
-        transition={{ duration: 0.5, ease: EASE, delay: 1 }}
-      >
-        <ContactButton />
-      </motion.div>
     </section>
   );
 }

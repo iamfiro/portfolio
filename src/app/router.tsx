@@ -1,7 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 
 import {
-  Admin,
   Awards,
   Blog,
   BlogArticle,
@@ -23,7 +22,6 @@ const router = createBrowserRouter([
       { path: "/projects", element: <Projects /> },
       { path: "/projects/:id", element: <ProjectDetail /> },
       { path: "/contact", element: <Contact /> },
-      { path: "/admin", element: <Admin /> },
     ],
   },
 ]);

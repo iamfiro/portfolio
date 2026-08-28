@@ -7,7 +7,7 @@ import { Post } from "@/feature/blog/schema";
 import { Flex, Tag, Text } from "@/shared/components/ui";
 import { generateSrcSet } from "@/shared/utils/responsive-image.util";
 
-import { getPost } from "../../api";
+import { getPost } from "../../data";
 
 import BlogCardSkeleton from "./skeleton";
 
@@ -25,12 +25,13 @@ export default function BlogCard(props: BlogCardProps) {
 
   const handleMouseEnter = () => {
     queryClient.prefetchQuery({
-      queryKey: ["post", props.title],
-      queryFn: () => getPost(props.title),
+      queryKey: ["post", props.id],
+      queryFn: () => getPost(props.id),
     });
   };
 
   const {
+    id,
     title,
     description,
     thumbnail,
@@ -49,7 +50,7 @@ export default function BlogCard(props: BlogCardProps) {
 
   return (
     <motion.a
-      href={`/blog/${title}`}
+      href={`/blog/${id}`}
       className={s.card}
       onMouseEnter={handleMouseEnter}
       initial={{ opacity: 0, y: 32 }}

@@ -1,173 +1,131 @@
-.project {
+.projectSection {
   width: 100%;
 }
 
-.layout {
-  display: flex;
-  flex-direction: column;
-
-  width: 100%;
-
-  padding: $spacing-40;
-
-  gap: $spacing-48;
-}
-
-.intro {
-  display: flex;
-  flex-direction: column;
-  gap: $spacing-12;
-}
-
-.title {
-  font-size: $font-size-5xl;
-  font-family: $font-gambarino;
-  font-weight: 500;
-  line-height: $line-height-tight;
-
-  color: $text;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: $spacing-32;
-
-  width: 100%;
-}
-
-.cardLink {
+.projectLink {
   display: block;
 
-  text-decoration: none;
+  width: 100%;
+
   color: inherit;
+  text-decoration: none;
 }
 
-.card {
+.projectCard {
   display: flex;
   flex-direction: column;
+  gap: $spacing-16;
 
-  padding: 0;
+  overflow: hidden;
 
-  background: transparent;
-  border: none;
-  border-radius: 0;
-
+  background-color: $surface;
   box-shadow: none;
-
-  transition: none;
 }
 
-.cardBody {
-  display: flex;
-  flex-direction: column;
-  gap: 0 !important;
+.thumbnailWrapper {
+  width: 100%;
 
-  padding: 0 0 $spacing-12;
+  overflow: hidden;
 
-  margin-top: $spacing-48;
-}
-
-.categoryLabel {
-  display: flex;
-  align-items: center;
-  gap: $spacing-6;
-
-  color: $text-subtle;
-
-  margin-bottom: 4px;
-}
-
-.categoryText {
-  font-size: $font-size-2xs;
-  font-weight: 500;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-
-  color: $text-subtle;
-}
-
-.cardTitle {
-  font-size: $font-size-xl;
-  font-weight: 400;
-  line-height: $line-height-normal;
-
-  color: $text;
-}
-
-.cardDescription {
-  font-size: $font-size-sm;
-  line-height: $line-height-relaxed;
-
-  color: $text-subtle;
+  border-radius: $radius-16;
 }
 
 .thumbnail {
-  width: 100%;
-  aspect-ratio: 16/10;
+  display: block;
 
-  border-radius: 0;
+  width: 100%;
+  aspect-ratio: 16 / 9;
 
   object-fit: cover;
+
+  border-radius: $radius-16;
 }
 
-.viewMore {
-  display: flex;
-  align-items: center;
-  gap: $spacing-6;
+.projectDetails {
+  justify-content: space-between;
 
-  padding: 0;
+  min-width: 0;
 
-  color: $text;
-
-  cursor: pointer;
+  padding: 0 $spacing-16 $spacing-16;
 }
 
-.viewMoreText {
-  font-size: $font-size-md;
-  font-weight: 500;
+.projectSummary {
+  min-width: 0;
+}
+
+.appIcon {
+  flex-shrink: 0;
+
+  width: $spacing-48;
+  height: $spacing-48;
+
+  object-fit: cover;
+
+  border: 1px solid $border;
+  border-radius: $radius-16;
+}
+
+.projectCopy {
+  min-width: 0;
+}
+
+.projectName {
+  overflow: hidden;
+
+  font-weight: $font-weight-semibold;
+  line-height: $line-height-normal;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.projectDescription {
+  overflow: hidden;
+
+  line-height: $line-height-normal;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.stackList {
+  flex-shrink: 0;
+
+  align-self: flex-start;
+}
+
+.stackIcon {
+  width: $spacing-16;
+  height: $spacing-16;
+
+  object-fit: contain;
 }
 
 @media (max-width: 768px) {
-  .layout {
-    padding: $spacing-24;
-
-    gap: $spacing-32;
-  }
-
-  .title {
-    font-size: $font-size-3xl;
-  }
-
-  .grid {
-    grid-template-columns: 1fr;
-  }
-
-  .cardBody {
-    margin-top: $spacing-12;
+  .projectDetails {
+    padding-inline: $spacing-12;
   }
 }
 
 @media (max-width: 480px) {
-  .layout {
-    padding: $spacing-16;
-
-    gap: $spacing-24;
+  .projectCard {
+    gap: $spacing-12;
   }
 
-  .title {
-    font-size: $font-size-2xl;
+  .projectDetails {
+    gap: $spacing-12;
+    padding-inline: $spacing-8;
   }
 
-  .grid {
-    gap: $spacing-20;
+  .appIcon {
+    width: $spacing-40;
+    height: $spacing-40;
   }
 
-  .cardTitle {
-    font-size: $font-size-lg;
+  .projectDescription {
+    max-width: $max-width;
   }
 
-  .cardDescription {
-    font-size: $font-size-sm;
+  .stackIcon {
+    width: $spacing-14;
+    height: $spacing-14;
   }
 }

@@ -3,6 +3,17 @@
   min-height: 100vh;
 }
 
+.content {
+  width: min(100%, $max-width-content);
+
+  padding-inline: $spacing-24;
+
+  background-color: transparent;
+
+  align-items: stretch;
+  gap: 0;
+}
+
 .viewport {
   display: flex;
   height: 100vh;
@@ -14,7 +25,7 @@
 }
 
 @media (max-width: 768px) {
-  .container {
+  .content {
     > [aria-hidden="true"] {
       height: 48px !important;
       min-height: 48px !important;
@@ -23,7 +34,7 @@
 }
 
 @media (max-width: 480px) {
-  .container {
+  .content {
     > [aria-hidden="true"] {
       height: 32px !important;
       min-height: 32px !important;

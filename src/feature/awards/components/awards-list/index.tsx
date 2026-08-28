@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { useCallback, useMemo, useRef } from "react";
 
-import { getAwards } from "@/feature/awards/api";
+import { getAwards } from "@/feature/awards/data";
 import { Award, AwardsResponse } from "@/feature/awards/schema";
 import { Flex, Heading, Stack, Text } from "@/shared/components/ui";
 import { generateSrcSet } from "@/shared/utils/responsive-image.util";

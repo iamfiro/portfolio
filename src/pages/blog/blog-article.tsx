@@ -5,9 +5,9 @@ import { useEffect, useRef } from "react";
 import { Helmet } from "react-helmet";
 import { useParams } from "react-router-dom";
 
-import { getPost } from "@/feature/blog/api";
 import { Giscus, TableOfContents } from "@/feature/blog/components";
 import MarkdownContent from "@/feature/blog/components/markdown-content";
+import { getPost } from "@/feature/blog/data";
 import { calculateReadingTime } from "@/feature/blog/reading-time.util";
 import { PostResponse, RelatedProject } from "@/feature/blog/schema";
 import { BaseLayout } from "@/shared/components/layouts";

@@ -13,6 +13,7 @@ export interface Project {
   title: string;
   description: string;
   techStack: string[];
+  logoUrl: string | null;
   thumbnailUrl: string | null;
   githubUrl: string | null;
   deployUrl: string | null;
@@ -23,17 +24,6 @@ export interface Project {
     id: string;
     title: string;
   } | null;
-}
-
-export interface ProjectMutationPayload {
-  title: string;
-  description: string;
-  techStack: string[];
-  thumbnailUrl?: string | null;
-  githubUrl?: string | null;
-  deployUrl?: string | null;
-  startDate: string;
-  endDate?: string | null;
 }
 
 export type Projects = Project[];

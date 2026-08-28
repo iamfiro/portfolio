@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Hash, SlidersHorizontal } from "lucide-react";
 import { useMemo, useState } from "react";
 
-import { getPosts } from "@/feature/blog/api";
+import { getPosts } from "@/feature/blog/data";
 import { useBlogFilter } from "@/feature/blog/hooks";
 import { PostsResponse } from "@/feature/blog/schema";
 import {
@@ -118,9 +118,9 @@ export default function BlogArticleList() {
         ) : sortedPosts.length > 0 ? (
           sortedPosts.map((post, index) => (
             <BlogCard
-              key={post.title}
+              key={post.id}
               index={index}
-              id={post.title}
+              id={post.id}
               title={post.title}
               description={post.description}
               thumbnail={post.thumbnail}

@@ -13,14 +13,6 @@ export interface Award {
   } | null;
 }
 
-export interface AwardMutationPayload {
-  title: string;
-  organization: string;
-  date: string;
-  imageUrl?: string | null;
-  projectId?: string | null;
-}
-
 export type Awards = Award[];
 export type AwardsResponse = ApiResponse<Awards>;
 export type AwardResponse = ApiResponse<Award>;

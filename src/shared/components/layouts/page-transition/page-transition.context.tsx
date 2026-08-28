@@ -1,10 +1,4 @@
-import {
-  createContext,
-  useCallback,
-  useContext,
-  useRef,
-  useState,
-} from "react";
+import { createContext, useCallback, useContext } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 interface PageTransitionContextValue {
@@ -31,16 +25,15 @@ interface PageTransitionContextValue {
   preloadLockCount: number;
 }
 
-// exit 애니메이션 총 시간 (DURATION_S + (COLUMN_COUNT - 1) * STAGGER_S + HOLD_MS/1000)
-const EXIT_DURATION = 1 + 4 * 0.1 + 0.08;
+const EXIT_DURATION = 0;
 
 const PageTransitionContext = createContext<PageTransitionContextValue>({
   navigateTo: () => {},
   isTransitioning: false,
   exitDuration: EXIT_DURATION,
-  initialLoadDone: false,
+  initialLoadDone: true,
   setInitialLoadDone: () => {},
-  pageReady: false,
+  pageReady: true,
   setPageReady: () => {},
   acquirePreloadLock: () => () => {},
   preloadLockCount: 0,
@@ -76,70 +69,42 @@ interface Props {
 export function PageTransitionProvider({ children }: Props) {
   const navigate = useNavigate();
   const location = useLocation();
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const [initialLoadDone, setInitialLoadDone] = useState(false);
-  const [pageReady, setPageReady] = useState(false);
-  const [pendingPath, setPendingPath] = useState<string | null>(null);
-  const [preloadLockCount, setPreloadLockCount] = useState(0);
-  const isNavigatingRef = useRef(false);
 
   const acquirePreloadLock = useCallback((): (() => void) => {
-    setPreloadLockCount((c) => c + 1);
-    let released = false;
-    return () => {
-      if (released) return;
-      released = true;
-      setPreloadLockCount((c) => c - 1);
-    };
+    return () => {};
   }, []);
 
   const navigateTo = useCallback(
     (path: string) => {
-      if (isNavigatingRef.current) return;
       if (path === location.pathname) return;
 
-      isNavigatingRef.current = true;
-      setIsTransitioning(true);
-      setPendingPath(path);
-    },
-    [location.pathname],
-  );
-
-  const consumePendingPath = useCallback(() => {
-    const path = pendingPath;
-    setPendingPath(null);
-    return path;
-  }, [pendingPath]);
-
-  const performNavigate = useCallback(
-    (path: string) => {
       navigate(path);
+      window.scrollTo(0, 0);
     },
-    [navigate],
+    [location.pathname, navigate],
   );
 
-  const finishTransition = useCallback(() => {
-    setIsTransitioning(false);
-    isNavigatingRef.current = false;
-  }, []);
+  const consumePendingPath = useCallback(() => null, []);
+  const performNavigate = useCallback(() => {}, []);
+  const finishTransition = useCallback(() => {}, []);
 
   return (
     <PageTransitionContext.Provider
       value={{
         navigateTo,
-        isTransitioning,
+        isTransitioning: false,
         exitDuration: EXIT_DURATION,
-        initialLoadDone,
-        setInitialLoadDone,
-        pageReady,
-        setPageReady,
+        initialLoadDone: true,
+        setInitialLoadDone: () => {},
+        pageReady: true,
+        setPageReady: () => {},
         acquirePreloadLock,
-        preloadLockCount,
+        preloadLockCount: 0,
       }}
     >
       <InternalContext.Provider
         value={{
-          pendingPath,
+          pendingPath: null,
           consumePendingPath,
           performNavigate,
           finishTransition,

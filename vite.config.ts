@@ -10,16 +10,6 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  assetsInclude: ["**/*.md"],
-  server: {
-    proxy: {
-      "/api": {
-        target: "https://api.devfiro.com",
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ""),
-      },
-    },
-  },
   css: {
     preprocessorOptions: {
       scss: {

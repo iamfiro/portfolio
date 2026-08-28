@@ -8,8 +8,6 @@
 
   width: 100%;
   overflow: visible;
-
-  padding: $spacing-64 $padding;
 }
 
 .content {
@@ -25,9 +23,12 @@
   display: block;
   width: 100%;
 
-  font-size: $font-size-5xl;
-  font-weight: 600;
-  line-height: 1.1;
+  margin-top: -$spacing-8;
+
+  font-family: $font-pretendard;
+  font-size: $font-size-2xl;
+  font-weight: $font-weight-semibold;
+  line-height: $line-height-tight;
   color: $text;
 
   white-space: normal;
@@ -36,65 +37,63 @@
   hyphens: auto;
 }
 
-.char {
-  display: inline-block;
+.titleLine {
+  display: block;
 }
 
-.charBold {
-  font-family: $font-gambarino;
+.title .secondary {
+  color: $text-muted;
+}
+
+.title .primary {
+  font-weight: $font-weight-semibold;
+  color: $text;
+}
+
+.char {
+  display: inline-block;
+  color: inherit;
 }
 
 // ─── Other Elements ─────────────────────────────────────────
 
 .description {
   font-size: $font-size-lg;
-  font-weight: 400;
-  line-height: 1.6;
+  font-weight: $font-weight-normal;
+  line-height: $line-height-relaxed;
   color: $text-muted;
 
   overflow-wrap: break-word;
   word-break: break-word;
 }
 
+.contactLinks {
+  flex-wrap: wrap;
+}
+
+.contactLink {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-4;
+
+  color: $text;
+  font-family: $font-pretendard;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-normal;
+  text-underline-offset: $spacing-4;
+}
+
 .me {
-  width: 52px;
+  width: $spacing-48;
 
   aspect-ratio: 1/1;
   object-fit: cover;
 
-  border-radius: 50%;
-}
-
-.bubbleContainer {
-  display: flex;
-  flex-direction: row;
-  gap: $spacing-8;
-
-  align-items: center;
-}
-
-.bubble {
-  position: relative;
-
-  max-width: 280px;
-
-  padding: $spacing-10 $spacing-16;
-
-  font-size: $font-size-sm;
-  font-weight: 500;
-  color: $text-inverse;
-
-  background-color: transparent;
-
-  border: 1px solid $border;
   border-radius: $radius-full;
 }
 
-.buttonContainer {
-  flex: 1;
-
+.profile {
   display: flex;
-  justify-content: flex-end;
   align-items: center;
 }
 
@@ -115,8 +114,8 @@
   }
 
   .title {
-    font-size: $font-size-3xl;
-    line-height: 1.2;
+    font-size: $font-size-xl;
+    line-height: $line-height-tight;
   }
 
   .description {
@@ -124,10 +123,6 @@
     line-height: 1.5;
   }
 
-  .buttonContainer {
-    justify-content: flex-start;
-    width: 100%;
-  }
 }
 
 @media (max-width: 480px) {
@@ -143,36 +138,18 @@
   }
 
   .title {
-    font-size: $font-size-3xl;
-    line-height: 1.2;
-    font-weight: 600;
+    font-size: $font-size-xl;
+    line-height: $line-height-tight;
+    font-weight: $font-weight-semibold;
   }
 
   .description {
     font-size: $font-size-md;
-    line-height: 1.5;
+    line-height: $line-height-normal;
   }
 
   .me {
-    width: 44px;
+    width: $spacing-40;
   }
 
-  .bubble {
-    max-width: 240px;
-
-    padding: $spacing-12 $spacing-16;
-
-    font-size: $font-size-md;
-  }
-
-  .bubbleContainer {
-    gap: $spacing-6;
-  }
-
-  .buttonContainer {
-    justify-content: flex-start;
-    width: 100%;
-  }
 }
-
-

@@ -8,7 +8,7 @@ import {
   useState,
 } from "react";
 
-import { getProjects } from "@/feature/projects/api";
+import { getProjects } from "@/feature/projects/data";
 import { Project, ProjectsResponse } from "@/feature/projects/schema";
 import { usePageTransition } from "@/shared/components/layouts/page-transition/page-transition.context";
 import { Image, Text } from "@/shared/components/ui";

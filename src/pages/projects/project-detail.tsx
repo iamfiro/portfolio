@@ -4,7 +4,7 @@ import { ExternalLink, Github } from "lucide-react";
 import { Helmet } from "react-helmet";
 import { useParams } from "react-router-dom";
 
-import { getProject } from "@/feature/projects/api";
+import { getProject } from "@/feature/projects/data";
 import { ProjectResponse, RelatedPost } from "@/feature/projects/schema";
 import { BaseLayout } from "@/shared/components/layouts";
 import {

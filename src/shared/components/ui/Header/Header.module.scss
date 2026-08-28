@@ -5,35 +5,38 @@
   align-items: start;
   justify-content: space-between;
 
-  padding: $spacing-24 $spacing-24;
+  padding: $spacing-16 $spacing-24;
 
   position: fixed;
   top: 0;
 
   z-index: 999;
 
-  mix-blend-mode: difference;
-
   pointer-events: none;
   user-select: none;
 }
 
 .menuIsOpen {
-  mix-blend-mode: normal;
+  .menuButton {
+    color: $text;
+  }
 }
 
 .logo {
   height: 16px;
+
+  filter: invert(1);
 
   pointer-events: auto;
   -webkit-user-drag: none;
   user-select: none;
 }
 
-.link {
+.navigation {
   display: flex;
-  flex-direction: column;
-  gap: $spacing-12;
+  flex-direction: row;
+  align-items: center;
+  gap: $spacing-24;
 
   padding: 0;
   margin: 0;
@@ -46,118 +49,38 @@
     list-style: none;
     margin: 0;
     padding: 0;
-
-    a,
-    span {
-      display: flex;
-      align-items: center;
-      gap: $spacing-8;
-
-      text-decoration: none;
-
-      font-size: $font-size-lg;
-
-      font-weight: 500;
-
-      color: $text-muted;
-
-      transition: color 0.15s ease;
-
-      &:hover {
-        color: $text-inverse;
-
-        span {
-          color: $text-inverse;
-        }
-      }
-    }
   }
 
   .active {
-    position: relative;
-
-    &::before {
-      content: "";
-      position: absolute;
-      left: -$spacing-16;
-      top: 50%;
-      transform: translateY(-50%);
-
-      width: 10px;
-      height: 10px;
-
-      background-color: $text;
-      border-radius: $radius-full;
-    }
-
-    a,
-    span {
-      font-weight: 500;
+    .navLabel {
+      font-weight: $font-weight-semibold;
 
       color: $text;
     }
   }
 }
 
-.icon {
-  display: inline-block;
-  width: 14px;
-  height: 14px;
-
-  background-color: currentColor;
-  -webkit-mask-size: contain;
-  mask-size: contain;
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  -webkit-mask-position: center;
-  mask-position: center;
-
-  transition: background-color 0.15s ease;
+.navItem {
+  // 자석 인터랙션이 자연스럽게 끌려나갈 여백
+  margin: -$spacing-8 (-$spacing-4);
+  padding: $spacing-8 $spacing-4;
 }
 
-.iconLinkedin {
-  composes: icon;
-  -webkit-mask-image: url("/icon/social/linkedin-white.svg");
-  mask-image: url("/icon/social/linkedin-white.svg");
-}
+.navLabel {
+  display: block;
 
-.iconGithub {
-  composes: icon;
-  -webkit-mask-image: url("/icon/social/github-white.svg");
-  mask-image: url("/icon/social/github-white.svg");
-}
+  color: $text-subtle;
 
-.iconInstagram {
-  composes: icon;
-  -webkit-mask-image: url("/icon/social/instagram-white.svg");
-  mask-image: url("/icon/social/instagram-white.svg");
-}
+  font-size: $font-size-lg;
+  font-weight: $font-weight-medium;
+  text-decoration: none;
 
-.social {
-  padding: $spacing-6 $spacing-8;
+  transition: color $transition-fast;
 
-  gap: 0;
+  will-change: transform;
 
-  width: fit-content;
-
-  a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    opacity: 0.5;
-
-    padding: $spacing-12;
-
-    &:hover {
-      opacity: 1;
-    }
-
-    img {
-      width: 24px;
-
-      margin: 0;
-    }
+  &:hover {
+    color: $text;
   }
 }
 
@@ -191,8 +114,6 @@
 
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-
   padding: $spacing-100 $spacing-48 $spacing-64;
 
   background-color: $surface;
@@ -210,8 +131,6 @@
 }
 
 .overlayNavItem {
-  position: relative;
-
   list-style: none;
   margin: 0;
   padding: 0;
@@ -242,99 +161,14 @@
   }
 }
 
-.overlaySocial {
-  display: flex;
-  flex-direction: row;
-  gap: $spacing-32;
-
-  padding: 0;
-  margin: 0;
-
-  list-style: none;
-}
-
-.overlaySocialLink {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  opacity: 0.4;
-
-  text-decoration: none;
-
-  transition: opacity $transition-fast;
-
-  &:hover {
-    opacity: 1;
-  }
-
-  span {
-    display: flex;
-    width: 24px;
-    height: 24px;
-  }
-}
-
-.time {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: $spacing-4;
-
-  white-space: nowrap;
-
-  pointer-events: auto;
-}
-
-.timeClock {
-  font-size: $font-size-sm;
-  font-weight: 600;
-  color: $text;
-}
-
-.blink {
-  animation: blink 1s step-end infinite;
-}
-
-.timeLabel {
-  display: flex;
-  align-items: center;
-  gap: $spacing-4;
-
-  font-size: $font-size-xs;
-  font-weight: 400;
-  color: $text-subtle;
-}
-
 @media (max-width: 768px) {
-  .container {
-    mix-blend-mode: difference;
+  .container { align-items: center; }
 
-    align-items: center;
-  }
-
-  .link,
-  .time {
+  .navigation {
     display: none;
   }
 
   .menuButton {
     display: flex;
-  }
-}
-
-@media (max-width: 480px) {
-  .container {
-    mix-blend-mode: difference;
-  }
-}
-
-@keyframes blink {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0;
   }
 }

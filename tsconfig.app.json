@@ -28,5 +28,5 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["src", "server/src/utils/markdown.ts"]
+  "include": ["src"]
 }

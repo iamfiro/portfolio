@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 
-import { getProjects } from "@/feature/projects/api";
+import { getProjects } from "@/feature/projects/data";
 import { Project, ProjectsResponse } from "@/feature/projects/schema";
 import {
   Card,

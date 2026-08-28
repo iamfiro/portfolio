@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { useCallback } from "react";
 
-import { getPosts } from "@/feature/blog/api";
+import { getPosts } from "@/feature/blog/data";
 import { Post, PostsResponse } from "@/feature/blog/schema";
 import { Flex, Heading, Section, Stack, Text } from "@/shared/components/ui";
 
@@ -26,7 +26,7 @@ function BlogCard({ post, index }: { post: Post; index: number }) {
         delay: index * 0.1,
       }}
     >
-      <a href={`/blog/${post.title}`} className={s.card}>
+      <a href={`/blog/${post.id}`} className={s.card}>
         <Flex
           justify="space-between"
           align="flex-start"

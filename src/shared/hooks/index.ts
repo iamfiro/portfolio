@@ -1,4 +1,5 @@
 export { useImagePreload } from "./use-image-preload";
+export { useMagnetic } from "./use-magnetic";
 export { useMediaQuery } from "./use-media-query";
 export type { EntranceSlot } from "./use-page-entrance";
 export { usePageEntrance } from "./use-page-entrance";
