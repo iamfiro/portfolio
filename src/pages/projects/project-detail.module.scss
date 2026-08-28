@@ -152,4 +152,9 @@
   .title {
     font-size: $font-size-3xl;
   }
+
+  .thumbnail {
+    height: auto;
+    aspect-ratio: 16 / 9;
+  }
 }
