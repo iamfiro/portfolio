@@ -1,4 +1,4 @@
-export type ActivityIconName = "users-round" | "newspaper";
+export type ActivityIconName = "users-round" | "newspaper" | "instagram";
 
 export interface Activity {
   id: string;

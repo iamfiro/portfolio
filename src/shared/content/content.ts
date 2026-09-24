@@ -8,13 +8,14 @@ import {
   asString,
 } from "@/shared/utils/frontmatter.util";
 
-import { rawAwards } from "./raw/awards.raw";
 import { rawActivities } from "./raw/activities.raw";
+import { rawAwards } from "./raw/awards.raw";
 import { rawPosts } from "./raw/posts.raw";
 import { rawProjects } from "./raw/projects.raw";
 
 function parseActivityIcon(value: string): Activity["icon"] {
-  return value === "newspaper" ? "newspaper" : "users-round";
+  if (value === "newspaper" || value === "instagram") return value;
+  return "users-round";
 }
 
 const activities: Activity[] = rawActivities.map((entry) => ({

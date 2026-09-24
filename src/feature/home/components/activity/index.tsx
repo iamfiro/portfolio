@@ -1,5 +1,5 @@
 import { motion, type MotionProps } from "framer-motion";
-import { Newspaper, UsersRound } from "lucide-react";
+import { Instagram, Newspaper, UsersRound } from "lucide-react";
 
 import { useHomeSectionAnimation } from "@/feature/home/hooks";
 import {
@@ -26,6 +26,7 @@ import s from "./style.module.scss";
 const ACTIVITY_ICONS: Record<ActivityIconName, typeof UsersRound> = {
   "users-round": UsersRound,
   newspaper: Newspaper,
+  instagram: Instagram,
 };
 
 interface ActivityCardProps {
