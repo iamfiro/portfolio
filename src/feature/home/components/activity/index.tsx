@@ -102,8 +102,8 @@ function PageActivity({
           활동
         </Heading>
       </motion.div>
-      <HoverPreview className={s.list}>
-        <Stack gap={20}>
+      <HoverPreview className={[s.list, s.timeline].filter(Boolean).join(" ")}>
+        <Stack gap={24}>
           {contentActivities.map((activity) => (
             <ActivityCard key={activity.id} activity={activity} />
           ))}

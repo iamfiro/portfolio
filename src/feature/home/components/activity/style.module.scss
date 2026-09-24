@@ -20,6 +20,50 @@
   width: 100%;
 }
 
+.timeline {
+  position: relative;
+
+  padding: $spacing-4 0;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: $spacing-8;
+
+    width: 1px;
+
+    background-color: $border;
+  }
+
+  .item {
+    position: relative;
+
+    padding-left: $spacing-28;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: $spacing-6;
+      left: $spacing-4;
+
+      width: $spacing-8;
+      height: $spacing-8;
+
+      border-radius: $radius-full;
+      background-color: $border-strong;
+      box-shadow: 0 0 0 3px $surface;
+
+      transition: background-color $transition-fast;
+    }
+  }
+
+  .linkedItem:hover::before {
+    background-color: $surface-brand;
+  }
+}
+
 .trigger {
   width: 100%;
 }
@@ -108,5 +152,22 @@
 
   .date {
     margin-top: $spacing-4;
+  }
+
+  .timeline {
+    &::before {
+      left: $spacing-6;
+    }
+
+    .item {
+      padding-left: $spacing-20;
+
+      &::before {
+        left: $spacing-4;
+
+        width: $spacing-4;
+        height: $spacing-4;
+      }
+    }
   }
 }

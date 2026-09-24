@@ -23,9 +23,10 @@
 }
 
 .title {
-  font-size: 64px;
-  font-family: $font-gambarino;
-  font-weight: 500;
+  font-family: $font-pretendard;
+  font-size: $font-size-5xl;
+  font-weight: $font-weight-bold;
+  letter-spacing: -0.02em;
   line-height: $line-height-tight;
 
   color: $text;
@@ -42,10 +43,6 @@
   .page {
     padding: 180px $spacing-24 200px;
   }
-
-  .title {
-    font-size: 48px;
-  }
 }
 
 @media (max-width: 480px) {
@@ -54,6 +51,6 @@
   }
 
   .title {
-    font-size: 36px;
+    font-size: $font-size-4xl;
   }
 }
