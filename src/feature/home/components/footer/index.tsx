@@ -98,6 +98,7 @@ function StackCard() {
             key={icon.alt}
             src={icon.src}
             alt={icon.alt}
+            objectFit="contain"
             className={s.stackIcon}
           />
         ))}

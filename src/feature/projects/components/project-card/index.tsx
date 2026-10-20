@@ -73,6 +73,7 @@ export default function ProjectCard({ project, index }: Props) {
                     key={tech}
                     src={src}
                     alt={tech}
+                    objectFit="contain"
                     className={s.stackIcon}
                   />
                 ))}

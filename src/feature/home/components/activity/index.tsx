@@ -18,6 +18,7 @@ import {
   Text,
 } from "@/shared/components/ui";
 import { contentActivities } from "@/shared/content/content";
+import { usePageEntrance } from "@/shared/hooks";
 
 import type { Activity, ActivityIconName } from "./activity.type";
 
@@ -92,6 +93,19 @@ function ActivityCard({ activity }: ActivityCardProps) {
   );
 }
 
+function PageActivityItem({
+  activity,
+  index,
+}: ActivityCardProps & { index: number }) {
+  const entrance = usePageEntrance("lead", 0.4 + index * 0.05);
+
+  return (
+    <motion.div {...entrance}>
+      <ActivityCard activity={activity} />
+    </motion.div>
+  );
+}
+
 function PageActivity({
   titleMotionProps,
 }: Pick<ActivityProps, "titleMotionProps">) {
@@ -107,8 +121,12 @@ function PageActivity({
       </motion.div>
       <HoverPreview className={s.list}>
         <Stack gap={20}>
-          {contentActivities.map((activity) => (
-            <ActivityCard key={activity.id} activity={activity} />
+          {contentActivities.map((activity, index) => (
+            <PageActivityItem
+              key={activity.id}
+              activity={activity}
+              index={index}
+            />
           ))}
         </Stack>
       </HoverPreview>

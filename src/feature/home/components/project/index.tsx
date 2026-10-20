@@ -87,6 +87,7 @@ function ProjectCard({
                     key={tech}
                     src={src}
                     alt={tech}
+                    objectFit="contain"
                     className={s.stackIcon}
                   />
                 ))}

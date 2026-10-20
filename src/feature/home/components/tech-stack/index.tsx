@@ -124,7 +124,12 @@ function StackIcon({
     >
       <HoverCardTrigger card={{ title: name, items: skills }}>
         <Flex align="center" justify="center" className={s.iconWrapper}>
-          <Image src={icon} alt={name} className={iconClassName} />
+          <Image
+            src={icon}
+            alt={name}
+            objectFit="contain"
+            className={iconClassName}
+          />
         </Flex>
       </HoverCardTrigger>
     </motion.div>
