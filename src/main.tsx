@@ -6,7 +6,6 @@ import ReactDOM from "react-dom/client";
 import { RouterProvider } from "react-router-dom";
 
 import router from "@/app/router";
-import { useTypingTitle } from "@/shared/hooks";
 
 import "reactflow/dist/style.css";
 import "@/shared/styles/global.scss";
@@ -23,8 +22,6 @@ const queryClient = new QueryClient({
 });
 
 function App() {
-  useTypingTitle("Sungju Cho - Creative Developer");
-
   return (
     <QueryClientProvider client={queryClient}>
       <RouterProvider router={router} />
