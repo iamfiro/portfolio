@@ -134,7 +134,7 @@ export default function Project() {
 
   return (
     <motion.div ref={ref}>
-      <Section className={s.projectSection} size="md">
+      <Section className={s.projectSection} size="md" pb={32}>
         {featuredProject && (
           <ProjectCard
             project={featuredProject}
