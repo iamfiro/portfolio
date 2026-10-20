@@ -1,79 +1,58 @@
 .list {
-  display: flex;
-  position: relative;
-  flex-direction: column;
-
   width: 100%;
 
-  border-bottom: 1px solid $border;
-}
-
-.card {
-  display: flex;
-  align-items: center;
-
-  width: 100%;
-
-  padding: $spacing-32 0;
-
-  border-top: 1px solid $border;
   cursor: default;
+
+  // 홈 리스트와 동일하게, 하나에 올리면 나머지는 뒤로 물러난다
+  &:hover .item {
+    opacity: 0.4;
+  }
+
+  &:hover .item:hover {
+    opacity: 1;
+  }
 }
 
-.cardContent {
-  display: flex;
-  flex-direction: column;
-  gap: $spacing-8;
+.item {
+  width: 100%;
+
+  transition: opacity $transition-slow;
 }
 
-.cardHeader {
-  display: flex;
-  flex-direction: column;
-  gap: $spacing-4;
+.content {
+  flex: 1;
+
+  min-width: 0;
 }
 
-.cardTitle {
-  font-weight: $font-weight-normal;
-  line-height: $line-height-tight;
-  font-size: $font-size-2xl;
-
+.title {
   color: $text;
-}
 
-.cardOrganization {
-  color: $text-subtle;
+  font-family: $font-pretendard;
   font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  line-height: $line-height-tight;
 }
 
-.cardDescription {
-  line-height: $line-height-relaxed;
-  color: $text-muted;
+.organization {
+  line-height: $line-height-normal;
 }
 
-@media (max-width: 768px) {
-  .card {
-    padding: $spacing-24 0;
-  }
+.year {
+  flex-shrink: 0;
 
-  .cardTitle {
-    font-size: $font-size-xl;
-  }
+  padding: $spacing-4 $spacing-8;
 
-  .cardOrganization {
-    font-size: $font-size-sm;
-  }
+  background-color: $surface-subtle;
+  border-radius: $radius-full;
+
+  font-size: $font-size-xs;
+  line-height: $line-height-tight;
+  white-space: nowrap;
 }
 
 @media (max-width: 480px) {
-  .card {
-    padding: $spacing-20 0;
-  }
-
-  .cardTitle {
-    font-size: $font-size-lg;
-  }
-
-  .cardOrganization {
-    font-size: $font-size-sm;
+  .year {
+    margin-top: $spacing-4;
   }
 }
