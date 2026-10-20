@@ -2,6 +2,11 @@ import { motion } from "framer-motion";
 
 import { useHomeSectionAnimation } from "@/feature/home/hooks";
 import {
+  getHomeAnimationTransition,
+  HOME_ANIMATION_HIDDEN,
+  HOME_ANIMATION_VISIBLE,
+} from "@/feature/home/utils/home-animation.util";
+import {
   Flex,
   Heading,
   HoverCard,
@@ -11,11 +16,6 @@ import {
   Stack,
   Text,
 } from "@/shared/components/ui";
-import {
-  getHomeAnimationTransition,
-  HOME_ANIMATION_HIDDEN,
-  HOME_ANIMATION_VISIBLE,
-} from "@/feature/home/utils/home-animation.util";
 
 import s from "./style.module.scss";
 
@@ -57,12 +57,6 @@ const STACK_DATA: StackCategory[] = [
     label: "백엔드",
     items: [
       {
-        name: "Express",
-        icon: "/icon/stack/express.svg",
-        invert: true,
-        skills: ["REST API 서버 구축", "미들웨어 체인 설계"],
-      },
-      {
         name: "MySQL",
         icon: "/icon/stack/mysql.svg",
         skills: ["관계형 DB 설계·최적화", "복잡한 쿼리·인덱싱"],
@@ -71,12 +65,6 @@ const STACK_DATA: StackCategory[] = [
         name: "Redis",
         icon: "/icon/stack/redis.svg",
         skills: ["캐싱·세션 관리", "Pub/Sub 실시간 메시징"],
-      },
-      {
-        name: "Socket.io",
-        icon: "/icon/stack/socketdotio.svg",
-        invert: true,
-        skills: ["실시간 양방향 통신", "채팅·알림 시스템 구축"],
       },
     ],
   },
@@ -98,27 +86,6 @@ const STACK_DATA: StackCategory[] = [
         icon: "/icon/stack/expo.svg",
         invert: true,
         skills: ["React Native 크로스플랫폼 앱", "OTA 업데이트·네이티브 모듈"],
-      },
-      {
-        name: "Electron",
-        icon: "/icon/stack/electron.svg",
-        skills: ["데스크톱 앱 개발", "IPC 통신·시스템 연동"],
-      },
-    ],
-  },
-  {
-    label: "기타",
-    items: [
-      {
-        name: "GitHub Actions",
-        icon: "/icon/stack/githubactions.svg",
-        skills: ["CI/CD 파이프라인 구축", "자동 배포·테스트 워크플로"],
-      },
-      {
-        name: "Notion",
-        icon: "/icon/stack/notion.svg",
-        invert: true,
-        skills: ["프로젝트 문서화·관리", "팀 협업 워크스페이스 운영"],
       },
     ],
   },
