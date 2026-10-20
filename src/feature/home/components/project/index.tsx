@@ -3,8 +3,14 @@ import { motion } from "framer-motion";
 import { useEffect } from "react";
 
 import { useHomeSectionAnimation } from "@/feature/home/hooks";
+import {
+  getHomeAnimationTransition,
+  HOME_ANIMATION_HIDDEN,
+  HOME_ANIMATION_VISIBLE,
+} from "@/feature/home/utils/home-animation.util";
 import { getProjects } from "@/feature/projects/data";
 import type { Project, ProjectsResponse } from "@/feature/projects/schema";
+import { getStackIcons } from "@/feature/projects/utils";
 import { usePageTransition } from "@/shared/components/layouts/page-transition/page-transition.context";
 import {
   Card,
@@ -16,38 +22,10 @@ import {
   Stack,
   Text,
 } from "@/shared/components/ui";
-import {
-  getHomeAnimationTransition,
-  HOME_ANIMATION_HIDDEN,
-  HOME_ANIMATION_VISIBLE,
-} from "@/feature/home/utils/home-animation.util";
 
 import ProjectList from "../project-list";
 
 import s from "./style.module.scss";
-
-const STACK_ICON_PATHS: Record<string, string> = {
-  android: "/icon/stack/android.svg",
-  electron: "/icon/stack/electron.svg",
-  expo: "/icon/stack/expo.svg",
-  express: "/icon/stack/express.svg",
-  flutter: "/icon/stack/flutter.svg",
-  githubactions: "/icon/stack/githubactions.svg",
-  ios: "/icon/stack/ios.svg",
-  kotlin: "/icon/stack/kotlin.svg",
-  mysql: "/icon/stack/mysql.svg",
-  nextjs: "/icon/stack/nextjs.svg",
-  notion: "/icon/stack/notion.svg",
-  react: "/icon/stack/react.svg",
-  redis: "/icon/stack/redis.svg",
-  socketio: "/icon/stack/socketdotio.svg",
-  typescript: "/icon/stack/typescript.svg",
-};
-
-function getStackIconPath(tech: string): string | null {
-  const normalizedTech = tech.toLowerCase().replace(/[.\s_-]/g, "");
-  return STACK_ICON_PATHS[normalizedTech] ?? null;
-}
 
 interface ProjectCardProps {
   project: Project;
@@ -60,9 +38,7 @@ function ProjectCard({
   isVisible,
   onAnimationComplete,
 }: ProjectCardProps) {
-  const stackIcons = project.techStack
-    .map((tech) => ({ tech, src: getStackIconPath(tech) }))
-    .filter((item): item is { tech: string; src: string } => Boolean(item.src));
+  const stackIcons = getStackIcons(project.techStack);
 
   return (
     <motion.div
@@ -98,11 +74,7 @@ function ProjectCard({
                 <Heading as="h3" size="xs" className={s.projectName}>
                   {project.title}
                 </Heading>
-                <Text
-                  size="xs"
-                  color="subtle"
-                  className={s.projectDescription}
-                >
+                <Text size="xs" color="subtle" className={s.projectDescription}>
                   {project.description}
                 </Text>
               </Stack>
@@ -148,7 +120,12 @@ export default function Project() {
   );
 
   useEffect(() => {
-    if (!isVisible || isLoading || featuredProject || otherProjects.length > 0) {
+    if (
+      !isVisible ||
+      isLoading ||
+      featuredProject ||
+      otherProjects.length > 0
+    ) {
       return;
     }
 

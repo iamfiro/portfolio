@@ -1,0 +1,100 @@
+.cardLink {
+  display: block;
+
+  width: 100%;
+
+  color: inherit;
+  text-decoration: none;
+
+  transition: opacity $transition-slow;
+
+  &:hover .thumbnail {
+    transform: scale(1.02);
+  }
+}
+
+.thumbnailWrapper {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+
+  overflow: hidden;
+
+  background-color: $surface-subtle;
+  border-radius: $radius-16;
+}
+
+.thumbnail {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  transition: transform $transition-spring;
+}
+
+.details {
+  justify-content: space-between;
+
+  min-width: 0;
+
+  padding: 0 $spacing-4;
+}
+
+.summary {
+  min-width: 0;
+}
+
+.appIcon {
+  flex-shrink: 0;
+
+  width: $spacing-40;
+  height: $spacing-40;
+
+  object-fit: cover;
+
+  border: 1px solid $border-subtle;
+  border-radius: $radius-12;
+}
+
+.copy {
+  min-width: 0;
+}
+
+.name {
+  overflow: hidden;
+
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  line-height: $line-height-normal;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.stackList {
+  flex-shrink: 0;
+
+  padding-top: $spacing-4;
+}
+
+.stackIcon {
+  width: $spacing-16;
+  height: $spacing-16;
+
+  object-fit: contain;
+}
+
+@media (max-width: 480px) {
+  .appIcon {
+    width: $spacing-32;
+    height: $spacing-32;
+
+    border-radius: $radius-10;
+  }
+
+  .stackIcon {
+    width: $spacing-14;
+    height: $spacing-14;
+  }
+}

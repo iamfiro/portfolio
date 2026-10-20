@@ -1,140 +1,32 @@
-.container {
-  display: flex;
-  flex-direction: column;
-
-  width: 100%;
-
-  gap: $spacing-40;
-}
-
 .loadingWrapper {
   min-height: 200px;
 }
 
 .loadingText {
-  color: $text-subtle;
   font-size: $font-size-md;
-}
-
-.cardLink {
-  display: block;
-
-  text-decoration: none;
-  color: inherit;
-}
-
-.filterBar {
-  display: flex;
-  align-items: center;
-  gap: $spacing-8;
-
-  flex-wrap: wrap;
-}
-
-.activeTag {
-  background-color: $surface-brand;
-  color: $color-black !important;
-}
-
-.resultCount {
-  font-size: $font-size-sm;
 
   color: $text-subtle;
 }
 
 .grid {
-  display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: $spacing-32;
+  gap: $spacing-48 $spacing-32;
 
   width: 100%;
-}
 
-.card {
-  display: flex;
-  flex-direction: column;
-  gap: $spacing-16;
-
-  padding: 0;
-
-  background: transparent;
-  border: none;
-  border-radius: 0;
-
-  box-shadow: none;
-
-  cursor: pointer;
-  transition: opacity 0.4s ease;
-
-  &:hover {
-    opacity: 0.8;
+  // 홈 리스트와 동일하게, 하나에 올리면 나머지는 뒤로 물러난다
+  &:hover a {
+    opacity: 0.4;
   }
-}
 
-.thumbnail {
-  width: 100%;
-  aspect-ratio: 16/10;
-
-  border-radius: 0;
-
-  object-fit: cover;
-}
-
-.cardBody {
-  display: flex;
-  flex-direction: column;
-  gap: 0 !important;
-
-  padding: $spacing-16 0 0;
-}
-
-.categoryLabel {
-  display: flex;
-  align-items: center;
-  gap: $spacing-6;
-
-  color: $text-subtle;
-
-  margin-bottom: 4px;
-}
-
-.categoryText {
-  font-size: $font-size-2xs;
-  font-weight: 500;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-
-  color: $text-subtle;
-}
-
-.cardTitle {
-  font-size: $font-size-lg;
-  font-weight: 500;
-  line-height: $line-height-normal;
-
-  color: $text;
-}
-
-.cardDescription {
-  font-size: $font-size-sm;
-  line-height: $line-height-relaxed;
-
-  color: $text-subtle;
+  &:hover a:hover {
+    opacity: 1;
+  }
 }
 
 @media (max-width: 768px) {
   .grid {
     grid-template-columns: 1fr;
-    gap: $spacing-20;
-  }
-}
-
-@media (max-width: 480px) {
-  .container {
-    gap: $spacing-24;
-  }
-
-  .cardTitle {
-    font-size: $font-size-md;
+    gap: $spacing-40;
   }
 }

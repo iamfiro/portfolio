@@ -9,48 +9,17 @@
 
   width: 100%;
 
-  padding: 250px $spacing-40 200px;
-}
-
-.hero {
-  display: flex;
-  flex-direction: column;
-  gap: $spacing-12;
-
-  width: 100%;
-
-  margin-bottom: $spacing-48;
-}
-
-.title {
-  font-family: $font-pretendard;
-  font-size: $font-size-5xl;
-  font-weight: $font-weight-bold;
-  letter-spacing: -0.02em;
-  line-height: $line-height-tight;
-
-  color: $text;
-}
-
-.subtitle {
-  font-size: $font-size-md;
-  line-height: $line-height-relaxed;
-
-  color: $text-subtle;
+  padding: 160px $spacing-40 200px;
 }
 
 @media (max-width: 768px) {
   .page {
-    padding: 180px $spacing-24 200px;
+    padding: 140px $spacing-24 200px;
   }
 }
 
 @media (max-width: 480px) {
   .page {
     padding: 120px $spacing-16 200px;
-  }
-
-  .title {
-    font-size: $font-size-4xl;
   }
 }
