@@ -6,67 +6,57 @@
 .page {
   width: 100%;
 
-  padding: calc($spacing-100 + $spacing-100 + $spacing-48) $spacing-40
-    calc($spacing-100 + $spacing-100);
-}
-
-.hero {
-  width: 100%;
-
-  margin-bottom: $spacing-48;
-}
-
-.title {
-  font-family: $font-pretendard;
-  font-size: $font-size-5xl;
-  font-weight: $font-weight-bold;
-  letter-spacing: -0.02em;
-  line-height: $line-height-tight;
-
-  color: $text;
-}
-
-.subtitle {
-  font-size: $font-size-md;
-  line-height: $line-height-relaxed;
-
-  color: $text-subtle;
+  padding: 160px $spacing-40 200px;
 }
 
 .content {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: $spacing-64;
+
   width: 100%;
+
+  // 각 열(Section)의 기본 상하 패딩을 없애 제목 높이를 맞춘다
+  > * {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
 }
 
-.awardsSection {
-  padding-top: 0;
-  padding-bottom: 0;
+.count {
+  margin-left: $spacing-6;
+
+  color: $text-muted;
+
+  font-size: inherit;
+  font-weight: inherit;
 }
 
 .sectionTitle {
   margin-bottom: $spacing-20;
 
+  color: $text;
+
   font-family: $font-pretendard;
   font-size: $font-size-xl;
   font-weight: $font-weight-semibold;
   line-height: $line-height-tight;
+}
 
-  color: $text;
+@media (max-width: 1024px) {
+  .content {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 768px) {
   .page {
-    padding: calc($spacing-100 + $spacing-64 + $spacing-16) $spacing-24
-      calc($spacing-100 + $spacing-100);
+    padding: 140px $spacing-24 200px;
   }
 }
 
 @media (max-width: 480px) {
   .page {
-    padding: calc($spacing-100 + $spacing-20) $spacing-16
-      calc($spacing-100 + $spacing-100);
-  }
-
-  .title {
-    font-size: $font-size-4xl;
+    padding: 120px $spacing-16 200px;
   }
 }

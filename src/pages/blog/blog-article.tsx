@@ -172,8 +172,6 @@ export default function BlogArticle() {
               <MarkdownContent content={post.data.content || ""} />
             </motion.section>
 
-            <Divider />
-
             <Giscus style={{ width: "100%" }} />
 
             {post.data.relatedProjects &&

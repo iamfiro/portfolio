@@ -125,7 +125,7 @@
     font-size: 40px;
     margin-top: $spacing-4;
 
-    line-height: 1.2;
+    line-height: $line-height-normal;
     letter-spacing: -0.035em;
     word-break: keep-all;
 
@@ -194,10 +194,7 @@
 
     object-fit: cover;
 
-    border: 1px solid $border;
     border-radius: $radius-16;
-
-    box-shadow: $shadow-md;
 
     margin-top: $spacing-32;
 

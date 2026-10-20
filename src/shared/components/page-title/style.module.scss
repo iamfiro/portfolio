@@ -1,0 +1,49 @@
+.title {
+  display: flex;
+  align-items: baseline;
+  gap: $spacing-8;
+
+  width: 100%;
+
+  margin-bottom: $spacing-48;
+
+  color: $text;
+
+  font-family: $font-pretendard;
+  font-size: $font-size-3xl;
+  font-weight: $font-weight-semibold;
+  line-height: $line-height-tight;
+  word-break: keep-all;
+}
+
+.titleLine {
+  display: inline-block;
+}
+
+.secondary {
+  color: $text-muted;
+}
+
+.primary {
+  color: $text;
+}
+
+.char {
+  display: inline-block;
+
+  color: inherit;
+}
+
+@media (max-width: 768px) {
+  .title {
+    margin-bottom: $spacing-32;
+
+    font-size: $font-size-2xl;
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: $font-size-xl;
+  }
+}
