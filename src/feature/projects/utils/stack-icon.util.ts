@@ -14,7 +14,8 @@ const STACK_ICON_PATHS: Record<string, string> = {
   reactjs: "/icon/stack/react.svg",
   redis: "/icon/stack/redis.svg",
   socketio: "/icon/stack/socketdotio.svg",
-  typescript: "/icon/stack/typescript.svg",
+  swift: "/icon/stack/swift.svg",
+  typescript:"/icon/stack/typescript.svg",
 };
 
 export interface StackIcon {
