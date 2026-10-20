@@ -99,11 +99,14 @@ function PageActivity({
     <Section className={s.activity} size="sm">
       <motion.div {...titleMotionProps}>
         <Heading as="h2" size="lg" className={s.title}>
-          활동
+          교내외 활동
+          <Text as="span" className={s.count}>
+            {contentActivities.length}
+          </Text>
         </Heading>
       </motion.div>
-      <HoverPreview className={[s.list, s.timeline].filter(Boolean).join(" ")}>
-        <Stack gap={24}>
+      <HoverPreview className={s.list}>
+        <Stack gap={20}>
           {contentActivities.map((activity) => (
             <ActivityCard key={activity.id} activity={activity} />
           ))}
