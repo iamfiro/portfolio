@@ -1,0 +1,24 @@
+.canvas {
+  position: absolute;
+  inset: 0;
+
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+// 히어로 헤드라인 아래 끝선에 맞춰 오른쪽에 둔다
+.sound {
+  position: absolute;
+  right: $spacing-20;
+  bottom: $spacing-48;
+  z-index: 1;
+}
+
+// 좁은 화면에선 헤드라인이 오른쪽 끝까지 차므로 헤더 아래로 올린다
+@media (max-width: 768px) {
+  .sound {
+    top: calc(#{$header-height} + #{$spacing-12});
+    bottom: auto;
+  }
+}
