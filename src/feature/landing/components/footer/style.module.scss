@@ -1,8 +1,9 @@
-// 흰 섹션들 끝에서 톤을 뒤집어 마무리한다. 헤더는 배경 밝기를 읽어 알아서 반전된다
+// 흰 섹션들 끝에서 톤을 뒤집어 마무리한다. 헤더는 배경 밝기를 읽어 알아서 반전된다.
+// 바닥 여백이 없어야 맨 아래 스마일 줄이 푸터 가장자리에 잘려 고개만 보인다
 .footer {
   position: relative;
 
-  padding: $spacing-100 $spacing-20 $spacing-32;
+  padding: $spacing-100 $spacing-20 0;
   overflow: hidden;
 
   background-color: $surface-inverse;
@@ -11,24 +12,44 @@
 .inner {
   display: flex;
   flex-direction: column;
-  gap: $spacing-100;
+  gap: $spacing-64;
 
   max-width: $max-width-lg;
   margin: 0 auto;
 }
 
-// 왼쪽 큰 이메일 : 오른쪽 링크 묶음
-.links {
+// 연락을 권하는 마무리 한 줄
+.closing {
   display: flex;
+  flex-direction: column;
   align-items: flex-start;
-  justify-content: space-between;
-  gap: $spacing-48;
+  gap: $spacing-16;
+}
+
+.closing .headline {
+  color: $text-inverse;
+
+  font-size: clamp(#{$font-size-4xl}, 5vw, #{$font-size-6xl * 1.15});
+  font-weight: $font-weight-semibold;
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+  word-break: keep-all;
+}
+
+.closing .lead {
+  color: $text-muted;
+
+  font-size: $font-size-lg;
+  line-height: $line-height-normal;
+  word-break: keep-all;
 }
 
 .email {
   display: inline-flex;
   align-items: center;
   gap: $spacing-8;
+
+  margin-top: $spacing-16;
 
   text-decoration: none;
 }
@@ -53,6 +74,18 @@
   transform: translate($spacing-4, -$spacing-4);
 }
 
+// 링크 묶음과 저작권 한 줄. 위쪽 가는 선으로 마무리 영역과 나눈다
+.bottom {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: $spacing-32;
+
+  padding-top: $spacing-32;
+
+  border-top: 1px solid $surface-inverse-subtle;
+}
+
 .groups {
   display: flex;
   gap: $spacing-64;
@@ -67,7 +100,7 @@
 .group .groupLabel {
   margin-bottom: $spacing-4;
 
-  color: $text-muted;
+  color: $text-subtle;
 
   font-size: $font-size-sm;
 }
@@ -89,6 +122,12 @@
   color: $text-inverse;
 }
 
+.bottom .copyright {
+  color: $text-subtle;
+
+  font-size: $font-size-sm;
+}
+
 // 화면 폭을 채우는 워드마크. 로고 SVG가 흰색이라 그대로 쓴다
 .wordmark {
   width: 100%;
@@ -101,16 +140,24 @@
 
 @media (max-width: 768px) {
   .footer {
-    padding: $spacing-64 $spacing-20 $spacing-20;
+    padding: $spacing-64 $spacing-20 0;
   }
 
   .inner {
-    gap: $spacing-64;
+    gap: $spacing-48;
   }
 
-  .links {
+  .closing .lead {
+    font-size: $font-size-md;
+  }
+
+  .email {
+    margin-top: $spacing-8;
+  }
+
+  .bottom {
     flex-direction: column;
-    gap: $spacing-40;
+    align-items: flex-start;
   }
 
   .groups {

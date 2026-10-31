@@ -1,0 +1,48 @@
+// 말풍선은 오른쪽에 쌓여, 왼쪽 아래 마스코트가 듣는 모양이 된다
+.visual {
+  position: absolute;
+  inset: 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  gap: $spacing-10;
+
+  padding: 0 $spacing-24 $spacing-32 $spacing-64;
+}
+
+.bubble {
+  padding: $spacing-10 $spacing-14;
+
+  background-color: $surface-elevated;
+
+  border-radius: $radius-16 $radius-16 $radius-4 $radius-16;
+
+  box-shadow: $shadow-md;
+
+  transform-origin: bottom right;
+}
+
+// 번갈아 들여 써 여러 사람이 말하는 것처럼 보이게 한다
+.offset {
+  margin-right: $spacing-24;
+}
+
+.bubble .text {
+  color: $text;
+
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  white-space: nowrap;
+}
+
+@media (max-width: 1024px) {
+  .visual {
+    padding: 0 $spacing-16 $spacing-24 $spacing-40;
+  }
+
+  .bubble .text {
+    font-size: $font-size-xs;
+  }
+}

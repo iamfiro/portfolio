@@ -63,9 +63,9 @@ export async function samplePixelGrid(
  * seed는 픽셀마다 고정된 0~1 난수다.
  */
 export function getRevealDelay(
-  cell: PixelCell,
-  grid: Pick<PixelGrid, "columns" | "rows">,
-  seed: number,
+  _cell: PixelCell,
+  _grid: Pick<PixelGrid, "columns" | "rows">,
+  _seed: number,
 ): number {
   // TODO(human)
   return 0;

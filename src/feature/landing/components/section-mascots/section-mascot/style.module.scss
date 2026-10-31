@@ -1,0 +1,51 @@
+.mascot {
+  position: absolute;
+  top: var(--spot-top);
+  left: var(--spot-left);
+  right: var(--spot-right);
+  bottom: var(--spot-bottom);
+}
+
+.sm {
+  width: $spacing-48;
+}
+
+.md {
+  width: $spacing-64 + $spacing-16;
+}
+
+.lg {
+  width: $spacing-100 + $spacing-20;
+}
+
+.body {
+  cursor: pointer;
+
+  pointer-events: auto;
+}
+
+@media (max-width: 768px) {
+  // 섹션 머리 층이 넘겨준 자리가 있으면 그쪽을, 없으면 좁은 화면용 자리를 따른다
+  .mascot {
+    top: var(--head-mobile-top, var(--spot-mobile-top));
+    left: var(--spot-mobile-left);
+    right: var(--spot-mobile-right);
+    bottom: var(--head-mobile-bottom, var(--spot-mobile-bottom));
+  }
+
+  .sm {
+    width: $spacing-32;
+  }
+
+  .md {
+    width: $spacing-48;
+  }
+
+  .lg {
+    width: $spacing-64;
+  }
+
+  .hideOnMobile {
+    display: none;
+  }
+}

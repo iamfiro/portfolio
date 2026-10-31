@@ -5,14 +5,12 @@ const clamp01 = (value: number) => Math.min(1, Math.max(0, value));
 
 /**
  * 스티키 섹션을 지나가는 진행도(0~1)를 직접 계산한다.
- * - progress: 실제 스크롤을 그대로 따른다
- * - fillProgress: 오르기만 해서, 한 번 채워진 연출이 다시 흐려지지 않는다
+ * 실제 스크롤을 그대로 따라, 위로 올리면 올린 만큼 연출도 되감긴다
  */
-export function useLatchedProgress<T extends HTMLElement>(
+export function useStickyProgress<T extends HTMLElement>(
   targetRef: RefObject<T>,
 ) {
   const progress = useMotionValue(0);
-  const fillProgress = useMotionValue(0);
 
   useEffect(() => {
     let frame = 0;
@@ -24,10 +22,7 @@ export function useLatchedProgress<T extends HTMLElement>(
 
       const rect = target.getBoundingClientRect();
       const distance = rect.height - window.innerHeight;
-      const latest = distance > 0 ? clamp01(-rect.top / distance) : 1;
-
-      progress.set(latest);
-      if (latest > fillProgress.get()) fillProgress.set(latest);
+      progress.set(distance > 0 ? clamp01(-rect.top / distance) : 1);
     };
 
     const schedule = () => {
@@ -43,7 +38,7 @@ export function useLatchedProgress<T extends HTMLElement>(
       window.removeEventListener("scroll", schedule);
       window.removeEventListener("resize", schedule);
     };
-  }, [fillProgress, progress, targetRef]);
+  }, [progress, targetRef]);
 
-  return { progress, fillProgress };
+  return progress;
 }

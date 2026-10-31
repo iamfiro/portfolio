@@ -3,6 +3,7 @@ import type { Project } from "@/feature/projects/schema";
 import { Box } from "@/shared/components/ui";
 
 import SectionHead from "../section-head";
+import SectionMascots from "../section-mascots";
 
 import ProjectRow from "./project-row";
 import {
@@ -42,7 +43,9 @@ export default function LandingProjects({
           titleId={TITLE_ID}
           lines={PROJECTS_HEADLINE_LINES}
           link={{ href: "/projects", label: "전체 프로젝트 보기" }}
-        />
+        >
+          <SectionMascots section="projects" />
+        </SectionHead>
       )}
 
       <Box className={s.list}>

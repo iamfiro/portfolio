@@ -1,6 +1,6 @@
 import { motion, useInView, useReducedMotion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-import { useRef } from "react";
+import { type ReactNode, useRef } from "react";
 
 import RollText from "@/feature/landing/components/roll-text";
 import { useLandingNavigate } from "@/feature/landing/hooks/use-landing-navigate";
@@ -31,6 +31,8 @@ interface Props {
   icon?: string | null;
   /** 이 번째 줄부터는 회색 보조 문구로 낮춘다 (예: 이름 아래 한 줄 소개) */
   mutedFrom?: number;
+  /** 머리 상자 위에 겹쳐 까는 장식(마스코트 등) */
+  children?: ReactNode;
   className?: string;
 }
 
@@ -43,6 +45,7 @@ export default function SectionHead({
   as = "h2",
   icon,
   mutedFrom,
+  children,
   className,
 }: Props) {
   const headRef = useRef<HTMLDivElement>(null);
@@ -97,6 +100,8 @@ export default function SectionHead({
           </Box>
         </Link>
       )}
+
+      {children}
     </motion.div>
   );
 }

@@ -4,22 +4,53 @@
   gap: $spacing-24;
 }
 
-// 목업이 올라가는 옅은 무대. 가장자리를 넘는 목업은 잘라 낸다
+// 목업이 올라가는 파스텔 무대. 마스코트와 가장자리를 넘는 목업은 잘라 낸다
 .stage {
   position: relative;
 
   aspect-ratio: 6 / 5;
   overflow: hidden;
 
-  background-color: $surface-subtle;
+  border-radius: $radius-32;
 
-  border-radius: $radius-16;
+  transition: transform $transition-spring;
+}
+
+.card:hover .stage {
+  transform: translateY(-$spacing-6) rotate(-1deg);
+}
+
+.blue {
+  background-color: $playful-blue;
+}
+
+.purple {
+  background-color: $playful-purple;
+}
+
+.orange {
+  background-color: $surface-brand-subtle;
+}
+
+.visual {
+  position: absolute;
+  inset: 0;
 }
 
 .copy {
   display: flex;
   flex-direction: column;
-  gap: $spacing-12;
+  gap: $spacing-8;
+
+  padding: 0 $spacing-4;
+}
+
+.copy .index {
+  color: $text-muted;
+
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  font-variant-numeric: tabular-nums;
 }
 
 .copy .title {
@@ -38,4 +69,14 @@
   font-size: $font-size-md;
   line-height: $line-height-relaxed;
   word-break: keep-all;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stage {
+    transition: none;
+  }
+
+  .card:hover .stage {
+    transform: none;
+  }
 }

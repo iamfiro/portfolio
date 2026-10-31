@@ -1,8 +1,10 @@
 import { motion } from "framer-motion";
 import { useRef } from "react";
 
-import { useLatchedProgress } from "@/feature/landing/hooks/use-latched-progress";
+import { useStickyProgress } from "@/feature/landing/hooks/use-sticky-progress";
 import { Box, Text } from "@/shared/components/ui";
+
+import SectionMascots from "../section-mascots";
 
 import FloatingBubble from "./floating-bubble";
 import HighlightWord from "./highlight-word";
@@ -21,22 +23,22 @@ const WORDS = STATEMENT_HEADLINE.split(" ");
 /**
  * 화면에 고정된 큰 문장이 스크롤을 따라 한 단어씩 진해지고,
  * 핵심 단어엔 형광펜과 아이콘이, 둘레엔 버블이 톡톡 튀어나온다.
- * 한 번 채워진 문장은 스크롤을 되돌려도 다시 흐려지지 않는다.
+ * 스크롤을 위로 되돌리면 올린 만큼 문장도 다시 흐려진다.
  */
 export default function LandingStatement() {
   const sectionRef = useRef<HTMLElement>(null);
-  const { progress, fillProgress } = useLatchedProgress(sectionRef);
+  const progress = useStickyProgress(sectionRef);
 
   return (
     <motion.section ref={sectionRef} className={s.statement}>
       <Box className={s.sticky}>
+        <SectionMascots section="statement" anchor="free" />
         <Box className={s.bubbles} aria-hidden>
           {STATEMENT_BUBBLES.map((bubble, index) => (
             <FloatingBubble
               key={`${bubble.left}-${bubble.top}`}
               bubble={bubble}
               progress={progress}
-              fillProgress={fillProgress}
               index={index}
             />
           ))}
@@ -52,14 +54,14 @@ export default function LandingStatement() {
                 key={`${word}-${index}`}
                 word={word}
                 highlight={highlight}
-                progress={fillProgress}
+                progress={progress}
                 range={range}
               />
             ) : (
               <ScrollWord
                 key={`${word}-${index}`}
                 word={word}
-                progress={fillProgress}
+                progress={progress}
                 range={range}
               />
             );

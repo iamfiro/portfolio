@@ -1,0 +1,29 @@
+// 푸터 바닥 띠. 아랫부분은 푸터 가장자리(overflow: hidden)가 잘라 고개만 보인다.
+// 띠는 자르지 않아, 가리켜서 쑥 올라온 스마일이 띠 위로 넘어가도 된다
+.crowd {
+  position: relative;
+
+  height: $spacing-100;
+
+  pointer-events: none;
+}
+
+.row {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+
+  max-width: $max-width-lg;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .crowd {
+    height: $spacing-64;
+  }
+}

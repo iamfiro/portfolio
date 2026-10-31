@@ -9,7 +9,7 @@ export default function Contact() {
     <LandingPageShell
       titleId="contact-title"
       documentTitle="연락하기"
-      lines={["협업이나 커피챗 모두", "편하게 연락주세요"]}
+      lines={["궁금한 게 있다면", "편하게 말 걸어주세요"]}
     >
       <Box className={s.grid}>
         <ContactChannels />

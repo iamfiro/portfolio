@@ -1,4 +1,8 @@
-import { motion, type Transition } from "framer-motion";
+import {
+  motion,
+  type TargetAndTransition,
+  type Transition,
+} from "framer-motion";
 
 import { Image } from "@/shared/components/ui";
 
@@ -44,7 +48,7 @@ export default function ProcessTile({
   const half = slot.size / 2;
   const deck = deckPose(index, PROCESS_STEPS.length, slot.size, layout.deck);
 
-  const idle = {
+  const idle: TargetAndTransition = {
     x: deck.x - half,
     y: [deck.y - half, deck.y - half - FLOAT_RANGE, deck.y - half],
     scale: DECK_SCALE,

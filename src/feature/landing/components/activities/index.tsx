@@ -2,6 +2,7 @@ import { Box } from "@/shared/components/ui";
 import { contentActivities } from "@/shared/content/content";
 
 import SectionHead from "../section-head";
+import SectionMascots from "../section-mascots";
 
 import { ACTIVITIES_HEADLINE_LINES } from "./activities.util";
 import ActivityTile from "./activity-tile";
@@ -16,7 +17,9 @@ export default function LandingActivities() {
 
   return (
     <Box as="section" className={s.activities} aria-labelledby={TITLE_ID}>
-      <SectionHead titleId={TITLE_ID} lines={ACTIVITIES_HEADLINE_LINES} />
+      <SectionHead titleId={TITLE_ID} lines={ACTIVITIES_HEADLINE_LINES}>
+        <SectionMascots section="activities" />
+      </SectionHead>
 
       <Box className={s.grid}>
         {contentActivities.map((activity, index) => (

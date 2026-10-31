@@ -1,0 +1,37 @@
+.blob {
+  position: absolute;
+  left: var(--desktop-left);
+  top: var(--desktop-top);
+
+  width: var(--desktop-size);
+
+  pointer-events: none;
+}
+
+// 끌고 있는 덩어리는 문구와 다른 덩어리 위로 올라온다
+.lifted {
+  z-index: 2;
+}
+
+.body {
+  pointer-events: auto;
+
+  touch-action: pan-y;
+}
+
+.draggable {
+  cursor: grab;
+
+  &:active {
+    cursor: grabbing;
+  }
+}
+
+@media (max-width: 768px) {
+  .blob {
+    left: var(--mobile-left);
+    top: var(--mobile-top);
+
+    width: var(--mobile-size);
+  }
+}

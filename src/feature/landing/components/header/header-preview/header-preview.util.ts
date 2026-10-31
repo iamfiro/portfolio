@@ -35,7 +35,7 @@ function buildProjects(): PreviewContent {
   return {
     layout: "cards",
     eyebrow: "프로젝트",
-    description: "불편함에서 출발해\n직접 기획하고 만든 서비스",
+    description: "불편해서 직접\n만들어 본 것들",
     total: contentProjects.length,
     items,
     more: { label: "프로젝트 전체 보기", href: "/projects" },
@@ -77,7 +77,7 @@ function buildActivities(): PreviewContent {
   return {
     layout: "rows",
     eyebrow: "활동",
-    description: "대회와 커뮤니티에서\n쌓아온 기록",
+    description: "대회도 나가고\n모임도 했어요",
     total: awards.length + activities.length,
     items,
     more: { label: "활동 전체 보기", href: "/activities" },
@@ -100,7 +100,7 @@ function buildBlog(): PreviewContent {
   return {
     layout: "cards",
     eyebrow: "블로그",
-    description: "만들면서 고민하고\n배운 것들",
+    description: "만들다 막혔던 것들\n푼 과정 정리",
     total: contentPosts.length,
     items,
     more: { label: "블로그 전체 보기", href: "/blog" },
@@ -112,7 +112,7 @@ function buildResume(): PreviewContent {
   return {
     layout: "paper",
     eyebrow: "이력서",
-    description: "한 장으로 정리한\n경험과 성과",
+    description: "경력은 여기\n한 장에 있어요",
     total: 1,
     items: [
       {
@@ -131,7 +131,7 @@ function buildContact(): PreviewContent {
   return {
     layout: "rows",
     eyebrow: "연락하기",
-    description: "협업이나 커피챗 모두\n편하게 연락주세요",
+    description: "궁금한 게 있다면\n편하게 말 걸어주세요",
     total: 3,
     items: [
       {

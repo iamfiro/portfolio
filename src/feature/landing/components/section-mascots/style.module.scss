@@ -1,0 +1,17 @@
+// 마스코트만 포인터를 받고, 층 자체는 아래 내용을 가리지 않는다
+.layer {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+
+  pointer-events: none;
+}
+
+// 좁은 화면에선 제목이 폭을 다 쓰므로, 머리 위 여백으로 올려 앉힌다
+// 마스코트가 이 변수를 물려받아 자기 자리 대신 쓴다
+@media (max-width: 768px) {
+  .head {
+    --head-mobile-top: #{$spacing-12};
+    --head-mobile-bottom: auto;
+  }
+}

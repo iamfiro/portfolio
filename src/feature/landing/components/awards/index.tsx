@@ -4,6 +4,7 @@ import type { Award } from "@/feature/awards/schema";
 import { Box, HoverPreview } from "@/shared/components/ui";
 
 import SectionHead from "../section-head";
+import SectionMascots from "../section-mascots";
 
 import AwardYear from "./award-year";
 import { AWARDS_HEADLINE_LINES, groupAwardsByYear } from "./awards.util";
@@ -38,7 +39,9 @@ export default function LandingAwards({ awards, variant = "section" }: Props) {
           titleId={TITLE_ID}
           lines={AWARDS_HEADLINE_LINES}
           link={{ href: "/activities", label: "전체 활동 보기" }}
-        />
+        >
+          <SectionMascots section="awards" />
+        </SectionHead>
       )}
 
       {/* 수상 줄에 커서를 올리면 기관·연도와 수상 사진을 담은 카드가 커서를 따라 뜬다 */}

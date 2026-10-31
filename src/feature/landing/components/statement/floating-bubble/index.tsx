@@ -15,25 +15,18 @@ const DRIFT = 56;
 
 interface Props {
   bubble: StatementBubble;
-  /** 시차 이동에 쓰는 실제 스크롤 진행도 */
+  /** 등장과 시차 이동에 함께 쓰는 실제 스크롤 진행도. 되감으면 버블도 쏙 들어간다 */
   progress: MotionValue<number>;
-  /** 등장에 쓰는, 오르기만 하는 진행도 */
-  fillProgress: MotionValue<number>;
   /** 둥실거리는 박자를 버블마다 어긋나게 하는 순번 */
   index: number;
 }
 
 /** 정해진 진행도를 지나면 톡 튀어나와, 스크롤을 따라 천천히 흘러가는 버블 */
-export default function FloatingBubble({
-  bubble,
-  progress,
-  fillProgress,
-  index,
-}: Props) {
+export default function FloatingBubble({ bubble, progress, index }: Props) {
   const { icon, tone, size, left, top, appearAt, depth } = bubble;
 
   const appear = useSpring(
-    useTransform(fillProgress, [appearAt, appearAt + 0.06], [0, 1]),
+    useTransform(progress, [appearAt, appearAt + 0.06], [0, 1]),
     POP_SPRING,
   );
   const rotate = useTransform(appear, [0, 1], [-30, 0]);

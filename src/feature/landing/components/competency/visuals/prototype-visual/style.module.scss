@@ -1,0 +1,133 @@
+// 목업은 오른쪽에 두어, 왼쪽 아래 마스코트가 지켜보는 모양이 된다
+.visual {
+  position: absolute;
+  top: 12%;
+  right: 10%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: $spacing-8;
+
+  width: 52%;
+}
+
+.chip {
+  overflow: hidden;
+
+  padding: $spacing-4 $spacing-10;
+
+  background-color: $surface-inverse;
+
+  border-radius: $radius-full;
+}
+
+.chipInner {
+  display: block;
+}
+
+.chip .chipText {
+  color: $text-inverse;
+
+  font-size: $font-size-2xs;
+  font-weight: $font-weight-semibold;
+  white-space: nowrap;
+}
+
+.mock {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-8;
+
+  width: 100%;
+  padding: $spacing-12;
+
+  background-color: $surface-transparent;
+
+  border: $spacing-4 * 0.5 dashed $playful-purple-ink;
+  border-radius: $radius-16;
+
+  transition:
+    background-color $transition-slow,
+    border-color $transition-slow,
+    box-shadow $transition-slow;
+}
+
+.media,
+.line,
+.button {
+  border: $spacing-4 * 0.5 dashed $playful-purple-ink;
+
+  transition:
+    background-color $transition-slow,
+    border-color $transition-slow;
+}
+
+.media {
+  aspect-ratio: 16 / 9;
+
+  border-radius: $radius-10;
+}
+
+.line {
+  height: $spacing-8;
+
+  border-radius: $radius-full;
+}
+
+.short {
+  width: 64%;
+}
+
+.button {
+  width: 44%;
+  height: $spacing-24;
+
+  border-radius: $radius-full;
+}
+
+// 와이어프레임: 흰 판에 회색 덩어리
+.wire,
+.screen {
+  background-color: $surface-elevated;
+
+  border-color: $surface-transparent;
+
+  box-shadow: $shadow-md;
+
+  .media,
+  .line,
+  .button {
+    background-color: $surface-subtle;
+
+    border-color: $surface-transparent;
+  }
+}
+
+// 화면: 덩어리에 실제 색이 든다
+.screen {
+  .media {
+    background-color: $playful-yellow;
+  }
+
+  .line {
+    background-color: $text;
+  }
+
+  .short {
+    background-color: $border-strong;
+  }
+
+  .button {
+    background-color: $surface-brand;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mock,
+  .media,
+  .line,
+  .button {
+    transition: none;
+  }
+}

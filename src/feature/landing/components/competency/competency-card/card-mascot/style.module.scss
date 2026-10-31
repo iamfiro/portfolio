@@ -1,0 +1,18 @@
+// 목업 위로 아래 모서리에서 고개를 내민다. 목업이 비어 있는 쪽 모서리에 둔다
+.mascot {
+  position: absolute;
+  bottom: 0;
+  z-index: 1;
+
+  width: 30%;
+
+  pointer-events: none;
+}
+
+.left {
+  left: 2%;
+}
+
+.right {
+  right: 2%;
+}

@@ -4,6 +4,7 @@ import type { Post } from "@/feature/blog/schema";
 import { Box } from "@/shared/components/ui";
 
 import SectionHead from "../section-head";
+import SectionMascots from "../section-mascots";
 
 import { BLOG_HEADLINE_LINES, selectLandingPosts } from "./blog.util";
 import PostCard from "./post-card";
@@ -28,7 +29,9 @@ export default function LandingBlog({ posts }: Props) {
         titleId={TITLE_ID}
         lines={BLOG_HEADLINE_LINES}
         link={{ href: "/blog", label: "전체 글 보기" }}
-      />
+      >
+        <SectionMascots section="blog" />
+      </SectionHead>
 
       <Box className={s.body}>
         <PostCard post={featured} variant="featured" />

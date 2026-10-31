@@ -1,0 +1,77 @@
+// 기록판은 왼쪽 위에 두어, 오른쪽 아래 마스코트와 겹치지 않게 한다
+.visual {
+  position: absolute;
+  top: 12%;
+  left: 8%;
+
+  width: 64%;
+}
+
+.log {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-10;
+
+  padding: $spacing-14;
+
+  background-color: $surface-elevated;
+
+  border-radius: $radius-16;
+
+  box-shadow: $shadow-md;
+}
+
+.log .heading {
+  color: $text-muted;
+
+  font-size: $font-size-2xs;
+  font-weight: $font-weight-semibold;
+}
+
+.entries {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-8;
+}
+
+.entry {
+  display: flex;
+  align-items: center;
+  gap: $spacing-8;
+}
+
+.entry .version {
+  flex-shrink: 0;
+
+  padding: $spacing-4 $spacing-6;
+
+  color: $text-subtle;
+  background-color: $surface-subtle;
+
+  border-radius: $radius-4;
+
+  font-size: $font-size-2xs;
+  font-weight: $font-weight-bold;
+  font-variant-numeric: tabular-nums;
+}
+
+.entry .note {
+  overflow: hidden;
+
+  color: $text-muted;
+
+  font-size: $font-size-xs;
+  font-weight: $font-weight-medium;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+// 막 올라온 버전만 진하게
+.latest .version {
+  color: $text-inverse;
+  background-color: $surface-brand;
+}
+
+.latest .note {
+  color: $text;
+}

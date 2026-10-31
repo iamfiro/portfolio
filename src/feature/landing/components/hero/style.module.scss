@@ -6,62 +6,48 @@
   height: 100svh;
   overflow: hidden;
 
-  background-color: $surface-inverse;
+  background-color: $surface;
 }
 
-.video {
-  position: absolute;
-  inset: 0;
-
-  width: 100%;
-  height: 100%;
-
-  object-fit: cover;
-}
-
-.slide {
-  position: absolute;
-  inset: 0;
-}
-
-.image {
-  width: 100%;
-  height: 100%;
-}
-
-// 높이 0 앵커: 히어로 바닥(100svh)에 붙어 일반 흐름으로 스크롤된다
-.headlineAnchor {
+// 덩어리 위에 떠 있되, 클릭은 아래 덩어리로 흘려보낸다
+.copy {
   position: relative;
-  z-index: 2;
+  z-index: 1;
 
-  height: 0;
-
-  mix-blend-mode: difference;
+  padding: calc(#{$header-height} + #{$spacing-48}) $padding 0;
 
   pointer-events: none;
 }
 
-.headline {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-
-  padding: 0 $spacing-20 $spacing-48;
-}
-
 .title {
-  color: $text-inverse;
+  color: $text;
 
-  font-size: clamp(#{$font-size-4xl}, 4.6vw, #{$font-size-6xl});
-  font-weight: $font-weight-medium;
-  line-height: 1.1;
-  letter-spacing: -0.035em;
+  font-size: clamp(#{$font-size-3xl}, 4.6vw, #{$font-size-6xl * 1.15});
+  font-weight: $font-weight-semibold;
+  line-height: 1.12;
+  letter-spacing: -0.04em;
   word-break: keep-all;
 }
 
+// 글자 높이에 맞춰 문장 속에 끼워 넣는 작은 스마일
+.inlineSmiley {
+  display: inline-block;
+
+  width: 0.9em;
+  margin: 0 0.18em;
+
+  vertical-align: -0.1em;
+
+  pointer-events: auto;
+}
+
+.pile {
+  position: absolute;
+  inset: 0;
+}
+
 @media (max-width: 768px) {
-  .headline {
-    padding-bottom: $spacing-32;
+  .copy {
+    padding: calc(#{$header-height} + #{$spacing-24}) $padding-mobile 0;
   }
 }

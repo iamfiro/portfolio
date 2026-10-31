@@ -1,0 +1,35 @@
+.member {
+  flex-shrink: 0;
+
+  pointer-events: auto;
+}
+
+.sm {
+  width: $spacing-64;
+}
+
+.md {
+  width: $spacing-100;
+}
+
+.lg {
+  width: $spacing-100 + $spacing-40;
+}
+
+@media (max-width: 768px) {
+  .sm {
+    width: $spacing-40;
+  }
+
+  .md {
+    width: $spacing-64;
+  }
+
+  .lg {
+    width: $spacing-64 + $spacing-20;
+  }
+
+  .hideOnMobile {
+    display: none;
+  }
+}

@@ -5,6 +5,7 @@ import { Box, Heading } from "@/shared/components/ui";
 import { STACK_DATA } from "@/shared/constants";
 
 import SectionHead from "../section-head";
+import SectionMascots from "../section-mascots";
 
 import StackCard from "./stack-card";
 import { TECH_STACK_HEADLINE_LINES } from "./tech-stack.util";
@@ -17,7 +18,9 @@ const TITLE_ID = "landing-stack-title";
 export default function LandingTechStack() {
   return (
     <Box as="section" className={s.stack} aria-labelledby={TITLE_ID}>
-      <SectionHead titleId={TITLE_ID} lines={TECH_STACK_HEADLINE_LINES} />
+      <SectionHead titleId={TITLE_ID} lines={TECH_STACK_HEADLINE_LINES}>
+        <SectionMascots section="techStack" />
+      </SectionHead>
 
       <Box className={s.grid}>
         {STACK_DATA.map((category, columnIndex) => (

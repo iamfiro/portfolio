@@ -6,7 +6,6 @@ export { default as LandingCompetency } from "./competency";
 export { default as LandingCursorTrail } from "./cursor-trail";
 export { default as LandingFooter } from "./footer";
 export { default as LandingHeader } from "./header";
-export type { HeroSlide } from "./hero";
 export { default as LandingHero } from "./hero";
 export { default as LandingPageShell } from "./page-shell";
 export { default as LandingProcess } from "./process";
