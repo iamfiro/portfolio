@@ -1,0 +1,125 @@
+.head {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $spacing-32;
+
+  padding: $spacing-100 0;
+}
+
+.head .headline {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  color: $text;
+
+  font-size: clamp(#{$font-size-3xl}, 3.8vw, #{$font-size-6xl * 0.9});
+  font-weight: $font-weight-semibold;
+  line-height: 1.32;
+  letter-spacing: -0.04em;
+  text-align: center;
+  word-break: keep-all;
+}
+
+// 줄마다 마스크를 씌워, 안쪽 글자가 줄 아래에서 밀려 올라오게 한다
+.line {
+  display: block;
+
+  overflow: hidden;
+}
+
+.lineInner {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.28em;
+}
+
+.lineInner.muted {
+  color: $text-muted;
+}
+
+// 첫 줄 글자 높이에 맞춘 앱 아이콘
+.icon {
+  flex-shrink: 0;
+
+  width: 1em;
+  height: 1em;
+
+  border-radius: 0.24em;
+}
+
+// 호버하면 글자가 굴러 브랜드색 면이 올라온다
+.all {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-4;
+
+  padding: $spacing-10 $spacing-20;
+
+  color: $text;
+  background-color: $surface-subtle;
+
+  border-radius: $radius-full;
+
+  font-size: $font-size-md;
+  font-weight: $font-weight-medium;
+  text-decoration: none;
+
+  --roll-from: #{$text};
+  --roll-to: #{$text-brand};
+
+  &:hover {
+    color: $text;
+  }
+}
+
+.allIcon {
+  display: flex;
+
+  color: $text;
+
+  transition: transform $transition-spring;
+}
+
+.all:hover .allIcon {
+  transform: translateX($spacing-4);
+}
+
+// 어두운 배경(푸터 등)에선 글자와 알약 색을 뒤집는다
+// 전역 span 색($text)이 줄 안쪽 span을 덮으므로 함께 뒤집는다
+.dark .headline,
+.dark .lineInner {
+  color: $text-inverse;
+}
+
+.dark .all {
+  color: $text-inverse;
+  background-color: $surface-inverse-subtle;
+
+  --roll-from: #{$text-inverse};
+
+  &:hover {
+    color: $text-inverse;
+  }
+}
+
+.dark .allIcon {
+  color: $text-inverse;
+}
+
+@media (max-width: 768px) {
+  .head {
+    gap: $spacing-24;
+
+    padding: $spacing-64 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .allIcon {
+    transition: none;
+  }
+}

@@ -1,0 +1,126 @@
+// 흰 섹션들 끝에서 톤을 뒤집어 마무리한다. 헤더는 배경 밝기를 읽어 알아서 반전된다
+.footer {
+  position: relative;
+
+  padding: $spacing-100 $spacing-20 $spacing-32;
+  overflow: hidden;
+
+  background-color: $surface-inverse;
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-100;
+
+  max-width: $max-width-lg;
+  margin: 0 auto;
+}
+
+// 왼쪽 큰 이메일 : 오른쪽 링크 묶음
+.links {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: $spacing-48;
+}
+
+.email {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-8;
+
+  text-decoration: none;
+}
+
+.email .emailText {
+  color: $text-inverse;
+
+  font-size: clamp(#{$font-size-xl}, 2.4vw, #{$font-size-4xl});
+  font-weight: $font-weight-semibold;
+  letter-spacing: -0.03em;
+}
+
+.emailIcon {
+  display: flex;
+
+  color: $text-brand;
+
+  transition: transform $transition-spring;
+}
+
+.email:hover .emailIcon {
+  transform: translate($spacing-4, -$spacing-4);
+}
+
+.groups {
+  display: flex;
+  gap: $spacing-64;
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-10;
+}
+
+.group .groupLabel {
+  margin-bottom: $spacing-4;
+
+  color: $text-muted;
+
+  font-size: $font-size-sm;
+}
+
+.link {
+  text-decoration: none;
+}
+
+.link .linkText {
+  color: $text-muted;
+
+  font-size: $font-size-md;
+  font-weight: $font-weight-medium;
+
+  transition: color $transition-normal;
+}
+
+.link:hover .linkText {
+  color: $text-inverse;
+}
+
+// 화면 폭을 채우는 워드마크. 로고 SVG가 흰색이라 그대로 쓴다
+.wordmark {
+  width: 100%;
+
+  img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer {
+    padding: $spacing-64 $spacing-20 $spacing-20;
+  }
+
+  .inner {
+    gap: $spacing-64;
+  }
+
+  .links {
+    flex-direction: column;
+    gap: $spacing-40;
+  }
+
+  .groups {
+    gap: $spacing-48;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .emailIcon,
+  .link .linkText {
+    transition: none;
+  }
+}

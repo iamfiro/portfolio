@@ -1,0 +1,163 @@
+.card {
+  min-width: 0;
+}
+
+.link {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-12;
+
+  text-decoration: none;
+
+  transition: opacity $transition-normal;
+
+  &,
+  &:hover {
+    color: $text;
+  }
+}
+
+// 랜딩 카드와 같은 둥근 모서리와 옅은 면
+.media {
+  position: relative;
+
+  display: flex;
+  align-items: flex-end;
+
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+
+  padding: $spacing-16;
+
+  background-color: $surface-subtlest;
+
+  border-radius: $radius-16;
+}
+
+.image {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+}
+
+.media .highlight {
+  color: $text;
+
+  font-size: $font-size-xl;
+  font-weight: $font-weight-semibold;
+  line-height: $line-height-tight;
+  letter-spacing: -0.03em;
+  word-break: keep-all;
+}
+
+// 호버하면 오른쪽 위에 동그란 화살표가 떠오른다
+.arrow {
+  position: absolute;
+  top: $spacing-12;
+  right: $spacing-12;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: $spacing-32;
+  height: $spacing-32;
+
+  color: $text;
+  background-color: $surface-elevated;
+
+  border-radius: $radius-full;
+
+  opacity: 0;
+
+  transition: opacity $transition-normal;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-4;
+
+  padding: 0 $spacing-4;
+}
+
+.body .title,
+.rowBody .title {
+  color: $text;
+
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  line-height: $line-height-tight;
+}
+
+.body .meta,
+.rowBody .meta {
+  color: $text-subtle;
+
+  font-size: $font-size-sm;
+  line-height: $line-height-tight;
+}
+
+.link:hover .arrow {
+  opacity: 1;
+}
+
+// 빈 칸을 채우는 전체 보기 타일: 화살표를 상시 노출해 "더 있음"을 드러낸다
+.more {
+  .media {
+    background-color: $surface-subtle;
+  }
+
+  .arrow {
+    opacity: 1;
+  }
+}
+
+// 이미지 없는 항목: 옅은 면의 둥근 타일 안에 제목·보조 문구·화살표를 한 줄로 담는다
+.row {
+  .link {
+    flex-direction: row;
+    align-items: center;
+    gap: $spacing-16;
+
+    // 제목만 있는 행(전체 보기)도 제목·보조 문구 두 줄짜리 행과 같은 높이로 맞춘다
+    min-height: calc(
+      #{$font-size-md} * #{$line-height-tight} +
+        #{$font-size-sm} * #{$line-height-tight} +
+        #{$spacing-4} + #{$spacing-16} * 2
+    );
+    padding: $spacing-16 $spacing-20;
+
+    background-color: $surface-subtlest;
+
+    border-radius: $radius-16;
+  }
+
+  .rowBody {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-4;
+
+    flex: 1;
+    min-width: 0;
+  }
+
+  .rowArrow {
+    display: flex;
+
+    color: $text-muted;
+  }
+}
+
+.moreRow .link {
+  background-color: $surface-subtle;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .link,
+  .arrow {
+    transition: none;
+  }
+}

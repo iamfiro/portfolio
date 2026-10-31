@@ -8,4 +8,5 @@ githubUrl:
 deployUrl:
 startDate: 2026-08-28
 endDate:
+resume: true
 ---

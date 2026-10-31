@@ -5,7 +5,8 @@
   cursor: pointer;
   transition: color 0.15s ease;
 
-  &:focus-visible { outline: 3px solid $surface-brand; outline-offset: 2px; border-radius: 2px; }
+  // 링크 자체의 모서리(알약·타일)를 그대로 따르도록 radius는 건드리지 않는다
+  &:focus-visible { outline: 3px solid $surface-brand; outline-offset: 2px; }
 }
 
 .default {

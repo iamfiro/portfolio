@@ -5,3 +5,4 @@ export { default as Contact } from "./contact/contact";
 export { default as Home } from "./home";
 export { default as ProjectDetail } from "./projects/project-detail";
 export { default as Projects } from "./projects/projects";
+export { default as Resume } from "./resume/resume";

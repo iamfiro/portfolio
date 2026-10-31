@@ -1,0 +1,35 @@
+// 0×0 앵커를 좌표에 두고 버블을 가운데 정렬해, 튀어나오는 기준점이 버블 중심이 되게 한다
+.anchor {
+  position: absolute;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 0;
+  height: 0;
+
+  will-change: transform;
+}
+
+// 스크롤 모션(앵커)과 겹치지 않게 안쪽 버블만 둥실거린다
+.bob {
+  animation: bob 3.2s ease-in-out infinite;
+}
+
+@keyframes bob {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(-$spacing-8) rotate(6deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bob {
+    animation: none;
+  }
+}

@@ -15,7 +15,7 @@ import s from "./style.module.scss";
 
 const EASE = [0.25, 0.1, 0.25, 1] as const;
 
-interface BlogCardProps extends Post {
+interface BlogCardProps extends Omit<Post, "resume"> {
   index?: number;
   isLoading?: boolean;
 }

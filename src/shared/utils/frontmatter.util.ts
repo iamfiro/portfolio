@@ -89,3 +89,7 @@ export function asArray(value: FrontmatterValue | undefined): string[] {
   if (Array.isArray(value)) return value;
   return value ? [value] : [];
 }
+
+export function asBoolean(value: FrontmatterValue | undefined): boolean {
+  return asString(value).toLowerCase() === "true";
+}

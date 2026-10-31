@@ -1,0 +1,154 @@
+.intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $spacing-48;
+
+  padding: 0 $spacing-20 $spacing-32;
+}
+
+// 머리 바로 아래 가운데 정렬로 이어지는 소개 묶음
+.summary {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $spacing-24;
+
+  max-width: $max-width;
+
+  text-align: center;
+}
+
+.summary .lead {
+  color: $text-subtle;
+
+  font-size: $font-size-lg;
+  line-height: $line-height-relaxed;
+  word-break: keep-all;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: $spacing-6;
+}
+
+.chips .chip {
+  padding: $spacing-4 $spacing-12;
+
+  color: $text-subtle;
+  background-color: $surface-subtle;
+
+  border-radius: $radius-full;
+
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+}
+
+.links {
+  display: flex;
+  gap: $spacing-8;
+}
+
+// 랜딩 섹션 머리와 같은 알약 링크
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-4;
+
+  padding: $spacing-10 $spacing-20;
+
+  color: $text;
+  background-color: $surface-subtle;
+
+  border-radius: $radius-full;
+
+  text-decoration: none;
+
+  &:hover {
+    color: $text;
+  }
+
+  svg {
+    transition: transform $transition-spring;
+  }
+
+  &:hover svg {
+    transform: translate($spacing-4 * 0.5, -$spacing-4 * 0.5);
+  }
+}
+
+.link .linkText {
+  color: $text;
+
+  font-size: $font-size-md;
+  font-weight: $font-weight-medium;
+}
+
+.showcase {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-16;
+
+  width: 100%;
+  max-width: $max-width-lg;
+}
+
+.media {
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+
+  background-color: $surface-subtle;
+
+  border-radius: $radius-24;
+}
+
+.thumbnail {
+  width: 100%;
+  height: 100%;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $spacing-16;
+}
+
+.meta .period {
+  color: $text-subtle;
+
+  font-size: $font-size-sm;
+}
+
+.stack {
+  display: flex;
+  gap: $spacing-8;
+}
+
+.tool {
+  width: $spacing-28;
+  height: $spacing-28;
+  padding: $spacing-6;
+
+  background-color: $surface-subtle;
+
+  border-radius: $radius-8;
+}
+
+@media (max-width: 768px) {
+  .intro {
+    gap: $spacing-40;
+
+    padding-bottom: $spacing-40;
+  }
+
+  .summary .lead {
+    font-size: $font-size-md;
+  }
+
+  .media {
+    border-radius: $radius-16;
+  }
+}

@@ -1,0 +1,14 @@
+// 위치·크기는 motion이 x/y/width/height로 잡는다
+.indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+
+  background-color: var(--header-ink);
+
+  // 랜딩의 알약 링크와 같은 모양으로 링크 뒤에 깔린다
+  border-radius: $radius-full;
+
+  pointer-events: none;
+}

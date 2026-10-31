@@ -1,0 +1,36 @@
+.blog {
+  position: relative;
+
+  padding: 0 $spacing-20 $spacing-100;
+
+  background-color: $surface;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-48;
+
+  max-width: $max-width-lg;
+  margin: 0 auto;
+}
+
+.rest {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: $spacing-32;
+}
+
+@media (max-width: 768px) {
+  .blog {
+    padding-bottom: $spacing-64;
+  }
+
+  .body {
+    gap: $spacing-32;
+  }
+
+  .rest {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

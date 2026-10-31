@@ -1,0 +1,24 @@
+// Statement와 같은 흰 배경 위에서 이어진다
+.projects {
+  position: relative;
+
+  padding: 0 $spacing-20 $spacing-100;
+  overflow: hidden;
+
+  background-color: $surface;
+}
+
+// 넓은 화면에서 줄이 화면 끝까지 퍼져 무거워지지 않게 폭을 묶는다
+.list {
+  display: flex;
+  flex-direction: column;
+
+  max-width: $max-width-lg;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .projects {
+    padding-bottom: $spacing-64;
+  }
+}

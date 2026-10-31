@@ -1,0 +1,66 @@
+.channels {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-12;
+}
+
+.tile {
+  display: flex;
+  align-items: center;
+  gap: $spacing-16;
+
+  padding: $spacing-20;
+
+  color: $text;
+  background-color: $surface-subtlest;
+
+  border-radius: $radius-20;
+
+  text-decoration: none;
+
+  &:hover {
+    color: $text;
+  }
+}
+
+.copy {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: $spacing-4;
+
+  min-width: 0;
+}
+
+.copy .label {
+  color: $text-subtle;
+
+  font-size: $font-size-sm;
+}
+
+.copy .value {
+  color: $text;
+
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  letter-spacing: -0.02em;
+}
+
+.arrow {
+  display: flex;
+  flex-shrink: 0;
+
+  color: $text-muted;
+
+  transition: transform $transition-spring;
+}
+
+.tile:hover .arrow {
+  transform: translate($spacing-4 * 0.5, -$spacing-4 * 0.5);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .arrow {
+    transition: none;
+  }
+}

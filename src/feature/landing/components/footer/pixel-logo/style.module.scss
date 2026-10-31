@@ -1,0 +1,9 @@
+// 셰이더가 읽어 가는 픽셀 색. 토큰을 CSS 변수로 넘긴다
+.canvas {
+  --pixel-base: #{$text-inverse};
+  --pixel-accent: #{$text-brand};
+
+  display: block;
+  width: 100%;
+  height: auto;
+}

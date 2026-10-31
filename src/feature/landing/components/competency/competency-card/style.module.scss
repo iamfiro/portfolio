@@ -1,0 +1,41 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-24;
+}
+
+// 목업이 올라가는 옅은 무대. 가장자리를 넘는 목업은 잘라 낸다
+.stage {
+  position: relative;
+
+  aspect-ratio: 6 / 5;
+  overflow: hidden;
+
+  background-color: $surface-subtle;
+
+  border-radius: $radius-16;
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-12;
+}
+
+.copy .title {
+  color: $text;
+
+  font-size: clamp(#{$font-size-xl}, 1.8vw, #{$font-size-2xl});
+  font-weight: $font-weight-semibold;
+  line-height: $line-height-tight;
+  letter-spacing: -0.03em;
+  word-break: keep-all;
+}
+
+.copy .description {
+  color: $text-subtle;
+
+  font-size: $font-size-md;
+  line-height: $line-height-relaxed;
+  word-break: keep-all;
+}

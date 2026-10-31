@@ -73,7 +73,10 @@ function BottomSheet({
   if (!isVisible) return null;
 
   return createPortal(
-    <div className={cn(styles.backdrop, isClosing && styles.closing)} onClick={onClose}>
+    <div
+      className={cn(styles.backdrop, isClosing && styles.closing)}
+      onClick={onClose}
+    >
       <FocusLock>
         <div
           className={cn(styles.sheet, isClosing && styles.closing, className)}
@@ -108,7 +111,9 @@ function BottomSheet({
               </button>
             </div>
           )}
-          <div className={styles.body}>{children}</div>
+          <div className={styles.body} data-lenis-prevent>
+            {children}
+          </div>
         </div>
       </FocusLock>
     </div>,

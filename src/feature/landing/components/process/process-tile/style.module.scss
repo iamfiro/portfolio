@@ -1,0 +1,114 @@
+// 임시 타일: 이미지 없이 CSS 레이어로 부풀린 3D squircle을 흉내 낸다
+// 3D 아이콘 이미지가 준비되면 면 대신 이미지를 넣는다
+.tile {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+
+  border-radius: 28%;
+
+  // 위쪽 테두리 광 + 아래쪽 안쪽 음영 + 떠 있는 그림자 두 겹
+  box-shadow:
+    inset 0 2px 1px rgba($color-white, 0.55),
+    inset 0 -6px 10px rgba($color-black, 0.28),
+    inset 0 0 0 1px rgba($color-black, 0.08),
+    0 12px 20px -8px rgba($color-black, 0.22),
+    0 2px 4px rgba($color-black, 0.1);
+
+  will-change: transform;
+
+  // 왼쪽 위에서 비치는 넓은 광택
+  &::before {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    background: radial-gradient(
+      120% 90% at 28% 12%,
+      rgba($color-white, 0.65) 0%,
+      rgba($color-white, 0.18) 32%,
+      rgba($color-white, 0) 60%
+    );
+
+    pointer-events: none;
+  }
+
+  // 아래로 갈수록 눌린 듯 짙어지는 음영
+  &::after {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    background: linear-gradient(
+      to top,
+      rgba($color-black, 0.3) 0%,
+      rgba($color-black, 0) 45%
+    );
+
+    pointer-events: none;
+  }
+}
+
+// 아이콘에 filter(drop-shadow)를 걸면 확대·회전 중인 overflow:hidden 부모 안에서
+// 크롬이 아이콘을 그리지 않는다. 그림자 없이 굵기만으로 띄운다
+.icon {
+  position: relative;
+  z-index: 1;
+
+  width: 52%;
+  height: 52%;
+}
+
+.brand {
+  color: $text-inverse;
+  background-color: $surface-brand;
+}
+
+.inverse {
+  color: $text-inverse;
+  background-color: $surface-inverse;
+}
+
+.info {
+  color: $text-inverse;
+  background-color: $surface-info;
+}
+
+.danger {
+  color: $text-inverse;
+  background-color: $surface-danger;
+}
+
+.subtle {
+  color: $text-brand;
+  background-color: $surface-subtle;
+}
+
+// 3D 이미지 타일: 면·광택 레이어를 걷고 이미지 자체의 볼륨에 흰 배경용 옅은 그림자만 얹는다
+.image {
+  overflow: visible;
+
+  border-radius: 0;
+
+  box-shadow: none;
+
+  filter: drop-shadow(0 8px 10px rgba($color-black, 0.16));
+
+  &::before,
+  &::after {
+    content: none;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
+}

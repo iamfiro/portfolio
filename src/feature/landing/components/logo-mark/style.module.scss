@@ -1,0 +1,37 @@
+// IconBubble과 같은 크기 단계를 써서 아이콘·로고가 섞여도 줄이 맞는다
+.mark {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+}
+
+// 꽉 찬 사각 파비콘도 앱 아이콘처럼 보이게 모서리만 살짝 깎는다
+.image {
+  width: 100%;
+  height: 100%;
+
+  border-radius: $radius-10;
+}
+
+.sm {
+  width: $spacing-40;
+  height: $spacing-40;
+}
+
+.md {
+  width: $spacing-48;
+  height: $spacing-48;
+}
+
+@media (max-width: 768px) {
+  .sm {
+    width: $spacing-32;
+    height: $spacing-32;
+  }
+
+  .md {
+    width: $spacing-40;
+    height: $spacing-40;
+  }
+}

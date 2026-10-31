@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Send } from "lucide-react";
 import { type FormEvent, useCallback, useState } from "react";
 
+import { getRevealProps } from "@/feature/landing/utils/reveal.util";
 import { Button, Input, Stack, Text, Textarea } from "@/shared/components/ui";
 
 import s from "./style.module.scss";
@@ -39,6 +40,8 @@ export default function ContactForm() {
     return (
       <motion.div
         className={s.success}
+        role="status"
+        aria-live="polite"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
@@ -65,9 +68,7 @@ export default function ContactForm() {
     <motion.form
       className={s.form}
       onSubmit={handleSubmit}
-      initial={{ opacity: 0, y: 30, filter: "blur(6px)" }}
-      animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-      transition={{ duration: 1.4, ease: [0.25, 0.1, 0.25, 1], delay: 0.4 }}
+      {...getRevealProps(0.12)}
     >
       <Stack className={s.fields}>
         <div className={s.field}>
@@ -78,6 +79,7 @@ export default function ContactForm() {
             id="contact-name"
             size="lg"
             fullWidth
+            className={s.input}
             placeholder="홍길동"
             value={name}
             onChange={(e) => setName(e.target.value)}
@@ -94,6 +96,7 @@ export default function ContactForm() {
             type="email"
             size="lg"
             fullWidth
+            className={s.input}
             placeholder="hello@example.com"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -109,6 +112,7 @@ export default function ContactForm() {
             id="contact-message"
             size="lg"
             fullWidth
+            className={s.input}
             resize="vertical"
             placeholder="전하고 싶은 이야기를 자유롭게 작성해주세요."
             rows={6}

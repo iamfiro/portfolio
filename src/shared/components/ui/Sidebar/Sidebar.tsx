@@ -21,6 +21,7 @@ function Sidebar({
 }: SidebarProps) {
   return (
     <aside
+      data-lenis-prevent
       className={cn(styles.sidebar, collapsed && styles.collapsed, className)}
       style={{ width: collapsed ? 64 : width, ...style }}
       {...rest}

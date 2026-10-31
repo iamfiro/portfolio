@@ -4,8 +4,10 @@ export interface Award {
   id: string;
   title: string;
   organization: string;
+  logoUrl: string | null;
   date: string;
   imageUrl: string | null;
+  resume: boolean;
   projectId: string | null;
   project: {
     id: string;

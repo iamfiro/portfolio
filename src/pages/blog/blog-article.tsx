@@ -10,11 +10,11 @@ import MarkdownContent from "@/feature/blog/components/markdown-content";
 import { getPost } from "@/feature/blog/data";
 import { calculateReadingTime } from "@/feature/blog/reading-time.util";
 import { PostResponse, RelatedProject } from "@/feature/blog/schema";
+import { LandingHeader } from "@/feature/landing/components";
 import { BaseLayout } from "@/shared/components/layouts";
 import {
   Divider,
   Flex,
-  Header,
   Heading,
   Image,
   Tag,
@@ -115,7 +115,7 @@ export default function BlogArticle() {
         <div ref={progressFillRef} className={s.progress_fill} />
       </div>
 
-      <Header hideOnScroll logoHref="/blog" />
+      <LandingHeader />
 
       <BaseLayout className={s.container}>
         <div className={s.body_layout}>

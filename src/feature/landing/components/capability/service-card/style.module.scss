@@ -1,0 +1,145 @@
+.item {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-20;
+}
+
+// 브랜드 색 그라디언트 위에 하프톤 점을 겹친 카드
+.card {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  aspect-ratio: 1 / 1;
+  padding: $spacing-28;
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      circle at 20% 0%,
+      $surface-brand 0%,
+      $surface-brand-heavy 75%
+    );
+
+  border-radius: $radius-8;
+}
+
+.halftone {
+  position: absolute;
+  inset: 0;
+
+  background-image: radial-gradient(
+    $overlay-light 1px,
+    $surface-transparent 1.5px
+  );
+  background-size: $spacing-6 $spacing-6;
+
+  mask-image: linear-gradient(
+    to top,
+    $color-black 0%,
+    $surface-transparent 70%
+  );
+
+  transition: transform $transition-spring;
+}
+
+.card:hover .halftone {
+  transform: scale(1.06);
+}
+
+.copy {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-16;
+}
+
+.copy .title {
+  max-width: 9em;
+
+  color: $text-inverse;
+
+  font-size: clamp(#{$font-size-xl}, 1.8vw, #{$font-size-3xl});
+  font-weight: $font-weight-semibold;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  word-break: keep-all;
+}
+
+.copy .description {
+  max-width: 22em;
+
+  color: $text-inverse;
+
+  font-size: $font-size-sm;
+  line-height: $line-height-normal;
+  word-break: keep-all;
+
+  opacity: 0.85;
+}
+
+.stack {
+  position: relative;
+
+  display: flex;
+  gap: $spacing-8;
+}
+
+.tool {
+  width: $spacing-40;
+  height: $spacing-40;
+  padding: $spacing-8;
+
+  background-color: $surface-elevated;
+
+  border-radius: $radius-12;
+
+  box-shadow: $shadow-md;
+  transition: transform $transition-spring;
+
+  &:hover {
+    transform: translateY(-$spacing-4) rotate(-6deg);
+  }
+}
+
+.inverted {
+  filter: invert(1);
+}
+
+.item .caption {
+  max-width: 26em;
+
+  color: $text-subtle;
+
+  font-size: $font-size-sm;
+  line-height: $line-height-normal;
+  word-break: keep-all;
+}
+
+@media (max-width: 1024px) {
+  .card {
+    padding: $spacing-20;
+  }
+
+  .stack {
+    gap: $spacing-6;
+  }
+
+  .tool {
+    width: $spacing-32;
+    height: $spacing-32;
+    padding: $spacing-6;
+  }
+}
+
+// 1열에선 정사각형이면 화면 폭만큼 커지므로 내용 높이만큼만 차지한다
+@media (max-width: 768px) {
+  .card {
+    gap: $spacing-32;
+
+    aspect-ratio: auto;
+  }
+}

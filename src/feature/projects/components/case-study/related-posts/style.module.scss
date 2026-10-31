@@ -1,0 +1,55 @@
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-8;
+}
+
+.tile {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $spacing-16;
+
+  padding: $spacing-20 $spacing-24;
+
+  color: $text;
+  background-color: $surface-subtlest;
+
+  border-radius: $radius-20;
+
+  text-decoration: none;
+
+  &:hover {
+    color: $text;
+  }
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-4;
+
+  min-width: 0;
+}
+
+.copy .title {
+  color: $text;
+
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  line-height: $line-height-tight;
+  word-break: keep-all;
+}
+
+.copy .date {
+  color: $text-subtle;
+
+  font-size: $font-size-sm;
+}
+
+.arrow {
+  display: flex;
+  flex-shrink: 0;
+
+  color: $text-muted;
+}

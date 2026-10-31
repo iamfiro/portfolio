@@ -1,0 +1,49 @@
+// --header-ink: 현재 글자색 / --header-paper: 그 반전색 (헤더 톤에 따라 스왑)
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-4;
+
+  // 알약 인디케이터가 글자에 붙지 않도록 좌우를 넉넉히 두고, 음수 여백으로 자리는 그대로 지킨다
+  margin: (-$spacing-4) (-$spacing-12);
+  padding: $spacing-4 $spacing-12;
+
+  color: var(--header-ink);
+
+  text-decoration: none;
+
+  // 롤 앞면은 지금 글자색, 아랫면은 박스 위 반전색
+  --roll-from: var(--header-ink);
+  --roll-to: var(--header-paper);
+
+  &:hover {
+    color: var(--header-ink);
+  }
+}
+
+.icon {
+  display: flex;
+
+  color: var(--header-ink);
+
+  transition:
+    color $transition-normal,
+    transform $transition-spring;
+}
+
+// 박스는 헤더의 공용 인디케이터가 그린다. 그 박스가 깔린 링크(.active)만 아이콘을 반전시킨다
+@media (hover: hover) {
+  .link.active {
+    .icon {
+      color: var(--header-paper);
+
+      transform: translateX($spacing-4);
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .icon {
+    transition: none;
+  }
+}

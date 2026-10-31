@@ -1,0 +1,55 @@
+.stack {
+  position: relative;
+
+  padding: 0 $spacing-20 $spacing-100;
+
+  background-color: $surface;
+}
+
+// 프론트엔드 · 백엔드 · 애플리케이션 세 열
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: start;
+  gap: $spacing-32;
+
+  max-width: $max-width-lg;
+  margin: 0 auto;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-16;
+}
+
+.column .label {
+  color: $text;
+
+  font-size: $font-size-xl;
+  font-weight: $font-weight-semibold;
+  letter-spacing: -0.03em;
+}
+
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-8;
+}
+
+@media (max-width: 1024px) {
+  .grid {
+    gap: $spacing-20;
+  }
+}
+
+@media (max-width: 768px) {
+  .stack {
+    padding-bottom: $spacing-64;
+  }
+
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: $spacing-40;
+  }
+}

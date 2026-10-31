@@ -85,3 +85,9 @@
 
     background: linear-gradient(to left, var(--gradient-color, $surface) 0%, transparent 100%);
 }
+
+@media (prefers-reduced-motion: reduce) {
+    .track {
+        animation-play-state: paused !important;
+    }
+}

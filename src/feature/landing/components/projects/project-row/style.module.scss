@@ -1,0 +1,112 @@
+.row {
+  padding: $spacing-32 0;
+}
+
+// 왼쪽 정보 5 : 오른쪽 미디어 7
+.link {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: $spacing-40;
+
+  color: $text;
+
+  text-decoration: none;
+
+  &:hover {
+    color: $text;
+  }
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-24;
+
+  padding-top: $spacing-4;
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-8;
+}
+
+.copy .name {
+  color: $text;
+
+  font-size: clamp(#{$font-size-2xl}, 2.2vw, #{$font-size-4xl});
+  font-weight: $font-weight-semibold;
+  letter-spacing: -0.04em;
+}
+
+.copy .description {
+  max-width: 24em;
+
+  color: $text-subtle;
+
+  font-size: $font-size-md;
+  line-height: $line-height-normal;
+  word-break: keep-all;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-6;
+}
+
+.tags .tag {
+  padding: $spacing-4 $spacing-10;
+
+  color: $text-subtle;
+  background-color: $surface-subtle;
+
+  border-radius: $radius-full;
+
+  font-size: $font-size-xs;
+  font-weight: $font-weight-medium;
+}
+
+.stack {
+  display: flex;
+  gap: $spacing-8;
+}
+
+.tool {
+  width: $spacing-28;
+  height: $spacing-28;
+  padding: $spacing-6;
+
+  background-color: $surface-subtle;
+
+  border-radius: $radius-8;
+}
+
+.media {
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+
+  background-color: $surface-subtle;
+
+  border-radius: $radius-16;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+}
+
+@media (max-width: 768px) {
+  .row {
+    padding: $spacing-24 0;
+  }
+
+  .link {
+    grid-template-columns: minmax(0, 1fr);
+    gap: $spacing-24;
+  }
+
+  .media {
+    order: -1;
+  }
+}

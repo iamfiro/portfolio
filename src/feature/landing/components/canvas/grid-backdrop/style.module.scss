@@ -1,0 +1,27 @@
+.backdrop {
+  position: absolute;
+  inset: 0;
+
+  mask-image: radial-gradient(
+    ellipse at center,
+    $color-black 45%,
+    $surface-transparent 90%
+  );
+
+  pointer-events: none;
+}
+
+.lines {
+  background-image:
+    linear-gradient(to right, $border-subtle 1px, $surface-transparent 1px),
+    linear-gradient(to bottom, $border-subtle 1px, $surface-transparent 1px);
+  background-size: $spacing-64 $spacing-64;
+}
+
+.dots {
+  background-image: radial-gradient(
+    $border-strong 1px,
+    $surface-transparent 1px
+  );
+  background-size: $spacing-20 $spacing-20;
+}

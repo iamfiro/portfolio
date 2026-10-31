@@ -1,0 +1,69 @@
+.frame {
+  position: relative;
+
+  display: inline-block;
+}
+
+.highlighted {
+  background-color: $surface-brand-subtle;
+}
+
+.border {
+  position: absolute;
+  inset: -$spacing-6;
+
+  border: 1px dashed $border-strong;
+
+  pointer-events: none;
+}
+
+.highlighted .border {
+  inset: 0;
+
+  border-style: solid;
+  border-color: $surface-brand;
+}
+
+.handle {
+  position: absolute;
+
+  width: $spacing-8;
+  height: $spacing-8;
+
+  background-color: $surface;
+
+  border: 1px solid $border-strong;
+}
+
+.highlighted .handle {
+  border-color: $surface-brand;
+}
+
+.tl,
+.tc,
+.tr {
+  top: -$spacing-4;
+}
+
+.bl,
+.bc,
+.br {
+  bottom: -$spacing-4;
+}
+
+.tl,
+.bl {
+  left: -$spacing-4;
+}
+
+.tr,
+.br {
+  right: -$spacing-4;
+}
+
+.tc,
+.bc {
+  left: 50%;
+
+  translate: -50% 0;
+}

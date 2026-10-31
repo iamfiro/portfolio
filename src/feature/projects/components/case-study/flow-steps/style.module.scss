@@ -1,0 +1,58 @@
+.flow {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-8;
+}
+
+.stage {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-12;
+
+  padding: $spacing-20 $spacing-24;
+
+  background-color: $surface-subtlest;
+
+  border-radius: $radius-20;
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.head .label {
+  color: $text;
+
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+}
+
+// 다음 단계로 흐른다는 표시. 세로로 쌓이므로 아래를 가리킨다
+.arrow {
+  display: flex;
+
+  color: $text-muted;
+
+  transform: rotate(90deg);
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-6;
+}
+
+.chips .chip {
+  padding: $spacing-4 $spacing-12;
+
+  color: $text-subtle;
+  background-color: $surface-elevated;
+
+  border-radius: $radius-full;
+
+  font-size: $font-size-xs;
+  font-weight: $font-weight-medium;
+  white-space: nowrap;
+}

@@ -7,4 +7,5 @@ export interface Activity {
   description: string;
   date: string;
   href: string | null;
+  resume: boolean;
 }

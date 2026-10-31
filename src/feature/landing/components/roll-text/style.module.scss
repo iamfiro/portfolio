@@ -1,0 +1,61 @@
+// 정육면체 한 변 = 한 줄 높이. 면을 반 변만큼 앞으로 밀어 축이 글자 한가운데 오게 한다
+$roll-edge: $line-height-tight * 1em;
+$roll-half: $line-height-tight * 0.5em;
+
+.roll {
+  display: inline-flex;
+
+  line-height: $line-height-tight;
+
+  perspective: 600px;
+}
+
+// 위로 90° 넘기면 아랫면이 정면으로 온다. 끝까지 두 면이 이어 붙어 있어 빈 순간이 없다
+.cube {
+  position: relative;
+
+  display: inline-block;
+
+  height: $roll-edge;
+
+  white-space: pre;
+
+  transform-style: preserve-3d;
+  transform: translateZ(-$roll-half) rotateX(0deg);
+  transition: transform 0.55s cubic-bezier(0.65, 0, 0.35, 1);
+  transition-delay: calc(var(--i) * 0.025s);
+}
+
+.front,
+.bottom {
+  display: block;
+
+  backface-visibility: hidden;
+}
+
+// 전역 span 색($text)을 덮어 부모가 정한 색을 따르게 한다
+.front {
+  color: var(--roll-from, currentColor);
+
+  transform: translateZ($roll-half);
+}
+
+.bottom {
+  position: absolute;
+  inset: 0;
+
+  color: var(--roll-to, currentColor);
+
+  transform: rotateX(-90deg) translateZ($roll-half);
+}
+
+.active .cube,
+:global([data-roll-trigger]:hover) .cube {
+  transform: translateZ(-$roll-half) rotateX(90deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cube {
+    transition: none;
+  }
+}

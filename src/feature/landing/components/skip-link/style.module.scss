@@ -1,0 +1,35 @@
+// 평소엔 화면 밖에 두었다가 Tab으로 포커스되면 왼쪽 위에 알약으로 내려온다
+.skip {
+  position: fixed;
+  top: $spacing-12;
+  left: $spacing-12;
+  z-index: $z-tooltip;
+
+  padding: $spacing-10 $spacing-20;
+
+  color: $text-inverse;
+  background-color: $surface-inverse;
+
+  border-radius: $radius-full;
+
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  text-decoration: none;
+
+  transform: translateY(-200%);
+  transition: transform $transition-spring;
+
+  &:hover {
+    color: $text-inverse;
+  }
+
+  &:focus-visible {
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skip {
+    transition: none;
+  }
+}

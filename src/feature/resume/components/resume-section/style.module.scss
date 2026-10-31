@@ -1,0 +1,17 @@
+.section {
+  break-inside: auto;
+}
+
+// 구분선 없이 브랜드색 제목만으로 구획을 나눈다
+.title {
+  margin-bottom: $spacing-16;
+
+  color: $text-brand;
+
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  line-height: $line-height-tight;
+  letter-spacing: 0;
+
+  break-after: avoid;
+}

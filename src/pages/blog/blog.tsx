@@ -1,9 +1,10 @@
 import { motion } from "framer-motion";
 
 import BlogArticleList from "@/feature/blog/components/article-list";
+import { LandingHeader } from "@/feature/landing/components";
 import ErrorBoundary from "@/shared/components/error-boundary";
 import { usePageTransition } from "@/shared/components/layouts/page-transition/page-transition.context";
-import { Header, Text } from "@/shared/components/ui";
+import { Text } from "@/shared/components/ui";
 
 import s from "./blog.module.scss";
 
@@ -14,7 +15,7 @@ export default function Blog() {
 
   return (
     <main className={s.container}>
-      <Header />
+      <LandingHeader />
       <section className={s.page}>
         <motion.div
           className={s.thumbnail}

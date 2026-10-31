@@ -1,61 +1,28 @@
 import { useQuery } from "@tanstack/react-query";
-import { motion } from "framer-motion";
 
-import { AwardsList } from "@/feature/awards/components";
 import { getAwards } from "@/feature/awards/data";
 import type { AwardsResponse } from "@/feature/awards/schema";
-import { Activity } from "@/feature/home/components";
-import PageTitle from "@/shared/components/page-title";
 import {
-  Grid,
-  Header,
-  Heading,
-  Section,
-  Spacer,
-  Text,
-} from "@/shared/components/ui";
-import { contentActivities } from "@/shared/content/content";
-import { usePageEntrance } from "@/shared/hooks";
+  LandingActivities,
+  LandingAwards,
+  LandingPageShell,
+} from "@/feature/landing/components";
 
-import s from "./activities.module.scss";
-
+/** 랜딩의 수상·활동 섹션을 한 페이지에 모은다. 수상은 페이지 머리를 그대로 이어 쓴다 */
 export default function Activities() {
-  const awardsTitleEntrance = usePageEntrance("lead", 0.2);
-  const activitiesTitleEntrance = usePageEntrance("lead", 0.3);
   const { data } = useQuery<AwardsResponse>({
     queryKey: ["awards"],
     queryFn: getAwards,
   });
 
-  const awardCount = data?.data.length;
-  const totalCount =
-    awardCount !== undefined
-      ? awardCount + contentActivities.length
-      : undefined;
-
   return (
-    <main className={s.container}>
-      <Header />
-      <Spacer size={48} />
-      <section className={s.page}>
-        <PageTitle title="활동" count={totalCount} />
-        <Grid className={s.content}>
-          <Section size="sm">
-            <motion.div {...awardsTitleEntrance}>
-              <Heading as="h2" size="lg" className={s.sectionTitle}>
-                수상 실적
-                {awardCount !== undefined && (
-                  <Text as="span" className={s.count}>
-                    {awardCount}
-                  </Text>
-                )}
-              </Heading>
-            </motion.div>
-            <AwardsList />
-          </Section>
-          <Activity variant="page" titleMotionProps={activitiesTitleEntrance} />
-        </Grid>
-      </section>
-    </main>
+    <LandingPageShell
+      titleId="activities-title"
+      documentTitle="활동"
+      lines={["대회에서 직접", "증명해 온 순간들"]}
+    >
+      <LandingAwards awards={data?.data ?? []} variant="page" />
+      <LandingActivities />
+    </LandingPageShell>
   );
 }

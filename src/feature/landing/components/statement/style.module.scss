@@ -1,0 +1,52 @@
+// 스크롤 길이가 곧 문장이 채워지는 시간이다
+.statement {
+  position: relative;
+
+  height: 280svh;
+}
+
+.sticky {
+  position: sticky;
+  top: 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  height: 100svh;
+  padding: 0 $spacing-20;
+  overflow: hidden;
+
+  background-color: $surface;
+}
+
+// 문장 뒤에 깔리는 장식 버블 레이어
+.bubbles {
+  position: absolute;
+  inset: 0;
+
+  pointer-events: none;
+}
+
+.sticky .headline {
+  position: relative;
+  z-index: 1;
+
+  max-width: 16em;
+
+  color: $text;
+
+  font-size: clamp(#{$font-size-3xl}, 3.8vw, #{$font-size-6xl * 0.9});
+  font-weight: $font-weight-semibold;
+  line-height: 1.32;
+  letter-spacing: -0.04em;
+  text-align: center;
+  word-break: keep-all;
+}
+
+@media (max-width: 768px) {
+  .statement {
+    height: 220svh;
+  }
+}

@@ -1,0 +1,16 @@
+.capability {
+  padding: $spacing-64 $spacing-20 $spacing-100;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: $spacing-20;
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: $spacing-32;
+  }
+}

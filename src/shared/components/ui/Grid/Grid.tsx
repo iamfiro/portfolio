@@ -66,8 +66,9 @@ function Grid({
         gridTemplateColumns,
         gridTemplateRows: rows,
         gap,
-        columnGap,
-        rowGap,
+        // undefined인 longhand가 ''로 쓰이면 gap shorthand가 지워지므로 값이 있을 때만 지정
+        ...(columnGap !== undefined && { columnGap }),
+        ...(rowGap !== undefined && { rowGap }),
         alignItems: align,
         justifyItems: justify,
         ...buildLayoutStyle({

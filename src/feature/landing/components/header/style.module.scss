@@ -1,0 +1,111 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: $z-fixed;
+
+  height: $header-height;
+
+  padding: 0 $spacing-20;
+
+  --header-ink: #{$color-white};
+  --header-paper: #{$color-black};
+
+  transition: background-color $transition-slow;
+}
+
+// 배경이 밝을 땐 검정, 어두울 땐 흰색 (로고 SVG는 흰색이라 반전)
+.light {
+  --header-ink: #{$color-black};
+  --header-paper: #{$color-white};
+
+  .logo img {
+    filter: invert(1);
+  }
+}
+
+// 미리보기가 열리면 헤더와 패널이 한 장의 흰 면이 된다
+.open {
+  --header-ink: #{$color-black};
+  --header-paper: #{$color-white};
+
+  background-color: $surface;
+
+  .logo img {
+    filter: invert(1);
+  }
+}
+
+.grid {
+  // 절대 위치 인디케이터보다 글자가 위에 오도록 쌓임 순서를 올린다
+  position: relative;
+  z-index: 1;
+
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  align-items: center;
+  column-gap: $spacing-20;
+
+  height: 100%;
+
+  font-size: $font-size-lg;
+  font-weight: $font-weight-medium;
+}
+
+.logo {
+  grid-column: 1 / span 3;
+
+  display: flex;
+
+  width: fit-content;
+
+  img {
+    height: $spacing-16;
+
+    transition: filter $transition-normal;
+  }
+}
+
+.work {
+  grid-column: 4 / span 3;
+  justify-self: start;
+}
+
+.nav {
+  grid-column: 7 / span 4;
+
+  display: flex;
+  gap: $spacing-32;
+}
+
+.contact {
+  grid-column: 11 / span 2;
+  justify-self: end;
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: auto 1fr auto;
+  }
+
+  .logo {
+    grid-column: 1;
+  }
+
+  .work {
+    display: none;
+  }
+
+  .nav {
+    grid-column: 2;
+    justify-self: end;
+
+    gap: $spacing-24;
+  }
+
+  .contact {
+    grid-column: 3;
+
+    margin-left: $spacing-12;
+  }
+}

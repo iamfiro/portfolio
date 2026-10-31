@@ -1,0 +1,45 @@
+.bubble {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-10;
+
+  padding: $spacing-10 $spacing-20 $spacing-10 $spacing-10;
+
+  background-color: $surface-elevated;
+
+  border-radius: $radius-full;
+
+  box-shadow: $shadow-lg;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-4;
+}
+
+.bubble .meta {
+  display: inline-flex;
+  gap: $spacing-6;
+
+  color: $text-muted;
+
+  font-size: $font-size-xs;
+  line-height: 1;
+}
+
+.meta .name {
+  color: $text;
+
+  font-size: $font-size-xs;
+  font-weight: $font-weight-semibold;
+}
+
+.bubble .message {
+  color: $text;
+
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  line-height: 1.2;
+  white-space: nowrap;
+}

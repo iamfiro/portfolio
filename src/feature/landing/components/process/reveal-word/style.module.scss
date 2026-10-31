@@ -1,0 +1,21 @@
+// 단어마다 한 줄 높이로 가려 두고, 안쪽 글자를 아래에서 밀어 올린다
+// 한글 받침이 잘리지 않도록 위아래로 살짝 여유를 둔다
+.mask {
+  display: inline-block;
+
+  overflow: hidden;
+
+  margin: -0.12em 0;
+  padding: 0.12em 0;
+
+  vertical-align: bottom;
+}
+
+// 전역 span 색($text)을 덮어 문단 색을 따른다
+.word {
+  display: inline-block;
+
+  color: inherit;
+
+  white-space: pre;
+}

@@ -1,0 +1,50 @@
+.tag {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  pointer-events: none;
+}
+
+.brand {
+  --cursor: #{$surface-brand};
+}
+
+.info {
+  --cursor: #{$surface-info};
+}
+
+.success {
+  --cursor: #{$text-success};
+}
+
+.warning {
+  --cursor: #{$text-warning-subtle};
+}
+
+.danger {
+  --cursor: #{$surface-danger};
+}
+
+.pointer {
+  width: $spacing-16;
+  height: $spacing-16;
+
+  color: var(--cursor);
+  fill: var(--cursor);
+}
+
+.tag .label {
+  margin: -$spacing-4 0 0 $spacing-12;
+  padding: $spacing-4 $spacing-6;
+
+  color: $text-inverse;
+  background-color: var(--cursor);
+
+  border-radius: $radius-4;
+
+  font-size: $font-size-xs;
+  font-weight: $font-weight-semibold;
+  line-height: 1;
+  white-space: nowrap;
+}

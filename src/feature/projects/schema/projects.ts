@@ -1,5 +1,7 @@
 import { ApiResponse } from "@/shared/types/api";
 
+import type { CaseStudy } from "./case-study";
+
 export interface RelatedPost {
   title: string; // = slug, used for routing
   description?: string;
@@ -19,11 +21,13 @@ export interface Project {
   deployUrl: string | null;
   startDate: string;
   endDate: string | null;
+  resume: boolean;
   relatedPosts?: RelatedPost[];
   award?: {
     id: string;
     title: string;
   } | null;
+  caseStudy?: CaseStudy | null;
 }
 
 export type Projects = Project[];

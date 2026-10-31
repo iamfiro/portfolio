@@ -1,16 +1,21 @@
-.form {
+// 연락 채널 타일과 같은 옅은 면 위에 흰 입력칸을 올린다
+.form,
+.success {
   display: flex;
   flex-direction: column;
-  gap: $spacing-32;
+  gap: $spacing-24;
 
-  width: 100%;
-  max-width: $max-width;
+  padding: $spacing-28;
+
+  background-color: $surface-subtlest;
+
+  border-radius: $radius-24;
 }
 
 .fields {
   display: flex;
   flex-direction: column;
-  gap: $spacing-24;
+  gap: $spacing-20;
 }
 
 .field {
@@ -20,32 +25,50 @@
 }
 
 .label {
+  color: $text-subtle;
+
   font-size: $font-size-sm;
   font-weight: $font-weight-medium;
   line-height: $line-height-normal;
+}
 
-  color: $text-subtle;
+// 기본 입력칸의 회색 테두리를 지우고 흰 면으로 띄운다. 포커스 땐 브랜드색 테두리
+.form .input {
+  background-color: $surface-elevated;
+
+  border-color: $surface-transparent;
+  border-radius: $radius-16;
+
+  &:focus,
+  &:focus-within {
+    border-color: $surface-brand;
+  }
 }
 
 .submitButton {
   align-self: flex-start;
+
+  border-radius: $radius-full;
 }
 
-.success {
-  display: flex;
-  flex-direction: column;
-  gap: $spacing-12;
-
-  max-width: $max-width;
-}
-
-.successTitle {
+.success .successTitle {
   color: $text;
-  font-weight: $font-weight-medium;
+
+  font-size: $font-size-xl;
+  font-weight: $font-weight-semibold;
 }
 
 .resetButton {
   align-self: flex-start;
 
-  margin-top: $spacing-8;
+  border-radius: $radius-full;
+}
+
+@media (max-width: 768px) {
+  .form,
+  .success {
+    padding: $spacing-20;
+
+    border-radius: $radius-20;
+  }
 }

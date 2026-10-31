@@ -1,6 +1,7 @@
 import type { StyleProps } from "@/shared/types/component-common";
 
 import { cn } from "../_utils";
+import { VisuallyHidden } from "../VisuallyHidden/VisuallyHidden";
 
 import styles from "./Link.module.scss";
 
@@ -19,6 +20,9 @@ function Link({
   children,
   ...rest
 }: LinkProps) {
+  // mailto·tel은 새 창이 아니라 메일·전화 앱으로 열리므로 안내하지 않는다
+  const opensNewWindow = external && !/^(mailto|tel):/.test(rest.href ?? "");
+
   return (
     <a
       className={cn(styles.link, styles[variant], className)}
@@ -27,6 +31,8 @@ function Link({
       {...rest}
     >
       {children}
+      {/* 새 창으로 열린다는 걸 스크린리더에도 알린다 */}
+      {opensNewWindow && <VisuallyHidden>(새 창에서 열림)</VisuallyHidden>}
     </a>
   );
 }

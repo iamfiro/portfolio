@@ -1,0 +1,130 @@
+.visual {
+  position: absolute;
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: $spacing-20;
+}
+
+.board {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-16;
+
+  width: 100%;
+  max-width: 16em;
+  padding: $spacing-16;
+
+  background-color: $surface-elevated;
+
+  border-radius: $radius-16;
+
+  box-shadow: $shadow-md;
+}
+
+.track {
+  height: $spacing-6;
+  overflow: hidden;
+
+  background-color: $surface-subtle;
+
+  border-radius: $radius-full;
+}
+
+.fill {
+  display: block;
+
+  height: 100%;
+
+  background-color: $playful-green-ink;
+
+  border-radius: $radius-full;
+}
+
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-10;
+}
+
+.step {
+  display: flex;
+  align-items: center;
+  gap: $spacing-10;
+}
+
+.check {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: $spacing-20;
+  height: $spacing-20;
+
+  background-color: $surface-subtle;
+
+  border-radius: $radius-full;
+
+  transition: background-color $transition-normal;
+}
+
+.done .check {
+  background-color: $playful-green;
+}
+
+.checkIcon {
+  display: flex;
+
+  color: $playful-green-ink;
+}
+
+.step .stepText {
+  color: $text-muted;
+
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+
+  transition: color $transition-normal;
+}
+
+.done .stepText {
+  color: $text;
+}
+
+// 보드 오른쪽 위에 비스듬히 붙는 수상 배지
+.award {
+  position: absolute;
+  top: 14%;
+  right: 8%;
+
+  display: flex;
+  align-items: center;
+  gap: $spacing-6;
+
+  padding: $spacing-8 $spacing-14;
+
+  color: $playful-yellow-ink;
+  background-color: $playful-yellow;
+
+  border-radius: $radius-full;
+
+  box-shadow: $shadow-lg;
+}
+
+.award .awardText {
+  color: $playful-yellow-ink;
+
+  font-size: $font-size-xs;
+  font-weight: $font-weight-bold;
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .check,
+  .step .stepText {
+    transition: none;
+  }
+}

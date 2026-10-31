@@ -1,0 +1,27 @@
+.activities {
+  position: relative;
+
+  padding: 0 $spacing-20 $spacing-100;
+
+  background-color: $surface;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: $spacing-16;
+
+  max-width: $max-width-lg;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .activities {
+    padding-bottom: $spacing-64;
+  }
+
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: $spacing-12;
+  }
+}

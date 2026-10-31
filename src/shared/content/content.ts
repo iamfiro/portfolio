@@ -1,9 +1,11 @@
+import { caseStudies } from "@/content/case-studies";
 import type { Award } from "@/feature/awards/schema";
 import type { Post, RelatedProject } from "@/feature/blog/schema";
 import type { Activity } from "@/feature/home/components/activity/activity.type";
 import type { Project, RelatedPost } from "@/feature/projects/schema";
 import {
   asArray,
+  asBoolean,
   asNullableString,
   asString,
 } from "@/shared/utils/frontmatter.util";
@@ -25,6 +27,7 @@ const activities: Activity[] = rawActivities.map((entry) => ({
   date: asString(entry.fields.date),
   icon: parseActivityIcon(asString(entry.fields.icon)),
   href: asNullableString(entry.fields.href),
+  resume: asBoolean(entry.fields.resume),
 }));
 
 const baseProjects: Project[] = rawProjects.map((entry) => ({
@@ -38,6 +41,7 @@ const baseProjects: Project[] = rawProjects.map((entry) => ({
   deployUrl: asNullableString(entry.fields.deployUrl),
   startDate: asString(entry.fields.startDate),
   endDate: asNullableString(entry.fields.endDate),
+  resume: asBoolean(entry.fields.resume),
 }));
 
 const projectById = new Map(
@@ -69,6 +73,7 @@ const posts: Post[] = rawPosts.map((entry) => {
     thumbnail: asString(entry.fields.thumbnail),
     date: new Date(asString(entry.fields.date)),
     tags: asArray(entry.fields.tags),
+    resume: asBoolean(entry.fields.resume),
     content: entry.content,
     relatedProjects,
   };
@@ -82,8 +87,10 @@ const awards: Award[] = rawAwards.map((entry) => {
     id: entry.id,
     title: asString(entry.fields.title),
     organization: asString(entry.fields.organization),
+    logoUrl: asNullableString(entry.fields.logo),
     date: asString(entry.fields.date),
     imageUrl: asNullableString(entry.fields.imageUrl),
+    resume: asBoolean(entry.fields.resume),
     projectId,
     project: project ? { id: project.id, title: project.title } : null,
   };
@@ -119,6 +126,7 @@ const projects: Project[] = baseProjects.map((project) => {
     ...project,
     relatedPosts: relatedPostsByProjectId.get(project.id) ?? [],
     award: award ? { id: award.id, title: award.title } : null,
+    caseStudy: caseStudies[project.id] ?? null,
   };
 });
 

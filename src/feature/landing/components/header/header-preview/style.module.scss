@@ -1,0 +1,138 @@
+// 헤더 바로 아래 화면 전체 폭으로 펼쳐지는 메가 패널
+.panel {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+
+  overflow: hidden;
+
+  background-color: $surface;
+
+  border-radius: 0 0 $radius-24 $radius-24;
+}
+
+// 패널 아래 페이지를 살짝 눌러 패널에 시선을 모은다. 커서가 닿으면 헤더 밖이라 닫힌다.
+.backdrop {
+  position: fixed;
+  inset: $header-height 0 0;
+  z-index: -1;
+
+  background-color: $overlay-light;
+
+  pointer-events: none;
+}
+
+.measure {
+  position: relative;
+}
+
+// 헤더 .grid와 같은 12칼럼이라 aside는 로고, 카드는 프로젝트 링크 아래에 정렬된다
+.content {
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: $spacing-20;
+
+  padding: $spacing-24 $spacing-20 $spacing-32;
+}
+
+.aside {
+  grid-column: 1 / span 3;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: $spacing-24;
+}
+
+.cards {
+  grid-column: 4 / span 9;
+
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: $spacing-20;
+
+  // 하나를 가리키면 나머지 카드는 한 발 물러난다 (카드 래퍼는 motion이 opacity를 쥐고 있어 안쪽 링크에 건다)
+  &:hover > div:not(:hover) > a {
+    opacity: 0.4;
+  }
+}
+
+// 이미지 없는 패널: 2열 둥근 타일 목록
+.rows {
+  grid-column: 4 / span 9;
+  align-self: start;
+
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: $spacing-12;
+
+  &:hover > div:not(:hover) > a {
+    opacity: 0.4;
+  }
+}
+
+.aside .description {
+  color: $text;
+
+  font-size: $font-size-2xl;
+  font-weight: $font-weight-semibold;
+  line-height: $line-height-tight;
+  letter-spacing: -0.02em;
+  word-break: keep-all;
+}
+
+// 줄마다 가려 두었다가 아래에서 밀어 올린다
+.lineMask {
+  display: block;
+
+  overflow: hidden;
+}
+
+.line {
+  display: block;
+}
+
+// 랜딩 섹션 머리와 같은 알약 링크. 호버하면 글자가 굴러 브랜드색 면이 올라온다
+.aside .more {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-4;
+
+  width: fit-content;
+
+  padding: $spacing-10 $spacing-20;
+
+  color: $text;
+  background-color: $surface-subtle;
+
+  border-radius: $radius-full;
+
+  font-size: $font-size-md;
+  font-weight: $font-weight-medium;
+  text-decoration: none;
+
+  --roll-from: #{$text};
+  --roll-to: #{$text-brand};
+
+  svg {
+    transition: transform $transition-spring;
+  }
+
+  &:hover {
+    color: $text;
+
+    svg {
+      transform: translateX($spacing-4);
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  .rows {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

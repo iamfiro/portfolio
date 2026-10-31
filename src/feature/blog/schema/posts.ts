@@ -19,6 +19,7 @@ export interface Post {
   thumbnail: string;
   date: Date;
   tags: string[];
+  resume: boolean;
   content?: string;
   relatedProjects?: RelatedProject[];
 }

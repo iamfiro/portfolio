@@ -80,7 +80,9 @@ function Modal({
               </button>
             </div>
           ) : null}
-          <div className={styles.body}>{children}</div>
+          <div className={styles.body} data-lenis-prevent>
+            {children}
+          </div>
           {footer ? <div className={styles.footer}>{footer}</div> : null}
         </div>
       </FocusLock>

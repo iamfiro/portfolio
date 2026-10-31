@@ -1,0 +1,134 @@
+// A4(210mm) 폭에 맞춘 화면용 용지 크기: 본문 700px + 좌우 여백
+$paper-width: $max-width + $padding * 2;
+
+@page {
+  size: A4;
+  margin: $spacing-40 $spacing-48;
+}
+
+// 공용 뼈대의 본문 영역. 머리 아래 가운데에 용지를 세운다
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding: 0 $spacing-20 $spacing-100;
+}
+
+.toolbar {
+  width: 100%;
+  max-width: $paper-width;
+
+  margin-bottom: $spacing-32;
+}
+
+// 랜딩 섹션 머리와 같은 옅은 알약 버튼
+.printButton {
+  color: $text;
+  background-color: $surface-subtle;
+
+  border-radius: $radius-full;
+}
+
+// 랜딩 타일과 같은 옅은 면·둥근 모서리의 용지
+.paper {
+  display: flex;
+  flex-direction: column;
+
+  gap: $spacing-40;
+
+  width: 100%;
+  max-width: $paper-width;
+  padding: $padding;
+
+  background-color: $surface-subtlest;
+
+  border-radius: $radius-24;
+}
+
+.profile {
+  flex: 1;
+  min-width: 0;
+}
+
+.name {
+  color: $text;
+
+  font-size: $font-size-4xl;
+  font-weight: $font-weight-semibold;
+  line-height: $line-height-tight;
+  letter-spacing: -0.04em;
+}
+
+.role {
+  color: $text-brand;
+}
+
+.summary {
+  max-width: $max-width-content;
+
+  color: $text-subtle;
+
+  line-height: $line-height-relaxed;
+  word-break: keep-all;
+}
+
+.contacts {
+  gap: $spacing-4 $spacing-16;
+
+  line-height: $line-height-normal;
+
+  a {
+    text-decoration: none;
+  }
+}
+
+.photo {
+  flex-shrink: 0;
+
+  width: $spacing-100;
+  height: $spacing-100 + $spacing-28;
+
+  border-radius: $radius-16;
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 0 $spacing-64;
+  }
+
+  .paper {
+    padding: $spacing-24 $padding-mobile;
+
+    border-radius: 0;
+  }
+
+  .photo {
+    display: none;
+  }
+}
+
+// 인쇄할 땐 헤더·머리·푸터·툴바를 감추고 흰 용지만 남긴다
+@media print {
+  .container {
+    display: block;
+
+    padding: 0;
+
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  .toolbar {
+    display: none;
+  }
+
+  .paper {
+    max-width: none;
+    padding: 0;
+
+    background-color: $surface;
+
+    border-radius: 0;
+  }
+}

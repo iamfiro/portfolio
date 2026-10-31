@@ -4,6 +4,7 @@ $padding-mobile: 20px;
 $max-width: 700px;
 $max-width-content: 500px;
 $max-width-lg: 1100px;
+$header-height: 64px;
 
 // Spacing Scale
 $spacing-4: 4px;
@@ -90,6 +91,18 @@ $text-info-subtle: #3b82f6;
 $surface-info: #2563eb;
 $surface-info-subtle: rgba(37, 99, 235, 0.1);
 
+// Playful Palette (커서 트레일 등 장식용 파스텔 배경 + 진한 아이콘)
+$playful-yellow: #ffff5c;
+$playful-yellow-ink: #7a4a14;
+$playful-purple: #ddc8fb;
+$playful-purple-ink: #7c1cf2;
+$playful-green: #c6f7b9;
+$playful-green-ink: #3f9b2b;
+$playful-blue: #a3dbfa;
+$playful-blue-ink: #1f5af2;
+$playful-pink: #f4bde8;
+$playful-pink-ink: #e23aa8;
+
 // Border Colors
 $border: #e5e5e5;
 $border-subtle: #eeeeee;
@@ -111,6 +124,7 @@ $shadow-inset-soft: inset 0px -20px 32px -20px rgba(0, 0, 0, 0.22);
 $overlay: rgba(0, 0, 0, 0.4);
 $overlay-light: rgba(0, 0, 0, 0.2);
 $overlay-heavy: rgba(0, 0, 0, 0.6);
+$overlay-transparent: rgba(0, 0, 0, 0);
 
 // ============================================
 // Typography
@@ -135,6 +149,7 @@ $font-size-2xl: 24px;
 $font-size-3xl: 30px;
 $font-size-4xl: 36px;
 $font-size-5xl: 48px;
+$font-size-6xl: 64px;
 
 // Line Heights
 $line-height-tight: 1.3;

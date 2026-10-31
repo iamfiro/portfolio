@@ -1,59 +1,17 @@
-.container {
-  width: 100%;
-  min-height: 100vh;
-}
+// 랜딩 목록과 같은 폭·비율: 왼쪽 연락 채널 5 : 오른쪽 메시지 폼 7
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  align-items: start;
+  gap: $spacing-16;
 
-.page {
-  display: flex;
-  flex-direction: column;
-
-  width: 100%;
-
-  padding: 250px $spacing-40 200px;
-}
-
-.hero {
-  display: flex;
-  flex-direction: column;
-  gap: $spacing-12;
-
-  width: 100%;
-
-  margin-bottom: $spacing-48;
-}
-
-.title {
-  font-size: 64px;
-  font-family: $font-gambarino;
-  font-weight: 500;
-  line-height: $line-height-tight;
-
-  color: $text;
-}
-
-.subtitle {
-  font-size: $font-size-md;
-  line-height: $line-height-relaxed;
-
-  color: $text-subtle;
+  max-width: $max-width-lg;
+  margin: 0 auto;
+  padding: 0 $spacing-20;
 }
 
 @media (max-width: 768px) {
-  .page {
-    padding: 180px $spacing-24 200px;
-  }
-
-  .title {
-    font-size: 48px;
-  }
-}
-
-@media (max-width: 480px) {
-  .page {
-    padding: 120px $spacing-16 200px;
-  }
-
-  .title {
-    font-size: 36px;
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
   }
 }

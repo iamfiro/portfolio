@@ -4,4 +4,5 @@ description: 바이브코딩으로 앱을 개발한 경험을 인터뷰로 공�
 date: 2026
 icon: newspaper
 href: https://n.news.naver.com/article/015/0005335371
+resume: true
 ---

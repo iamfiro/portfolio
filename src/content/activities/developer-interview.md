@@ -4,4 +4,5 @@ description: 개발과 서비스 제작에 대한 경험을 기사 인터뷰로 
 date: 2026
 icon: newspaper
 href: https://www.hankyung.com/article/2026081878121
+resume: true
 ---

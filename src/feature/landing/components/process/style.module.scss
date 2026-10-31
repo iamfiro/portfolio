@@ -1,0 +1,68 @@
+// 흰 배경의 두 화면: 위 덱 화면 → 아래 문장 화면. 문장 화면이 보이면 연출이 스스로 재생된다
+// 칸 위치를 offset으로 재므로 섹션과 두 화면 모두 위치 지정 요소여야 한다
+.process {
+  position: relative;
+
+  color: $text;
+  background-color: $surface;
+}
+
+// 위 화면. 가운데에 타일 덱이 모인다
+.deck {
+  position: relative;
+
+  height: 80vh;
+}
+
+// 아래 화면. 큰 문장이 한 화면을 차지한다
+.sentence {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+
+  min-height: 100vh;
+
+  padding: 0 $spacing-20;
+}
+
+.copy {
+  max-width: 15em;
+
+  color: $text;
+
+  font-size: clamp(#{$font-size-3xl}, 5.4vw, #{$font-size-6xl * 1.4});
+  font-weight: $font-weight-medium;
+  line-height: 1.28;
+  letter-spacing: -0.045em;
+  word-break: keep-all;
+}
+
+// 타일이 처음 놓이는 빈 칸. 타일이 떠나도 자리는 남는다
+.slot {
+  position: relative;
+
+  display: inline-block;
+
+  width: 0.95em;
+  height: 0.95em;
+
+  margin-right: 0.22em;
+
+  vertical-align: -0.12em;
+}
+
+// 움직이는 타일 레이어. 문장 위에 겹쳐 있다
+.tiles {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .copy {
+    max-width: none;
+  }
+}

@@ -1,0 +1,54 @@
+// 블로그 글처럼 한 줄기로 읽히는 본문 칼럼. 제목 아래로 문단과 컴포넌트가 이어진다
+.section {
+  padding: $spacing-32 $spacing-20;
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-20;
+
+  max-width: $max-width;
+  margin: 0 auto;
+}
+
+.inner .title {
+  color: $text;
+
+  font-size: $font-size-2xl;
+  font-weight: $font-weight-semibold;
+  line-height: $line-height-tight;
+  letter-spacing: -0.03em;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-24;
+
+  min-width: 0;
+}
+
+.paragraphs {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-12;
+}
+
+.paragraphs .paragraph {
+  color: $text-subtle;
+
+  font-size: $font-size-md;
+  line-height: $line-height-relaxed;
+  word-break: keep-all;
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: $spacing-24 $spacing-20;
+  }
+
+  .inner .title {
+    font-size: $font-size-xl;
+  }
+}

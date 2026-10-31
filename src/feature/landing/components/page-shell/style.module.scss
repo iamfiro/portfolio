@@ -1,0 +1,42 @@
+.shell {
+  width: 100%;
+  min-height: 100vh;
+
+  background-color: $surface;
+}
+
+// 고정 헤더 높이만큼 내려 머리가 헤더 밑에 깔리지 않게 한다
+.hero {
+  padding: $header-height $spacing-20 0;
+
+  // 건너뛰기로 포커스가 와도 테두리 없이 그 자리로만 옮겨 간다
+  &:focus {
+    outline: none;
+  }
+}
+
+// 페이지 머리는 바로 아래 본문과 붙여 읽히도록 아래 여백을 줄인다
+.head {
+  padding-bottom: $spacing-40;
+}
+
+.body {
+  padding-bottom: $spacing-100;
+}
+
+@media (max-width: 768px) {
+  .body {
+    padding-bottom: $spacing-64;
+  }
+}
+
+// 이력서처럼 인쇄되는 페이지는 본문만 남기고 헤더·머리·푸터를 감춘다
+@media print {
+  .shell > :not(.body) {
+    display: none;
+  }
+
+  .body {
+    padding: 0;
+  }
+}

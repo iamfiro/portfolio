@@ -8,6 +8,7 @@ import {
   Home,
   ProjectDetail,
   Projects,
+  Resume,
 } from "@/pages";
 import { PageTransition } from "@/shared/components/layouts";
 
@@ -23,6 +24,7 @@ const router = createBrowserRouter([
       { path: "/projects", element: <Projects /> },
       { path: "/projects/:id", element: <ProjectDetail /> },
       { path: "/contact", element: <Contact /> },
+      { path: "/resume", element: <Resume /> },
     ],
   },
 ]);

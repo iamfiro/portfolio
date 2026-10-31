@@ -1,0 +1,93 @@
+// 형광펜(marker)이 글자 뒤로 깔리도록 칩 안에서 쌓임 맥락을 새로 만든다
+.chip {
+  position: relative;
+  isolation: isolate;
+
+  display: inline-block;
+
+  padding: 0 0.22em;
+}
+
+.marker {
+  position: absolute;
+  inset: 0.04em 0;
+  z-index: -1;
+
+  border-radius: $radius-full;
+
+  transform-origin: left center;
+}
+
+// 칩 오른쪽 위 모서리에 붙는 스티커. 레이아웃 자리를 차지하지 않는다
+.icon {
+  position: absolute;
+  top: -0.3em;
+  right: -0.26em;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 0.62em;
+  height: 0.62em;
+
+  color: $text-inverse;
+
+  border: 0.06em solid $surface;
+  border-radius: $radius-full;
+
+  svg {
+    width: 58%;
+    height: 58%;
+  }
+}
+
+.yellow {
+  .marker {
+    background-color: $playful-yellow;
+  }
+
+  .icon {
+    background-color: $playful-yellow-ink;
+  }
+}
+
+.purple {
+  .marker {
+    background-color: $playful-purple;
+  }
+
+  .icon {
+    background-color: $playful-purple-ink;
+  }
+}
+
+.green {
+  .marker {
+    background-color: $playful-green;
+  }
+
+  .icon {
+    background-color: $playful-green-ink;
+  }
+}
+
+.blue {
+  .marker {
+    background-color: $playful-blue;
+  }
+
+  .icon {
+    background-color: $playful-blue-ink;
+  }
+}
+
+.pink {
+  .marker {
+    background-color: $playful-pink;
+  }
+
+  .icon {
+    background-color: $playful-pink-ink;
+  }
+}

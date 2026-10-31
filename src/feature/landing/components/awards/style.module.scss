@@ -1,0 +1,22 @@
+// 프로젝트 섹션과 같은 여백·폭으로 이어진다
+.awards {
+  position: relative;
+
+  padding: 0 $spacing-20 $spacing-100;
+
+  background-color: $surface;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+
+  max-width: $max-width-lg;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .awards {
+    padding-bottom: $spacing-64;
+  }
+}

@@ -6,7 +6,9 @@ import ReactDOM from "react-dom/client";
 import { RouterProvider } from "react-router-dom";
 
 import router from "@/app/router";
+import { useSmoothScroll } from "@/shared/hooks";
 
+import "lenis/dist/lenis.css";
 import "reactflow/dist/style.css";
 import "@/shared/styles/global.scss";
 
@@ -22,6 +24,8 @@ const queryClient = new QueryClient({
 });
 
 function App() {
+  useSmoothScroll();
+
   return (
     <QueryClientProvider client={queryClient}>
       <RouterProvider router={router} />

@@ -26,6 +26,7 @@ function ScrollArea({
 }: ScrollAreaProps) {
   return (
     <div
+      data-lenis-prevent
       className={cn(styles.scrollArea, styles[direction], className)}
       style={{
         ...buildLayoutStyle({

@@ -1,0 +1,56 @@
+// 랜딩 타일과 같은 옅은 면. 이름 아래로 활용 내용을 짧은 목록으로 둔다
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-14;
+
+  padding: $spacing-20;
+
+  background-color: $surface-subtlest;
+
+  border-radius: $radius-20;
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  gap: $spacing-12;
+}
+
+.logo {
+  flex-shrink: 0;
+
+  width: $spacing-40;
+  height: $spacing-40;
+  padding: $spacing-8;
+
+  background-color: $surface-elevated;
+
+  border-radius: $radius-12;
+}
+
+// 흰 단색 로고는 밝은 배경에서 보이도록 뒤집는다
+.inverted {
+  filter: invert(1);
+}
+
+.head .name {
+  color: $text;
+
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  letter-spacing: -0.02em;
+}
+
+.card .skills {
+  padding-left: $spacing-20;
+
+  color: $text-subtle;
+
+  font-size: $font-size-sm;
+  line-height: $line-height-normal;
+}
+
+.skills .skill {
+  word-break: keep-all;
+}

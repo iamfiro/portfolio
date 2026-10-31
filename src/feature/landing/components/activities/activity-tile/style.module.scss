@@ -1,0 +1,64 @@
+.tile {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: $spacing-48;
+
+  height: 100%;
+  padding: $spacing-28;
+
+  color: $text;
+  background-color: $surface-subtlest;
+
+  border-radius: $radius-24;
+
+  text-decoration: none;
+
+  &:hover {
+    color: $text;
+  }
+}
+
+.top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.external {
+  display: flex;
+
+  color: $text-muted;
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-6;
+}
+
+.copy .title {
+  color: $text;
+
+  font-size: clamp(#{$font-size-lg}, 1.6vw, #{$font-size-2xl});
+  font-weight: $font-weight-semibold;
+  line-height: $line-height-tight;
+  letter-spacing: -0.03em;
+  word-break: keep-all;
+}
+
+.copy .date {
+  color: $text-subtle;
+
+  font-size: $font-size-sm;
+}
+
+@media (max-width: 768px) {
+  .tile {
+    gap: $spacing-32;
+
+    padding: $spacing-20;
+
+    border-radius: $radius-20;
+  }
+}

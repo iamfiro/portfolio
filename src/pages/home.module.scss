@@ -1,38 +1,19 @@
 .container {
   width: 100%;
   min-height: 100vh;
+
+  background-color: $surface;
 }
 
+// 스티키 히어로 위로 덮이며 올라오는 본문
 .content {
-  width: min(100%, $max-width-content);
+  position: relative;
+  z-index: 1;
 
-  background-color: transparent;
+  background-color: $surface;
 
-  align-items: stretch;
-  gap: 0;
-}
-
-.viewport {
-  display: flex;
-  flex-direction: column;
-
-  padding-top: $spacing-64;
-}
-
-@media (max-width: 768px) {
-  .content {
-    > [aria-hidden="true"] {
-      height: 48px !important;
-      min-height: 48px !important;
-    }
-  }
-}
-
-@media (max-width: 480px) {
-  .content {
-    > [aria-hidden="true"] {
-      height: 32px !important;
-      min-height: 32px !important;
-    }
+  // 건너뛰기로 포커스가 와도 테두리 없이 그 자리로만 옮겨 간다
+  &:focus {
+    outline: none;
   }
 }

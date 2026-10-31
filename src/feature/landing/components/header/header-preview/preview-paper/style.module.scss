@@ -1,0 +1,48 @@
+$tilt: -3deg;
+$paper-width: 560px;
+
+// 패널 하단 패딩만큼 아래로 삐져나가 패널 가장자리에 잘리는 종이
+.stage {
+  grid-column: 4 / span 9;
+
+  display: flex;
+  justify-content: center;
+
+  height: 320px;
+  margin-bottom: -$spacing-32;
+  padding-top: $spacing-24;
+}
+
+.paper {
+  align-self: flex-start;
+
+  width: 100%;
+  max-width: $paper-width;
+}
+
+.link {
+  display: block;
+
+  overflow: hidden;
+
+  border-radius: $radius-16 $radius-16 0 0;
+
+  box-shadow: $shadow-lg, $shadow-inset-ring;
+
+  transform: rotate($tilt);
+  transform-origin: top center;
+  transition:
+    transform $transition-spring,
+    box-shadow $transition-spring;
+
+  &:hover {
+    transform: rotate(0deg) translateY(-$spacing-12);
+  }
+}
+
+.image {
+  display: block;
+
+  width: 100%;
+  height: auto;
+}

@@ -1,0 +1,13 @@
+// 0×0 앵커를 커서 좌표에 두고 버블을 가운데 정렬해, 스케일 기준점이 커서가 되게 한다
+.anchor {
+  position: absolute;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 0;
+  height: 0;
+
+  will-change: transform;
+}

@@ -1,0 +1,10 @@
+// 클릭을 가로채지 않도록 포인터 이벤트를 끈 고정 오버레이
+.layer {
+  position: fixed;
+  inset: 0;
+  z-index: $z-dropdown;
+
+  overflow: hidden;
+
+  pointer-events: none;
+}

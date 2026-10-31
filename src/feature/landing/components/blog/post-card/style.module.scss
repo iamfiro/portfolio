@@ -1,0 +1,88 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-20;
+
+  color: $text;
+
+  text-decoration: none;
+
+  &:hover {
+    color: $text;
+  }
+}
+
+// 프로젝트 줄과 좌우를 뒤집어, 썸네일이 왼쪽 7 · 글이 오른쪽 5를 차지한다
+.featured {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  align-items: center;
+  gap: $spacing-40;
+}
+
+.media {
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+
+  background-color: $surface-subtle;
+
+  border-radius: $radius-16;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-12;
+}
+
+.copy .date {
+  color: $text-subtle;
+
+  font-size: $font-size-sm;
+}
+
+.copy .title {
+  color: $text;
+
+  font-size: $font-size-xl;
+  font-weight: $font-weight-semibold;
+  line-height: $line-height-tight;
+  letter-spacing: -0.03em;
+  word-break: keep-all;
+}
+
+.featured .copy .title {
+  font-size: clamp(#{$font-size-2xl}, 2.4vw, #{$font-size-4xl});
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-6;
+
+  margin-top: $spacing-4;
+}
+
+.tags .tag {
+  padding: $spacing-4 $spacing-10;
+
+  color: $text-subtle;
+  background-color: $surface-subtle;
+
+  border-radius: $radius-full;
+
+  font-size: $font-size-xs;
+  font-weight: $font-weight-medium;
+}
+
+@media (max-width: 768px) {
+  .featured {
+    grid-template-columns: minmax(0, 1fr);
+    gap: $spacing-20;
+  }
+}

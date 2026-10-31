@@ -1,0 +1,95 @@
+.bubble {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: $radius-full;
+}
+
+.sm {
+  width: $spacing-40;
+  height: $spacing-40;
+
+  .icon {
+    width: $spacing-24;
+    height: $spacing-24;
+  }
+}
+
+.md {
+  width: $spacing-48;
+  height: $spacing-48;
+
+  .icon {
+    width: $spacing-28;
+    height: $spacing-28;
+  }
+}
+
+.lg {
+  width: $spacing-64;
+  height: $spacing-64;
+
+  .icon {
+    width: $spacing-40;
+    height: $spacing-40;
+  }
+}
+
+.yellow {
+  color: $playful-yellow-ink;
+  background-color: $playful-yellow;
+}
+
+.purple {
+  color: $playful-purple-ink;
+  background-color: $playful-purple;
+}
+
+.green {
+  color: $playful-green-ink;
+  background-color: $playful-green;
+}
+
+.blue {
+  color: $playful-blue-ink;
+  background-color: $playful-blue;
+}
+
+.pink {
+  color: $playful-pink-ink;
+  background-color: $playful-pink;
+}
+
+@media (max-width: 768px) {
+  .sm {
+    width: $spacing-28;
+    height: $spacing-28;
+
+    .icon {
+      width: $spacing-16;
+      height: $spacing-16;
+    }
+  }
+
+  .md {
+    width: $spacing-32;
+    height: $spacing-32;
+
+    .icon {
+      width: $spacing-16;
+      height: $spacing-16;
+    }
+  }
+
+  .lg {
+    width: $spacing-48;
+    height: $spacing-48;
+
+    .icon {
+      width: $spacing-28;
+      height: $spacing-28;
+    }
+  }
+}

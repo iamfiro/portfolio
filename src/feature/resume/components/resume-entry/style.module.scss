@@ -1,0 +1,54 @@
+.entry {
+  display: grid;
+  grid-template-columns: 120px minmax(0, 1fr);
+
+  column-gap: $spacing-20;
+
+  break-inside: avoid;
+
+  // ui 컴포넌트 기본 색상보다 우선하도록 .entry 하위로 지정
+  .period {
+    color: $text-muted;
+
+    font-variant-numeric: tabular-nums;
+    line-height: $line-height-normal;
+  }
+
+  .title {
+    color: $text;
+
+    text-decoration: none;
+
+    font-size: $font-size-md;
+    font-weight: $font-weight-semibold;
+    line-height: $line-height-normal;
+  }
+
+  a.title:hover {
+    color: $text-brand-heavy;
+  }
+
+  .description {
+    color: $text-subtle;
+
+    line-height: $line-height-normal;
+    white-space: pre-line;
+  }
+}
+
+.body {
+  min-width: 0;
+}
+
+.meta,
+.tags {
+  line-height: $line-height-normal;
+}
+
+@media (max-width: 480px) {
+  .entry {
+    grid-template-columns: 1fr;
+
+    row-gap: $spacing-4;
+  }
+}

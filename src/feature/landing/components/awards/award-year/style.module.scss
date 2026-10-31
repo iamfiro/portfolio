@@ -1,0 +1,66 @@
+// 프로젝트 줄과 같은 왼쪽 5 : 오른쪽 7. 왼쪽 연도는 프로젝트 이름과 같은 타이포를 쓴다
+.year {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: $spacing-40;
+
+  padding: $spacing-32 0;
+}
+
+.year .label {
+  color: $text;
+
+  font-size: clamp(#{$font-size-2xl}, 2.2vw, #{$font-size-4xl});
+  font-weight: $font-weight-semibold;
+  line-height: $line-height-tight;
+  letter-spacing: -0.04em;
+}
+
+.items {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-40;
+
+  padding-top: $spacing-4;
+}
+
+.item {
+  display: flex;
+  align-items: flex-start;
+  gap: $spacing-16;
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-4;
+
+  min-width: 0;
+}
+
+.item .title {
+  color: $text;
+
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  line-height: $line-height-normal;
+  letter-spacing: -0.02em;
+  word-break: keep-all;
+}
+
+.item .organization {
+  color: $text-subtle;
+
+  font-size: $font-size-md;
+  line-height: $line-height-normal;
+  word-break: keep-all;
+}
+
+@media (max-width: 768px) {
+  .year {
+    grid-template-columns: minmax(0, 1fr);
+    gap: $spacing-16;
+
+    padding: $spacing-24 0;
+  }
+}

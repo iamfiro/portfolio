@@ -1,0 +1,44 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: $spacing-12;
+}
+
+.tile {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-8;
+
+  padding: $spacing-24;
+
+  background-color: $surface-subtlest;
+
+  border-radius: $radius-20;
+}
+
+.tile .title {
+  color: $text;
+
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  line-height: $line-height-tight;
+  letter-spacing: -0.02em;
+}
+
+.tile .body {
+  color: $text-subtle;
+
+  font-size: $font-size-sm;
+  line-height: $line-height-relaxed;
+  word-break: keep-all;
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .tile {
+    padding: $spacing-20;
+  }
+}
