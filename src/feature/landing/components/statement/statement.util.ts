@@ -17,7 +17,7 @@ import type { BubbleSize, BubbleTone } from "../icon-bubble/icon-bubble.type";
 
 /** 스크롤에 따라 한 단어씩 채워지는 큰 문장 */
 export const STATEMENT_HEADLINE =
-  "사용자의 문제를 데이터로 읽고 해결책을 설계해 기획부터 인프라까지 직접 만듭니다.";
+  "사용자가 겪는 문제를 데이터로 읽고 해결책을 설계해 기획부터 인프라까지 직접 만듭니다.";
 
 /** 큰 문장이 다 채워지는 스크롤 진행도. 남은 구간은 완성된 문장을 보여 준다 */
 export const FILL_END = 0.8;

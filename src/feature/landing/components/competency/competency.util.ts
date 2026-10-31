@@ -1,8 +1,8 @@
 import type { HeroBlob } from "../hero/hero.type";
 
 export const COMPETENCY_HEADLINE_LINES = [
-  "아이디어를 동작하는",
-  "서비스로 만들어요",
+  "아이디어를 실제로",
+  "돌아가는 서비스로 만들어요",
 ];
 
 /** 카드 위에 그릴 시각화 목업 종류 */
@@ -39,7 +39,7 @@ export const COMPETENCIES: Competency[] = [
     },
     title: "불편한 순간을 모아요",
     description:
-      "직접 써 보고, 주변에서 들은 '이거 왜 이래?'를 적어 두는 데서 시작해요.",
+      "직접 써 보고 주변에서 들은 '이거 왜 이래?'를 적어 두는 데서 시작해요.",
   },
   {
     visual: "prototype",
@@ -66,6 +66,6 @@ export const COMPETENCIES: Competency[] = [
       side: "right",
     },
     title: "내놓은 뒤에도 계속 다듬어요",
-    description: "쓰는 모습을 지켜보고 불편이 남은 곳을 찾아, 한 번 더 고쳐요.",
+    description: "쓰는 모습을 지켜보고 아직 불편한 곳을 찾아 한 번 더 고쳐요.",
   },
 ];

@@ -100,7 +100,7 @@ function buildBlog(): PreviewContent {
   return {
     layout: "cards",
     eyebrow: "블로그",
-    description: "만들다 막혔던 것들\n푼 과정 정리",
+    description: "만들다 막혔던 걸\n어떻게 풀었는지",
     total: contentPosts.length,
     items,
     more: { label: "블로그 전체 보기", href: "/blog" },
@@ -112,7 +112,7 @@ function buildResume(): PreviewContent {
   return {
     layout: "paper",
     eyebrow: "이력서",
-    description: "경력은 여기\n한 장에 있어요",
+    description: "경력을 한 장에\n정리해 뒀어요",
     total: 1,
     items: [
       {

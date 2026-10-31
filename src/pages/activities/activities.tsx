@@ -19,7 +19,7 @@ export default function Activities() {
     <LandingPageShell
       titleId="activities-title"
       documentTitle="활동"
-      lines={["대회에서 직접", "증명해 온 순간들"]}
+      lines={["대회에서", "증명해 온 순간들"]}
     >
       <LandingAwards awards={data?.data ?? []} variant="page" />
       <LandingActivities />

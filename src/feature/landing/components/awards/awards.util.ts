@@ -1,6 +1,6 @@
 import type { Award } from "@/feature/awards/schema";
 
-export const AWARDS_HEADLINE_LINES = ["대회에서 직접", "증명해 온 순간들"];
+export const AWARDS_HEADLINE_LINES = ["대회에서", "증명해 온 순간들"];
 
 export interface AwardYearGroup {
   year: number;
