@@ -83,6 +83,20 @@
   justify-self: end;
 }
 
+// 좁은 화면에서만 보이는 메뉴 열기 버튼. 헤더 톤에 맞춰 글자색을 따른다
+.header .menuButton {
+  display: none;
+
+  margin-right: -$spacing-8;
+
+  color: var(--header-ink);
+
+  &:hover {
+    background-color: transparent;
+  }
+}
+
+// 좁은 화면에선 로고와 메뉴 버튼만 두고, 링크는 메뉴 패널로 옮긴다
 @media (max-width: 768px) {
   .grid {
     grid-template-columns: auto 1fr auto;
@@ -92,20 +106,15 @@
     grid-column: 1;
   }
 
-  .work {
+  .work,
+  .nav,
+  .contact {
     display: none;
   }
 
-  .nav {
-    grid-column: 2;
-    justify-self: end;
-
-    gap: $spacing-24;
-  }
-
-  .contact {
+  .header .menuButton {
     grid-column: 3;
 
-    margin-left: $spacing-12;
+    display: inline-flex;
   }
 }

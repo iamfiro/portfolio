@@ -1,11 +1,11 @@
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Menu, X } from "lucide-react";
 import type { FocusEvent, MouseEvent } from "react";
 import { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 
 import { useBackdropTone } from "@/feature/landing/hooks/use-backdrop-tone";
 import { usePageTransition } from "@/shared/components/layouts";
-import { Box, Grid, Image, Link } from "@/shared/components/ui";
+import { Box, Grid, IconButton, Image, Link } from "@/shared/components/ui";
 import { contentProjects } from "@/shared/content/content";
 import { useMediaQuery } from "@/shared/hooks";
 
@@ -14,6 +14,7 @@ import type { PreviewKey } from "./header-preview/header-preview.type";
 import HeaderIndicator from "./header-indicator";
 import HeaderLink from "./header-link";
 import HeaderPreview from "./header-preview";
+import MobileMenu from "./mobile-menu";
 
 import s from "./style.module.scss";
 
@@ -24,6 +25,7 @@ const NAV_ITEMS = [
 ] as const;
 
 const CLOSE_DELAY = 150;
+const MOBILE_MENU_ID = "mobile-menu";
 
 interface ActiveLink {
   key: PreviewKey;
@@ -44,12 +46,41 @@ export default function LandingHeader({
     pathname === path || pathname.startsWith(`${path}/`);
   const tone = useBackdropTone();
   const canHover = useMediaQuery("(hover: hover)");
+  const isMobile = useMediaQuery("(max-width: 768px)");
 
   const [active, setActive] = useState<ActiveLink | null>(null);
   const preview = active?.key ?? null;
   const closeTimer = useRef<number>(undefined);
 
+  // 넓은 화면으로 바뀌면 열려 있던 모바일 메뉴는 저절로 닫힌 것으로 본다
+  const [menuOpen, setMenuOpen] = useState(false);
+  const isMenuOpen = menuOpen && isMobile;
+
+  const mobileMenuItems = [
+    { path: "/projects", label: "프로젝트", count: projectCount },
+    ...NAV_ITEMS,
+    { path: "/contact", label: "연락하기" },
+  ];
+
   useEffect(() => () => window.clearTimeout(closeTimer.current), []);
+
+  // 메뉴가 열린 동안 뒤 페이지 스크롤을 잠그고, Esc로 닫는다
+  useEffect(() => {
+    if (!isMenuOpen) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setMenuOpen(false);
+    };
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isMenuOpen]);
 
   useEffect(() => {
     if (!preview) return;
@@ -98,13 +129,14 @@ export default function LandingHeader({
   const handleNavigate = (event: MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
     setActive(null);
+    setMenuOpen(false);
     navigateTo(event.currentTarget.getAttribute("href") ?? "/");
   };
 
   return (
     <Box
       as="header"
-      className={[s.header, s[tone], preview && s.open]
+      className={[s.header, s[tone], (preview || isMenuOpen) && s.open]
         .filter(Boolean)
         .join(" ")}
       onMouseLeave={scheduleClose}
@@ -155,8 +187,24 @@ export default function LandingHeader({
           onMouseEnter={openPreview("contact")}
           onFocus={openPreview("contact")}
         />
+        <IconButton
+          className={s.menuButton}
+          aria-label={isMenuOpen ? "메뉴 닫기" : "메뉴 열기"}
+          aria-expanded={isMenuOpen}
+          aria-controls={MOBILE_MENU_ID}
+          onClick={() => setMenuOpen((open) => !open)}
+        >
+          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        </IconButton>
       </Grid>
       <HeaderPreview activeKey={preview} onNavigate={handleNavigate} />
+      <MobileMenu
+        id={MOBILE_MENU_ID}
+        isOpen={isMenuOpen}
+        items={mobileMenuItems}
+        isCurrent={isCurrent}
+        onNavigate={handleNavigate}
+      />
     </Box>
   );
 }

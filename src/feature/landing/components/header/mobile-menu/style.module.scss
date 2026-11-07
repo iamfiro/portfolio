@@ -1,0 +1,99 @@
+// 헤더 바로 아래부터 화면 끝까지 덮는 흰 면. 헤더는 열린 동안 흰 톤으로 맞춰져 한 장처럼 보인다
+.panel {
+  position: fixed;
+  inset: $header-height 0 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: $spacing-48;
+
+  padding: $spacing-16 $padding-mobile $spacing-40;
+  overflow-y: auto;
+
+  background-color: $surface;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+}
+
+// 줄마다 마스크를 씌워 링크가 줄 아래에서 밀려 올라오게 한다
+.item {
+  overflow: hidden;
+}
+
+.link {
+  display: flex;
+  align-items: baseline;
+  gap: $spacing-6;
+
+  padding: $spacing-8 0;
+
+  text-decoration: none;
+}
+
+.link .label {
+  color: $text;
+
+  font-size: $font-size-4xl;
+  font-weight: $font-weight-semibold;
+  line-height: $line-height-tight;
+  letter-spacing: -0.04em;
+}
+
+.link .count {
+  color: $text-muted;
+
+  font-size: $font-size-md;
+  font-weight: $font-weight-medium;
+}
+
+.current .label {
+  color: $text-brand;
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-16;
+}
+
+.email {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-4;
+
+  text-decoration: none;
+}
+
+.email .emailText {
+  color: $text;
+
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  letter-spacing: -0.02em;
+}
+
+.emailIcon {
+  display: flex;
+
+  color: $text-brand;
+}
+
+.socials {
+  display: flex;
+  gap: $spacing-20;
+}
+
+.social {
+  text-decoration: none;
+}
+
+.social .socialText {
+  color: $text-subtle;
+
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+}
