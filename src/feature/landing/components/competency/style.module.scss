@@ -23,11 +23,11 @@
 
 @media (max-width: 768px) {
   .competency {
-    padding-bottom: $spacing-64;
+    padding-bottom: $spacing-48;
   }
 
   .grid {
     grid-template-columns: minmax(0, 1fr);
-    gap: $spacing-48;
+    gap: $spacing-40;
   }
 }

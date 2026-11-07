@@ -81,8 +81,24 @@
 }
 
 @media (max-width: 768px) {
+  .card,
+  .featured {
+    gap: $spacing-16;
+  }
+
   .featured {
     grid-template-columns: minmax(0, 1fr);
-    gap: $spacing-20;
+  }
+
+  .copy {
+    gap: $spacing-8;
+  }
+
+  .copy .title {
+    font-size: $font-size-lg;
+  }
+
+  .featured .copy .title {
+    font-size: $font-size-xl;
   }
 }

@@ -49,4 +49,8 @@
   .statement {
     height: 220svh;
   }
+
+  .sticky .headline {
+    font-size: clamp(#{$font-size-2xl}, 6.4vw, #{$font-size-3xl});
+  }
 }

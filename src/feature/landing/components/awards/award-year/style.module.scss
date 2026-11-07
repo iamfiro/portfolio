@@ -63,4 +63,24 @@
 
     padding: $spacing-24 0;
   }
+
+  .year .label {
+    font-size: $font-size-xl;
+  }
+
+  .items {
+    gap: $spacing-24;
+  }
+
+  .item {
+    gap: $spacing-12;
+  }
+
+  .item .title {
+    font-size: $font-size-md;
+  }
+
+  .item .organization {
+    font-size: $font-size-sm;
+  }
 }

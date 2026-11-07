@@ -45,11 +45,19 @@
 
 @media (max-width: 768px) {
   .stack {
-    padding-bottom: $spacing-64;
+    padding-bottom: $spacing-48;
   }
 
   .grid {
     grid-template-columns: minmax(0, 1fr);
-    gap: $spacing-40;
+    gap: $spacing-32;
+  }
+
+  .column {
+    gap: $spacing-12;
+  }
+
+  .column .label {
+    font-size: $font-size-lg;
   }
 }

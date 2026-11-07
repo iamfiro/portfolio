@@ -112,9 +112,13 @@
 
 @media (max-width: 768px) {
   .head {
-    gap: $spacing-24;
+    gap: $spacing-20;
 
-    padding: $spacing-64 0;
+    padding: $spacing-48 0;
+  }
+
+  .head .headline {
+    font-size: clamp(#{$font-size-2xl}, 6.4vw, #{$font-size-3xl});
   }
 }
 

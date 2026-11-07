@@ -71,6 +71,28 @@
   word-break: keep-all;
 }
 
+@media (max-width: 768px) {
+  .card {
+    gap: $spacing-16;
+  }
+
+  .stage {
+    border-radius: $radius-24;
+  }
+
+  .copy {
+    gap: $spacing-6;
+  }
+
+  .copy .title {
+    font-size: $font-size-lg;
+  }
+
+  .copy .description {
+    font-size: $font-size-sm;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .stage {
     transition: none;

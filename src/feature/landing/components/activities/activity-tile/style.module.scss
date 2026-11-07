@@ -55,10 +55,14 @@
 
 @media (max-width: 768px) {
   .tile {
-    gap: $spacing-32;
+    gap: $spacing-24;
 
     padding: $spacing-20;
 
     border-radius: $radius-20;
+  }
+
+  .copy .title {
+    font-size: $font-size-md;
   }
 }

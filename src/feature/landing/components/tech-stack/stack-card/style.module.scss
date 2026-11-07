@@ -54,3 +54,25 @@
 .skills .skill {
   word-break: keep-all;
 }
+
+@media (max-width: 768px) {
+  .card {
+    gap: $spacing-12;
+
+    padding: $spacing-16;
+
+    border-radius: $radius-16;
+  }
+
+  .logo {
+    width: $spacing-32;
+    height: $spacing-32;
+    padding: $spacing-6;
+
+    border-radius: $radius-10;
+  }
+
+  .head .name {
+    font-size: $font-size-md;
+  }
+}

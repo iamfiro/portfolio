@@ -50,4 +50,9 @@
   .copy {
     padding: calc(#{$header-height} + #{$spacing-24}) $padding-mobile 0;
   }
+
+  // 데스크톱 clamp의 하한이 폰에선 너무 커서 화면 폭에 맞춰 한 단계 낮춘다
+  .title {
+    font-size: clamp(#{$font-size-2xl}, 7vw, #{$font-size-3xl});
+  }
 }

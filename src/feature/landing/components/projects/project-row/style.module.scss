@@ -103,7 +103,23 @@
 
   .link {
     grid-template-columns: minmax(0, 1fr);
-    gap: $spacing-24;
+    gap: $spacing-20;
+  }
+
+  .info {
+    gap: $spacing-16;
+  }
+
+  .copy {
+    gap: $spacing-4;
+  }
+
+  .copy .name {
+    font-size: $font-size-xl;
+  }
+
+  .copy .description {
+    font-size: $font-size-sm;
   }
 
   .media {
