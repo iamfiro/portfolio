@@ -19,14 +19,6 @@
   text-align: center;
 }
 
-.summary .lead {
-  color: $text-subtle;
-
-  font-size: $font-size-lg;
-  line-height: $line-height-relaxed;
-  word-break: keep-all;
-}
-
 .chips {
   display: flex;
   flex-wrap: wrap;
@@ -142,10 +134,6 @@
     gap: $spacing-40;
 
     padding-bottom: $spacing-40;
-  }
-
-  .summary .lead {
-    font-size: $font-size-md;
   }
 
   .media {

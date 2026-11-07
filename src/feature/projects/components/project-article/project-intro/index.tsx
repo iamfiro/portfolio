@@ -5,7 +5,7 @@ import {
   getRevealProps,
   LANDING_EASE,
 } from "@/feature/landing/utils/reveal.util";
-import type { CaseStudy, Project } from "@/feature/projects/schema";
+import type { Project } from "@/feature/projects/schema";
 import { getStackIcons } from "@/feature/projects/utils";
 import { Box, Image, Link, Text } from "@/shared/components/ui";
 
@@ -13,7 +13,6 @@ import s from "./style.module.scss";
 
 interface Props {
   project: Project;
-  caseStudy: CaseStudy;
 }
 
 function formatPeriod(startDate: string, endDate: string | null): string {
@@ -21,8 +20,8 @@ function formatPeriod(startDate: string, endDate: string | null): string {
   return `${format(startDate)} — ${endDate ? format(endDate) : "진행 중"}`;
 }
 
-/** 머리 아래로 소개 문단·태그·링크를 가운데 정렬하고, 큰 썸네일을 펼친다 */
-export default function CaseStudyIntro({ project, caseStudy }: Props) {
+/** 머리 아래로 태그·링크를 가운데 정렬하고, 큰 썸네일을 펼친다 */
+export default function ProjectIntro({ project }: Props) {
   const stackIcons = getStackIcons(project.techStack);
   const links = [
     { href: project.githubUrl, label: "GitHub" },
@@ -34,19 +33,15 @@ export default function CaseStudyIntro({ project, caseStudy }: Props) {
   return (
     <Box className={s.intro}>
       <motion.div className={s.summary} {...getRevealProps()}>
-        {caseStudy.lead && (
-          <Text as="p" className={s.lead}>
-            {caseStudy.lead}
-          </Text>
+        {project.tags.length > 0 && (
+          <Box className={s.chips}>
+            {project.tags.map((tag) => (
+              <Text key={tag} as="span" className={s.chip}>
+                {tag}
+              </Text>
+            ))}
+          </Box>
         )}
-
-        <Box className={s.chips}>
-          {caseStudy.tags.map((tag) => (
-            <Text key={tag} as="span" className={s.chip}>
-              {tag}
-            </Text>
-          ))}
-        </Box>
 
         {links.length > 0 && (
           <Box className={s.links}>

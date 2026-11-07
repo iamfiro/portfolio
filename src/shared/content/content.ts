@@ -1,4 +1,3 @@
-import { caseStudies } from "@/content/case-studies";
 import type { Award } from "@/feature/awards/schema";
 import type { Post, RelatedProject } from "@/feature/blog/schema";
 import type { Activity } from "@/feature/home/components/activity/activity.type";
@@ -35,6 +34,7 @@ const baseProjects: Project[] = rawProjects.map((entry) => ({
   title: asString(entry.fields.title),
   description: asString(entry.fields.description),
   techStack: asArray(entry.fields.techStack),
+  tags: asArray(entry.fields.tags),
   logoUrl: asNullableString(entry.fields.logoUrl),
   thumbnailUrl: asNullableString(entry.fields.thumbnailUrl),
   githubUrl: asNullableString(entry.fields.githubUrl),
@@ -42,6 +42,7 @@ const baseProjects: Project[] = rawProjects.map((entry) => ({
   startDate: asString(entry.fields.startDate),
   endDate: asNullableString(entry.fields.endDate),
   resume: asBoolean(entry.fields.resume),
+  content: entry.content,
 }));
 
 const projectById = new Map(
@@ -126,7 +127,6 @@ const projects: Project[] = baseProjects.map((project) => {
     ...project,
     relatedPosts: relatedPostsByProjectId.get(project.id) ?? [],
     award: award ? { id: award.id, title: award.title } : null,
-    caseStudy: caseStudies[project.id] ?? null,
   };
 });
 

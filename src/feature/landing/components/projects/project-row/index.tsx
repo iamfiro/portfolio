@@ -18,7 +18,7 @@ interface Props {
 
 export default function ProjectRow({ project, onNavigate }: Props) {
   const stackIcons = getStackIcons(project.techStack);
-  const tags = project.caseStudy?.tags ?? [];
+  const { tags } = project;
 
   return (
     <motion.article className={s.row} {...getRevealProps()}>

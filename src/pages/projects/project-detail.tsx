@@ -3,23 +3,9 @@ import { Helmet } from "react-helmet";
 import { useParams } from "react-router-dom";
 
 import { LandingPageShell } from "@/feature/landing/components";
-import { CaseStudyView } from "@/feature/projects/components";
+import { ProjectArticle } from "@/feature/projects/components";
 import { getProject } from "@/feature/projects/data";
-import type {
-  CaseStudy,
-  Project,
-  ProjectResponse,
-} from "@/feature/projects/schema";
-
-// 케이스 스터디가 없는 프로젝트도 같은 화면으로 보이도록 기본 정보만으로 채운다
-function toBasicCaseStudy(project: Project): CaseStudy {
-  return {
-    year: project.startDate.slice(0, 4),
-    lead: "",
-    tags: project.techStack,
-    sections: [],
-  };
-}
+import type { ProjectResponse } from "@/feature/projects/schema";
 
 export default function ProjectDetail() {
   const { id } = useParams<{ id: string }>();
@@ -50,10 +36,7 @@ export default function ProjectDetail() {
       <Helmet>
         <title>{project.title}</title>
       </Helmet>
-      <CaseStudyView
-        project={project}
-        caseStudy={project.caseStudy ?? toBasicCaseStudy(project)}
-      />
+      <ProjectArticle project={project} />
     </>
   );
 }

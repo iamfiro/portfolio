@@ -1,0 +1,16 @@
+// 소개 아래로 블로그 본문과 같은 칼럼 폭의 마크다운을 이어 붙인다
+.body {
+  padding: $spacing-32 $spacing-20;
+}
+
+.inner {
+  max-width: $max-width;
+  min-width: 0;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .body {
+    padding: $spacing-24 $spacing-20;
+  }
+}
