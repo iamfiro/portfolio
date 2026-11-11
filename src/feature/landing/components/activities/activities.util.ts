@@ -9,10 +9,7 @@ import type { ActivityIconName } from "@/feature/home/components/activity/activi
 
 import type { BubbleTone } from "../icon-bubble/icon-bubble.type";
 
-export const ACTIVITIES_HEADLINE_LINES = [
-  "코드 밖에서도",
-  "이야기를 나눠 왔어요",
-];
+export const ACTIVITIES_HEADLINE_LINES = ["활동 리스트"];
 
 interface ActivityVisual {
   icon: LucideIcon;
