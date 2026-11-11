@@ -1,4 +1,1 @@
-export const TECH_STACK_HEADLINE_LINES = [
-  "손에 익은 도구로",
-  "끝까지 만들어요",
-];
+export const TECH_STACK_HEADLINE_LINES = ["사용하는 기술"];
