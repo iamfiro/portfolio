@@ -1,10 +1,10 @@
 import ReactMarkdown from "react-markdown";
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import rehypeKatex from "rehype-katex";
 import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
+
+import CodeBlock from "../code-block";
 
 import "katex/dist/katex.min.css";
 import s from "./style.module.scss";
@@ -22,9 +22,10 @@ export default function MarkdownContent({ content }: Props) {
         components={{
           code({ className, children, ...props }) {
             const match = /language-(\w+)/.exec(className || "");
-            const isInline = !match;
+            const code = String(children);
 
-            if (isInline) {
+            // 언어 없는 펜스 블록도 줄바꿈이 있으면 코드 블록으로 렌더링
+            if (!match && !code.includes("\n")) {
               return (
                 <code className={s.inline_code} {...props}>
                   {children}
@@ -32,28 +33,10 @@ export default function MarkdownContent({ content }: Props) {
               );
             }
 
-            return (
-              <SyntaxHighlighter
-                style={oneDark}
-                language={match[1]}
-                PreTag="div"
-                className={s.code_block}
-                customStyle={{
-                  padding: "20px 24px",
-                  background: "transparent",
-                  fontSize: "14px",
-                  lineHeight: 1.7,
-                }}
-                codeTagProps={{
-                  style: {
-                    fontFamily:
-                      '"SF Mono", "JetBrains Mono", Menlo, Consolas, monospace',
-                  },
-                }}
-              >
-                {String(children).replace(/\n$/, "")}
-              </SyntaxHighlighter>
-            );
+            return <CodeBlock code={code} language={match?.[1] ?? "text"} />;
+          },
+          pre({ children }) {
+            return <>{children}</>;
           },
           img({ src, alt }) {
             return <img src={src} alt={alt} className={s.image} />;

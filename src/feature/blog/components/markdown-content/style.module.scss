@@ -1,7 +1,7 @@
 // ============================================
-// 블로그 본문 마크다운 스타일
-// 다크 테마(#141414) 위에서 최대한 읽기 좋도록 튜닝
-// 모든 시각 값은 variables.scss 토큰 사용
+// 블로그 본문 마크다운 스타일 (prose)
+// 본문은 한 톤 낮춘 회색, 제목·강조만 진한 색으로 두어 위계를 만든다.
+// 장식(테두리·그림자·배경)은 최소화하고 여백으로 구분한다.
 // ============================================
 
 $reading-line-height: 1.85;
@@ -10,16 +10,17 @@ $mono-stack: "SF Mono", "JetBrains Mono", Menlo, Consolas, "Liberation Mono",
     monospace;
 
 .markdown {
-    color: $text;
+    color: $text-subtle;
 
-    font-size: 18px;
+    font-size: $font-size-lg;
     font-weight: $font-weight-normal;
     line-height: $reading-line-height;
     letter-spacing: $reading-letter-spacing;
     word-break: keep-all;
     overflow-wrap: anywhere;
+    text-wrap: pretty;
 
-    // ----- 헤딩 공통 -----
+    // ----- 헤딩: 위 여백을 크게, 아래 여백을 작게 두어 뒤 문단에 붙인다 -----
     h1,
     h2,
     h3,
@@ -28,73 +29,61 @@ $mono-stack: "SF Mono", "JetBrains Mono", Menlo, Consolas, "Liberation Mono",
     h6 {
         color: $text;
 
-        font-weight: $font-weight-bold;
-        line-height: 1.35;
-        letter-spacing: -0.025em;
+        font-weight: $font-weight-semibold;
+        line-height: $line-height-tight;
         word-break: keep-all;
+        text-wrap: balance;
 
         scroll-margin-top: 120px;
+
+        &:first-child {
+            margin-top: 0;
+        }
     }
 
     h1 {
-        margin: $spacing-64 0 $spacing-24 0;
+        margin: $spacing-64 0 $spacing-20 0;
 
-        font-size: 34px;
-
-        &:first-child {
-            margin-top: 0;
-        }
+        font-size: $font-size-3xl;
+        font-weight: $font-weight-bold;
+        letter-spacing: -0.022em;
     }
 
     h2 {
-        margin: $spacing-64 0 $spacing-20 0;
-        padding-bottom: $spacing-12;
+        margin: $spacing-64 0 $spacing-16 0;
 
-        border-bottom: 1px solid $border-subtle;
-
-        font-size: 30px;
-
-        &:first-child {
-            margin-top: 0;
-        }
+        font-size: $font-size-2xl;
+        letter-spacing: -0.02em;
     }
 
     h3 {
-        margin: $spacing-48 0 $spacing-16 0;
+        margin: $spacing-48 0 $spacing-12 0;
 
-        font-size: 23px;
-        font-weight: $font-weight-semibold;
+        font-size: $font-size-xl;
+        letter-spacing: -0.016em;
     }
 
     h4 {
-        margin: $spacing-32 0 $spacing-12 0;
+        margin: $spacing-32 0 $spacing-8 0;
 
-        font-size: 19px;
-        font-weight: $font-weight-semibold;
+        font-size: $font-size-lg;
+        letter-spacing: -0.012em;
     }
 
     h5,
     h6 {
         margin: $spacing-24 0 $spacing-8 0;
 
-        color: $text-subtle;
+        color: $text-muted;
 
-        font-size: 16px;
-        font-weight: $font-weight-semibold;
-        letter-spacing: 0.02em;
+        font-size: $font-size-sm;
+        letter-spacing: 0.04em;
         text-transform: uppercase;
     }
 
     // ----- 단락 -----
     p {
         margin: 0 0 $spacing-24 0;
-
-        color: $text;
-
-        font-size: 18px;
-        font-weight: $font-weight-normal;
-        line-height: $reading-line-height;
-        letter-spacing: $reading-letter-spacing;
 
         &:last-child {
             margin-bottom: 0;
@@ -104,64 +93,55 @@ $mono-stack: "SF Mono", "JetBrains Mono", Menlo, Consolas, "Liberation Mono",
     // ----- 강조 -----
     strong {
         color: $text;
+
         font-weight: $font-weight-semibold;
     }
 
     em {
-        color: $text;
         font-style: italic;
+    }
+
+    del {
+        color: $text-muted;
     }
 
     // ----- 리스트 -----
     ul,
     ol {
         margin: 0 0 $spacing-24 0;
-        padding-left: $spacing-24;
+        padding-left: 1.4em;
 
         li {
-            margin-bottom: $spacing-8;
-            padding-left: $spacing-6;
+            padding-left: $spacing-4;
 
-            color: $text;
-
-            font-size: 18px;
-            font-weight: $font-weight-normal;
-            line-height: $reading-line-height;
-            letter-spacing: $reading-letter-spacing;
-
-            &:last-child {
-                margin-bottom: 0;
+            & + li {
+                margin-top: $spacing-6;
             }
 
             > p {
-                margin: 0 0 $spacing-8 0;
+                margin: 0;
 
-                &:last-child {
-                    margin-bottom: 0;
+                & + p {
+                    margin-top: $spacing-8;
                 }
             }
 
             ul,
             ol {
-                margin: $spacing-8 0 0 0;
-                padding-left: $spacing-20;
+                margin: $spacing-6 0 0 0;
             }
+        }
+
+        li::marker {
+            color: $text-muted;
         }
     }
 
     ul {
         list-style-type: disc;
 
-        li::marker {
-            color: $text-brand;
-        }
-
         ul {
             list-style-type: circle;
-
-            li::marker {
-                color: $text-subtle;
-            }
         }
     }
 
@@ -169,140 +149,103 @@ $mono-stack: "SF Mono", "JetBrains Mono", Menlo, Consolas, "Liberation Mono",
         list-style-type: decimal;
 
         li::marker {
-            color: $text-brand;
-            font-weight: $font-weight-semibold;
-        }
-
-        ol li::marker {
-            color: $text-subtle;
+            font-variant-numeric: tabular-nums;
         }
     }
 
-    // ----- 링크 -----
+    // ----- 링크: 밑줄은 옅게, hover 시 진하게 -----
     a {
-        color: $text-brand;
-
-        font-weight: $font-weight-medium;
+        color: $text-info;
 
         text-decoration: underline;
         text-decoration-thickness: 1px;
-        text-decoration-color: $text-brand-heavy;
-        text-underline-offset: 4px;
+        text-decoration-color: color-mix(in srgb, currentColor 35%, transparent);
+        text-underline-offset: 3px;
 
-        transition: color $transition-fast,
-            text-decoration-thickness $transition-fast;
+        transition: text-decoration-color $transition-fast;
 
         &:hover {
-            color: $text-brand-heavy;
-
-            text-decoration-thickness: 2px;
+            text-decoration-color: currentColor;
         }
     }
 
     // ----- 인용구 -----
     blockquote {
-        position: relative;
-
         margin: $spacing-32 0;
-        padding: $spacing-20 $spacing-24 $spacing-20 $spacing-28;
+        padding: $spacing-4 0 $spacing-4 $spacing-16;
 
-        background-color: $surface-subtle;
+        color: $text-subtle;
 
-        border-left: 3px solid $text-brand;
-        border-radius: 0 $radius-12 $radius-12 0;
+        box-shadow: inset 3px 0 0 $border;
 
         p {
             margin: 0;
-
-            color: $text;
-
-            font-size: 17px;
-            font-weight: $font-weight-normal;
-            line-height: 1.75;
-            letter-spacing: $reading-letter-spacing;
 
             & + p {
                 margin-top: $spacing-12;
             }
         }
-
-        strong {
-            color: $text;
-        }
     }
 
     // ----- 구분선 -----
     hr {
-        width: 64px;
         height: 1px;
 
-        margin: $spacing-48 auto;
+        margin: $spacing-48 0;
 
-        background-color: $border-strong;
+        background-color: $border-subtle;
         border: none;
     }
 
-    // ----- 테이블 -----
+    // ----- 테이블: 격자선 대신 둥근 줄무늬 -----
     table {
         display: block;
 
         width: 100%;
         margin: $spacing-32 0;
 
-        border: 1px solid $border;
         border-collapse: separate;
         border-spacing: 0;
-        border-radius: $radius-12;
 
-        font-size: 15px;
+        font-size: $font-size-md;
+        font-variant-numeric: tabular-nums;
+        line-height: $line-height-normal;
 
         overflow-x: auto;
 
         th,
         td {
-            padding: $spacing-12 $spacing-16;
+            padding: $spacing-10 $spacing-12;
 
             text-align: left;
             vertical-align: top;
-            line-height: 1.7;
-
-            border-bottom: 1px solid $border-subtle;
         }
 
         th {
-            background-color: $surface-elevated;
+            padding-top: $spacing-6;
 
-            color: $text;
+            color: $text-muted;
 
-            font-size: 13px;
-            font-weight: $font-weight-semibold;
-            letter-spacing: 0.04em;
-            text-transform: uppercase;
-
-            border-bottom: 1px solid $border;
+            font-size: $font-size-sm;
+            font-weight: $font-weight-medium;
+            white-space: nowrap;
         }
 
         td {
-            color: $text;
-            font-weight: $font-weight-normal;
+            color: $text-subtle;
         }
 
-        tbody tr {
-            transition: background-color $transition-fast;
+        tbody tr:nth-child(odd) td {
+            background-color: $surface-subtlest;
 
-            &:hover td {
-                background-color: $surface-subtle;
+            &:first-child {
+                border-radius: $radius-8 0 0 $radius-8;
             }
 
-            &:last-child td {
-                border-bottom: none;
+            &:last-child {
+                border-radius: 0 $radius-8 $radius-8 0;
             }
         }
-    }
-
-    // ----- 코드 블록 래퍼 -----
-    pre {
-        margin: $spacing-32 0;
     }
 
     // ----- 키보드 키 -----
@@ -311,24 +254,38 @@ $mono-stack: "SF Mono", "JetBrains Mono", Menlo, Consolas, "Liberation Mono",
 
         padding: 2px $spacing-6;
 
-        background-color: $surface-elevated;
+        background-color: $surface;
 
-        border: 1px solid $border-strong;
+        border: 1px solid $border;
         border-bottom-width: 2px;
         border-radius: $radius-4;
 
         color: $text;
 
         font-family: $mono-stack;
-        font-size: 13px;
-        line-height: 1;
+        font-size: 0.8em;
+        line-height: 1.2;
     }
 
     // ----- 체크박스(GFM task list) -----
     input[type="checkbox"] {
         margin-right: $spacing-8;
 
-        accent-color: $text-brand;
+        accent-color: $text;
+    }
+
+    // ----- 수식(KaTeX) -----
+    :global(.katex) {
+        color: $text;
+
+        font-size: 1.05em;
+    }
+
+    :global(.katex-display) {
+        margin: $spacing-24 0;
+
+        overflow-x: auto;
+        overflow-y: hidden;
     }
 }
 
@@ -336,37 +293,18 @@ $mono-stack: "SF Mono", "JetBrains Mono", Menlo, Consolas, "Liberation Mono",
 // 인라인 코드
 // ============================================
 .inline_code {
-    padding: 2px $spacing-6;
+    padding: 1px 5px;
 
-    color: $text-brand;
-    background-color: $surface-brand-subtle;
+    color: $text;
+    background-color: $surface-subtle;
 
     border-radius: $radius-4;
 
     font-family: $mono-stack;
-    font-size: 0.88em;
-    font-weight: $font-weight-medium;
-    line-height: 1.4;
+    font-size: 0.86em;
+    letter-spacing: 0;
 
     word-break: break-word;
-}
-
-// ============================================
-// 코드 블록 (react-syntax-highlighter)
-// oneDark 테마가 inline 으로 background/margin/padding/border-radius 을 주입하므로
-// 외곽 컨테이너 디자인은 !important 로 확실히 덮어쓴다.
-// ============================================
-.code_block {
-    margin: $spacing-32 0 !important;
-
-    background-color: $surface-elevated !important;
-
-    border: 1px solid $border !important;
-    border-radius: $radius-12 !important;
-
-    box-shadow: $shadow-md;
-
-    overflow: hidden;
 }
 
 // ============================================
@@ -379,8 +317,5 @@ $mono-stack: "SF Mono", "JetBrains Mono", Menlo, Consolas, "Liberation Mono",
     height: auto;
     margin: $spacing-32 auto;
 
-    border: 1px solid $border;
-    border-radius: $radius-12;
-
-    box-shadow: $shadow-md;
+    border-radius: $radius-10;
 }

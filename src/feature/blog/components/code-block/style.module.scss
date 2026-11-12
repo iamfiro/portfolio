@@ -1,0 +1,134 @@
+// ============================================
+// 코드 블록 (react-syntax-highlighter, useInlineStyles=false)
+// 문법 색은 무지개가 아니라 본문처럼 읽히도록 채도를 낮춘다.
+// ============================================
+
+$mono-stack: "SF Mono", "JetBrains Mono", Menlo, Consolas, "Liberation Mono",
+    monospace;
+
+.code_block {
+    position: relative;
+
+    min-width: 0;
+    margin: $spacing-32 0;
+
+    background-color: $surface-subtlest;
+
+    border-radius: $radius-10;
+
+    overflow: hidden;
+}
+
+.head {
+    padding: $spacing-6 $spacing-6 0 $spacing-16;
+}
+
+.language {
+    color: $text-muted;
+
+    font-family: $mono-stack;
+    letter-spacing: 0;
+    text-transform: lowercase;
+}
+
+.copy {
+    background-color: $surface-transparent;
+
+    border-color: $surface-transparent;
+
+    color: $text-muted;
+
+    &:hover {
+        background-color: $surface-subtle;
+    }
+}
+
+.pre {
+    margin: 0;
+    padding: $spacing-10 $spacing-16 $spacing-16;
+
+    color: $text;
+
+    font-family: $mono-stack;
+    font-size: $font-size-sm;
+    line-height: $line-height-relaxed;
+    letter-spacing: 0;
+    white-space: pre;
+    word-break: normal;
+    overflow-wrap: normal;
+    tab-size: 2;
+
+    overflow-x: auto;
+
+    // 전역 폰트(Pretendard)와 prism 기본 code 스타일보다 우선하도록 특이도를 높인다
+    .code_block & code,
+    .code_block & code * {
+        font-family: $mono-stack;
+        font-size: inherit;
+    }
+
+    :global {
+        .token.comment,
+        .token.prolog,
+        .token.doctype,
+        .token.cdata {
+            color: $text-muted;
+
+            font-style: italic;
+        }
+
+        .token.punctuation,
+        .token.operator {
+            color: $text-subtle;
+        }
+
+        .token.string,
+        .token.char,
+        .token.attr-value,
+        .token.regex,
+        .token.inserted {
+            color: $text-success;
+        }
+
+        .token.keyword,
+        .token.atrule,
+        .token.important {
+            color: $playful-purple-ink;
+        }
+
+        .token.tag,
+        .token.selector,
+        .token.builtin,
+        .token.class-name {
+            color: $text-info;
+        }
+
+        .token.attr-name,
+        .token.property {
+            color: $text-warning;
+        }
+
+        .token.number,
+        .token.boolean,
+        .token.constant,
+        .token.symbol {
+            color: $text-brand-heavy;
+        }
+
+        .token.function {
+            color: $playful-blue-ink;
+        }
+
+        .token.deleted {
+            color: $text-danger;
+        }
+
+        .token.bold {
+            font-weight: $font-weight-semibold;
+        }
+
+        .token.italic {
+            font-style: italic;
+        }
+    }
+}
