@@ -20,12 +20,7 @@
     width: 100%;
     height: 100%;
 
-    background: linear-gradient(
-        90deg,
-        $text-brand-heavy 0%,
-        $text-brand 100%
-    );
-    box-shadow: 0 0 12px $surface-brand-subtle;
+    background-color: $surface-brand;
 
     transform: scaleX(0);
     transform-origin: left center;
