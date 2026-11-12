@@ -1,9 +1,12 @@
 import ReactMarkdown from "react-markdown";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
+import rehypeKatex from "rehype-katex";
 import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm";
+import remarkMath from "remark-math";
 
+import "katex/dist/katex.min.css";
 import s from "./style.module.scss";
 
 interface Props {
@@ -14,8 +17,8 @@ export default function MarkdownContent({ content }: Props) {
   return (
     <div className={s.markdown}>
       <ReactMarkdown
-        remarkPlugins={[remarkGfm]}
-        rehypePlugins={[rehypeRaw]}
+        remarkPlugins={[remarkGfm, remarkMath]}
+        rehypePlugins={[rehypeRaw, rehypeKatex]}
         components={{
           code({ className, children, ...props }) {
             const match = /language-(\w+)/.exec(className || "");
