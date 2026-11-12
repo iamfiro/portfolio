@@ -1,5 +1,6 @@
 // ============================================
 // 목차 (Table of Contents) 사이드바
+// 얇은 트랙 위를 thumb 가 미끄러지며 읽고 있는 섹션을 가리킨다.
 // 데스크탑 전용: 1100px 미만에서 숨김
 // ============================================
 
@@ -10,26 +11,61 @@
     display: flex;
     flex-direction: column;
     flex-shrink: 0;
-    gap: $spacing-12;
+    gap: $spacing-10;
 
     width: 200px;
     max-height: calc(100vh - 120px);
+    margin-top: 100px;
 
     overflow-y: auto;
-
-    margin-top: 100px;
+    scrollbar-width: none;
 }
 
 .title {
     margin: 0;
-    padding-bottom: $spacing-8;
 
-    color: $text-subtle;
+    color: $text;
 
-    font-size: $font-size-xs;
+    font-size: $font-size-sm;
     font-weight: $font-weight-semibold;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+    line-height: $line-height-normal;
+    letter-spacing: -0.006em;
+}
+
+.body {
+    position: relative;
+
+    padding-left: $spacing-14;
+}
+
+// 테두리가 아니라 채워진 트랙: thumb 가 이 위를 이동한다
+.track {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+
+    width: 2px;
+
+    background-color: $surface-subtle;
+
+    border-radius: $radius-full;
+}
+
+.thumb {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 2px;
+
+    background-color: $text;
+
+    border-radius: $radius-full;
+
+    transition:
+        transform $transition-spring,
+        height $transition-spring;
 }
 
 .list {
@@ -39,63 +75,47 @@
     margin: 0;
     padding: 0;
 
-    border-left: 1px solid $border;
-
     list-style: none;
 }
 
 .item {
-    position: relative;
-
     display: block;
-    width: 100%;
 
-    padding: $spacing-4 $spacing-12;
+    width: 100%;
+    padding: $spacing-4 0;
 
     background: none;
+
     border: none;
-    cursor: pointer;
-    text-align: left;
+    border-radius: $radius-4;
 
     color: $text-muted;
 
     font-size: $font-size-sm;
     font-weight: $font-weight-normal;
     line-height: $line-height-normal;
+    letter-spacing: -0.006em;
+    text-align: left;
     word-break: keep-all;
+    cursor: pointer;
 
     transition: color $transition-fast;
 
-    &:hover {
+    &:hover,
+    &[aria-current] {
         color: $text;
     }
 
-    &.active {
-        color: $text;
-        font-weight: $font-weight-semibold;
-
-        &::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: -1px;
-
-            width: 2px;
-
-            background-color: $text-brand;
-        }
+    &:focus-visible {
+        outline: 2px solid $text-info-subtle;
+        outline-offset: 2px;
     }
 }
 
-.level1 {
+.depth1 {
     padding-left: $spacing-12;
 }
 
-.level2 {
-    padding-left: $spacing-16;
-}
-
-.level3 {
+.depth2 {
     padding-left: $spacing-24;
 }
