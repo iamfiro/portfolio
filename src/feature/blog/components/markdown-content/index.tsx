@@ -38,6 +38,13 @@ export default function MarkdownContent({ content }: Props) {
           pre({ children }) {
             return <>{children}</>;
           },
+          table({ children }) {
+            return (
+              <div className={s.table_wrap}>
+                <table>{children}</table>
+              </div>
+            );
+          },
           img({ src, alt }) {
             return <img src={src} alt={alt} className={s.image} />;
           },

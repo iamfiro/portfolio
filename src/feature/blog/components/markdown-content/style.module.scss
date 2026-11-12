@@ -197,34 +197,43 @@ $mono-stack: "SF Mono", "JetBrains Mono", Menlo, Consolas, "Liberation Mono",
         border: none;
     }
 
-    // ----- 테이블: 격자선 대신 둥근 줄무늬 -----
-    table {
-        display: block;
-
+    // ----- 테이블: 얇은 외곽선 + 행 구분선, 넘치면 가로 스크롤 -----
+    .table_wrap {
         width: 100%;
         margin: $spacing-32 0;
 
-        border-collapse: separate;
-        border-spacing: 0;
+        border: 1px solid $border;
+        border-radius: $radius-12;
+
+        overflow-x: auto;
+    }
+
+    table {
+        width: 100%;
+
+        border-collapse: collapse;
 
         font-size: $font-size-md;
         font-variant-numeric: tabular-nums;
         line-height: $line-height-normal;
-
-        overflow-x: auto;
+        letter-spacing: -0.006em;
 
         th,
         td {
-            padding: $spacing-10 $spacing-12;
+            padding: $spacing-12 $spacing-16;
 
             text-align: left;
-            vertical-align: top;
+            vertical-align: middle;
         }
 
         th {
-            padding-top: $spacing-6;
+            padding-top: $spacing-10;
+            padding-bottom: $spacing-10;
 
             color: $text-muted;
+            background-color: $surface-subtlest;
+
+            border-bottom: 1px solid $border;
 
             font-size: $font-size-sm;
             font-weight: $font-weight-medium;
@@ -232,19 +241,18 @@ $mono-stack: "SF Mono", "JetBrains Mono", Menlo, Consolas, "Liberation Mono",
         }
 
         td {
+            color: $text;
+
+            border-bottom: 1px solid $border-subtle;
+        }
+
+        // 첫 열은 항목 이름이므로 한 톤 낮춰 값과 구분한다
+        td:first-child {
             color: $text-subtle;
         }
 
-        tbody tr:nth-child(odd) td {
-            background-color: $surface-subtlest;
-
-            &:first-child {
-                border-radius: $radius-8 0 0 $radius-8;
-            }
-
-            &:last-child {
-                border-radius: 0 $radius-8 $radius-8 0;
-            }
+        tbody tr:last-child td {
+            border-bottom: none;
         }
     }
 
