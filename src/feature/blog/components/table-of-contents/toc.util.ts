@@ -1,4 +1,4 @@
-import type { TocItem } from "./toc.type";
+import type { TocItem, TocLinePoint } from "./toc.type";
 
 export function slugify(text: string): string {
   return text
@@ -31,4 +31,25 @@ export function collectHeadings(container: HTMLElement): TocItem[] {
   }
 
   return items;
+}
+
+// 깊이가 바뀌는 지점에서 사선이 차지할 세로 길이(px)
+const BEND = 6;
+
+/**
+ * 목차 항목들의 x 위치와 세로 범위로 하나의 연속된 SVG path 를 만든다.
+ * 깊이가 바뀌는 항목 사이는 사선으로 이어져 선이 자연스럽게 꺾인다.
+ */
+export function buildTocPath(points: TocLinePoint[]): string {
+  return points
+    .flatMap((point, i) => {
+      const prev = points[i - 1];
+      const next = points[i + 1];
+      const start = prev && prev.x !== point.x ? point.top + BEND : point.top;
+      const end =
+        next && next.x !== point.x ? point.bottom - BEND : point.bottom;
+      return [`${point.x} ${start}`, `${point.x} ${end}`];
+    })
+    .map((coord, i) => `${i === 0 ? "M" : "L"}${coord}`)
+    .join(" ");
 }

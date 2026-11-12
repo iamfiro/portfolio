@@ -1,6 +1,7 @@
-import { type RefObject, useLayoutEffect, useRef, useState } from "react";
+import { type CSSProperties, type RefObject, useRef } from "react";
 
 import { useTableOfContents } from "../../hooks/useTableOfContents";
+import { useTocLine } from "../../hooks/useTocLine";
 
 import type { TocItem } from "./toc.type";
 
@@ -13,48 +14,58 @@ interface Props {
   content: string;
 }
 
-interface Thumb {
-  top: number;
-  height: number;
-}
-
 export default function TableOfContents({ contentRef, content }: Props) {
   const { items, activeId } = useTableOfContents(contentRef, content);
   const listRef = useRef<HTMLUListElement>(null);
-  const [thumb, setThumb] = useState<Thumb | null>(null);
-
-  // 읽고 있는 항목 위치로 트랙 위의 thumb 를 옮긴다 (offset* 은 레이아웃 기준이라 transform 영향을 받지 않음)
-  useLayoutEffect(() => {
-    const link = listRef.current?.querySelector<HTMLElement>("[aria-current]");
-    setThumb(link ? { top: link.offsetTop, height: link.offsetHeight } : null);
-  }, [activeId, items]);
+  const line = useTocLine(listRef, [activeId, items]);
 
   if (items.length < MIN_HEADINGS) return null;
 
   // 글에서 가장 높은 헤딩 레벨을 기준으로 들여쓰기 깊이를 계산
   const baseLevel = Math.min(...items.map((item) => item.level));
 
+  // 같은 선 모양으로 thumb 영역을 잘라내서, thumb 가 꺾인 선을 그대로 따라가게 한다
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${line.width}" height="${line.height}"><path d="${line.path}" stroke="black" stroke-width="2" fill="none" stroke-linejoin="round"/></svg>`;
+  const maskStyle: CSSProperties = {
+    width: line.width,
+    height: line.height,
+    maskImage: `url("data:image/svg+xml,${encodeURIComponent(svg)}")`,
+    WebkitMaskImage: `url("data:image/svg+xml,${encodeURIComponent(svg)}")`,
+  };
+
   return (
     <nav className={s.toc} aria-label="Table of Contents">
       <p className={s.title}>Table of Contents</p>
       <div className={s.body}>
-        <span className={s.track} aria-hidden>
-          {thumb && (
-            <span
-              className={s.thumb}
-              style={{
-                transform: `translateY(${thumb.top}px)`,
-                height: thumb.height,
-              }}
-            />
-          )}
-        </span>
+        {line.path && (
+          <>
+            <svg
+              className={s.track}
+              width={line.width}
+              height={line.height}
+              aria-hidden
+            >
+              <path d={line.path} />
+            </svg>
+            <div className={s.mask} style={maskStyle} aria-hidden>
+              {line.thumb && (
+                <span
+                  className={s.thumb}
+                  style={{
+                    transform: `translateY(${line.thumb.top}px)`,
+                    height: line.thumb.height,
+                  }}
+                />
+              )}
+            </div>
+          </>
+        )}
         <ul ref={listRef} className={s.list}>
           {items.map((item) => (
             <TocListItem
               key={item.id}
               item={item}
-              depth={item.level - baseLevel}
+              depth={Math.min(item.level - baseLevel, 2)}
               isActive={item.id === activeId}
             />
           ))}
@@ -84,6 +95,7 @@ function TocListItem({ item, depth, isActive }: ItemProps) {
       <button
         type="button"
         className={className}
+        data-depth={depth}
         aria-current={isActive ? "location" : undefined}
         onClick={handleClick}
       >
