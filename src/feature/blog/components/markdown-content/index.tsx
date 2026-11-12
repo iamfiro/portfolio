@@ -19,6 +19,10 @@ export default function MarkdownContent({ content }: Props) {
       <ReactMarkdown
         remarkPlugins={[remarkGfm, remarkMath]}
         rehypePlugins={[rehypeRaw, rehypeKatex]}
+        remarkRehypeOptions={{
+          footnoteLabel: "각주",
+          footnoteBackLabel: (index) => `${index + 1}번 각주 위치로 돌아가기`,
+        }}
         components={{
           code({ className, children, ...props }) {
             const match = /language-(\w+)/.exec(className || "");

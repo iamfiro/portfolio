@@ -12,7 +12,7 @@ export function slugify(text: string): string {
 export function collectHeadings(container: HTMLElement): TocItem[] {
   const elements = Array.from(
     container.querySelectorAll<HTMLElement>("h1, h2, h3"),
-  );
+  ).filter((el) => !el.closest("[data-footnotes]")); // 각주 라벨은 목차에서 제외
   const slugCount = new Map<string, number>();
   const items: TocItem[] = [];
 

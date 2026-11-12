@@ -282,6 +282,85 @@ $mono-stack: "SF Mono", "JetBrains Mono", Menlo, Consolas, "Liberation Mono",
         accent-color: $text;
     }
 
+    // ----- 각주(GFM footnote) -----
+    a[data-footnote-ref] {
+        padding: 0 2px;
+
+        color: $text-info;
+
+        font-size: $font-size-xs;
+        font-weight: $font-weight-semibold;
+        font-variant-numeric: tabular-nums;
+        text-decoration: none;
+
+        &::before {
+            content: "[";
+        }
+
+        &::after {
+            content: "]";
+        }
+    }
+
+    sup:has(> a[data-footnote-ref]) {
+        line-height: 0;
+    }
+
+    [id^="user-content-fnref"],
+    [id^="user-content-fn-"] {
+        scroll-margin-top: 120px;
+    }
+
+    section[data-footnotes] {
+        margin-top: $spacing-48;
+        padding-top: $spacing-24;
+
+        border-top: 1px solid $border-subtle;
+
+        font-size: $font-size-sm;
+        line-height: $line-height-relaxed;
+
+        // "각주" 라벨: 본문 헤딩이 아니라 작은 캡션으로 둔다
+        > h2 {
+            margin: 0 0 $spacing-12 0;
+
+            color: $text-muted;
+
+            font-size: $font-size-xs;
+            font-weight: $font-weight-medium;
+            letter-spacing: 0;
+        }
+
+        ol {
+            margin: 0;
+        }
+
+        li {
+            color: $text-muted;
+
+            > p {
+                display: inline;
+            }
+
+            // 본문의 각주 번호를 눌러 이동했을 때 해당 항목을 강조한다
+            &:target {
+                color: $text;
+            }
+        }
+
+        a[data-footnote-backref] {
+            margin-left: $spacing-4;
+
+            color: $text-muted;
+
+            text-decoration: none;
+
+            &:hover {
+                color: $text;
+            }
+        }
+    }
+
     // ----- 수식(KaTeX) -----
     :global(.katex) {
         color: $text;
