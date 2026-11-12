@@ -2,7 +2,11 @@ import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 
 import { CopyButton, Flex, Text } from "@/shared/components/ui";
 
+import { registerRedisSyntax } from "./redis-syntax.util";
+
 import s from "./style.module.scss";
+
+registerRedisSyntax();
 
 interface Props {
   code: string;
